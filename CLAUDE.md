@@ -1,47 +1,86 @@
 # en_shock — El Niño shock framework, Philippines (UNDRR)
 
-Produces quarterly El Niño shocks for the DEFINE-PH macro model: food production, heat/labour productivity and electricity.
+Produces quarterly El Niño shocks for the DEFINE-PH macro model through three channels:
+agriculture (food production), labour productivity (heat) and electricity (demand and
+price). Driver for all channels: RONI + DMI (NOAA). Deadline for results: 30 Jan 2027.
 
 ## Reference documents (local only, in docs/ — gitignored, never commit)
-- docs/UNDRR_comments_DEFINE-PH_manual_VT.docx — LATEST UNDRR comments on the DEFINE-PH
-  manual. This is the authoritative statement of what the El Niño framework must deliver
-  and how it plugs into the model. Where it differs from the original El Niño paper,
-  the comments take precedence. Read it before designing any channel.
-- Original El Niño paper (Bringing El Niño into the Central Bank's Macro-Financial
-  Framework) — methodological background; equation numbers below refer to it as "paper".
-- The DEFINE-PH manual itself is confidential and is NOT in this repo; refer to model
-  equations by number only.
+- docs/Reply_to_Van_Ge.docx — Alper's reply (Oct 2026) defining the AGREED SCOPE and
+  methods for all three channels. This is the most recent and authoritative reference.
+- docs/UNDRR_comments_DEFINE-PH_manual_VT.docx — UNDRR comments on the DEFINE-PH manual:
+  how the El Niño shocks plug into the model (comment numbers referenced below).
+- El Niño paper (Bringing El Niño into the Central Bank's Macro-Financial Framework) —
+  methodological background; "paper eq. X" refers to it.
+- The DEFINE-PH manual is confidential and NOT in this repo; refer to model equations by
+  number only.
+- Order of precedence: Alper's reply > UNDRR comments > paper.
 
-## Deliverables required by the latest comments (El Niño parts)
-- Food production shock for rice and "other food" (comments 4, 4.1.1): share of planned
-  production lost, from a regional panel that CONTROLS for typhoon and flood exposure
-  (this is what rules out double counting with the CAT model). Other food = weighted
-  average of crop-specific shocks (coconut, banana, sugarcane, fisheries).
-- World rice price response to El Niño (4.2.1): estimated on world prices in USD, with
-  controls for exporter restrictions and input costs; delivered as a range. Plus the
-  world-to-domestic pass-through, before/after the 2019 Rice Tariffication Law.
-- Quarterly profile of the food price response (4.2.2), from the food price equation
-  (paper eq. 8), used to calibrate the timing of the model's price response.
-- Residual food price shock (comment 1, 3.2.1, paper Box 7): computed jointly with SOAS,
-  enters at the RETAIL food price.
-- Heat productivity shock (3.4.1, 3.5.1, 3.5.2): by sector, delivered PER QUARTER (the
-  loss depends only on that quarter's heat; not carried through lagged productivity).
-- Electricity (5.1.1): El Niño -> peak demand -> rise in the marginal generation price
-  in peak quarters, using spot prices vs AVAILABLE capacity; delivered as a range.
-- Extra El Niño public spending (comment 2): calibrated, excluding regular programmes.
+## Team split
+- Agriculture: Van = stage 1 of the two-stage approach (RONI + DMI -> regional weather);
+  Ginevra = direct model and stage 2 (weather -> production).
+- Labour and electricity: to be confirmed.
+- Shared: climate-index loader, ERA5-Land processing, uncertainty method, output format.
+
+## Channel 1 — Agriculture
+Output: quarterly share of planned production lost, for DEFINE-PH's two food types:
+- rice = irrigated + rainfed palay (estimated separately, combined with production shares);
+- other food = corn (white + yellow) and a vegetable-and-fruit index (13 PSA crops:
+  banana, pineapple, mango, calamansi, mung bean, potato, cabbage, eggplant, tomato,
+  bitter gourd, onion, sweet potato, cassava), combined by their shares; the resulting
+  shock is applied to all of other food (assumption, report a lower bound).
+Method:
+- Outcome is PRODUCTION, not yield. Regions rebuilt from provinces with fixed boundaries.
+- Direct model (main): log production on region effects, region-specific seasonals and
+  trends, lagged RONI (El Niño and La Niña separately) and DMI, constrained lag profile,
+  typhoon/flood controls (needed to avoid double counting with CAT, comment 4).
+  Lags ~4 quarters for rice/corn, longer for the vegetable-and-fruit index.
+- Two-stage (check): stage 1 RONI + DMI -> regional weather (ERA5-Land, from 1950);
+  stage 2 weather -> production (regression vs gradient boosting / GP, compared out of
+  sample on held-out years). Combine by SIMULATION (draw weather outcomes, average losses).
+- Reliability flag: mark scenario results where simulated weather goes beyond the
+  extremes observed in the production period (by region and quarter).
+Data: PSA OpenSTAT 2E4EVCP0 / 2E4EAHC0 (palay and corn by ecosystem/croptype, province,
+quarterly, 1987–); vegetable/fruit crops quarterly from 2010; PSA annual 1990–2009 and
+DA damage records for validation only.
+
+## Channel 2 — Labour productivity
+Output: quarterly productivity loss for agriculture, electricity and other sectors.
+Method: ERA5-Land hourly -> WBGT (Liljegren outdoor, Bernard indoor; cross-check pywbgt
+vs PyWBGT) -> El Niño effect on WBGT -> Hothaps loss functions (Kjellstrom 2018 /
+Bröde 2018; heavy/moderate/light) hourly -> daily loss -> quarterly average.
+Sectors: agriculture outdoor heavy; electricity indoor moderate; other = construction
+(outdoor heavy) + industry (indoor moderate) + services (indoor light), weighted by LFS
+employment. Dasgupta et al. (2021) as sensitivity. Deliver per quarter (comment 3.5.2).
+
+## Channel 3 — Electricity
+Outputs: (1) rise in electricity demand (household electricity share); (2) rise in the
+marginal generation price (DEFINE-PH Eq. 168), by grid, as a range; (3) theta = spot
+market share. Hydropower dropped.
+Method: RONI + DMI -> CDD (ERA5-Land, population-weighted, threshold chosen by fit per
+grid) -> monthly consumption and peak demand (paper eq. 5) -> price on reserve margin
+(available capacity), oil as control -> quarterly values.
+Fallback if El Niño -> CDD is too weak: scenario assumptions based on 2024.
+
+## Not in current scope (to be confirmed with Alper)
+World rice price response, food price pass-through and timing, residual food price shock,
+El Niño public spending.
 
 ## Data
 - data/ holds raw inputs: read-only, never modify. Write derived data to data/processed/.
-- Climate indices: RONI from ERSST (main; official NOAA basis, from 1950); OISST and
-  legacy ONI for robustness only. DMI: dmi_had (standard index). Treat -9999 as missing.
-  Check whether a file is monthly relative Niño-3.4 or the 3-month RONI before use.
-- One shared loader for all climate indices (src/climate/), used by every module.
+- Climate indices: RONI from ERSST (main; from 1950); OISST and legacy ONI for robustness
+  only. DMI: dmi_had. Treat -9999 as missing. Check whether a file is monthly relative
+  Niño-3.4 or the 3-month RONI before use.
+- ERA5-Land (Copernicus CDS) for all weather variables; no PAGASA station requests.
+- One shared loader for climate indices and ERA5-Land (src/climate/), used by every module.
 
 ## Conventions
 - Python; reusable code in src/, exploration in notebooks/, figures and tables in outputs/.
 - Every result must be reproducible from data/ by re-running scripts or notebooks.
-- Climate indices are autocorrelated and common to all regions: use Driscoll–Kraay or
+- Climate indices are common to all regions and autocorrelated: use Driscoll–Kraay or
   quarter-clustered SEs, never naive p-values.
+- Nonlinear steps (two-stage, WBGT loss, price curve): simulate and average outcomes,
+  never plug in average conditions.
 - Uncertainty: one shared method (block bootstrap by year, or Bayesian draws).
-- Never add the DEFINE-PH manual, the UNDRR comments or any BSP material to the repo
-  (confidential).
+- Output format for DEFINE-PH: quarterly shocks, central value plus range.
+- Never add the DEFINE-PH manual, the UNDRR comments, Alper's reply or any BSP material
+  to the repo (confidential).
