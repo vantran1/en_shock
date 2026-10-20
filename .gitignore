@@ -2,3 +2,7 @@ docs/
 .DS_Store
 data/hazards/ibtracs/
 data/hazards/emdat/
+__pycache__/
+# EM-DAT event-level extracts (licence: no redistribution; rebuilt by scripts/build_flood_exposure.py)
+data/processed/flood_events.csv
+outputs/tables/flood_unplaced_events.csv
