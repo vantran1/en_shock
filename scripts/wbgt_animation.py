@@ -1,11 +1,15 @@
 #!/usr/bin/env python3
 """
-Compute hourly WBGT from monthly ERA5-Land files (see download_era5land.py) with
-pywbgt and animate it, for outdoor and indoor settings.
+Compute hourly WBGT from monthly ERA5 single-levels files (see download_era5.py)
+with pywbgt and animate it, for outdoor and indoor settings.
 
   outdoor : Liljegren et al. (2008) - physically based, includes sun and wind
   indoor  : Bernard & Pourmoghani (1999) with ZERO solar load, so the globe
             temperature equals air temperature (no radiant heat source)
+
+The monthly files also contain total precipitation (tp). It is an auxiliary
+download for separate precipitation analyses: this script does not load it and
+it never enters the WBGT calculation.
 
 Outputs (in --outdir):
   wbgt_YYYY_MM.nc                  hourly WBGT (deg C) for both settings
@@ -13,26 +17,26 @@ Outputs (in --outdir):
   wbgt_indoor_YYYY_MM.mp4|gif      animation, indoor
 
 Usage:
-  python wbgt_animation.py --indir era5land_wbgt --year 2024 --month 4
-  python wbgt_animation.py --indir era5land_wbgt --year 2024 --month 4 --max-frames 48   # quick look
-  python wbgt_animation.py --indir era5land_wbgt --year 2024 --month 4 --reuse           # skip recompute
+  python wbgt_animation.py --indir era5_wbgt --year 2024 --month 4
+  python wbgt_animation.py --indir era5_wbgt --year 2024 --month 4 --max-frames 48   # quick look
+  python wbgt_animation.py --indir era5_wbgt --year 2024 --month 4 --reuse           # skip recompute
 
 Requirements:
   pip install pywbgt metpy xarray netCDF4 matplotlib numpy pandas
   ffmpeg on PATH for .mp4 (otherwise the script falls back to .gif via Pillow)
 
-Conventions handled here (all verified against the ERA5-Land documentation):
+Conventions handled here:
   * valid_time is in UTC and marks the END of each hour.
-  * ssrd is ACCUMULATED from 00 UTC (J m-2). The value stamped 00:00 holds the
-    previous day's 24 h total, so hourly energy = acc(t) - acc(t-1h), except at
-    01:00 where it is acc(t) itself. Divide by 3600 for the hourly-mean W m-2.
-    The first hour of a file needs the previous month's last record; if
-    era5land_<prev month>.nc is in --indir it is used, otherwise that first
-    hour is dropped.
+  * ssrd (J m-2) in ERA5 single levels is accumulated over the single hour ENDING
+    at valid_time (unlike ERA5-Land, which accumulates from 00 UTC). The hourly-mean
+    flux in W m-2 is therefore simply ssrd / 3600; no differencing and no
+    previous-month file are needed, and no hour is dropped.
   * pywbgt reads the timestamp as the END of the averaging window and evaluates
     the sun at the window midpoint, so valid_time is passed unchanged with
     avg=60 minutes. Instantaneous fields (t2m, d2m, sp, u10, v10) are used as
     stamped.
+  * ERA5 single levels has values over the ocean as well as land, so WBGT is
+    computed (and animated) for sea cells too.
   * pywbgt's default clips the 2 m wind to 2 knots (~1.03 m/s); change it with
     --min-speed (m/s) if you want calmer hours represented.
   * Wind height. pywbgt converts the 10 m wind to 2 m internally, but in version
@@ -60,7 +64,10 @@ import numpy as np
 import pandas as pd
 import xarray as xr
 from matplotlib import animation, cm
+from matplotlib.collections import LineCollection
 
+# The only variables that feed the WBGT calculation. tp (precipitation) is
+# deliberately absent: it is in the files for other analyses and is dropped on load.
 REQUIRED = ["t2m", "d2m", "sp", "u10", "v10", "ssrd"]
 
 INK, INK2, GRID, SEA = "#222222", "#5f5f5f", "#d9d8d4", "#e9e8e4"
@@ -73,42 +80,23 @@ def open_month(path):
     ds = xr.open_dataset(path)
     if "time" in ds.dims and "valid_time" not in ds.dims:
         ds = ds.rename({"time": "valid_time"})
-    if "expver" in ds.dims:  # ERA5T/ERA5 mix: merge the two experiment versions
-        ds = ds.sel(expver=ds.expver.values[0]).combine_first(ds.sel(expver=ds.expver.values[-1]))
-    ds = ds.drop_vars([c for c in ("number", "expver") if c in ds.coords and c not in ds.dims])
     missing = [v for v in REQUIRED if v not in ds]
     if missing:
         sys.exit(f"{path.name} is missing variables {missing}; found {list(ds.data_vars)}")
+    ds = ds[REQUIRED]  # keep only the WBGT inputs: tp and anything else is not loaded
+    if "expver" in ds.dims:  # ERA5T/ERA5 mix: merge the two experiment versions
+        ds = ds.sel(expver=ds.expver.values[0]).combine_first(ds.sel(expver=ds.expver.values[-1]))
+    ds = ds.drop_vars([c for c in ("number", "expver") if c in ds.coords and c not in ds.dims])
     ds = ds.sortby("valid_time")
     return ds.sortby("latitude", ascending=False).load()
 
 
-def previous_month_tail(indir, year, month, ds):
-    py, pm = (year - 1, 12) if month == 1 else (year, month - 1)
-    prev = indir / f"era5land_{py}_{pm:02d}.nc"
-    if not prev.exists():
-        return None
-    try:
-        tail = open_month(prev).isel(valid_time=[-1])[["ssrd"]]
-    except SystemExit:
-        return None
-    same_grid = (tail.latitude.size == ds.latitude.size and tail.longitude.size == ds.longitude.size
-                 and np.allclose(tail.latitude, ds.latitude) and np.allclose(tail.longitude, ds.longitude))
-    contiguous = tail.valid_time.values[0] == ds.valid_time.values[0] - np.timedelta64(1, "h")
-    return tail if (same_grid and contiguous) else None
+def hourly_solar(ds):
+    """Hourly-mean solar flux (W m-2) for the hour ENDING at valid_time.
 
-
-def hourly_solar(ds, tail):
-    """De-accumulate ssrd (J m-2) into hourly-mean flux (W m-2) for the hour ENDING at valid_time."""
-    acc = ds["ssrd"]
-    if tail is not None:
-        acc = xr.concat([tail["ssrd"], acc], dim="valid_time")
-    hour = acc["valid_time"].dt.hour
-    flux = xr.where(hour == 1, acc, acc - acc.shift(valid_time=1)) / 3600.0
-    flux = flux.clip(min=0.0)  # remove tiny negative values from floating-point noise
-    if tail is not None:
-        flux = flux.isel(valid_time=slice(1, None))
-    return flux
+    ERA5 single-levels ssrd (J m-2) is already accumulated over that one hour."""
+    flux = ds["ssrd"] / 3600.0
+    return flux.clip(min=0.0)  # remove tiny negative values from floating-point noise
 
 
 # ----------------------------------------------------------------------------
@@ -156,16 +144,11 @@ def _wind_2m_grid(d, flux, speed10, min_eff):
 def compute_wbgt(ds, flux, min_speed, chunk_hours=168, native_wind=False):
     """Outdoor (Liljegren) and indoor (Bernard, solar = 0) WBGT in deg C.
 
+    Only the REQUIRED variables are used; precipitation never enters the calculation.
     Hours are processed in chunks of `chunk_hours` to keep memory bounded; each
     hour is independent, so the chunking does not change the results."""
     from metpy.units import units
     from pywbgt import wbgt
-
-    ds = ds.sel(valid_time=flux["valid_time"])
-    keep = np.isfinite(flux).any(dim=("latitude", "longitude"))  # drops the unusable first hour
-    ds, flux = ds.sel(valid_time=keep), flux.sel(valid_time=keep)
-    if int(keep.sum()) < keep.size:
-        print(f"note: dropped {keep.size - int(keep.sum())} hour(s) that cannot be de-accumulated")
 
     def build(d, solar, speed):
         inp = xr.Dataset({
@@ -211,13 +194,13 @@ def compute_wbgt(ds, flux, min_speed, chunk_hours=168, native_wind=False):
         del out, ind
 
     res = xr.concat(pieces, dim="valid_time")
-    res = res.where(np.isfinite(ds["t2m"]))  # keep the sea / no-data mask
+    res = res.where(np.isfinite(ds["t2m"]))  # mask any no-data cells
     res["wbgt_outdoor"].attrs = {"units": "degC", "long_name": "Outdoor WBGT (Liljegren et al. 2008, pywbgt)"}
     res["wbgt_indoor"].attrs = {"units": "degC", "long_name": "Indoor WBGT (Bernard & Pourmoghani 1999, pywbgt, no solar load)"}
     res.attrs = {
-        "source": "ERA5-Land hourly (t2m, d2m, sp, u10, v10, ssrd)",
+        "source": "ERA5 single levels hourly (t2m, d2m, sp, u10, v10, ssrd); precipitation not used",
         "time_convention": "valid_time is UTC and marks the end of each hour",
-        "solar": "ssrd de-accumulated to hourly-mean W m-2; pywbgt avg=60 min",
+        "solar": "ssrd (hourly accumulation) / 3600 = hourly-mean W m-2; pywbgt avg=60 min",
         "min_speed_m_s": "1.0289 (pywbgt default, 2 knots)" if min_speed is None else str(max(min_speed, 0.13)),
     }
     return res.transpose("valid_time", "latitude", "longitude")
@@ -230,12 +213,44 @@ def tz_label(offset):
     return "PHT" if offset == 8 else f"UTC{offset:+d}"
 
 
-def animate(res, var, title, subtitle, out_path, fps, vmin, vmax, tz_offset, max_frames, dpi, writer_name):
+def philippines_outline():
+    """Coastline of the Philippines as a list of (N, 2) lon/lat arrays, or None if unavailable.
+
+    Uses the Natural Earth 1:50m country polygons through regionmask. On first use
+    regionmask downloads the shapefile (a few MB) and caches it, so the first run
+    needs internet access; later runs work offline."""
+    try:
+        import regionmask
+    except ImportError:
+        print("note: regionmask is not installed, so the Philippines boundary is not drawn "
+              "(pip install regionmask)")
+        return None
+    countries = None
+    for version in ("natural_earth_v5_1_2", "natural_earth_v5_0_0"):
+        try:
+            countries = getattr(regionmask.defined_regions, version).countries_50
+            break
+        except Exception as exc:  # missing version or no internet on the first run
+            err = exc
+    if countries is None:
+        print(f"note: could not load the country boundaries ({err}); drawing without the Philippines boundary")
+        return None
+    names = list(countries.names)
+    if "Philippines" not in names:
+        print("note: 'Philippines' not found in the country boundaries; drawing without it")
+        return None
+    poly = countries.polygons[names.index("Philippines")]
+    parts = poly.geoms if hasattr(poly, "geoms") else [poly]  # MultiPolygon: one entry per island group
+    return [np.asarray(p.exterior.coords) for p in parts]
+
+
+def animate(res, var, title, subtitle, out_path, fps, vmin, vmax, tz_offset, max_frames, dpi, writer_name,
+            outline=None):
     da = res[var]
     lat, lon = da.latitude.values, da.longitude.values
     nt = da.sizes["valid_time"] if max_frames is None else min(max_frames, da.sizes["valid_time"])
-    dlat = abs(lat[1] - lat[0]) if lat.size > 1 else 0.1
-    dlon = abs(lon[1] - lon[0]) if lon.size > 1 else 0.1
+    dlat = abs(lat[1] - lat[0]) if lat.size > 1 else 0.25
+    dlon = abs(lon[1] - lon[0]) if lon.size > 1 else 0.25
     extent = (lon.min() - dlon / 2, lon.max() + dlon / 2, lat.min() - dlat / 2, lat.max() + dlat / 2)
 
     times_utc = pd.DatetimeIndex(da.valid_time.values)
@@ -270,6 +285,10 @@ def animate(res, var, title, subtitle, out_path, fps, vmin, vmax, tz_offset, max
     cmap.set_bad(SEA)
     im = ax.imshow(da.isel(valid_time=0).values, extent=extent, origin="upper", cmap=cmap,
                    vmin=vmin, vmax=vmax, interpolation="nearest", aspect=aspect, zorder=2)
+    if outline:  # Philippine coastline, drawn above the data; the axes keep the data extent
+        ax.add_collection(LineCollection(outline, colors=INK, linewidths=0.6, zorder=3))
+        ax.set_xlim(extent[0], extent[1])
+        ax.set_ylim(extent[2], extent[3])
     ax.set_xlabel("Longitude (°E)", color=INK2, fontsize=8)
     ax.set_ylabel("Latitude (°N)", color=INK2, fontsize=8)
     ax.tick_params(colors=INK2, labelsize=8, length=2)
@@ -297,7 +316,7 @@ def animate(res, var, title, subtitle, out_path, fps, vmin, vmax, tz_offset, max
     ts.xaxis.set_major_locator(mdates.AutoDateLocator(minticks=4, maxticks=7))
     ts.xaxis.set_major_formatter(mdates.DateFormatter("%d %b"))
     ts.tick_params(colors=INK2, labelsize=8, length=2)
-    ts.set_ylabel("Land mean (°C)", color=INK2, fontsize=8)
+    ts.set_ylabel("Domain mean (°C)", color=INK2, fontsize=8)
     ts.grid(True, color=GRID, lw=0.5)
     for s in ("top", "right"):
         ts.spines[s].set_visible(False)
@@ -329,8 +348,8 @@ def animate(res, var, title, subtitle, out_path, fps, vmin, vmax, tz_offset, max
 
 # ----------------------------------------------------------------------------
 def main():
-    p = argparse.ArgumentParser(description="Compute and animate hourly WBGT (outdoor + indoor) from ERA5-Land.")
-    p.add_argument("--indir", default="era5land_wbgt", help="folder with era5land_YYYY_MM.nc")
+    p = argparse.ArgumentParser(description="Compute and animate hourly WBGT (outdoor + indoor) from ERA5 single levels.")
+    p.add_argument("--indir", default="era5_wbgt", help="folder with era5_YYYY_MM.nc")
     p.add_argument("--year", type=int, required=True)
     p.add_argument("--month", type=int, required=True)
     p.add_argument("--outdir", default="wbgt_output")
@@ -345,13 +364,15 @@ def main():
                    help="process this many hours at a time to limit memory (default 168 = 7 days)")
     p.add_argument("--native-wind", action="store_true",
                    help="use pywbgt's built-in 10 m -> 2 m wind adjustment (night-time flag bug in 3.0.7, see header)")
+    p.add_argument("--no-boundary", action="store_true",
+                   help="do not draw the Philippines boundary (it needs the regionmask package)")
     p.add_argument("--dpi", type=int, default=100)
     p.add_argument("--reuse", action="store_true", help="reuse wbgt_YYYY_MM.nc if it already exists")
     args = p.parse_args()
 
     indir, outdir = Path(args.indir), Path(args.outdir)
     outdir.mkdir(parents=True, exist_ok=True)
-    src = indir / f"era5land_{args.year}_{args.month:02d}.nc"
+    src = indir / f"era5_{args.year}_{args.month:02d}.nc"
     nc_out = outdir / f"wbgt_{args.year}_{args.month:02d}.nc"
 
     if args.reuse and nc_out.exists():
@@ -359,12 +380,9 @@ def main():
         res = xr.open_dataset(nc_out).load()
     else:
         if not src.exists():
-            sys.exit(f"cannot find {src}. Run download_era5land.py first.")
+            sys.exit(f"cannot find {src}. Run download_era5.py first.")
         ds = open_month(src)
-        tail = previous_month_tail(indir, args.year, args.month, ds)
-        print("previous month found: first hour kept" if tail is not None else
-              "no previous month file: first hour of the month will be dropped")
-        flux = hourly_solar(ds, tail)
+        flux = hourly_solar(ds)
         res = compute_wbgt(ds, flux, args.min_speed, args.chunk_hours, args.native_wind)
         enc = {v: {"zlib": True, "complevel": 4, "dtype": "float32", "_FillValue": np.float32(np.nan)} for v in res.data_vars}
         res.to_netcdf(nc_out, encoding=enc)
@@ -386,13 +404,15 @@ def main():
     ext = "mp4" if use_ffmpeg else "gif"
     month_label = f"{pd.Timestamp(args.year, args.month, 1):%B %Y}"
     jobs = [
-        ("wbgt_outdoor", "Outdoor WBGT", "Liljegren et al. (2008) · in the sun · ERA5-Land inputs · grey = sea"),
-        ("wbgt_indoor", "Indoor WBGT", "Bernard & Pourmoghani (1999) · no solar load · ERA5-Land inputs · grey = sea"),
+        ("wbgt_outdoor", "Outdoor WBGT", "Liljegren et al. (2008) · in the sun · ERA5 inputs · land and sea"),
+        ("wbgt_indoor", "Indoor WBGT", "Bernard & Pourmoghani (1999) · no solar load · ERA5 inputs · land and sea"),
     ]
+    outline = None if args.no_boundary else philippines_outline()
     for var, title, sub in jobs:
         out = outdir / f"{var}_{args.year}_{args.month:02d}.{ext}"
         animate(res, var, f"{title}, {month_label}", sub, out, args.fps, vmin, vmax,
-                args.tz_offset, args.max_frames, args.dpi, "ffmpeg" if use_ffmpeg else "pillow")
+                args.tz_offset, args.max_frames, args.dpi, "ffmpeg" if use_ffmpeg else "pillow",
+                outline=outline)
 
 
 if __name__ == "__main__":
