@@ -19,6 +19,13 @@ Method (standard parametric approach, as in the economics/CAT literature):
    mean wind peaks. Province x quarter: storms combined as 1 - prod(1 - f).
 Also returned, for robustness: maximum wind (m/s, province mean of per-point maxima) and
 the number of storms whose centre passed within 100 km of the province.
+
+Category exposure (main control since Alper's reply, Oct 2026: "whether a typhoon of a
+given category passed through the region in that quarter", as in Eq. 2 of the El Nino
+document): for each province and quarter, the share of its grid points that had winds of
+at least a PAGASA category from any storm in the quarter. PAGASA categories are 10-min
+sustained winds, so the modelled 1-min wind is multiplied by 0.88 before comparing.
+No damage function is involved.
 """
 from pathlib import Path
 
@@ -30,6 +37,10 @@ from shapely import contains_xy
 DATA = Path(__file__).resolve().parents[2] / "data" / "hazards"
 KT = 0.514444  # knots -> m/s
 V_THRESH, V_HALF = 25.7, 74.7  # m/s
+TO_10MIN = 0.88  # 1-min -> 10-min sustained wind (WMO conversion, as in load_tracks)
+# PAGASA tropical cyclone categories, lower bound of 10-min sustained wind (km/h -> m/s).
+# Severe tropical storms (89-117 km/h) are counted with tropical storms.
+CATEGORIES = {"ts": 62 / 3.6, "ty": 118 / 3.6, "sty": 185 / 3.6}
 EARTH_R = 6371.0
 BBOX = dict(lat=(0.0, 27.0), lon=(110.0, 133.0))  # Philippines plus ~500 km
 
@@ -110,8 +121,12 @@ def emanuel(v):
 
 
 def storm_province_exposure(tracks: pd.DataFrame, pts: pd.DataFrame,
-                            near_km: float = 100.0) -> pd.DataFrame:
-    """One row per storm x province with nonzero wind exposure."""
+                            near_km: float = 100.0, point_winds: list | None = None) -> pd.DataFrame:
+    """One row per storm x province with nonzero wind exposure.
+
+    point_winds: if a list is passed, one DataFrame per storm is appended to it with the
+    10-min wind at every grid point reaching at least tropical-storm strength
+    (columns: point, period, v10), for category_exposure()."""
     plat, plon = pts.lat.to_numpy(), pts.lon.to_numpy()
     codes, names = pd.factorize(pts.polygon)
     n_poly = len(names)
@@ -135,6 +150,11 @@ def storm_province_exposure(tracks: pd.DataFrame, pts: pd.DataFrame,
         vt = np.stack([np.bincount(codes, row, n_poly) / cnt for row in v])  # T x provinces
         t_peak = s.time.to_numpy()[vt.argmax(axis=0)]
         keep = (v_prov > 10) | near  # > ~20 kt somewhere relevant
+        if point_winds is not None:
+            v10 = vmax_pt * TO_10MIN
+            hit = np.flatnonzero(v10 >= CATEGORIES["ts"])
+            per = pd.DatetimeIndex(t_peak[codes[hit]]).to_period("Q")
+            point_winds.append(pd.DataFrame({"point": hit, "period": per, "v10": v10[hit]}))
         for i in np.flatnonzero(keep):
             rows.append((sid, s.NAME.iloc[0], names[i], pd.Timestamp(t_peak[i]),
                          f_prov[i], v_prov[i], near[i]))
@@ -151,3 +171,21 @@ def province_quarter(storm_prov: pd.DataFrame) -> pd.DataFrame:
         "max_wind_ms": g.max_wind_ms.max(),
         "n_storms_100km": g.centre_within_100km.sum(),
     }).reset_index()
+
+
+def category_exposure(point_winds: list, pts: pd.DataFrame) -> pd.DataFrame:
+    """Province x quarter: share of grid points with winds of at least each category.
+
+    A point counts once per quarter, at the strongest wind it had from any storm in the
+    quarter (a point hit by two tropical storms is not counted twice). Each point is dated
+    to the quarter of its province's peak wind for that storm."""
+    pw = pd.concat(point_winds, ignore_index=True)
+    pw = pw.groupby(["point", "period"]).v10.max().reset_index()
+    pw["polygon"] = pts.polygon.to_numpy()[pw.point]
+    n_pts = pts.groupby("polygon").size()
+    out = {}
+    for cat, thr in CATEGORIES.items():
+        out[f"ty_share_{cat}"] = pw[pw.v10 >= thr].groupby(["polygon", "period"]).size()
+    out = pd.DataFrame(out).fillna(0)
+    out = out.div(n_pts, axis=0, level="polygon")
+    return out.reset_index()

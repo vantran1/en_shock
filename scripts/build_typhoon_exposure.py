@@ -6,6 +6,15 @@ weights = each province's share of the region's palay production, averaged over
 2016-2025 (fixed over time, so the control does not move with production itself).
 Separate weights for irrigated, rainfed and total palay.
 
+Measures (each with a _lag1 column):
+- ty_share_ts / ty_share_ty / ty_share_sty: MAIN control (exposure by PAGASA category, as
+  in Eq. 2 of the El Nino document). Rice-weighted share of the region's area with winds
+  of at least tropical-storm (62 km/h) / typhoon (118 km/h) / super-typhoon (185 km/h)
+  strength in the quarter, 10-min sustained. Shares are cumulative ("at least"), so
+  ty_share_ts >= ty_share_ty >= ty_share_sty.
+- damage_index: Emanuel damage function of the wind (robustness only).
+- max_wind_ms, n_storms_100km: descriptive.
+
 Run:  python scripts/download_hazards.py   (once)
       python scripts/build_typhoon_exposure.py
 Writes data/processed/typhoon_storm_province.csv, typhoon_region_quarter.csv,
@@ -23,15 +32,17 @@ import pandas as pd  # noqa: E402
 from matplotlib.colors import LinearSegmentedColormap  # noqa: E402
 
 from agriculture.regions import REGIONS  # noqa: E402
-from hazards.typhoon import (grid_points, load_provinces, load_tracks,  # noqa: E402
-                             province_quarter, storm_province_exposure)
+from hazards.typhoon import (CATEGORIES, category_exposure, grid_points,  # noqa: E402
+                             load_provinces, load_tracks, province_quarter,
+                             storm_province_exposure)
 from hazards.weights import province_weights  # noqa: E402
 
 PROC, TAB, FIG = ROOT / "data/processed", ROOT / "outputs/tables", ROOT / "outputs/figures"
 for d in (PROC, TAB, FIG):
     d.mkdir(parents=True, exist_ok=True)
 START, END = pd.Period("1986Q4", "Q"), pd.Period("2025Q4", "Q")
-MEASURES = ["damage_index", "max_wind_ms", "n_storms_100km"]
+MEASURES = [f"ty_share_{c}" for c in CATEGORIES] + ["damage_index", "max_wind_ms",
+                                                    "n_storms_100km"]
 
 
 def main():
@@ -41,9 +52,11 @@ def main():
     print(f"{len(pts)} grid points in {prov.polygon.nunique()} provinces; "
           f"{tracks.SID.nunique()} storms near the Philippines since 1986")
 
-    sp = storm_province_exposure(tracks, pts)
+    point_winds = []
+    sp = storm_province_exposure(tracks, pts, point_winds=point_winds)
     sp.to_csv(PROC / "typhoon_storm_province.csv", index=False)
-    pq = province_quarter(sp)
+    pq = province_quarter(sp).merge(category_exposure(point_winds, pts),
+                                    on=["polygon", "period"], how="outer")
 
     w = province_weights(set(prov.polygon))
     periods = pd.period_range(START, END, freq="Q")
@@ -70,6 +83,20 @@ def main():
     top.round(3).to_csv(TAB / "typhoon_top_events.csv", index=False)
     pd.set_option("display.width", 200)
     print(top.round(3).to_string(index=False))
+
+    # category exposure: how often each category reaches a region, and the largest cases
+    t = reg[reg.ecosystem == "total"]
+    cats = [f"ty_share_{c}" for c in CATEGORIES]
+    summ = pd.DataFrame({
+        "region_quarters_hit": (t[cats] > 0).sum(),
+        "share_of_region_quarters": (t[cats] > 0).mean().round(3),
+        "mean_share_when_hit": t[cats].where(t[cats] > 0).mean().round(3),
+        "corr_with_damage_index": t[cats].corrwith(t.damage_index).round(3)})
+    summ.to_csv(TAB / "typhoon_category_summary.csv")
+    print("\nCategory exposure (total-palay weights):\n", summ.to_string())
+    big = t.nlargest(15, "ty_share_sty")[["region_code", "period"] + cats].merge(
+        top_storm, on=["region_code", "period"], how="left")
+    print("\nLargest super-typhoon exposure:\n", big.round(3).to_string(index=False))
 
     # figure: annual exposure (sum of quarterly damage index, total-palay weights)
     a = (reg[reg.ecosystem == "total"].assign(year=lambda d: d.period.dt.year)

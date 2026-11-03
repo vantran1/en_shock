@@ -10,6 +10,12 @@ season of quarter t (dry: Q1-Q2, wet: Q3-Q4); RONI+ = max(RONI,0), RONI- = min(R
 Main: Poisson pseudo-ML (PPML). Check: OLS on log production (zero quarters dropped).
 Driscoll-Kraay standard errors throughout. Sample 1987Q1-2025Q4.
 
+Typhoon control (main): exposure by PAGASA category, i.e. the rice-weighted share of the
+region with winds of at least tropical-storm / typhoon / super-typhoon strength, current
+and previous quarter (Alper's reply, Oct 2026: exposure, not damage, as in Eq. 2).
+Robustness: the Emanuel damage index instead, and no typhoon/flood controls at all
+(outputs/tables/rice_direct_control_compare.csv).
+
 Run:  python scripts/estimate_rice_direct.py
 """
 import sys
@@ -28,7 +34,15 @@ from estimation.panel import fit, linear_combination  # noqa: E402
 PROC, TAB, FIG = ROOT / "data/processed", ROOT / "outputs/tables", ROOT / "outputs/figures"
 K = 4
 SEASONS = {1: "dry", 2: "dry", 3: "wet", 4: "wet"}
-CONTROLS = ["damage_index", "damage_index_lag1", "flood_share", "flood_share_lag1"]
+TY_CATS = ["ty_share_ts", "ty_share_ty", "ty_share_sty"]
+FLOOD = ["flood_share", "flood_share_lag1"]
+CONTROL_SETS = {
+    "category": TY_CATS + [f"{c}_lag1" for c in TY_CATS] + FLOOD,  # main
+    "damage_index": ["damage_index", "damage_index_lag1"] + FLOOD,
+    "none": [],
+}
+CONTROLS = CONTROL_SETS["category"]
+TY_COLS = sorted({c for v in CONTROL_SETS.values() for c in v} - set(FLOOD))
 EPISODES = {"1997-98": ("1997Q2", "1998Q4"), "2015-16": ("2015Q2", "2016Q4"),
             "2023-24": ("2023Q2", "2024Q4")}
 BLUE, ORANGE, INK, MUTED = "#2a78d6", "#eb6834", "#0b0b0b", "#52514e"
@@ -48,7 +62,7 @@ def build(ecosystem):
     ty = pd.read_csv(PROC / "typhoon_region_quarter.csv")
     fl = pd.read_csv(PROC / "flood_region_quarter.csv")
     keys = ["ecosystem", "region_code", "period"]
-    p = (p.merge(ty[keys + ["damage_index", "damage_index_lag1"]], on=keys)
+    p = (p.merge(ty[keys + TY_COLS], on=keys)
           .merge(fl[keys + ["flood_share", "flood_share_lag1"]], on=keys))
     c = climate_terms()
     p = p.merge(c, left_on="period", right_index=True)
@@ -59,7 +73,7 @@ def build(ecosystem):
     return p.reset_index(drop=True), list(c.columns)
 
 
-def design(p, clim_cols):
+def design(p, clim_cols, controls=CONTROLS):
     rq = p.region_code + "_q" + p.q.astype(str)
     fe = pd.get_dummies(rq, prefix="fe", dtype=float)
     tr = fe.mul(p.t, axis=0).add_prefix("tr_")
@@ -68,7 +82,7 @@ def design(p, clim_cols):
         d = (p.season == s).astype(float)
         for c in clim_cols:
             clim[f"{c}_{s}"] = p[c] * d
-    X = pd.concat([pd.DataFrame(clim), p[CONTROLS], fe, tr], axis=1)
+    X = pd.concat([pd.DataFrame(clim), p[controls], fe, tr], axis=1)
     return X
 
 
@@ -90,23 +104,51 @@ def implied_losses(p, res, label):
     return d.groupby("period")[["actual", "cf"]].sum().assign(model=label)
 
 
+def sample(p, model):
+    """PPML: drop region x quarter cells that are always zero (no harvest that quarter).
+    OLS on logs: drop zero quarters."""
+    if model == "ppml":
+        cell = p.region_code + p.q.astype(str)
+        d = p[p.groupby(cell).production_t.transform("sum") > 0]
+        return d, d.production_t / 1000
+    d = p[p.production_t > 0]
+    return d, np.log(d.production_t)
+
+
+def estimate(d, y, clim_cols, model, controls=CONTROLS):
+    X = design(d, clim_cols, controls)
+    X = X.loc[:, X.abs().sum() > 0]
+    return fit(y, X, d.period, model), X
+
+
+def compare_controls():
+    """El Nino / La Nina cumulative effects under each set of typhoon/flood controls."""
+    rows = []
+    for eco in ("irrigated", "rainfed"):
+        p, clim_cols = build(eco)
+        for model in ("ppml", "ols"):
+            d, y = sample(p, model)
+            for name, controls in CONTROL_SETS.items():
+                r, _ = estimate(d, y, clim_cols, model, controls)
+                for s in ("dry", "wet"):
+                    for sign, term in (("pos", "El Nino"), ("neg", "La Nina")):
+                        est, se = cumulative(r, sign, s)
+                        rows.append(dict(ecosystem=eco, model=model, season=s, term=term,
+                                         controls=name, est=est, se=se))
+    t = pd.DataFrame(rows)
+    t.round(4).to_csv(TAB / "rice_direct_control_compare.csv", index=False)
+    print("\nEl Nino / La Nina, sum of lags 0-4, by control set:")
+    print(t.pivot_table(index=["ecosystem", "model", "term", "season"], columns="controls",
+                        values="est")[list(CONTROL_SETS)].round(3).to_string())
+
+
 def main():
     rows, losses, profiles, ac = [], [], [], []
     for eco in ("irrigated", "rainfed"):
         p, clim_cols = build(eco)
         for model in ("ppml", "ols"):
-            d = p.copy()
-            if model == "ppml":
-                # drop region x quarter cells that are always zero (no harvest that quarter)
-                cell = d.region_code + d.q.astype(str)
-                d = d[d.groupby(cell).production_t.transform("sum") > 0]
-                y = d.production_t / 1000
-            else:
-                d = d[d.production_t > 0]
-                y = np.log(d.production_t)
-            X = design(d, clim_cols)
-            X = X.loc[:, X.abs().sum() > 0]
-            r = fit(y, X, d.period, model)
+            d, y = sample(p, model)
+            r, X = estimate(d, y, clim_cols, model)
             tag = f"{eco}, {'Poisson' if model == 'ppml' else 'log OLS'}"
             print(f"{tag}: n={len(d)}, converged={r['converged']}")
             for s in ("dry", "wet"):
@@ -188,6 +230,8 @@ def main():
                  fontsize=10, color=INK)
     fig.savefig(FIG / "rice_direct_lag_profile.png", dpi=150, facecolor="white")
     plt.close(fig)
+
+    compare_controls()
 
 
 if __name__ == "__main__":
