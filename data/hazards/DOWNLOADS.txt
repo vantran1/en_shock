@@ -1,5 +1,5 @@
 2026-10-20  ibtracs/ibtracs.WP.list.v04r01.csv  <-  https://www.ncei.noaa.gov/data/international-best-track-archive-for-climate-stewardship-ibtracs/v04r01/access/csv/ibtracs.WP.list.v04r01.csv
 2026-10-20  boundaries/geoBoundaries-PHL-ADM2_simplified.geojson  <-  https://github.com/wmgeolab/geoBoundaries/raw/41af8f1/releaseData/gbOpen/PHL/ADM2/geoBoundaries-PHL-ADM2_simplified.geojson
 2026-11-09  earthquakes/usgs_earthquakes_m6.5_1987-2025.csv  <-  USGS ComCat earthquake catalogue (https://earthquake.usgs.gov/earthquakes/search/), M >= 6.5, Philippines, 1987-2025; downloaded by hand (Ginevra)
-2026-11-09  volcanoes/gvp_volcano_list_holocene_v5.4.0.xlsx  <-  Smithsonian Global Volcanism Program, Holocene volcano list (https://volcano.si.edu/); downloaded by hand (Ginevra); saved as Strict Open XML
+2026-11-09  volcanoes/gvp_volcano_list_holocene_v5.4.0.xlsx  <-  Smithsonian Global Volcanism Program, Holocene volcano list (https://volcano.si.edu/); downloaded by hand (Ginevra); re-saved as standard .xlsx
 2026-11-09  volcanoes/gvp_eruption_list_holocene_20260424.xlsx  <-  Smithsonian Global Volcanism Program, Holocene eruption list, downloaded 24 Apr 2026 (https://volcano.si.edu/); cite as in its Info sheet
