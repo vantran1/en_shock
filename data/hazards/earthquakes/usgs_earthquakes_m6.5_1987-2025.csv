@@ -1,0 +1,79 @@
+time,latitude,longitude,depth,mag,magType,nst,gap,dmin,rms,net,id,updated,place,type,horizontalError,depthError,magError,magNst,status,locationSource,magSource
+2025-10-10T11:12:05.407Z,7.2127,126.6578,47,6.7,mww,129,25,1.08,1.09,us,us6000rg2r,2026-08-05T10:41:41.882Z,"12 km SE of Santiago, Philippines",earthquake,7.64,1.924,0.041,57,reviewed,us,us
+2025-10-10T01:43:59.585Z,7.2866,126.6902,59.425,7.4,mww,291,19,1.123,0.6,us,us6000rfwz,2026-08-09T13:41:53.905Z,"12 km E of Santiago, Philippines",earthquake,7.79,4.306,0.024,164,reviewed,us,us
+2025-09-30T13:59:43.328Z,11.1557,124.111,10,6.9,mww,192,15,4.311,0.71,us,us6000rdrz,2026-09-06T10:37:57.315Z,"8 km ESE of Calape, Philippines",earthquake,7.75,1.73,0.04,59,reviewed,us,us
+2024-08-02T22:23:02.111Z,8.1851,126.6161,32,6.8,mww,259,18,1.511,0.69,us,us6000nhqc,2025-08-16T04:52:05.408Z,"20 km E of Barcelona, Philippines",earthquake,7.5,1.761,0.048,42,reviewed,us,us
+2024-07-11T02:13:18.585Z,6.0838,123.1503,639.503,7.1,mww,401,17,2.604,0.84,us,us7000myfa,2024-10-08T21:28:11.485Z,"106 km WSW of Sangay, Philippines",earthquake,8.06,4.43,0.055,32,reviewed,us,us
+2024-01-08T20:48:42.361Z,4.9225,126.1575,62.574,6.7,mww,138,22,2.209,0.76,us,us6000m2jp,2024-03-16T19:00:03.040Z,"93 km SE of Sarangani, Philippines",earthquake,7.15,3.404,0.06,27,reviewed,us,us
+2023-12-03T19:49:35.739Z,8.9705,126.6121,20,6.9,mww,151,25,2.148,0.93,us,us7000lfxx,2026-06-27T07:19:43.677Z,"34 km ENE of Aras-asan, Philippines",earthquake,7.86,1.721,0.05,39,reviewed,us,us
+2023-12-03T10:35:52.871Z,8.488,126.7454,19,6.6,mww,135,32,1.822,0.83,us,us7000lftp,2026-06-27T07:17:06.981Z,"47 km ENE of Hinatuan, Philippines",earthquake,7.74,1.835,0.052,35,reviewed,us,us
+2023-12-02T14:37:04.454Z,8.5266,126.4161,40,7.6,mww,128,43,1.668,0.98,us,us7000lff4,2026-06-27T07:18:56.872Z,"19 km E of Gamut, Philippines",earthquake,8.48,1.895,0.028,124,reviewed,us,us
+2023-11-17T08:14:10.513Z,5.5627,125.0013,52,6.7,mww,244,21,1.604,1.02,us,us6000lp12,2025-09-26T19:00:00.673Z,"32 km SW of Kablalan, Philippines",earthquake,6.69,1.896,0.038,66,reviewed,us,us
+2022-07-27T00:43:26.871Z,17.5207,120.8181,33.729,7,mww,152,22,5.276,0.6,us,us6000i5rd,2026-08-14T04:51:00.529Z,"11 km NE of Bantay, Philippines",earthquake,7.93,2.766,0.044,50,reviewed,us,us
+2021-08-11T17:46:13.143Z,6.4748,126.7151,55.14,7.1,mww,,25,1.273,1.27,us,us6000f48v,2025-12-22T22:13:26.024Z,"60 km ENE of Pondaguitan, Philippines",earthquake,6.5,3.7,0.037,71,reviewed,us,us
+2021-07-23T20:48:57.357Z,13.7047,120.7259,110,6.7,mww,,12,8.139,0.98,us,us6000eyfk,2025-12-22T19:04:48.334Z,"15 km S of Hukay, Philippines",earthquake,7.2,1.8,0.051,37,reviewed,us,us
+2020-08-18T00:03:48.566Z,12.0257,124.1272,10,6.6,mww,,14,5.128,0.73,us,us6000bgbr,2025-12-22T19:05:30.242Z,"13 km E of San Pedro, Philippines",earthquake,7.1,1.6,0.06,27,reviewed,us,us
+2019-12-15T06:11:51.155Z,6.6969,125.1739,18,6.8,mww,,39,0.546,1.05,us,us60006rp9,2026-06-26T11:51:58.805Z,"7 km S of Magsaysay, Philippines",earthquake,8,1.7,0.051,37,reviewed,us,us
+2019-10-31T01:11:19.146Z,6.9098,125.1782,10,6.5,mww,,19,0.428,0.76,us,us700061e9,2025-12-22T18:20:27.919Z,"2 km ENE of Bulatukan, Philippines",earthquake,7,1.7,0.043,51,reviewed,us,us
+2019-10-29T01:04:43.879Z,6.7567,125.0082,15,6.6,mww,,24,0.646,0.78,us,us6000645n,2026-08-07T12:17:19.705Z,"10 km NE of Columbio, Philippines",earthquake,5.7,1.8,0.043,52,reviewed,us,us
+2018-12-29T03:39:09.740Z,5.8983,126.9209,60.21,7,mww,,21,1.769,1.45,us,us2000iyta,2025-07-15T17:58:58.027Z,"96 km ESE of Pondaguitan, Philippines",earthquake,6.1,3.2,0.038,67,reviewed,us,us
+2017-07-06T08:03:57.550Z,11.1269,124.6286,9,6.5,mww,,30,4.139,0.65,us,us1000976a,2026-02-01T06:56:40.503Z,"2 km S of Lim-oo, Philippines",earthquake,6.9,1.8,0.047,44,reviewed,us,us
+2017-04-28T20:23:17.260Z,5.5043,125.0658,26,6.9,mww,,14,1.636,0.99,us,us10008ls4,2025-07-15T17:50:03.876Z,"31 km SW of Burias, Philippines",earthquake,6.6,1.8,0.044,49,reviewed,us,us
+2017-02-10T14:03:43.920Z,9.9071,125.4516,15,6.5,mww,,36,2.822,0.95,us,us20008ixa,2024-06-12T14:56:14.647Z,"11 km N of Mabua, Philippines",earthquake,5.2,1.7,,,reviewed,us,us
+2017-01-10T06:13:48.140Z,4.4782,122.6171,627.17,7.3,mww,,18,3.813,1.05,us,us10007s9c,2022-05-03T19:43:16.287Z,"189 km SSE of Tabiauan, Philippines",earthquake,8.5,3,,,reviewed,us,us
+2014-12-02T05:11:31.000Z,6.1572,123.1261,614,6.6,mww,,9,2.6,1.32,us,usb000t20t,2022-05-03T18:20:44.980Z,"106 km WSW of Sangay, Philippines",earthquake,8.6,1.9,,,reviewed,us,us
+2013-10-15T00:12:32.050Z,9.8796,124.1167,19.04,7.1,mww,,12,3.144,1.3,us,usb000kdb4,2026-10-15T23:30:34.767Z,"4 km SE of Sagbayan, Philippines",earthquake,,2.9,,,reviewed,us,us
+2012-08-31T12:47:33.380Z,10.811,126.638,28,7.6,mww,682,10.2,,1.02,us,usp000jr83,2022-05-03T15:48:46.699Z,"89 km E of Sulangan, Philippines",earthquake,,,,,reviewed,us,us
+2012-02-06T03:49:12.520Z,9.999,123.206,11,6.7,mww,572,11.1,,1.07,us,usp000jejw,2024-06-16T05:50:20.217Z,"2 km NNE of Jimalalud, Philippines",earthquake,,,,,reviewed,us,us
+2011-02-10T14:41:58.820Z,4.077,123.039,525,6.6,mwb,262,13.6,,1.37,us,usp000huac,2022-07-19T03:59:24.818Z,"250 km SSE of Tabiauan, Philippines",earthquake,,,,,reviewed,us,us
+2011-02-10T14:39:27.710Z,4.195,122.974,523.2,6.5,mww,488,11.4,,1.09,us,usp000huab,2022-07-19T03:56:16.542Z,"235 km SSE of Tabiauan, Philippines",earthquake,,,,,reviewed,us,us
+2010-07-29T07:31:56.240Z,6.548,123.222,618,6.6,mwc,179,30.1,,1.43,us,usp000hh3f,2022-05-02T22:38:37.634Z,"89 km W of Bantogon, Philippines",earthquake,,,,,reviewed,us,us
+2010-07-24T05:35:01.060Z,6.218,123.519,553,6.6,mwc,380,18.8,,1.12,us,usp000hgnj,2022-05-02T22:05:23.564Z,"63 km WSW of Sangay, Philippines",earthquake,,,,,reviewed,us,gcmt
+2010-07-23T23:15:10.190Z,6.776,123.259,640.6,7.5,mwc,441,17.5,,0.82,us,usp000hgmq,2022-07-18T17:02:13.829Z,"72 km S of Panubigan, Philippines",earthquake,,,,,reviewed,us,gcmt
+2010-07-23T22:51:11.840Z,6.497,123.48,578,7.6,mwc,340,15.1,,0.91,us,usp000hgmh,2022-07-18T17:00:38.641Z,"61 km W of Bantogon, Philippines",earthquake,,,,,reviewed,us,us
+2010-07-23T22:08:11.250Z,6.718,123.409,607.1,7.3,mwc,491,16.5,,0.91,us,usp000hgmd,2022-07-18T16:59:03.556Z,"68 km W of Gadung, Philippines",earthquake,,,,,reviewed,us,us
+2009-10-07T21:41:13.270Z,4.079,122.371,574,6.8,mwc,326,17.4,,1.06,us,usp000h2g6,2022-05-02T21:22:11.444Z,"221 km SSE of Tabiauan, Philippines",earthquake,,,,,reviewed,us,us
+2009-10-04T10:58:00.170Z,6.74,123.378,620,6.6,mwc,419,11.6,,1.05,us,usp000h2c1,2022-07-15T18:39:20.064Z,"71 km W of Gadung, Philippines",earthquake,,,,,reviewed,us,us
+2008-03-03T14:11:14.620Z,13.351,125.63,24,6.9,mwc,544,25.9,,0.94,us,usp000g0k9,2022-07-13T21:01:32.829Z,"Philippine Islands region",earthquake,,,,,reviewed,us,us
+2005-02-15T14:42:25.850Z,4.756,126.421,39.7,6.5,mwc,286,47.3,,0.98,us,usp000dg73,2022-07-14T18:05:20.145Z,"Pulau-Pulau Talaud, Indonesia",earthquake,,,,,reviewed,us,hrv
+2005-02-05T12:23:18.940Z,5.293,123.337,525,7.1,mwc,640,26.4,,1.14,us,usp000dfj2,2022-07-14T18:15:57.254Z,"138 km SW of Palimbang, Philippines",earthquake,,,,,reviewed,us,hrv
+2004-10-08T14:36:06.110Z,13.925,120.534,105,6.5,mwb,526,18.3,,0.95,us,usp000d60h,2022-07-14T20:03:09.939Z,"9 km W of Talisay, Philippines",earthquake,,,,,reviewed,us,us
+2003-11-18T17:14:22.620Z,12.025,125.416,35,6.5,mwb,487,45.9,,0.94,us,usp000cdb4,2022-05-02T16:54:09.827Z,"4 km NW of Can-Avid, Philippines",earthquake,,,,,reviewed,us,us
+2003-05-26T23:13:29.720Z,6.761,123.707,565.8,6.9,mwc,544,20.6,,0.97,us,usp000by7z,2022-05-02T16:34:39.973Z,"34 km W of Gadung, Philippines",earthquake,,,,,reviewed,us,hrv
+2002-03-05T21:16:09.130Z,6.033,124.249,31,7.5,mwc,321,,,0.95,us,usp000azqw,2022-05-02T15:45:49.701Z,"Mindanao, Philippines",earthquake,,,,,reviewed,us,hrv
+2001-01-01T08:54:31.580Z,6.631,126.899,33,6.8,mwc,64,,,0.94,us,usp000a70q,2022-04-29T19:46:10.481Z,"Mindanao, Philippines",earthquake,,,,,reviewed,us,hrv
+2001-01-01T06:57:04.170Z,6.898,126.579,33,7.5,mwc,324,,,1.06,us,usp000a70h,2022-04-29T19:03:22.544Z,"21 km SE of Lukatan, Philippines",earthquake,,,,,reviewed,us,hrv
+1999-12-11T18:03:36.450Z,15.766,119.74,33,7.3,mwc,,,,1,us,usp0009jr8,2022-04-29T18:20:49.752Z,"14 km WNW of Bolitoc, Philippines",earthquake,,,,,reviewed,us,hrv
+1999-03-04T08:52:01.900Z,5.397,121.937,33,7.1,mwc,,,,1.17,us,usp00093u0,2022-04-29T18:03:17.102Z,"69 km S of Tabiauan, Philippines",earthquake,,,,,reviewed,us,hrv
+1998-09-02T08:37:29.910Z,5.41,126.764,50,6.8,mwc,,,,1.01,us,usp0008u8z,2022-04-29T17:40:50.084Z,"123 km SSE of Pondaguitan, Philippines",earthquake,,,,,reviewed,us,hrv
+1997-10-06T12:30:05.820Z,9.79,125.779,105.6,6.5,mwb,,,,0.99,us,usp00088mv,2022-04-29T17:03:50.637Z,"18 km E of Talisay, Philippines",earthquake,,,,,reviewed,us,us
+1996-09-20T04:11:04.550Z,9.454,126.334,33,6.6,mwc,,,,1.06,us,usp0007q51,2022-04-29T20:33:41.839Z,"24 km NE of Cortes, Philippines",earthquake,,,,,reviewed,us,hrv
+1996-09-20T04:10:27.680Z,9.463,126.284,33,6.6,mwc,,,,1.13,us,usp0007q50,2022-04-29T20:33:40.549Z,"22 km NNE of Cortes, Philippines",earthquake,,,,,reviewed,us,hrv
+1996-06-11T18:22:55.730Z,12.614,125.154,33,7.1,mwc,,,,0.9,us,usp0007jkw,2022-04-29T20:21:42.443Z,"8 km NNE of Palapag, Philippines",earthquake,,,,,reviewed,us,hrv
+1995-05-05T03:53:45.050Z,12.626,125.297,16,7.1,mw,,,,0.9,us,usp0006ww5,2022-04-29T16:49:50.516Z,"14 km NE of Cabatuan, Philippines",earthquake,,,,,reviewed,us,hrv
+1995-04-23T05:08:01.970Z,12.39,125.396,24.1,6.8,mw,,,,1,us,usp0006w5w,2022-04-29T17:26:56.179Z,"10 km E of Gamay, Philippines",earthquake,,,,,reviewed,us,hrv
+1995-04-21T05:17:01.330Z,12.047,125.92,27.4,6.8,mw,,,,1.1,us,usp0006w0m,2022-04-29T17:25:46.809Z,"47 km E of Dapdap, Philippines",earthquake,,,,,reviewed,us,hrv
+1995-04-21T00:34:46.090Z,12.059,125.58,20.7,7.2,mw,,,,1.2,us,usp0006vz9,2022-04-29T17:25:43.742Z,"10 km E of Dapdap, Philippines",earthquake,,,,,reviewed,us,hrv
+1995-04-21T00:30:10.820Z,11.925,125.564,17.4,6.8,mw,,,,1,us,usp0006vz8,2022-04-29T17:25:38.433Z,"14 km ESE of Can-Avid, Philippines",earthquake,,,,,reviewed,us,hrv
+1995-04-21T00:09:54.360Z,12.011,125.656,20.1,6.9,mw,,,,1,us,usp0006vz4,2022-04-29T17:25:36.840Z,"19 km E of Dolores, Philippines",earthquake,,,,,reviewed,us,hrv
+1995-04-20T08:45:11.670Z,6.279,126.777,94.1,6.6,mwb,,,,1.1,us,usp0006vxw,2022-04-29T17:25:33.641Z,"66 km E of Pondaguitan, Philippines",earthquake,,,,,reviewed,us,us
+1994-11-14T19:15:30.660Z,13.525,121.067,31.5,7.1,mw,,,,1.1,us,usp0006nn2,2022-04-28T17:20:35.454Z,"10 km E of Sabang, Philippines",earthquake,,,,,reviewed,us,hrv
+1993-05-18T10:19:33.780Z,19.914,122.45,168.6,6.8,mwb,,,,1.3,us,usp0005t13,2022-04-28T18:13:07.580Z,"77 km SE of Basco, Philippines",earthquake,,,,,reviewed,us,us
+1993-05-11T18:26:51.320Z,7.219,126.57,58.7,7,mwb,,,,1.1,us,usp0005sm4,2022-04-28T18:11:32.019Z,"3 km E of Manay, Philippines",earthquake,,,,,reviewed,us,us
+1992-05-17T10:15:31.310Z,7.191,126.762,33,7.3,mwb,,,,1.1,us,usp00057gv,2022-04-28T18:47:24.067Z,"23 km ESE of Santiago, Philippines",earthquake,,,,,reviewed,us,us
+1992-05-17T09:49:19.110Z,7.239,126.645,32.8,7.1,mw,,,,1.2,us,usp00057gu,2022-04-28T18:47:13.066Z,"9 km SE of Santiago, Philippines",earthquake,,,,,reviewed,us,hrv
+1991-11-13T11:12:13.240Z,8.361,126.371,35.9,6.8,mwb,,,,1.2,us,usp0004z3m,2022-04-28T18:59:36.415Z,"4 km ESE of Hinatuan, Philippines",earthquake,,,,,reviewed,us,us
+1991-02-18T02:37:25.120Z,8.87,126.48,23.9,7,mw,,,,1.3,us,usp0004n2a,2022-04-28T19:23:48.369Z,"18 km E of Aras-asan, Philippines",earthquake,,,,,reviewed,us,nc
+1990-10-25T11:01:38.720Z,8.307,126.462,44.1,6.5,mw,,,,1.1,us,usp0004g51,2022-04-28T19:36:22.980Z,"13 km E of Tidman, Philippines",earthquake,,,,,reviewed,us,nc
+1990-07-17T21:14:43.860Z,16.495,120.981,23.1,6.5,mw,,,,1.3,us,usp0004c36,2022-04-28T19:43:44.560Z,"14 km NNW of Salinas, Philippines",earthquake,,,,,reviewed,us,hrv
+1990-07-16T07:26:34.610Z,15.679,121.172,25.1,7.7,mw,,,,1.1,us,usp0004bxs,2022-04-28T19:42:58.516Z,"4 km E of Macapsing, Philippines",earthquake,,,,,reviewed,us,hrv
+1990-06-14T07:40:56.210Z,11.76,121.899,18.1,7.1,mw,,,,1.2,us,usp0004ag6,2022-04-28T17:25:09.249Z,"0 km ESE of Union, Philippines",earthquake,,,,,reviewed,us,hrv
+1990-02-08T07:46:59.780Z,9.725,124.625,30.3,6.6,mw,,,,1.2,us,usp000456m,2022-04-28T19:57:43.943Z,"6 km ESE of Bacong, Philippines",earthquake,,,,,reviewed,us,hrv
+1990-02-08T07:15:32.230Z,9.755,124.694,25.9,6.8,mw,,,,1.4,us,usp000456h,2022-04-28T19:57:38.365Z,"13 km E of Bacong, Philippines",earthquake,,,,,reviewed,us,hrv
+1989-12-20T00:08:20.610Z,8.094,126.828,21,6.5,mw,,,,1.2,us,usp00043a9,2022-04-28T20:04:46.989Z,"43 km ENE of Santa Maria, Philippines",earthquake,,,,,reviewed,us,hrv
+1989-12-15T18:43:45.030Z,8.337,126.729,24.4,7.6,mw,,,,1.4,us,usp000433j,2022-04-28T20:04:19.072Z,"37 km ENE of Barcelona, Philippines",earthquake,,,,,reviewed,us,hrv
+1988-11-17T06:55:46.060Z,12.399,124.537,19.3,6.6,mw,,,,1.5,us,usp0003nxq,2022-04-28T20:30:58.503Z,"10 km W of Polañge, Philippines",earthquake,,,,,reviewed,us,hrv
+1988-02-24T03:52:03.290Z,13.477,124.616,24.9,7.3,mw,,,,1,us,usp0003da3,2022-04-28T20:54:58.054Z,"37 km ESE of Bato, Philippines",earthquake,,,,,reviewed,us,hrv
+1987-06-06T18:40:27.480Z,10.672,126.115,14.4,6.5,mw,,,,1.2,us,usp00035k6,2022-04-27T21:41:54.054Z,"42 km SE of Sulangan, Philippines",earthquake,,,,,reviewed,us,hrv
+1987-05-12T01:30:25.030Z,7.09,126.701,24.7,6.7,mw,,,,1.1,us,usp00034xs,2022-04-27T21:45:43.567Z,"22 km SE of Manay, Philippines",earthquake,,,,,reviewed,us,nc
+1987-04-25T12:16:52.440Z,16.066,120.301,107,6.9,mw,,,,0.9,us,usp00034f9,2022-04-27T21:47:59.948Z,"4 km N of Canaoalan, Philippines",earthquake,,,,,reviewed,us,nc
