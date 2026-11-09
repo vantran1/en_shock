@@ -1,0 +1,8 @@
+# Local data paths that are NOT in the repo.
+# Copy this file to config/paths.toml (gitignored) and set the paths for your machine.
+# Scripts that read these data also accept a command-line argument that overrides it.
+
+# Folder with the ERA5 monthly single-level files (era5_mean_<variable>_<years>.nc plus the
+# .json download records), from reanalysis-era5-single-levels-monthly-means,
+# area 22N/116E/4N/127.5E, 0.25 deg. Never copy or commit the .nc files.
+era5_monthly_dir = "/path/to/era5_monthly"

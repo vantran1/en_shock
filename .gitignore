@@ -6,3 +6,11 @@ __pycache__/
 # EM-DAT event-level extracts (licence: no redistribution; rebuilt by scripts/build_flood_exposure.py)
 data/processed/flood_events.csv
 outputs/tables/flood_unplaced_events.csv
+# local machine paths (template: config/paths.example.toml)
+config/paths.toml
+# gridded climate data stay outside the repo (ERA5 is read from config/paths.toml);
+# the small ERA5 land-sea mask is the only exception
+*.nc
+*.grib
+*.grb
+!data/era5/era5_land_sea_mask_0.25deg_phl.nc
