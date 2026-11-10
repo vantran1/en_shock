@@ -1,13 +1,13 @@
 # v5 direct approach for palay: specification tests and validation (PROVISIONAL)
 
-Built by `scripts/compare_direct_v5_rice.py`. Each variant changes one choice of the base specification (v5 Eq. 4). `ic_minus_base` < 0 means a better fit after charging for extra parameters (BIC for log-LS, deviance + k ln n for Poisson). El Niño effect = production-weighted national total effect of a sustained +1 °C RONI (log points; the El Niño part when El Niño and La Niña are split; a negative La Niña coefficient on RONI- means La Niña raises production).
+Built by `scripts/compare_direct_v5_rice.py --set one_change`. Each variant changes one choice of the base specification (v5 Eq. 4). `ic_minus_base` (relative to `base`) < 0 means a better fit after charging for extra parameters (BIC for log-LS, deviance + k ln n for Poisson). El Niño effect = production-weighted national total effect of a sustained +1 °C RONI (log points; the El Niño part when El Niño and La Niña are split; a negative La Niña coefficient on RONI- means La Niña raises production).
 
 ## Specification tests
 
 | ecosystem | model | spec | k | ic_minus_base | theta_R | theta_D | El Nino effect | t | B_RN | t_RN | B_R_wet | t_R_wet |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| irrigated | ols | base | 123 | 0.000 | 0.750 | 0.950 | -0.094 | -3.428 |  |  |  |  |
-| irrigated | ols | split | 139 | 61.998 | 0.800 | 0.950 | -0.191 | -3.350 | 0.007 | 0.194 |  |  |
+| irrigated | ols | base | 123 | 0.000 | 0.750 | 0.950 | -0.093 | -3.428 |  |  |  |  |
+| irrigated | ols | split | 139 | 61.998 | 0.800 | 0.950 | -0.191 | -3.349 | 0.007 | 0.194 |  |  |
 | irrigated | ols | season | 125 | 11.364 | 0.800 | 0.950 | -0.080 | -2.838 |  |  | -0.115 | -3.108 |
 | irrigated | ols | trend_rq | 171 | -295.392 | 0.750 | 0.950 | -0.088 | -3.450 |  |  |  |  |
 | irrigated | ols | trend_spline | 155 | -199.341 | 0.750 | 0.950 | -0.093 | -4.566 |  |  |  |  |
@@ -16,14 +16,14 @@ Built by `scripts/compare_direct_v5_rice.py`. Each variant changes one choice of
 | irrigated | ols | pool_island | 97 | -168.774 | 0.750 | 0.950 | -0.083 | -3.035 |  |  |  |  |
 | irrigated | ols | pool_national | 93 | -194.649 | 0.750 | 0.950 | -0.091 | -3.065 |  |  |  |  |
 | irrigated | ppml | base | 123 | 0.000 | 0.750 | 0.450 | -0.028 | -1.620 |  |  |  |  |
-| irrigated | ppml | split | 139 | -220.018 | 0.700 | 0.450 | -0.098 | -2.072 | 0.034 | 1.030 |  |  |
+| irrigated | ppml | split | 139 | -220.018 | 0.700 | 0.450 | -0.098 | -2.072 | 0.035 | 1.030 |  |  |
 | irrigated | ppml | season | 125 | -13.802 | 0.750 | 0.500 | -0.034 | -1.875 |  |  | -0.022 | -0.945 |
 | irrigated | ppml | trend_rq | 171 | -3669.393 | 0.800 | 0.400 | -0.027 | -1.646 |  |  |  |  |
 | irrigated | ppml | trend_spline | 155 | -3404.314 | 0.800 | 0.450 | -0.031 | -3.538 |  |  |  |  |
 | irrigated | ppml | lags_0_4 | 123 | 58.978 | 0.550 | 0.350 | -0.027 | -1.474 |  |  |  |  |
-| irrigated | ppml | lags_1_6 | 123 | -4.682 | 0.850 | 0.050 | -0.044 | -2.436 |  |  |  |  |
+| irrigated | ppml | lags_1_6 | 123 | -4.681 | 0.850 | 0.050 | -0.044 | -2.436 |  |  |  |  |
 | irrigated | ppml | pool_island | 97 | -46.122 | 0.800 | 0.400 | -0.028 | -1.683 |  |  |  |  |
-| irrigated | ppml | pool_national | 93 | -11.712 | 0.750 | 0.400 | -0.030 | -1.712 |  |  |  |  |
+| irrigated | ppml | pool_national | 93 | -11.713 | 0.750 | 0.400 | -0.030 | -1.712 |  |  |  |  |
 | rainfed | ols | base | 123 | 0.000 | 0.750 | 0.950 | -0.230 | -4.268 |  |  |  |  |
 | rainfed | ols | split | 139 | 62.229 | 0.750 | 0.950 | -0.375 | -2.779 | -0.087 | -1.193 |  |  |
 | rainfed | ols | season | 125 | 8.795 | 0.750 | 0.950 | -0.265 | -3.235 |  |  | -0.196 | -5.157 |
@@ -35,7 +35,7 @@ Built by `scripts/compare_direct_v5_rice.py`. Each variant changes one choice of
 | rainfed | ols | pool_national | 93 | -158.298 | 0.700 | 0.950 | -0.254 | -4.539 |  |  |  |  |
 | rainfed | ppml | base | 123 | 0.000 | 0.700 | 0.050 | -0.078 | -3.830 |  |  |  |  |
 | rainfed | ppml | split | 139 | -150.410 | 0.650 | 0.050 | -0.163 | -2.761 | -0.000 | -0.001 |  |  |
-| rainfed | ppml | season | 125 | -33.345 | 0.700 | 0.050 | -0.108 | -4.012 |  |  | -0.053 | -2.222 |
+| rainfed | ppml | season | 125 | -33.345 | 0.700 | 0.050 | -0.108 | -4.013 |  |  | -0.053 | -2.222 |
 | rainfed | ppml | trend_rq | 171 | -1834.874 | 0.700 | 0.050 | -0.076 | -3.836 |  |  |  |  |
 | rainfed | ppml | trend_spline | 155 | -1242.117 | 0.700 | 0.050 | -0.084 | -5.256 |  |  |  |  |
 | rainfed | ppml | lags_0_4 | 123 | 15.094 | 0.650 | 0.950 | -0.084 | -3.791 |  |  |  |  |

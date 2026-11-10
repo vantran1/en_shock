@@ -23,10 +23,19 @@ PROVISIONAL. Diagnostics for choosing the specification, not the deliverable.
      observed loss  = 1 - sum(actual) / sum(neutral prediction)
      predicted loss = 1 - sum(prediction with the observed RONI and DMI) / sum(neutral).
 
-Run:  python scripts/compare_direct_v5_rice.py      (about 10 minutes on 8 cores)
-Writes outputs/tables/direct_v5_rice_spec_comparison.csv, direct_v5_rice_validation.csv,
-outputs/direct_v5_rice_specs.md
+Sets of specifications (--set):
+  one_change  the list above (default; outputs without suffix)
+  candidate   the combination suggested by the one-change tests: Poisson-relevant choices
+              El Nino / La Nina split + season shift + spline trends + regional effects,
+              and the same with the RONI effects shifting from 2000, 2005 or 2010 on
+              (effect_break: has the El Nino effect changed over time?)
+
+Run:  python scripts/compare_direct_v5_rice.py [--set one_change|candidate]
+      (about 10 minutes on 8 cores per set)
+Writes outputs/tables/direct_v5_rice_spec_comparison[_candidate].csv,
+direct_v5_rice_validation[_candidate].csv, outputs/direct_v5_rice_specs[_candidate].md
 """
+import argparse
 import os
 
 os.environ.setdefault("OMP_NUM_THREADS", "1")
@@ -49,12 +58,16 @@ from estimation.direct import (Spec, base_design, climate_design, estimate,  # n
                                is_climate, national_effect)
 from estimation.setup import break_dummies  # noqa: E402
 
-TAB, OUT = ROOT / "outputs/tables", ROOT / "outputs/direct_v5_rice_specs.md"
-SPECS = [Spec("base"), Spec("split", split=True), Spec("season", season=True),
+TAB = ROOT / "outputs/tables"
+ONE_CHANGE = [Spec("base"), Spec("split", split=True), Spec("season", season=True),
          Spec("trend_rq", trend="region_quarter"), Spec("trend_spline", trend="region_spline"),
          Spec("lags_0_4", K=5, first_lag=0), Spec("lags_1_6", K=6),
          Spec("pool_island", pooling="island"), Spec("pool_national", pooling="national")]
-SPEC_OF = {s.name: s for s in SPECS}
+_CAND = dict(split=True, season=True, trend="region_spline")
+CANDIDATE = [Spec("candidate", **_CAND)] + [Spec(f"candidate_break{y}", effect_break=y, **_CAND)
+                                            for y in (2000, 2005, 2010)]
+SETS = {"one_change": ONE_CHANGE, "candidate": CANDIDATE}
+SPEC_OF = {s.name: s for v in SETS.values() for s in v}
 EPISODES = m.EPISODES
 WORKERS = 8
 
@@ -100,6 +113,14 @@ def run(job):
             if spec.season:
                 est, se = national_effect(r["fit"], r["X"], w, idx, spec, wet=True)
                 row[f"B_{idx}_wet"], row[f"t_{idx}_wet"] = est, est / se
+            if spec.effect_break is not None and idx != "D":
+                est, se = national_effect(r["fit"], r["X"], w, idx, spec, post=True)
+                row[f"B_{idx}_post"], row[f"t_{idx}_post"] = est, est / se
+                c = f"S{idx}_post"
+                if c in r["X"].columns:
+                    sh = r["fit"]["params"][c]
+                    row[f"shift_{idx}_post"] = sh
+                    row[f"t_shift_{idx}_post"] = sh / r["fit"]["se"][r["X"].columns.get_loc(c)]
         if model == "ppml":
             for ep, (obs, pred) in episode_losses(d, r["X"], r["fit"]["params"]).items():
                 row[f"in_sample_{ep}_observed"], row[f"in_sample_{ep}_predicted"] = obs, pred
@@ -125,27 +146,45 @@ def md(df, fmt="{:.3f}"):
 
 
 def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--set", default="one_change", choices=list(SETS))
+    ap.add_argument("--report-only", action="store_true",
+                    help="rewrite the markdown report from the saved tables")
+    args = ap.parse_args()
+    SPECS = SETS[args.set]
+    suffix = "" if args.set == "one_change" else f"_{args.set}"
+    OUT = ROOT / f"outputs/direct_v5_rice_specs{suffix}.md"
+    first = SPECS[0].name
     jobs = [(e, mod, s.name, None) for e in ("irrigated", "rainfed") for mod in ("ppml", "ols")
             for s in SPECS]
     jobs += [(e, "ppml", s.name, ep) for e in ("irrigated", "rainfed") for s in SPECS
              for ep in EPISODES]
-    with ProcessPoolExecutor(WORKERS) as ex:
-        results = list(ex.map(run, jobs))
-    spec = pd.DataFrame([r for k, r in results if k == "spec"])
-    val = pd.DataFrame([r for k, r in results if k == "val"])
-    base_ic = spec[spec.spec == "base"].set_index(["ecosystem", "model"]).ic
-    spec["ic_minus_base"] = spec.ic - spec.set_index(["ecosystem", "model"]).index.map(base_ic)
-    spec.assign(status=m.STATUS).round(4).to_csv(TAB / "direct_v5_rice_spec_comparison.csv", index=False)
-    val["error_pts"] = val.predicted_loss_pct - val.observed_loss_pct
-    val.assign(status=m.STATUS).round(3).to_csv(TAB / "direct_v5_rice_validation.csv", index=False)
+    if not args.report_only:
+        with ProcessPoolExecutor(WORKERS) as ex:
+            results = list(ex.map(run, jobs))
+        spec = pd.DataFrame([r for k, r in results if k == "spec"])
+        val = pd.DataFrame([r for k, r in results if k == "val"])
+        base_ic = spec[spec.spec == first].set_index(["ecosystem", "model"]).ic
+        spec["ic_minus_base"] = spec.ic - spec.set_index(["ecosystem", "model"]).index.map(base_ic)
+        spec.assign(status=m.STATUS).round(4).to_csv(
+            TAB / f"direct_v5_rice_spec_comparison{suffix}.csv", index=False)
+        val["error_pts"] = val.predicted_loss_pct - val.observed_loss_pct
+        val.assign(status=m.STATUS).round(3).to_csv(TAB / f"direct_v5_rice_validation{suffix}.csv",
+                                                    index=False)
+    spec = pd.read_csv(TAB / f"direct_v5_rice_spec_comparison{suffix}.csv")
+    val = pd.read_csv(TAB / f"direct_v5_rice_validation{suffix}.csv")
 
     order = [s.name for s in SPECS]
     pd.set_option("display.width", 250, "display.max_columns", 40)
     eff = spec.copy()
-    eff["El Nino effect"] = eff.B_RP.fillna(eff.B_R) if "B_RP" in eff else eff.B_R
-    eff["t"] = eff.t_RP.fillna(eff.t_R) if "t_RP" in eff else eff.t_R
+    nan = pd.Series(np.nan, index=eff.index)
+    eff["El Nino effect"] = eff.get("B_RP", nan).fillna(eff.get("B_R", nan))
+    eff["t"] = eff.get("t_RP", nan).fillna(eff.get("t_R", nan))
     cols = ["ecosystem", "model", "spec", "k", "ic_minus_base", "theta_R", "theta_D",
-            "El Nino effect", "t"] + [c for c in ("B_RN", "t_RN", "B_R_wet", "t_R_wet") if c in eff]
+            "El Nino effect", "t"] + [c for c in ("B_RN", "t_RN", "B_R_wet", "t_R_wet", "B_RP_wet",
+                                                  "t_RP_wet", "B_RP_post", "t_RP_post",
+                                                  "shift_RP_post", "t_shift_RP_post",
+                                                  "shift_RN_post", "t_shift_RN_post") if c in eff]
     tab = eff[cols].assign(spec=pd.Categorical(eff.spec, order)).sort_values(["ecosystem", "model", "spec"])
     vt = val.pivot_table(index=["ecosystem", "spec"], columns="episode",
                          values=["observed_loss_pct", "predicted_loss_pct"]).round(1)
@@ -159,8 +198,14 @@ def main():
     print(vt.to_string(index=False))
 
     s = ["# v5 direct approach for palay: specification tests and validation (PROVISIONAL)\n",
-         "Built by `scripts/compare_direct_v5_rice.py`. Each variant changes one choice of the "
-         "base specification (v5 Eq. 4). `ic_minus_base` < 0 means a better fit after charging "
+         f"Built by `scripts/compare_direct_v5_rice.py --set {args.set}`. "
+         + ("Each variant changes one choice of the base specification (v5 Eq. 4). "
+            if args.set == "one_change" else
+            "Candidate = El Niño / La Niña split + season shift + spline trends + regional effects; "
+            "the break variants let the El Niño and La Niña effects shift from 2000, 2005 or 2010 on "
+            "(B_RP = El Niño effect in dry-season harvest quarters before the break; B_RP_post after; "
+            "shift_RP_post = the change, with its t). ")
+         + f"`ic_minus_base` (relative to `{first}`) < 0 means a better fit after charging "
          "for extra parameters (BIC for log-LS, deviance + k ln n for Poisson). El Niño effect = "
          "production-weighted national total effect of a sustained +1 °C RONI (log points; "
          "the El Niño part when El Niño and La Niña are split; a negative La Niña coefficient on "

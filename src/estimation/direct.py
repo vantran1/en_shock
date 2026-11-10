@@ -29,9 +29,13 @@ The choices v5 lists as still being tested are switches of `Spec` (defaults = Eq
            first_lag = 0 includes the current quarter);
 - pooling: total effects by 'region' (Eq. 4), by island group ('island': Luzon, Visayas,
            Mindanao) or one 'national' effect.
+Not on v5's list, suggested by the episode validation (1997-98 large losses, 2015-16 none):
+- effect_break: the RONI effects (El Nino and La Nina) shift from this year on, by a
+           common amount in all regions (test of whether the effect changed over time).
 
-Climate columns are named B<idx>_<group> (total effects) and S<idx>_wet (season shift),
-with idx R (RONI), RP / RN (El Nino / La Nina) or D (DMI).
+Climate columns are named B<idx>_<group> (total effects), S<idx>_wet (season shift) and
+S<idx>_post (shift after effect_break), with idx R (RONI), RP / RN (El Nino / La Nina) or
+D (DMI).
 
 Standard errors: Driscoll-Kraay (estimation.panel), conditional on the selected timing
 parameters; v5 computes the confidence intervals of the shocks by a block bootstrap over
@@ -65,6 +69,7 @@ class Spec:
     season: bool = False
     trend: str = "region"
     pooling: str = "region"
+    effect_break: int | None = None
 
 
 def binomial_weights(theta: float, K: int) -> np.ndarray:
@@ -130,6 +135,11 @@ def climate_design(p: pd.DataFrame, lagsR: np.ndarray, lagsD: np.ndarray, tR: fl
     if spec.season:
         wet = p["q"].isin(WET_QUARTERS).to_numpy(float)
         parts.append(pd.DataFrame({f"S{k}_wet": z * wet for k, z in terms.items()}, index=p.index))
+    if spec.effect_break is not None:
+        post = np.asarray(pd.PeriodIndex(p["period"].astype(str), freq="Q").year
+                          >= spec.effect_break, dtype=float)
+        parts.append(pd.DataFrame({f"S{k}_post": z * post for k, z in terms.items()
+                                   if k.startswith("R")}, index=p.index))
     return pd.concat(parts, axis=1)
 
 
@@ -175,13 +185,16 @@ def estimate(p, y, lagsR, lagsD, base, model, spec=Spec(), grid=THETA_GRID) -> d
 
 
 def national_effect(res: dict, X: pd.DataFrame, weights: pd.Series, idx: str,
-                    spec: Spec = Spec(), wet: bool = False):
+                    spec: Spec = Spec(), wet: bool = False, post: bool = False):
     """Production-weighted national total effect of index idx ('R', 'RP', 'RN', 'D'),
-    with its Driscoll-Kraay s.e.; wet=True adds the wet-season shift."""
+    with its Driscoll-Kraay s.e.; wet=True adds the wet-season shift, post=True the shift
+    after effect_break."""
     from estimation.panel import linear_combination
     g = weights.groupby(weights.index.map(lambda r: groups(
         pd.DataFrame({"region_code": [r]}), spec.pooling).iloc[0])).sum()
     w = {f"B{idx}_{k}": v for k, v in g.items() if f"B{idx}_{k}" in X.columns}
     if wet and f"S{idx}_wet" in X.columns:
         w[f"S{idx}_wet"] = 1.0
+    if post and f"S{idx}_post" in X.columns:
+        w[f"S{idx}_post"] = 1.0
     return linear_combination(res, w)
