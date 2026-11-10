@@ -1,0 +1,5 @@
+ecosystem,model,n,theta_R,theta_D,loss,theta_on_grid_edge,wR_lag1,wR_lag2,wR_lag3,wR_lag4,wD_lag1,wD_lag2,wD_lag3,wD_lag4,status
+irrigated,ppml,2496,0.75,0.45,20096.1899,False,0.4219,0.4219,0.1406,0.0156,0.0911,0.3341,0.4084,0.1664,provisional
+irrigated,ols,2496,0.75,0.95,240.0328,True,0.4219,0.4219,0.1406,0.0156,0.8574,0.1354,0.0071,0.0001,provisional
+rainfed,ppml,2496,0.7,0.05,13597.7465,True,0.343,0.441,0.189,0.027,0.0001,0.0071,0.1354,0.8574,provisional
+rainfed,ols,2450,0.75,0.95,872.3873,True,0.4219,0.4219,0.1406,0.0156,0.8574,0.1354,0.0071,0.0001,provisional
