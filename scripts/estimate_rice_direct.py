@@ -1,10 +1,15 @@
 """Direct model for rice, FIRST LOOK (unconstrained lags, no constrained lag profile yet).
+PROVISIONAL results: first-look specification on the 16 regions of methodology v5; the
+regional inputs are still provisional (ERA5 area weights instead of cropland weights,
+provinces without an ERA5 cell, see outputs/panel_validation.md). The direct model itself
+uses RONI, DMI and the hazard controls, not the ERA5 weather.
 
 For each ecosystem (irrigated, rainfed palay), region r, quarter t:
   E[Q_rt] = exp( a_{r,q} + d_{r,q} * t
                  + sum_{k=0..4} sum_{s in dry,wet} 1[season(t)=s] *
                      ( b+_{k,s} RONI+_{t-k} + b-_{k,s} RONI-_{t-k} + c_{k,s} DMI_{t-k} )
-                 + typhoon_t + typhoon_{t-1} + flood_t + flood_{t-1} )
+                 + typhoon_t + typhoon_{t-1} + flood_t + flood_{t-1}
+                 + earthquake_t + eruption_t + pinatubo1991_t )
 a_{r,q}: region x quarter effects; d_{r,q}: region x quarter trends; season = harvest
 season of quarter t (dry: Q1-Q2, wet: Q3-Q4); RONI+ = max(RONI,0), RONI- = min(RONI,0).
 Main: Poisson pseudo-ML (PPML). Check: OLS on log production (zero quarters dropped).
@@ -13,8 +18,10 @@ Driscoll-Kraay standard errors throughout. Sample 1987Q1-2025Q4.
 Typhoon control (main): exposure by PAGASA category, i.e. the rice-weighted share of the
 region with winds of at least tropical-storm / typhoon / super-typhoon strength, current
 and previous quarter (Alper's reply, Oct 2026: exposure, not damage, as in Eq. 2).
-Robustness: the Emanuel damage index instead, and no typhoon/flood controls at all
-(outputs/tables/rice_direct_control_compare.csv).
+Robustness: the Emanuel damage index instead, and no hazard controls at all
+(outputs/tables/rice_direct_control_compare.csv). Geophysical markers (v5 Eq. 4, X_rq):
+earthquake in the quarter (eq), eruption with VEI >= 3 (eruption), Pinatubo 1991.
+Measurement breaks come from estimation.setup (none for palay).
 
 Run:  python scripts/estimate_rice_direct.py
 """
@@ -30,19 +37,22 @@ import pandas as pd  # noqa: E402
 
 from climate.indices import lags, quarterly  # noqa: E402
 from estimation.panel import fit, linear_combination  # noqa: E402
+from estimation.setup import break_dummies  # noqa: E402
 
 PROC, TAB, FIG = ROOT / "data/processed", ROOT / "outputs/tables", ROOT / "outputs/figures"
 K = 4
 SEASONS = {1: "dry", 2: "dry", 3: "wet", 4: "wet"}
 TY_CATS = ["ty_share_ts", "ty_share_ty", "ty_share_sty"]
 FLOOD = ["flood_share", "flood_share_lag1"]
+GEO = ["eq", "eruption", "pinatubo_1991"]
 CONTROL_SETS = {
-    "category": TY_CATS + [f"{c}_lag1" for c in TY_CATS] + FLOOD,  # main
-    "damage_index": ["damage_index", "damage_index_lag1"] + FLOOD,
+    "category": TY_CATS + [f"{c}_lag1" for c in TY_CATS] + FLOOD + GEO,  # main
+    "damage_index": ["damage_index", "damage_index_lag1"] + FLOOD + GEO,
     "none": [],
 }
+STATUS = "provisional"
 CONTROLS = CONTROL_SETS["category"]
-TY_COLS = sorted({c for v in CONTROL_SETS.values() for c in v} - set(FLOOD))
+TY_COLS = sorted({c for v in CONTROL_SETS.values() for c in v} - set(FLOOD) - set(GEO))
 EPISODES = {"1997-98": ("1997Q2", "1998Q4"), "2015-16": ("2015Q2", "2016Q4"),
             "2023-24": ("2023Q2", "2024Q4")}
 BLUE, ORANGE, INK, MUTED = "#2a78d6", "#eb6834", "#0b0b0b", "#52514e"
@@ -64,6 +74,9 @@ def build(ecosystem):
     keys = ["ecosystem", "region_code", "period"]
     p = (p.merge(ty[keys + TY_COLS], on=keys)
           .merge(fl[keys + ["flood_share", "flood_share_lag1"]], on=keys))
+    geo = pd.read_csv(PROC / "geophysical_region_quarter.csv")
+    p = p.merge(geo[["region_code", "period"] + GEO], on=["region_code", "period"], how="left")
+    p[GEO] = p[GEO].fillna(0)
     c = climate_terms()
     p = p.merge(c, left_on="period", right_index=True)
     per = pd.PeriodIndex(p.period, freq="Q")
@@ -82,7 +95,7 @@ def design(p, clim_cols, controls=CONTROLS):
         d = (p.season == s).astype(float)
         for c in clim_cols:
             clim[f"{c}_{s}"] = p[c] * d
-    X = pd.concat([pd.DataFrame(clim), p[controls], fe, tr], axis=1)
+    X = pd.concat([pd.DataFrame(clim), p[controls], break_dummies(p, "palay"), fe, tr], axis=1)
     return X
 
 
@@ -136,7 +149,7 @@ def compare_controls():
                         rows.append(dict(ecosystem=eco, model=model, season=s, term=term,
                                          controls=name, est=est, se=se))
     t = pd.DataFrame(rows)
-    t.round(4).to_csv(TAB / "rice_direct_control_compare.csv", index=False)
+    t.assign(status=STATUS).round(4).to_csv(TAB / "rice_direct_control_compare.csv", index=False)
     print("\nEl Nino / La Nina, sum of lags 0-4, by control set:")
     print(t.pivot_table(index=["ecosystem", "model", "term", "season"], columns="controls",
                         values="est")[list(CONTROL_SETS)].round(3).to_string())
@@ -179,9 +192,9 @@ def main():
     tab = pd.DataFrame(rows)
     tab["t"] = tab.est / tab.se
     tab["pct_effect_of_+1C"] = (np.exp(tab.est) - 1) * 100
-    tab.round(4).to_csv(TAB / "rice_direct_first_look.csv", index=False)
+    tab.assign(status=STATUS).round(4).to_csv(TAB / "rice_direct_first_look.csv", index=False)
     prof = pd.DataFrame(profiles)
-    prof.round(4).to_csv(TAB / "rice_direct_lag_profile.csv", index=False)
+    prof.assign(status=STATUS).round(4).to_csv(TAB / "rice_direct_lag_profile.csv", index=False)
 
     pd.set_option("display.width", 200, "display.max_rows", 100)
     show = tab[tab.term.str.startswith(("El", "La", "DMI"))].pivot_table(
@@ -200,7 +213,7 @@ def main():
     yr = L.groupby(L.index.year)[["actual", "cf"]].sum()
     yr["implied_loss_pct"] = (1 - yr.actual / yr.cf) * 100
     yr["actual_change_pct"] = yr.actual.pct_change() * 100
-    L.round(2).to_csv(TAB / "rice_direct_implied_losses.csv")
+    L.assign(status=STATUS).round(2).to_csv(TAB / "rice_direct_implied_losses.csv")
     print("\nImplied national El Nino loss, Poisson (% of production without El Nino):")
     for ep, (a, b) in EPISODES.items():
         print(f"  {ep}: " + ", ".join(f"{q}: {v:.1f}%" for q, v in
@@ -226,7 +239,8 @@ def main():
         ax.grid(axis="y", color="#d9d8d4", lw=0.5)
     axes[0].set_ylabel("effect of +1 °C El Niño on log production", fontsize=8, color=MUTED)
     axes[0].legend(frameon=False, fontsize=8)
-    fig.suptitle("Direct model, first look: El Niño lag coefficients (Poisson, 95% Driscoll–Kraay)",
+    fig.suptitle("PROVISIONAL. Direct model, first look, 16 regions: El Niño lag coefficients "
+                 "(Poisson, 95% Driscoll–Kraay)",
                  fontsize=10, color=INK)
     fig.savefig(FIG / "rice_direct_lag_profile.png", dpi=150, facecolor="white")
     plt.close(fig)

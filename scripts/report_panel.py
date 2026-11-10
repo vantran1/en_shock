@@ -105,7 +105,11 @@ def main():
       "are 0, the NIR row has the values), the NIR, VI and VII totals equal the sums of their "
       "provinces, Bacolod City reports only 3-10 t from 2026, and neither Negros Oriental nor "
       "the rest of VI rises. It looks like a level change in the series rather than drought; "
-      "the data are left as published.\n")
+      "the data are left as published.\n\n"
+      "Treatment (in the estimation, not the data; `src/estimation/setup.py`): a PSA "
+      "measurement break, with a level dummy for Region VI corn from 2024Q1 in the corn "
+      "models, and a check version in which VI corn ends in 2023Q4. The question stays open "
+      "with PSA.\n")
     w(md(t["vi_vii_break"], "{:,.1f}"))
     w("")
 
@@ -185,8 +189,9 @@ def main():
     w("The rice panel (`rice_region_quarter.csv`), the typhoon and flood controls and "
       "`province_region_map.csv` were rebuilt on the same 16 regions (codes as in Van's "
       "boundary file: R01–R13, R04A, CAR, MIMAROPA, BARMM). `rice_barmm_unallocated.csv` is "
-      "replaced by `barmm_cluster_residual.csv` (all crops). The first rice estimation "
-      "(`outputs/tables/rice_direct_*`) still uses the old 17 regions and has to be re-run.\n")
+      "replaced by `barmm_cluster_residual.csv` (all crops). The first-look rice estimation "
+      "(`outputs/tables/rice_direct_*`) was re-run on the 16 regions, with the earthquake and "
+      "eruption markers added to the controls; its results are provisional.\n")
 
     OUT.write_text("\n".join(s))
     print(f"wrote {OUT}")

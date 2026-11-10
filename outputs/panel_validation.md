@@ -114,6 +114,8 @@ Annual production (palay and corn in t, VR and PF in billion kcal) of VI and VII
 
 One series to ask PSA about: **Negros Occidental corn** halves in 2024 (-49%) and falls again in 2025, from the year it is reported under NIR. The fall is not concentrated in the El Niño months: corn is -25% in 2024H1 against 2023H1 (country -7%), but -61% in 2024H2 (country +0.4%; 2024Q3 -81%) and still -50% / -68% in the two halves of 2025. It is mostly area harvested (69,000 ha in 2019-2022, 34,000 in 2024, 27,000 in 2025), with yield only slightly lower (2.3 to 2.0 and 1.9 t/ha); white and yellow corn both fall, yellow more. The missing output does not appear elsewhere: Negros Occidental has data in every quarter (its 2024-2025 rows under VI are 0, the NIR row has the values), the NIR, VI and VII totals equal the sums of their provinces, Bacolod City reports only 3-10 t from 2026, and neither Negros Oriental nor the rest of VI rises. It looks like a level change in the series rather than drought; the data are left as published.
 
+Treatment (in the estimation, not the data; `src/estimation/setup.py`): a PSA measurement break, with a level dummy for Region VI corn from 2024Q1 in the corn models, and a check version in which VI corn ends in 2023Q4. The question stays open with PSA.
+
 | series | unit | 2021 | 2022 | 2023 | 2024 | 2025 | pct_change_2023_2024 |
 |---|---|---|---|---|---|---|---|
 | corn | Negros Occidental | 159,888.0 | 155,196.0 | 136,091.0 | 69,977.1 | 51,840.0 | -48.6 |
@@ -299,4 +301,4 @@ GVP eruption list joined to the volcano list; Philippines, VEI >= 3, start year 
 
 ## 11. Changes to earlier outputs
 
-The rice panel (`rice_region_quarter.csv`), the typhoon and flood controls and `province_region_map.csv` were rebuilt on the same 16 regions (codes as in Van's boundary file: R01–R13, R04A, CAR, MIMAROPA, BARMM). `rice_barmm_unallocated.csv` is replaced by `barmm_cluster_residual.csv` (all crops). The first rice estimation (`outputs/tables/rice_direct_*`) still uses the old 17 regions and has to be re-run.
+The rice panel (`rice_region_quarter.csv`), the typhoon and flood controls and `province_region_map.csv` were rebuilt on the same 16 regions (codes as in Van's boundary file: R01–R13, R04A, CAR, MIMAROPA, BARMM). `rice_barmm_unallocated.csv` is replaced by `barmm_cluster_residual.csv` (all crops). The first-look rice estimation (`outputs/tables/rice_direct_*`) was re-run on the 16 regions, with the earthquake and eruption markers added to the controls; its results are provisional.
