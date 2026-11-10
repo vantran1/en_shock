@@ -53,7 +53,7 @@ sys.path.insert(0, str(ROOT / "scripts"))
 import numpy as np  # noqa: E402
 import pandas as pd  # noqa: E402
 
-import estimate_direct_v5_rice as m  # noqa: E402
+import estimate_direct_rice as m  # noqa: E402
 from estimation.direct import (Spec, base_design, climate_design, estimate,  # noqa: E402
                                is_climate, national_effect)
 from estimation.setup import break_dummies  # noqa: E402

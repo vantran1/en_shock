@@ -99,6 +99,17 @@ copied into or committed to the repo (`*.nc` is gitignored except the land-sea m
 
 Validation report: `outputs/panel_validation.md` (`scripts/report_panel.py`).
 
+### Direct model (agriculture)
+
+The official specification in this repo is methodology v5, Eqs. (4)-(6), with the changes
+the palay data support: El Niño and La Niña with separate effects, smooth regional trends,
+effects that shift from 2000 on, and a wet-season shift (Poisson main, log-LS check).
+Code: `src/estimation/direct.py`; palay: `scripts/estimate_direct_rice.py` (results in
+`outputs/tables/direct_rice_*`, provisional). Specification tests and leave-one-episode-out
+validation: `scripts/compare_direct_v5_rice.py`. Benchmarks: the v5 base specification and
+the free-lag first look (`scripts/estimate_rice_direct.py`). The changes to the v5 text are
+proposed to Alper and not yet agreed.
+
 ### Rebuilding from scratch
 
 ```bash
