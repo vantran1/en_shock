@@ -1,13 +1,14 @@
 """Rice data preparation (no estimation): regional quarterly irrigated and rainfed palay,
-production and area, 1987Q1-2025Q4, rebuilt from PSA provincial data on fixed current
-regional boundaries (Alper's reply: "the regional series should be rebuilt from
-provincial data, using the same boundaries throughout").
+production and area, 1987Q1-2025Q4, rebuilt from PSA provincial data on the 16 fixed
+regions of methodology v5 (pre-2024 structure: NIR provinces in VI and VII, Sulu in
+BARMM, Eight Cluster Areas in XII; see agriculture.regions and agriculture.rebuild).
+The full crop panel (palay, corn, VR, PF, to 2026Q2) is scripts/build_crop_panel.py; this
+script keeps the rice-specific checks and figures used by the direct model.
 
 Run:  python scripts/build_rice_panel.py
 
 Writes
 - data/processed/rice_region_quarter.csv     ecosystem x region x quarter panel
-- data/processed/rice_barmm_unallocated.csv  BARMM Eight Cluster Areas (2023+, no province row)
 - data/processed/province_region_map.csv     the fixed mapping
 - outputs/tables/rice_*.csv                   boundary changes and data-quality checks
 - outputs/figures/rice_log_production_by_region.png, rice_crop_calendar.png
@@ -24,8 +25,9 @@ import pandas as pd  # noqa: E402
 from matplotlib.colors import LinearSegmentedColormap  # noqa: E402
 
 from agriculture.psa_openstat import read_palay_corn  # noqa: E402
-from agriculture.regions import (BOUNDARY_CHANGES, CODE_OF_LABEL, REGIONS,  # noqa: E402
-                                 assign_region, mapping_table)
+from agriculture.rebuild import rebuild  # noqa: E402
+from agriculture.regions import (BOUNDARY_CHANGES, REGIONS, code_of_published,  # noqa: E402
+                                 mapping_table)
 
 PROC, TAB, FIG = ROOT / "data/processed", ROOT / "outputs/tables", ROOT / "outputs/figures"
 for d in (PROC, TAB, FIG):
@@ -39,27 +41,7 @@ BLUE, ORANGE = "#2a78d6", "#eb6834"  # validated categorical slots 1-2
 INK, MUTED, BAND, GRID = "#0b0b0b", "#52514e", "#e6e5e1", "#d9d8d4"
 
 
-def rebuild(prov):
-    """Sum provinces into fixed regions. min_count=1: a region-quarter is missing only if
-    all its provinces are; n_prov_reporting = provinces with data."""
-    g = prov.groupby(["ecosystem", "region_code", "period"])
-    out = g[VALUES].sum(min_count=1)
-    out["n_prov_reporting"] = g["production_t"].count()
-    out = out.reset_index()
-    out.insert(2, "region", out["region_code"].map(REGIONS))
-    return out
-
-
-def unallocated(reg_pub, prov):
-    """Published region total minus the provinces listed under it (should be 0)."""
-    ps = prov.groupby(["ecosystem", "region_published", "period"])[VALUES].sum(min_count=1)
-    rp = reg_pub.set_index(["ecosystem", "geo", "period"])[VALUES]
-    ps.index = ps.index.set_names(rp.index.names)
-    u = (rp - ps.reindex(rp.index)).reset_index().rename(columns={"geo": "region_published"})
-    return u[(u[VALUES].abs() > 0.5).any(axis=1)].reset_index(drop=True)
-
-
-def checks(df, prov, panel, unalloc):
+def checks(df, prov, panel, resid):
     qc = {}
     full = pd.MultiIndex.from_product(
         [list(ECOSYSTEMS.values()), list(REGIONS), pd.period_range(START, END, freq="Q")],
@@ -101,7 +83,7 @@ def checks(df, prov, panel, unalloc):
     qc["ecosystem_additivity"] = gap[(gap > 1).any(axis=1)].reset_index()
 
     # rebuilt vs PSA published regions
-    reg_pub = df[df["level"] == "region"].assign(region_code=lambda d: d.geo.map(CODE_OF_LABEL))
+    reg_pub = df[df["level"] == "region"].assign(region_code=lambda d: code_of_published(d.geo))
     cmp = panel.merge(reg_pub[["ecosystem", "region_code", "period"] + VALUES],
                       on=["ecosystem", "region_code", "period"], how="outer",
                       suffixes=("_rebuilt", "_published"))
@@ -115,31 +97,21 @@ def checks(df, prov, panel, unalloc):
     span = d.groupby(["ecosystem", "region_code"])["period"].agg(["min", "max"]).reset_index()
     qc["vs_published_regions"] = summ.merge(span, how="left").rename(
         columns={"min": "first_differs", "max": "last_differs"})
-    # differences must cancel within groups of regions that swapped provinces
-    grp = {"VI": "VI+VII+NIR", "VII": "VI+VII+NIR", "NIR": "VI+VII+NIR",
-           "IX": "IX+BARMM", "BARMM": "IX+BARMM"}
+    # differences must cancel within groups of regions that swapped provinces or the
+    # Eight Cluster Areas (moved from the published BARMM total to XII)
+    grp = {"R06": "VI+VII+NIR", "R07": "VI+VII+NIR", "NIR": "VI+VII+NIR",
+           "R09": "IX+BARMM+XII", "BARMM": "IX+BARMM+XII", "R12": "IX+BARMM+XII"}
     net = (d.assign(group=d.region_code.map(grp)).dropna(subset=["group"])
            .groupby(["ecosystem", "group", "period"])["production_t_diff"].sum())
-    un = unalloc.groupby(["ecosystem", "period"])["production_t"].sum()
-    net = net.reset_index()
-    net["minus_barmm_unallocated"] = net["production_t_diff"] + np.where(
-        net["group"] == "IX+BARMM",
-        un.reindex(list(zip(net.ecosystem, net.period))).fillna(0).values, 0)
-    qc["swap_netting"] = (net.groupby(["ecosystem", "group"])
-                          [["production_t_diff", "minus_barmm_unallocated"]]
-                          .agg(lambda s: s.abs().max()).reset_index()
-                          .rename(columns={"production_t_diff": "max_abs_net_diff_t",
-                                           "minus_barmm_unallocated":
-                                               "max_abs_net_diff_excl_unallocated_t"}))
+    qc["swap_netting"] = (net.abs().groupby(["ecosystem", "group"]).max()
+                          .rename("max_abs_net_diff_t").reset_index())
 
-    # national: rebuilt sum (+ unallocated) vs PHILIPPINES row
+    # national: rebuilt 16 regions vs PHILIPPINES row
     nat = df[df["level"] == "national"].set_index(["ecosystem", "period"])[VALUES]
     tot = panel.groupby(["ecosystem", "period"])[VALUES].sum(min_count=1)
-    ua = unalloc.groupby(["ecosystem", "period"])[VALUES].sum().reindex(tot.index).fillna(0)
-    qc["vs_national"] = pd.concat(
-        [(tot / nat - 1).abs().groupby("ecosystem").max().add_prefix("max_rel_gap_panel_"),
-         ((tot + ua) / nat - 1).abs().groupby("ecosystem").max()
-         .add_prefix("max_rel_gap_panel+unallocated_")], axis=1).reset_index()
+    qc["vs_national"] = ((tot / nat - 1).abs().groupby("ecosystem").max()
+                         .add_prefix("max_rel_gap_").reset_index())
+    qc["barmm_residual"] = resid[(resid[VALUES].abs() > 0.5).any(axis=1)]
 
     # sudden level breaks in annual totals: |change in log| > 0.4 (+49% / -33%)
     ann = (panel.assign(year=panel.period.dt.year)
@@ -193,7 +165,7 @@ def plot_log_production(panel):
     fig.supylabel("log production (t), quarterly; gaps = zero production", fontsize=9,
                   color=MUTED)
     fig.suptitle("Palay production by region and ecosystem, 1987–2025 "
-                 "(fixed current boundaries)", fontsize=11, color=INK)
+                 "(16 regions, pre-2024 boundaries)", fontsize=11, color=INK)
     fig.savefig(FIG / "rice_log_production_by_region.png", dpi=150, facecolor="white")
     plt.close(fig)
 
@@ -239,18 +211,14 @@ def main():
     df = read_palay_corn()
     df = df[df["crop"].isin(ECOSYSTEMS) & df["period"].between(START, END)].copy()
     df["ecosystem"] = df["crop"].map(ECOSYSTEMS)
-    prov = df[df["level"] == "province"].copy()
-    prov["region_code"] = assign_region(prov["geo"])
-    panel = rebuild(prov)
-    unalloc = unallocated(df[df["level"] == "region"], prov)
+    prov = df[df["level"] == "province"]
+    panel, resid = rebuild(df, VALUES, ["ecosystem"])
 
     panel.to_csv(PROC / "rice_region_quarter.csv", index=False)
-    unalloc.to_csv(PROC / "rice_barmm_unallocated.csv", index=False)
     mapping_table().to_csv(PROC / "province_region_map.csv", index=False)
     BOUNDARY_CHANGES.to_csv(TAB / "rice_boundary_changes.csv", index=False)
 
-    qc = checks(df, prov, panel, unalloc)
-    qc["unallocated"] = unalloc
+    qc = checks(df, prov, panel, resid)
     plot_log_production(panel)
     qc["calendar_drift"] = plot_crop_calendar(panel)
     for k, v in qc.items():

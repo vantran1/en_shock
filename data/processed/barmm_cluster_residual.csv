@@ -1,0 +1,2137 @@
+crop,period,production_t,area_ha,applied,series
+Corn,1987Q1,0,0,False,corn
+Corn,1987Q2,0,0,False,corn
+Corn,1987Q3,0,0,False,corn
+Corn,1987Q4,0,0,False,corn
+Corn,1988Q1,0,0,False,corn
+Corn,1988Q2,0,0,False,corn
+Corn,1988Q3,0,0,False,corn
+Corn,1988Q4,0,0,False,corn
+Corn,1989Q1,0,0,False,corn
+Corn,1989Q2,0,0,False,corn
+Corn,1989Q3,0,0,False,corn
+Corn,1989Q4,0,0,False,corn
+Corn,1990Q1,0,0,False,corn
+Corn,1990Q2,0,0,False,corn
+Corn,1990Q3,0,0,False,corn
+Corn,1990Q4,0,0,False,corn
+Corn,1991Q1,0,0,False,corn
+Corn,1991Q2,0,0,False,corn
+Corn,1991Q3,0,0,False,corn
+Corn,1991Q4,0,0,False,corn
+Corn,1992Q1,0,0,False,corn
+Corn,1992Q2,0,0,False,corn
+Corn,1992Q3,0,0,False,corn
+Corn,1992Q4,0,0,False,corn
+Corn,1993Q1,0,0,False,corn
+Corn,1993Q2,0,0,False,corn
+Corn,1993Q3,0,0,False,corn
+Corn,1993Q4,0,0,False,corn
+Corn,1994Q1,0,0,False,corn
+Corn,1994Q2,0,0,False,corn
+Corn,1994Q3,0,0,False,corn
+Corn,1994Q4,0,0,False,corn
+Corn,1995Q1,0,0,False,corn
+Corn,1995Q2,0,0,False,corn
+Corn,1995Q3,0,0,False,corn
+Corn,1995Q4,0,0,False,corn
+Corn,1996Q1,0,0,False,corn
+Corn,1996Q2,0,0,False,corn
+Corn,1996Q3,0,0,False,corn
+Corn,1996Q4,0,0,False,corn
+Corn,1997Q1,0,0,False,corn
+Corn,1997Q2,0,0,False,corn
+Corn,1997Q3,0,0,False,corn
+Corn,1997Q4,0,0,False,corn
+Corn,1998Q1,0,0,False,corn
+Corn,1998Q2,0,0,False,corn
+Corn,1998Q3,0,0,False,corn
+Corn,1998Q4,0,0,False,corn
+Corn,1999Q1,0,0,False,corn
+Corn,1999Q2,0,0,False,corn
+Corn,1999Q3,0,0,False,corn
+Corn,1999Q4,0,0,False,corn
+Corn,2000Q1,0,0,False,corn
+Corn,2000Q2,0,0,False,corn
+Corn,2000Q3,0,0,False,corn
+Corn,2000Q4,0,0,False,corn
+Corn,2001Q1,0,0,False,corn
+Corn,2001Q2,0,0,False,corn
+Corn,2001Q3,0,0,False,corn
+Corn,2001Q4,0,0,False,corn
+Corn,2002Q1,0,0,False,corn
+Corn,2002Q2,0,0,False,corn
+Corn,2002Q3,0,0,False,corn
+Corn,2002Q4,0,0,False,corn
+Corn,2003Q1,0,0,False,corn
+Corn,2003Q2,0,0,False,corn
+Corn,2003Q3,0,0,False,corn
+Corn,2003Q4,0,0,False,corn
+Corn,2004Q1,0,0,False,corn
+Corn,2004Q2,0,0,False,corn
+Corn,2004Q3,0,0,False,corn
+Corn,2004Q4,0,0,False,corn
+Corn,2005Q1,0,0,False,corn
+Corn,2005Q2,0,0,False,corn
+Corn,2005Q3,0,0,False,corn
+Corn,2005Q4,0,0,False,corn
+Corn,2006Q1,0,0,False,corn
+Corn,2006Q2,0,0,False,corn
+Corn,2006Q3,0,0,False,corn
+Corn,2006Q4,0,0,False,corn
+Corn,2007Q1,0,0,False,corn
+Corn,2007Q2,0,0,False,corn
+Corn,2007Q3,0,0,False,corn
+Corn,2007Q4,0,0,False,corn
+Corn,2008Q1,0,0,False,corn
+Corn,2008Q2,0,0,False,corn
+Corn,2008Q3,0,0,False,corn
+Corn,2008Q4,0,0,False,corn
+Corn,2009Q1,0,0,False,corn
+Corn,2009Q2,0,0,False,corn
+Corn,2009Q3,0,0,False,corn
+Corn,2009Q4,0,0,False,corn
+Corn,2010Q1,0,0,False,corn
+Corn,2010Q2,0,0,False,corn
+Corn,2010Q3,0,0,False,corn
+Corn,2010Q4,0,0,False,corn
+Corn,2011Q1,0,0,False,corn
+Corn,2011Q2,0,0,False,corn
+Corn,2011Q3,0,0,False,corn
+Corn,2011Q4,0,0,False,corn
+Corn,2012Q1,0,0,False,corn
+Corn,2012Q2,0,0,False,corn
+Corn,2012Q3,0,0,False,corn
+Corn,2012Q4,0,0,False,corn
+Corn,2013Q1,0,0,False,corn
+Corn,2013Q2,0,0,False,corn
+Corn,2013Q3,0,0,False,corn
+Corn,2013Q4,0,0,False,corn
+Corn,2014Q1,0,0,False,corn
+Corn,2014Q2,0,0,False,corn
+Corn,2014Q3,0,0,False,corn
+Corn,2014Q4,0,0,False,corn
+Corn,2015Q1,0,0,False,corn
+Corn,2015Q2,0,0,False,corn
+Corn,2015Q3,0,0,False,corn
+Corn,2015Q4,0,0,False,corn
+Corn,2016Q1,0,0,False,corn
+Corn,2016Q2,0,0,False,corn
+Corn,2016Q3,0,0,False,corn
+Corn,2016Q4,0,0,False,corn
+Corn,2017Q1,0,0,False,corn
+Corn,2017Q2,0,0,False,corn
+Corn,2017Q3,0,0,False,corn
+Corn,2017Q4,0,0,False,corn
+Corn,2018Q1,0,0,False,corn
+Corn,2018Q2,0,0,False,corn
+Corn,2018Q3,0,0,False,corn
+Corn,2018Q4,0,0,False,corn
+Corn,2019Q1,0,0,False,corn
+Corn,2019Q2,-2.91038e-11,0,False,corn
+Corn,2019Q3,0,0,False,corn
+Corn,2019Q4,0,0,False,corn
+Corn,2020Q1,0,0,False,corn
+Corn,2020Q2,0,-7.27596e-12,False,corn
+Corn,2020Q3,5.82077e-11,0,False,corn
+Corn,2020Q4,0,-1.45519e-11,False,corn
+Corn,2021Q1,0,0,False,corn
+Corn,2021Q2,-2.91038e-11,0,False,corn
+Corn,2021Q3,0,0,False,corn
+Corn,2021Q4,-2.91038e-11,0,False,corn
+Corn,2022Q1,0,0,False,corn
+Corn,2022Q2,2.91038e-11,0,False,corn
+Corn,2022Q3,-5.82077e-11,0,False,corn
+Corn,2022Q4,0,0,False,corn
+Corn,2023Q1,8663.2,6469.9,True,corn
+Corn,2023Q2,15517,5565,True,corn
+Corn,2023Q3,18068,6443,True,corn
+Corn,2023Q4,24218,8207,True,corn
+Corn,2024Q1,17300,7567,True,corn
+Corn,2024Q2,11701,5451,True,corn
+Corn,2024Q3,15010,5096,True,corn
+Corn,2024Q4,14122,5309,True,corn
+Corn,2025Q1,20757,6617,True,corn
+Corn,2025Q2,14413,4651,True,corn
+Corn,2025Q3,17080,5370,True,corn
+Corn,2025Q4,15986,5118,True,corn
+Corn,2026Q1,20850,6648,True,corn
+Corn,2026Q2,18808,4676,True,corn
+Irrigated Palay,1987Q1,0,0,False,palay_irrigated
+Irrigated Palay,1987Q2,0,0,False,palay_irrigated
+Irrigated Palay,1987Q3,0,0,False,palay_irrigated
+Irrigated Palay,1987Q4,0,0,False,palay_irrigated
+Irrigated Palay,1988Q1,0,0,False,palay_irrigated
+Irrigated Palay,1988Q2,0,0,False,palay_irrigated
+Irrigated Palay,1988Q3,0,0,False,palay_irrigated
+Irrigated Palay,1988Q4,0,0,False,palay_irrigated
+Irrigated Palay,1989Q1,0,0,False,palay_irrigated
+Irrigated Palay,1989Q2,0,0,False,palay_irrigated
+Irrigated Palay,1989Q3,0,0,False,palay_irrigated
+Irrigated Palay,1989Q4,0,0,False,palay_irrigated
+Irrigated Palay,1990Q1,0,0,False,palay_irrigated
+Irrigated Palay,1990Q2,0,0,False,palay_irrigated
+Irrigated Palay,1990Q3,0,0,False,palay_irrigated
+Irrigated Palay,1990Q4,0,0,False,palay_irrigated
+Irrigated Palay,1991Q1,0,0,False,palay_irrigated
+Irrigated Palay,1991Q2,0,0,False,palay_irrigated
+Irrigated Palay,1991Q3,0,0,False,palay_irrigated
+Irrigated Palay,1991Q4,0,0,False,palay_irrigated
+Irrigated Palay,1992Q1,0,0,False,palay_irrigated
+Irrigated Palay,1992Q2,0,0,False,palay_irrigated
+Irrigated Palay,1992Q3,0,0,False,palay_irrigated
+Irrigated Palay,1992Q4,0,0,False,palay_irrigated
+Irrigated Palay,1993Q1,0,0,False,palay_irrigated
+Irrigated Palay,1993Q2,0,0,False,palay_irrigated
+Irrigated Palay,1993Q3,0,0,False,palay_irrigated
+Irrigated Palay,1993Q4,0,0,False,palay_irrigated
+Irrigated Palay,1994Q1,0,0,False,palay_irrigated
+Irrigated Palay,1994Q2,0,0,False,palay_irrigated
+Irrigated Palay,1994Q3,0,0,False,palay_irrigated
+Irrigated Palay,1994Q4,0,0,False,palay_irrigated
+Irrigated Palay,1995Q1,0,0,False,palay_irrigated
+Irrigated Palay,1995Q2,0,0,False,palay_irrigated
+Irrigated Palay,1995Q3,0,0,False,palay_irrigated
+Irrigated Palay,1995Q4,0,0,False,palay_irrigated
+Irrigated Palay,1996Q1,0,0,False,palay_irrigated
+Irrigated Palay,1996Q2,0,0,False,palay_irrigated
+Irrigated Palay,1996Q3,0,0,False,palay_irrigated
+Irrigated Palay,1996Q4,0,0,False,palay_irrigated
+Irrigated Palay,1997Q1,0,0,False,palay_irrigated
+Irrigated Palay,1997Q2,0,0,False,palay_irrigated
+Irrigated Palay,1997Q3,0,0,False,palay_irrigated
+Irrigated Palay,1997Q4,0,0,False,palay_irrigated
+Irrigated Palay,1998Q1,0,0,False,palay_irrigated
+Irrigated Palay,1998Q2,0,0,False,palay_irrigated
+Irrigated Palay,1998Q3,0,0,False,palay_irrigated
+Irrigated Palay,1998Q4,0,0,False,palay_irrigated
+Irrigated Palay,1999Q1,0,0,False,palay_irrigated
+Irrigated Palay,1999Q2,0,0,False,palay_irrigated
+Irrigated Palay,1999Q3,0,0,False,palay_irrigated
+Irrigated Palay,1999Q4,0,0,False,palay_irrigated
+Irrigated Palay,2000Q1,0,0,False,palay_irrigated
+Irrigated Palay,2000Q2,0,0,False,palay_irrigated
+Irrigated Palay,2000Q3,0,0,False,palay_irrigated
+Irrigated Palay,2000Q4,0,0,False,palay_irrigated
+Irrigated Palay,2001Q1,0,0,False,palay_irrigated
+Irrigated Palay,2001Q2,0,0,False,palay_irrigated
+Irrigated Palay,2001Q3,0,0,False,palay_irrigated
+Irrigated Palay,2001Q4,0,0,False,palay_irrigated
+Irrigated Palay,2002Q1,0,0,False,palay_irrigated
+Irrigated Palay,2002Q2,0,0,False,palay_irrigated
+Irrigated Palay,2002Q3,0,0,False,palay_irrigated
+Irrigated Palay,2002Q4,0,0,False,palay_irrigated
+Irrigated Palay,2003Q1,0,0,False,palay_irrigated
+Irrigated Palay,2003Q2,0,0,False,palay_irrigated
+Irrigated Palay,2003Q3,0,0,False,palay_irrigated
+Irrigated Palay,2003Q4,0,0,False,palay_irrigated
+Irrigated Palay,2004Q1,0,0,False,palay_irrigated
+Irrigated Palay,2004Q2,0,0,False,palay_irrigated
+Irrigated Palay,2004Q3,0,0,False,palay_irrigated
+Irrigated Palay,2004Q4,0,0,False,palay_irrigated
+Irrigated Palay,2005Q1,0,0,False,palay_irrigated
+Irrigated Palay,2005Q2,0,0,False,palay_irrigated
+Irrigated Palay,2005Q3,0,0,False,palay_irrigated
+Irrigated Palay,2005Q4,0,0,False,palay_irrigated
+Irrigated Palay,2006Q1,0,0,False,palay_irrigated
+Irrigated Palay,2006Q2,0,0,False,palay_irrigated
+Irrigated Palay,2006Q3,0,0,False,palay_irrigated
+Irrigated Palay,2006Q4,0,0,False,palay_irrigated
+Irrigated Palay,2007Q1,0,0,False,palay_irrigated
+Irrigated Palay,2007Q2,0,0,False,palay_irrigated
+Irrigated Palay,2007Q3,0,0,False,palay_irrigated
+Irrigated Palay,2007Q4,0,0,False,palay_irrigated
+Irrigated Palay,2008Q1,0,0,False,palay_irrigated
+Irrigated Palay,2008Q2,0,0,False,palay_irrigated
+Irrigated Palay,2008Q3,0,0,False,palay_irrigated
+Irrigated Palay,2008Q4,0,0,False,palay_irrigated
+Irrigated Palay,2009Q1,0,0,False,palay_irrigated
+Irrigated Palay,2009Q2,0,0,False,palay_irrigated
+Irrigated Palay,2009Q3,0,0,False,palay_irrigated
+Irrigated Palay,2009Q4,0,0,False,palay_irrigated
+Irrigated Palay,2010Q1,0,0,False,palay_irrigated
+Irrigated Palay,2010Q2,0,0,False,palay_irrigated
+Irrigated Palay,2010Q3,0,0,False,palay_irrigated
+Irrigated Palay,2010Q4,0,0,False,palay_irrigated
+Irrigated Palay,2011Q1,0,0,False,palay_irrigated
+Irrigated Palay,2011Q2,0,0,False,palay_irrigated
+Irrigated Palay,2011Q3,0,0,False,palay_irrigated
+Irrigated Palay,2011Q4,0,0,False,palay_irrigated
+Irrigated Palay,2012Q1,0,0,False,palay_irrigated
+Irrigated Palay,2012Q2,0,0,False,palay_irrigated
+Irrigated Palay,2012Q3,0,0,False,palay_irrigated
+Irrigated Palay,2012Q4,0,0,False,palay_irrigated
+Irrigated Palay,2013Q1,0,0,False,palay_irrigated
+Irrigated Palay,2013Q2,0,0,False,palay_irrigated
+Irrigated Palay,2013Q3,0,0,False,palay_irrigated
+Irrigated Palay,2013Q4,0,0,False,palay_irrigated
+Irrigated Palay,2014Q1,0,0,False,palay_irrigated
+Irrigated Palay,2014Q2,0,0,False,palay_irrigated
+Irrigated Palay,2014Q3,0,0,False,palay_irrigated
+Irrigated Palay,2014Q4,0,0,False,palay_irrigated
+Irrigated Palay,2015Q1,0,0,False,palay_irrigated
+Irrigated Palay,2015Q2,0,0,False,palay_irrigated
+Irrigated Palay,2015Q3,0,0,False,palay_irrigated
+Irrigated Palay,2015Q4,0,0,False,palay_irrigated
+Irrigated Palay,2016Q1,0,0,False,palay_irrigated
+Irrigated Palay,2016Q2,0,0,False,palay_irrigated
+Irrigated Palay,2016Q3,0,0,False,palay_irrigated
+Irrigated Palay,2016Q4,0,0,False,palay_irrigated
+Irrigated Palay,2017Q1,0,0,False,palay_irrigated
+Irrigated Palay,2017Q2,0,0,False,palay_irrigated
+Irrigated Palay,2017Q3,0,0,False,palay_irrigated
+Irrigated Palay,2017Q4,0,0,False,palay_irrigated
+Irrigated Palay,2018Q1,0,0,False,palay_irrigated
+Irrigated Palay,2018Q2,0,0,False,palay_irrigated
+Irrigated Palay,2018Q3,0,0,False,palay_irrigated
+Irrigated Palay,2018Q4,0,0,False,palay_irrigated
+Irrigated Palay,2019Q1,0,0,False,palay_irrigated
+Irrigated Palay,2019Q2,0,0,False,palay_irrigated
+Irrigated Palay,2019Q3,0,0,False,palay_irrigated
+Irrigated Palay,2019Q4,0,0,False,palay_irrigated
+Irrigated Palay,2020Q1,0,0,False,palay_irrigated
+Irrigated Palay,2020Q2,0,0,False,palay_irrigated
+Irrigated Palay,2020Q3,0,0,False,palay_irrigated
+Irrigated Palay,2020Q4,0,1.81899e-12,False,palay_irrigated
+Irrigated Palay,2021Q1,7.27596e-12,0,False,palay_irrigated
+Irrigated Palay,2021Q2,0,0,False,palay_irrigated
+Irrigated Palay,2021Q3,0,0,False,palay_irrigated
+Irrigated Palay,2021Q4,0,1.81899e-12,False,palay_irrigated
+Irrigated Palay,2022Q1,0,0,False,palay_irrigated
+Irrigated Palay,2022Q2,0,0,False,palay_irrigated
+Irrigated Palay,2022Q3,0,0,False,palay_irrigated
+Irrigated Palay,2022Q4,0,1.81899e-12,False,palay_irrigated
+Irrigated Palay,2023Q1,2173.27,1369.89,True,palay_irrigated
+Irrigated Palay,2023Q2,10462,3219,True,palay_irrigated
+Irrigated Palay,2023Q3,15890,5595,True,palay_irrigated
+Irrigated Palay,2023Q4,7221,2033,True,palay_irrigated
+Irrigated Palay,2024Q1,4734,1956,True,palay_irrigated
+Irrigated Palay,2024Q2,6793,2224,True,palay_irrigated
+Irrigated Palay,2024Q3,18849,5432,True,palay_irrigated
+Irrigated Palay,2024Q4,17621,4784,True,palay_irrigated
+Irrigated Palay,2025Q1,5379,2235,True,palay_irrigated
+Irrigated Palay,2025Q2,8638,2721,True,palay_irrigated
+Irrigated Palay,2025Q3,20160,5760,True,palay_irrigated
+Irrigated Palay,2025Q4,15083,4256,True,palay_irrigated
+Irrigated Palay,2026Q1,5652,2320,True,palay_irrigated
+Irrigated Palay,2026Q2,8642,2721,True,palay_irrigated
+Palay,1987Q1,0,0,False,palay
+Palay,1987Q2,0,0,False,palay
+Palay,1987Q3,0,0,False,palay
+Palay,1987Q4,0,0,False,palay
+Palay,1988Q1,0,0,False,palay
+Palay,1988Q2,0,0,False,palay
+Palay,1988Q3,0,0,False,palay
+Palay,1988Q4,0,0,False,palay
+Palay,1989Q1,0,0,False,palay
+Palay,1989Q2,0,0,False,palay
+Palay,1989Q3,0,0,False,palay
+Palay,1989Q4,0,0,False,palay
+Palay,1990Q1,0,0,False,palay
+Palay,1990Q2,0,0,False,palay
+Palay,1990Q3,0,0,False,palay
+Palay,1990Q4,0,0,False,palay
+Palay,1991Q1,0,0,False,palay
+Palay,1991Q2,0,0,False,palay
+Palay,1991Q3,0,0,False,palay
+Palay,1991Q4,0,0,False,palay
+Palay,1992Q1,0,0,False,palay
+Palay,1992Q2,0,0,False,palay
+Palay,1992Q3,0,0,False,palay
+Palay,1992Q4,0,0,False,palay
+Palay,1993Q1,0,0,False,palay
+Palay,1993Q2,0,0,False,palay
+Palay,1993Q3,0,0,False,palay
+Palay,1993Q4,0,0,False,palay
+Palay,1994Q1,0,0,False,palay
+Palay,1994Q2,0,0,False,palay
+Palay,1994Q3,0,0,False,palay
+Palay,1994Q4,0,0,False,palay
+Palay,1995Q1,0,0,False,palay
+Palay,1995Q2,0,0,False,palay
+Palay,1995Q3,0,0,False,palay
+Palay,1995Q4,0,0,False,palay
+Palay,1996Q1,0,0,False,palay
+Palay,1996Q2,0,0,False,palay
+Palay,1996Q3,0,0,False,palay
+Palay,1996Q4,0,0,False,palay
+Palay,1997Q1,0,0,False,palay
+Palay,1997Q2,0,0,False,palay
+Palay,1997Q3,0,0,False,palay
+Palay,1997Q4,0,0,False,palay
+Palay,1998Q1,0,0,False,palay
+Palay,1998Q2,0,0,False,palay
+Palay,1998Q3,0,0,False,palay
+Palay,1998Q4,0,0,False,palay
+Palay,1999Q1,0,0,False,palay
+Palay,1999Q2,0,0,False,palay
+Palay,1999Q3,0,0,False,palay
+Palay,1999Q4,0,0,False,palay
+Palay,2000Q1,0,0,False,palay
+Palay,2000Q2,0,0,False,palay
+Palay,2000Q3,0,0,False,palay
+Palay,2000Q4,0,0,False,palay
+Palay,2001Q1,0,0,False,palay
+Palay,2001Q2,0,0,False,palay
+Palay,2001Q3,0,0,False,palay
+Palay,2001Q4,0,0,False,palay
+Palay,2002Q1,0,0,False,palay
+Palay,2002Q2,0,0,False,palay
+Palay,2002Q3,0,0,False,palay
+Palay,2002Q4,0,0,False,palay
+Palay,2003Q1,0,0,False,palay
+Palay,2003Q2,0,0,False,palay
+Palay,2003Q3,0,0,False,palay
+Palay,2003Q4,0,0,False,palay
+Palay,2004Q1,0,0,False,palay
+Palay,2004Q2,0,0,False,palay
+Palay,2004Q3,0,0,False,palay
+Palay,2004Q4,0,0,False,palay
+Palay,2005Q1,0,0,False,palay
+Palay,2005Q2,0,0,False,palay
+Palay,2005Q3,0,0,False,palay
+Palay,2005Q4,0,0,False,palay
+Palay,2006Q1,0,0,False,palay
+Palay,2006Q2,0,0,False,palay
+Palay,2006Q3,0,0,False,palay
+Palay,2006Q4,0,0,False,palay
+Palay,2007Q1,0,0,False,palay
+Palay,2007Q2,0,0,False,palay
+Palay,2007Q3,0,0,False,palay
+Palay,2007Q4,0,0,False,palay
+Palay,2008Q1,0,0,False,palay
+Palay,2008Q2,0,0,False,palay
+Palay,2008Q3,0,0,False,palay
+Palay,2008Q4,0,0,False,palay
+Palay,2009Q1,0,0,False,palay
+Palay,2009Q2,0,0,False,palay
+Palay,2009Q3,0,0,False,palay
+Palay,2009Q4,0,0,False,palay
+Palay,2010Q1,0,0,False,palay
+Palay,2010Q2,0,0,False,palay
+Palay,2010Q3,0,0,False,palay
+Palay,2010Q4,0,0,False,palay
+Palay,2011Q1,0,0,False,palay
+Palay,2011Q2,0,0,False,palay
+Palay,2011Q3,0,0,False,palay
+Palay,2011Q4,0,0,False,palay
+Palay,2012Q1,0,0,False,palay
+Palay,2012Q2,0,0,False,palay
+Palay,2012Q3,0,0,False,palay
+Palay,2012Q4,0,0,False,palay
+Palay,2013Q1,0,0,False,palay
+Palay,2013Q2,0,0,False,palay
+Palay,2013Q3,0,0,False,palay
+Palay,2013Q4,0,0,False,palay
+Palay,2014Q1,0,0,False,palay
+Palay,2014Q2,0,0,False,palay
+Palay,2014Q3,0,0,False,palay
+Palay,2014Q4,0,0,False,palay
+Palay,2015Q1,0,0,False,palay
+Palay,2015Q2,0,0,False,palay
+Palay,2015Q3,0,0,False,palay
+Palay,2015Q4,0,0,False,palay
+Palay,2016Q1,0,0,False,palay
+Palay,2016Q2,0,0,False,palay
+Palay,2016Q3,0,0,False,palay
+Palay,2016Q4,0,0,False,palay
+Palay,2017Q1,0,0,False,palay
+Palay,2017Q2,0,0,False,palay
+Palay,2017Q3,0,0,False,palay
+Palay,2017Q4,0,0,False,palay
+Palay,2018Q1,0,0,False,palay
+Palay,2018Q2,0,0,False,palay
+Palay,2018Q3,0,0,False,palay
+Palay,2018Q4,0,0,False,palay
+Palay,2019Q1,0,0,False,palay
+Palay,2019Q2,-1.45519e-11,0,False,palay
+Palay,2019Q3,0,0,False,palay
+Palay,2019Q4,0,0,False,palay
+Palay,2020Q1,0,0,False,palay
+Palay,2020Q2,0,0,False,palay
+Palay,2020Q3,0,0,False,palay
+Palay,2020Q4,2.91038e-11,0,False,palay
+Palay,2021Q1,0,0,False,palay
+Palay,2021Q2,0,3.63798e-12,False,palay
+Palay,2021Q3,0,0,False,palay
+Palay,2021Q4,0,0,False,palay
+Palay,2022Q1,0,0,False,palay
+Palay,2022Q2,0,0,False,palay
+Palay,2022Q3,-0.01,0,False,palay
+Palay,2022Q4,0,0,False,palay
+Palay,2023Q1,3251.48,1936.21,True,palay
+Palay,2023Q2,13049,4404,True,palay
+Palay,2023Q3,20530,7648,True,palay
+Palay,2023Q4,8329,2478,True,palay
+Palay,2024Q1,5840,2544,True,palay
+Palay,2024Q2,7953,2854,True,palay
+Palay,2024Q3,23394,7180,True,palay
+Palay,2024Q4,23896,6933,True,palay
+Palay,2025Q1,6302,2784,True,palay
+Palay,2025Q2,10546,3506,True,palay
+Palay,2025Q3,26448,8072,True,palay
+Palay,2025Q4,19363,5841,True,palay
+Palay,2026Q1,6519,2878,True,palay
+Palay,2026Q2,10587,3521,True,palay
+Rainfed Palay,1987Q1,0,0,False,palay_rainfed
+Rainfed Palay,1987Q2,0,0,False,palay_rainfed
+Rainfed Palay,1987Q3,0,0,False,palay_rainfed
+Rainfed Palay,1987Q4,0,0,False,palay_rainfed
+Rainfed Palay,1988Q1,0,0,False,palay_rainfed
+Rainfed Palay,1988Q2,0,0,False,palay_rainfed
+Rainfed Palay,1988Q3,0,0,False,palay_rainfed
+Rainfed Palay,1988Q4,0,0,False,palay_rainfed
+Rainfed Palay,1989Q1,0,0,False,palay_rainfed
+Rainfed Palay,1989Q2,0,0,False,palay_rainfed
+Rainfed Palay,1989Q3,0,0,False,palay_rainfed
+Rainfed Palay,1989Q4,0,0,False,palay_rainfed
+Rainfed Palay,1990Q1,0,0,False,palay_rainfed
+Rainfed Palay,1990Q2,0,0,False,palay_rainfed
+Rainfed Palay,1990Q3,0,0,False,palay_rainfed
+Rainfed Palay,1990Q4,0,0,False,palay_rainfed
+Rainfed Palay,1991Q1,0,0,False,palay_rainfed
+Rainfed Palay,1991Q2,0,0,False,palay_rainfed
+Rainfed Palay,1991Q3,0,0,False,palay_rainfed
+Rainfed Palay,1991Q4,0,0,False,palay_rainfed
+Rainfed Palay,1992Q1,0,0,False,palay_rainfed
+Rainfed Palay,1992Q2,0,0,False,palay_rainfed
+Rainfed Palay,1992Q3,0,0,False,palay_rainfed
+Rainfed Palay,1992Q4,0,0,False,palay_rainfed
+Rainfed Palay,1993Q1,0,0,False,palay_rainfed
+Rainfed Palay,1993Q2,0,0,False,palay_rainfed
+Rainfed Palay,1993Q3,0,0,False,palay_rainfed
+Rainfed Palay,1993Q4,0,0,False,palay_rainfed
+Rainfed Palay,1994Q1,0,0,False,palay_rainfed
+Rainfed Palay,1994Q2,0,0,False,palay_rainfed
+Rainfed Palay,1994Q3,0,0,False,palay_rainfed
+Rainfed Palay,1994Q4,0,0,False,palay_rainfed
+Rainfed Palay,1995Q1,0,0,False,palay_rainfed
+Rainfed Palay,1995Q2,0,0,False,palay_rainfed
+Rainfed Palay,1995Q3,0,0,False,palay_rainfed
+Rainfed Palay,1995Q4,0,0,False,palay_rainfed
+Rainfed Palay,1996Q1,0,0,False,palay_rainfed
+Rainfed Palay,1996Q2,0,0,False,palay_rainfed
+Rainfed Palay,1996Q3,0,0,False,palay_rainfed
+Rainfed Palay,1996Q4,0,0,False,palay_rainfed
+Rainfed Palay,1997Q1,0,0,False,palay_rainfed
+Rainfed Palay,1997Q2,0,0,False,palay_rainfed
+Rainfed Palay,1997Q3,0,0,False,palay_rainfed
+Rainfed Palay,1997Q4,0,0,False,palay_rainfed
+Rainfed Palay,1998Q1,0,0,False,palay_rainfed
+Rainfed Palay,1998Q2,0,0,False,palay_rainfed
+Rainfed Palay,1998Q3,0,0,False,palay_rainfed
+Rainfed Palay,1998Q4,0,0,False,palay_rainfed
+Rainfed Palay,1999Q1,0,0,False,palay_rainfed
+Rainfed Palay,1999Q2,0,0,False,palay_rainfed
+Rainfed Palay,1999Q3,0,0,False,palay_rainfed
+Rainfed Palay,1999Q4,0,0,False,palay_rainfed
+Rainfed Palay,2000Q1,0,0,False,palay_rainfed
+Rainfed Palay,2000Q2,0,0,False,palay_rainfed
+Rainfed Palay,2000Q3,0,0,False,palay_rainfed
+Rainfed Palay,2000Q4,0,0,False,palay_rainfed
+Rainfed Palay,2001Q1,0,0,False,palay_rainfed
+Rainfed Palay,2001Q2,0,0,False,palay_rainfed
+Rainfed Palay,2001Q3,0,0,False,palay_rainfed
+Rainfed Palay,2001Q4,0,0,False,palay_rainfed
+Rainfed Palay,2002Q1,0,0,False,palay_rainfed
+Rainfed Palay,2002Q2,0,0,False,palay_rainfed
+Rainfed Palay,2002Q3,0,0,False,palay_rainfed
+Rainfed Palay,2002Q4,0,0,False,palay_rainfed
+Rainfed Palay,2003Q1,0,0,False,palay_rainfed
+Rainfed Palay,2003Q2,0,0,False,palay_rainfed
+Rainfed Palay,2003Q3,0,0,False,palay_rainfed
+Rainfed Palay,2003Q4,0,0,False,palay_rainfed
+Rainfed Palay,2004Q1,0,0,False,palay_rainfed
+Rainfed Palay,2004Q2,0,0,False,palay_rainfed
+Rainfed Palay,2004Q3,0,0,False,palay_rainfed
+Rainfed Palay,2004Q4,0,0,False,palay_rainfed
+Rainfed Palay,2005Q1,0,0,False,palay_rainfed
+Rainfed Palay,2005Q2,0,0,False,palay_rainfed
+Rainfed Palay,2005Q3,0,0,False,palay_rainfed
+Rainfed Palay,2005Q4,0,0,False,palay_rainfed
+Rainfed Palay,2006Q1,0,0,False,palay_rainfed
+Rainfed Palay,2006Q2,0,0,False,palay_rainfed
+Rainfed Palay,2006Q3,0,0,False,palay_rainfed
+Rainfed Palay,2006Q4,0,0,False,palay_rainfed
+Rainfed Palay,2007Q1,0,0,False,palay_rainfed
+Rainfed Palay,2007Q2,0,0,False,palay_rainfed
+Rainfed Palay,2007Q3,0,0,False,palay_rainfed
+Rainfed Palay,2007Q4,0,0,False,palay_rainfed
+Rainfed Palay,2008Q1,0,0,False,palay_rainfed
+Rainfed Palay,2008Q2,0,0,False,palay_rainfed
+Rainfed Palay,2008Q3,0,0,False,palay_rainfed
+Rainfed Palay,2008Q4,0,0,False,palay_rainfed
+Rainfed Palay,2009Q1,0,0,False,palay_rainfed
+Rainfed Palay,2009Q2,0,0,False,palay_rainfed
+Rainfed Palay,2009Q3,0,0,False,palay_rainfed
+Rainfed Palay,2009Q4,0,0,False,palay_rainfed
+Rainfed Palay,2010Q1,0,0,False,palay_rainfed
+Rainfed Palay,2010Q2,0,0,False,palay_rainfed
+Rainfed Palay,2010Q3,0,0,False,palay_rainfed
+Rainfed Palay,2010Q4,0,0,False,palay_rainfed
+Rainfed Palay,2011Q1,0,0,False,palay_rainfed
+Rainfed Palay,2011Q2,0,0,False,palay_rainfed
+Rainfed Palay,2011Q3,0,0,False,palay_rainfed
+Rainfed Palay,2011Q4,0,0,False,palay_rainfed
+Rainfed Palay,2012Q1,0,0,False,palay_rainfed
+Rainfed Palay,2012Q2,0,0,False,palay_rainfed
+Rainfed Palay,2012Q3,0,0,False,palay_rainfed
+Rainfed Palay,2012Q4,0,0,False,palay_rainfed
+Rainfed Palay,2013Q1,0,0,False,palay_rainfed
+Rainfed Palay,2013Q2,0,0,False,palay_rainfed
+Rainfed Palay,2013Q3,0,0,False,palay_rainfed
+Rainfed Palay,2013Q4,0,0,False,palay_rainfed
+Rainfed Palay,2014Q1,0,0,False,palay_rainfed
+Rainfed Palay,2014Q2,0,0,False,palay_rainfed
+Rainfed Palay,2014Q3,0,0,False,palay_rainfed
+Rainfed Palay,2014Q4,0,0,False,palay_rainfed
+Rainfed Palay,2015Q1,0,0,False,palay_rainfed
+Rainfed Palay,2015Q2,0,0,False,palay_rainfed
+Rainfed Palay,2015Q3,0,0,False,palay_rainfed
+Rainfed Palay,2015Q4,0,0,False,palay_rainfed
+Rainfed Palay,2016Q1,0,0,False,palay_rainfed
+Rainfed Palay,2016Q2,0,0,False,palay_rainfed
+Rainfed Palay,2016Q3,0,0,False,palay_rainfed
+Rainfed Palay,2016Q4,0,0,False,palay_rainfed
+Rainfed Palay,2017Q1,0,0,False,palay_rainfed
+Rainfed Palay,2017Q2,0,0,False,palay_rainfed
+Rainfed Palay,2017Q3,0,0,False,palay_rainfed
+Rainfed Palay,2017Q4,0,0,False,palay_rainfed
+Rainfed Palay,2018Q1,0,0,False,palay_rainfed
+Rainfed Palay,2018Q2,0,0,False,palay_rainfed
+Rainfed Palay,2018Q3,0,0,False,palay_rainfed
+Rainfed Palay,2018Q4,0,0,False,palay_rainfed
+Rainfed Palay,2019Q1,0,0,False,palay_rainfed
+Rainfed Palay,2019Q2,0,0,False,palay_rainfed
+Rainfed Palay,2019Q3,-2.91038e-11,0,False,palay_rainfed
+Rainfed Palay,2019Q4,0,0,False,palay_rainfed
+Rainfed Palay,2020Q1,0,0,False,palay_rainfed
+Rainfed Palay,2020Q2,7.27596e-12,0,False,palay_rainfed
+Rainfed Palay,2020Q3,0,0,False,palay_rainfed
+Rainfed Palay,2020Q4,0,0,False,palay_rainfed
+Rainfed Palay,2021Q1,-2.91038e-11,0,False,palay_rainfed
+Rainfed Palay,2021Q2,0,0,False,palay_rainfed
+Rainfed Palay,2021Q3,0,0,False,palay_rainfed
+Rainfed Palay,2021Q4,-2.91038e-11,0,False,palay_rainfed
+Rainfed Palay,2022Q1,0,0,False,palay_rainfed
+Rainfed Palay,2022Q2,-1.45519e-11,0,False,palay_rainfed
+Rainfed Palay,2022Q3,2.91038e-11,0,False,palay_rainfed
+Rainfed Palay,2022Q4,0,0,False,palay_rainfed
+Rainfed Palay,2023Q1,1078.21,566.32,True,palay_rainfed
+Rainfed Palay,2023Q2,2586.99,1185,True,palay_rainfed
+Rainfed Palay,2023Q3,4640,2053,True,palay_rainfed
+Rainfed Palay,2023Q4,1108,445,True,palay_rainfed
+Rainfed Palay,2024Q1,1106,588,True,palay_rainfed
+Rainfed Palay,2024Q2,1160,630,True,palay_rainfed
+Rainfed Palay,2024Q3,4545,1748,True,palay_rainfed
+Rainfed Palay,2024Q4,6275,2149,True,palay_rainfed
+Rainfed Palay,2025Q1,923,549,True,palay_rainfed
+Rainfed Palay,2025Q2,1908,785,True,palay_rainfed
+Rainfed Palay,2025Q3,6288,2312,True,palay_rainfed
+Rainfed Palay,2025Q4,4280,1585,True,palay_rainfed
+Rainfed Palay,2026Q1,867,558,True,palay_rainfed
+Rainfed Palay,2026Q2,1945,800,True,palay_rainfed
+White Corn,1987Q1,0,0,False,corn_white
+White Corn,1987Q2,0,0,False,corn_white
+White Corn,1987Q3,0,0,False,corn_white
+White Corn,1987Q4,0,0,False,corn_white
+White Corn,1988Q1,0,0,False,corn_white
+White Corn,1988Q2,0,0,False,corn_white
+White Corn,1988Q3,0,0,False,corn_white
+White Corn,1988Q4,0,0,False,corn_white
+White Corn,1989Q1,0,0,False,corn_white
+White Corn,1989Q2,0,0,False,corn_white
+White Corn,1989Q3,0,0,False,corn_white
+White Corn,1989Q4,0,0,False,corn_white
+White Corn,1990Q1,0,0,False,corn_white
+White Corn,1990Q2,0,0,False,corn_white
+White Corn,1990Q3,0,0,False,corn_white
+White Corn,1990Q4,0,0,False,corn_white
+White Corn,1991Q1,0,0,False,corn_white
+White Corn,1991Q2,0,0,False,corn_white
+White Corn,1991Q3,0,0,False,corn_white
+White Corn,1991Q4,0,0,False,corn_white
+White Corn,1992Q1,0,0,False,corn_white
+White Corn,1992Q2,0,0,False,corn_white
+White Corn,1992Q3,0,0,False,corn_white
+White Corn,1992Q4,0,0,False,corn_white
+White Corn,1993Q1,0,0,False,corn_white
+White Corn,1993Q2,0,0,False,corn_white
+White Corn,1993Q3,0,0,False,corn_white
+White Corn,1993Q4,0,0,False,corn_white
+White Corn,1994Q1,0,0,False,corn_white
+White Corn,1994Q2,0,0,False,corn_white
+White Corn,1994Q3,0,0,False,corn_white
+White Corn,1994Q4,0,0,False,corn_white
+White Corn,1995Q1,0,0,False,corn_white
+White Corn,1995Q2,0,0,False,corn_white
+White Corn,1995Q3,0,0,False,corn_white
+White Corn,1995Q4,0,0,False,corn_white
+White Corn,1996Q1,0,0,False,corn_white
+White Corn,1996Q2,0,0,False,corn_white
+White Corn,1996Q3,0,0,False,corn_white
+White Corn,1996Q4,0,0,False,corn_white
+White Corn,1997Q1,0,0,False,corn_white
+White Corn,1997Q2,0,0,False,corn_white
+White Corn,1997Q3,0,0,False,corn_white
+White Corn,1997Q4,0,0,False,corn_white
+White Corn,1998Q1,0,0,False,corn_white
+White Corn,1998Q2,0,0,False,corn_white
+White Corn,1998Q3,0,0,False,corn_white
+White Corn,1998Q4,0,0,False,corn_white
+White Corn,1999Q1,0,0,False,corn_white
+White Corn,1999Q2,0,0,False,corn_white
+White Corn,1999Q3,0,0,False,corn_white
+White Corn,1999Q4,0,0,False,corn_white
+White Corn,2000Q1,0,0,False,corn_white
+White Corn,2000Q2,0,0,False,corn_white
+White Corn,2000Q3,0,0,False,corn_white
+White Corn,2000Q4,0,0,False,corn_white
+White Corn,2001Q1,0,0,False,corn_white
+White Corn,2001Q2,0,0,False,corn_white
+White Corn,2001Q3,0,0,False,corn_white
+White Corn,2001Q4,0,0,False,corn_white
+White Corn,2002Q1,0,0,False,corn_white
+White Corn,2002Q2,0,0,False,corn_white
+White Corn,2002Q3,0,0,False,corn_white
+White Corn,2002Q4,0,0,False,corn_white
+White Corn,2003Q1,0,0,False,corn_white
+White Corn,2003Q2,0,0,False,corn_white
+White Corn,2003Q3,0,0,False,corn_white
+White Corn,2003Q4,0,0,False,corn_white
+White Corn,2004Q1,0,0,False,corn_white
+White Corn,2004Q2,0,0,False,corn_white
+White Corn,2004Q3,0,0,False,corn_white
+White Corn,2004Q4,0,0,False,corn_white
+White Corn,2005Q1,0,0,False,corn_white
+White Corn,2005Q2,0,0,False,corn_white
+White Corn,2005Q3,0,0,False,corn_white
+White Corn,2005Q4,0,0,False,corn_white
+White Corn,2006Q1,0,0,False,corn_white
+White Corn,2006Q2,0,0,False,corn_white
+White Corn,2006Q3,0,0,False,corn_white
+White Corn,2006Q4,0,0,False,corn_white
+White Corn,2007Q1,0,0,False,corn_white
+White Corn,2007Q2,0,0,False,corn_white
+White Corn,2007Q3,0,0,False,corn_white
+White Corn,2007Q4,0,0,False,corn_white
+White Corn,2008Q1,0,0,False,corn_white
+White Corn,2008Q2,0,0,False,corn_white
+White Corn,2008Q3,0,0,False,corn_white
+White Corn,2008Q4,0,0,False,corn_white
+White Corn,2009Q1,0,0,False,corn_white
+White Corn,2009Q2,0,0,False,corn_white
+White Corn,2009Q3,0,0,False,corn_white
+White Corn,2009Q4,0,0,False,corn_white
+White Corn,2010Q1,0,0,False,corn_white
+White Corn,2010Q2,0,0,False,corn_white
+White Corn,2010Q3,0,0,False,corn_white
+White Corn,2010Q4,0,0,False,corn_white
+White Corn,2011Q1,0,0,False,corn_white
+White Corn,2011Q2,0,0,False,corn_white
+White Corn,2011Q3,0,0,False,corn_white
+White Corn,2011Q4,0,0,False,corn_white
+White Corn,2012Q1,0,0,False,corn_white
+White Corn,2012Q2,0,0,False,corn_white
+White Corn,2012Q3,0,0,False,corn_white
+White Corn,2012Q4,0,0,False,corn_white
+White Corn,2013Q1,0,0,False,corn_white
+White Corn,2013Q2,0,0,False,corn_white
+White Corn,2013Q3,0,0,False,corn_white
+White Corn,2013Q4,0,0,False,corn_white
+White Corn,2014Q1,0,0,False,corn_white
+White Corn,2014Q2,0,0,False,corn_white
+White Corn,2014Q3,0,0,False,corn_white
+White Corn,2014Q4,0,0,False,corn_white
+White Corn,2015Q1,0,0,False,corn_white
+White Corn,2015Q2,0,0,False,corn_white
+White Corn,2015Q3,0,0,False,corn_white
+White Corn,2015Q4,0,0,False,corn_white
+White Corn,2016Q1,0,0,False,corn_white
+White Corn,2016Q2,0,0,False,corn_white
+White Corn,2016Q3,0,0,False,corn_white
+White Corn,2016Q4,0,0,False,corn_white
+White Corn,2017Q1,0,0,False,corn_white
+White Corn,2017Q2,0,0,False,corn_white
+White Corn,2017Q3,0,0,False,corn_white
+White Corn,2017Q4,0,0,False,corn_white
+White Corn,2018Q1,0,0,False,corn_white
+White Corn,2018Q2,0,0,False,corn_white
+White Corn,2018Q3,0,0,False,corn_white
+White Corn,2018Q4,-1.45519e-11,0,False,corn_white
+White Corn,2019Q1,1.45519e-11,0,False,corn_white
+White Corn,2019Q2,0,0,False,corn_white
+White Corn,2019Q3,0,0,False,corn_white
+White Corn,2019Q4,1.45519e-11,0,False,corn_white
+White Corn,2020Q1,0,0,False,corn_white
+White Corn,2020Q2,0,0,False,corn_white
+White Corn,2020Q3,0,1.45519e-11,False,corn_white
+White Corn,2020Q4,0,0,False,corn_white
+White Corn,2021Q1,0,0,False,corn_white
+White Corn,2021Q2,0,0,False,corn_white
+White Corn,2021Q3,0,0,False,corn_white
+White Corn,2021Q4,0,0,False,corn_white
+White Corn,2022Q1,0,0,False,corn_white
+White Corn,2022Q2,0,0,False,corn_white
+White Corn,2022Q3,0,0,False,corn_white
+White Corn,2022Q4,0,0,False,corn_white
+White Corn,2023Q1,527.48,510.79,True,corn_white
+White Corn,2023Q2,3178,1506,True,corn_white
+White Corn,2023Q3,2116,1108,True,corn_white
+White Corn,2023Q4,3169,1482,True,corn_white
+White Corn,2024Q1,991,627,True,corn_white
+White Corn,2024Q2,889,585,True,corn_white
+White Corn,2024Q3,875,420,True,corn_white
+White Corn,2024Q4,2283,950,True,corn_white
+White Corn,2025Q1,1292,515,True,corn_white
+White Corn,2025Q2,892,516,True,corn_white
+White Corn,2025Q3,1188,480,True,corn_white
+White Corn,2025Q4,1982,809,True,corn_white
+White Corn,2026Q1,1359,533,True,corn_white
+White Corn,2026Q2,1228,520,True,corn_white
+Yellow Corn,1987Q1,0,0,False,corn_yellow
+Yellow Corn,1987Q2,0,0,False,corn_yellow
+Yellow Corn,1987Q3,0,0,False,corn_yellow
+Yellow Corn,1987Q4,0,0,False,corn_yellow
+Yellow Corn,1988Q1,0,0,False,corn_yellow
+Yellow Corn,1988Q2,0,0,False,corn_yellow
+Yellow Corn,1988Q3,0,0,False,corn_yellow
+Yellow Corn,1988Q4,0,0,False,corn_yellow
+Yellow Corn,1989Q1,0,0,False,corn_yellow
+Yellow Corn,1989Q2,0,0,False,corn_yellow
+Yellow Corn,1989Q3,0,0,False,corn_yellow
+Yellow Corn,1989Q4,0,0,False,corn_yellow
+Yellow Corn,1990Q1,0,0,False,corn_yellow
+Yellow Corn,1990Q2,0,0,False,corn_yellow
+Yellow Corn,1990Q3,0,0,False,corn_yellow
+Yellow Corn,1990Q4,0,0,False,corn_yellow
+Yellow Corn,1991Q1,0,0,False,corn_yellow
+Yellow Corn,1991Q2,0,0,False,corn_yellow
+Yellow Corn,1991Q3,0,0,False,corn_yellow
+Yellow Corn,1991Q4,0,0,False,corn_yellow
+Yellow Corn,1992Q1,0,0,False,corn_yellow
+Yellow Corn,1992Q2,0,0,False,corn_yellow
+Yellow Corn,1992Q3,0,0,False,corn_yellow
+Yellow Corn,1992Q4,0,0,False,corn_yellow
+Yellow Corn,1993Q1,0,0,False,corn_yellow
+Yellow Corn,1993Q2,0,0,False,corn_yellow
+Yellow Corn,1993Q3,0,0,False,corn_yellow
+Yellow Corn,1993Q4,0,0,False,corn_yellow
+Yellow Corn,1994Q1,0,0,False,corn_yellow
+Yellow Corn,1994Q2,0,0,False,corn_yellow
+Yellow Corn,1994Q3,0,0,False,corn_yellow
+Yellow Corn,1994Q4,0,0,False,corn_yellow
+Yellow Corn,1995Q1,0,0,False,corn_yellow
+Yellow Corn,1995Q2,0,0,False,corn_yellow
+Yellow Corn,1995Q3,0,0,False,corn_yellow
+Yellow Corn,1995Q4,0,0,False,corn_yellow
+Yellow Corn,1996Q1,0,0,False,corn_yellow
+Yellow Corn,1996Q2,0,0,False,corn_yellow
+Yellow Corn,1996Q3,0,0,False,corn_yellow
+Yellow Corn,1996Q4,0,0,False,corn_yellow
+Yellow Corn,1997Q1,0,0,False,corn_yellow
+Yellow Corn,1997Q2,0,0,False,corn_yellow
+Yellow Corn,1997Q3,0,0,False,corn_yellow
+Yellow Corn,1997Q4,0,0,False,corn_yellow
+Yellow Corn,1998Q1,0,0,False,corn_yellow
+Yellow Corn,1998Q2,0,0,False,corn_yellow
+Yellow Corn,1998Q3,0,0,False,corn_yellow
+Yellow Corn,1998Q4,0,0,False,corn_yellow
+Yellow Corn,1999Q1,0,0,False,corn_yellow
+Yellow Corn,1999Q2,0,0,False,corn_yellow
+Yellow Corn,1999Q3,0,0,False,corn_yellow
+Yellow Corn,1999Q4,0,0,False,corn_yellow
+Yellow Corn,2000Q1,0,0,False,corn_yellow
+Yellow Corn,2000Q2,0,0,False,corn_yellow
+Yellow Corn,2000Q3,0,0,False,corn_yellow
+Yellow Corn,2000Q4,0,0,False,corn_yellow
+Yellow Corn,2001Q1,0,0,False,corn_yellow
+Yellow Corn,2001Q2,0,0,False,corn_yellow
+Yellow Corn,2001Q3,0,0,False,corn_yellow
+Yellow Corn,2001Q4,0,0,False,corn_yellow
+Yellow Corn,2002Q1,0,0,False,corn_yellow
+Yellow Corn,2002Q2,0,0,False,corn_yellow
+Yellow Corn,2002Q3,0,0,False,corn_yellow
+Yellow Corn,2002Q4,0,0,False,corn_yellow
+Yellow Corn,2003Q1,0,0,False,corn_yellow
+Yellow Corn,2003Q2,0,0,False,corn_yellow
+Yellow Corn,2003Q3,0,0,False,corn_yellow
+Yellow Corn,2003Q4,0,0,False,corn_yellow
+Yellow Corn,2004Q1,0,0,False,corn_yellow
+Yellow Corn,2004Q2,0,0,False,corn_yellow
+Yellow Corn,2004Q3,0,0,False,corn_yellow
+Yellow Corn,2004Q4,0,0,False,corn_yellow
+Yellow Corn,2005Q1,0,0,False,corn_yellow
+Yellow Corn,2005Q2,0,0,False,corn_yellow
+Yellow Corn,2005Q3,0,0,False,corn_yellow
+Yellow Corn,2005Q4,0,0,False,corn_yellow
+Yellow Corn,2006Q1,0,0,False,corn_yellow
+Yellow Corn,2006Q2,0,0,False,corn_yellow
+Yellow Corn,2006Q3,0,0,False,corn_yellow
+Yellow Corn,2006Q4,0,0,False,corn_yellow
+Yellow Corn,2007Q1,0,0,False,corn_yellow
+Yellow Corn,2007Q2,0,0,False,corn_yellow
+Yellow Corn,2007Q3,0,0,False,corn_yellow
+Yellow Corn,2007Q4,0,0,False,corn_yellow
+Yellow Corn,2008Q1,0,0,False,corn_yellow
+Yellow Corn,2008Q2,0,0,False,corn_yellow
+Yellow Corn,2008Q3,0,0,False,corn_yellow
+Yellow Corn,2008Q4,0,0,False,corn_yellow
+Yellow Corn,2009Q1,0,0,False,corn_yellow
+Yellow Corn,2009Q2,0,0,False,corn_yellow
+Yellow Corn,2009Q3,0,0,False,corn_yellow
+Yellow Corn,2009Q4,0,0,False,corn_yellow
+Yellow Corn,2010Q1,0,0,False,corn_yellow
+Yellow Corn,2010Q2,0,0,False,corn_yellow
+Yellow Corn,2010Q3,0,0,False,corn_yellow
+Yellow Corn,2010Q4,0,0,False,corn_yellow
+Yellow Corn,2011Q1,0,0,False,corn_yellow
+Yellow Corn,2011Q2,0,0,False,corn_yellow
+Yellow Corn,2011Q3,0,0,False,corn_yellow
+Yellow Corn,2011Q4,0,0,False,corn_yellow
+Yellow Corn,2012Q1,0,0,False,corn_yellow
+Yellow Corn,2012Q2,0,0,False,corn_yellow
+Yellow Corn,2012Q3,0,0,False,corn_yellow
+Yellow Corn,2012Q4,0,0,False,corn_yellow
+Yellow Corn,2013Q1,0,0,False,corn_yellow
+Yellow Corn,2013Q2,0,0,False,corn_yellow
+Yellow Corn,2013Q3,0,0,False,corn_yellow
+Yellow Corn,2013Q4,0,0,False,corn_yellow
+Yellow Corn,2014Q1,0,0,False,corn_yellow
+Yellow Corn,2014Q2,0,0,False,corn_yellow
+Yellow Corn,2014Q3,0,0,False,corn_yellow
+Yellow Corn,2014Q4,0,0,False,corn_yellow
+Yellow Corn,2015Q1,0,0,False,corn_yellow
+Yellow Corn,2015Q2,0,0,False,corn_yellow
+Yellow Corn,2015Q3,0,0,False,corn_yellow
+Yellow Corn,2015Q4,0,0,False,corn_yellow
+Yellow Corn,2016Q1,0,0,False,corn_yellow
+Yellow Corn,2016Q2,0,0,False,corn_yellow
+Yellow Corn,2016Q3,0,0,False,corn_yellow
+Yellow Corn,2016Q4,0,0,False,corn_yellow
+Yellow Corn,2017Q1,0,0,False,corn_yellow
+Yellow Corn,2017Q2,0,0,False,corn_yellow
+Yellow Corn,2017Q3,0,0,False,corn_yellow
+Yellow Corn,2017Q4,0,0,False,corn_yellow
+Yellow Corn,2018Q1,0,0,False,corn_yellow
+Yellow Corn,2018Q2,0,0,False,corn_yellow
+Yellow Corn,2018Q3,0,0,False,corn_yellow
+Yellow Corn,2018Q4,0,0,False,corn_yellow
+Yellow Corn,2019Q1,0,0,False,corn_yellow
+Yellow Corn,2019Q2,0,0,False,corn_yellow
+Yellow Corn,2019Q3,0,0,False,corn_yellow
+Yellow Corn,2019Q4,-1.45519e-11,0,False,corn_yellow
+Yellow Corn,2020Q1,0,0,False,corn_yellow
+Yellow Corn,2020Q2,0,0,False,corn_yellow
+Yellow Corn,2020Q3,2.91038e-11,0,False,corn_yellow
+Yellow Corn,2020Q4,-2.91038e-11,7.27596e-12,False,corn_yellow
+Yellow Corn,2021Q1,0,0,False,corn_yellow
+Yellow Corn,2021Q2,0,0,False,corn_yellow
+Yellow Corn,2021Q3,0,0,False,corn_yellow
+Yellow Corn,2021Q4,0,0,False,corn_yellow
+Yellow Corn,2022Q1,-2.91038e-11,0,False,corn_yellow
+Yellow Corn,2022Q2,0,0,False,corn_yellow
+Yellow Corn,2022Q3,0,0,False,corn_yellow
+Yellow Corn,2022Q4,0,0,False,corn_yellow
+Yellow Corn,2023Q1,8135.72,5959.11,True,corn_yellow
+Yellow Corn,2023Q2,12339,4059,True,corn_yellow
+Yellow Corn,2023Q3,15952,5335,True,corn_yellow
+Yellow Corn,2023Q4,21049,6725,True,corn_yellow
+Yellow Corn,2024Q1,16309,6940,True,corn_yellow
+Yellow Corn,2024Q2,10812,4866,True,corn_yellow
+Yellow Corn,2024Q3,14135,4676,True,corn_yellow
+Yellow Corn,2024Q4,11839,4358.99,True,corn_yellow
+Yellow Corn,2025Q1,19465,6102,True,corn_yellow
+Yellow Corn,2025Q2,13521,4135,True,corn_yellow
+Yellow Corn,2025Q3,15892,4890,True,corn_yellow
+Yellow Corn,2025Q4,14004,4308.99,True,corn_yellow
+Yellow Corn,2026Q1,19491,6115,True,corn_yellow
+Yellow Corn,2026Q2,17580,4156,True,corn_yellow
+Ampalaya fruit [Bitter gourd],2010Q1,0,,False,ampalaya_fruit_bitter_gourd
+Ampalaya fruit [Bitter gourd],2010Q2,0,,False,ampalaya_fruit_bitter_gourd
+Ampalaya fruit [Bitter gourd],2010Q3,0,,False,ampalaya_fruit_bitter_gourd
+Ampalaya fruit [Bitter gourd],2010Q4,0,,False,ampalaya_fruit_bitter_gourd
+Ampalaya fruit [Bitter gourd],2011Q1,0,,False,ampalaya_fruit_bitter_gourd
+Ampalaya fruit [Bitter gourd],2011Q2,0,,False,ampalaya_fruit_bitter_gourd
+Ampalaya fruit [Bitter gourd],2011Q3,0,,False,ampalaya_fruit_bitter_gourd
+Ampalaya fruit [Bitter gourd],2011Q4,0,,False,ampalaya_fruit_bitter_gourd
+Ampalaya fruit [Bitter gourd],2012Q1,0,,False,ampalaya_fruit_bitter_gourd
+Ampalaya fruit [Bitter gourd],2012Q2,0,,False,ampalaya_fruit_bitter_gourd
+Ampalaya fruit [Bitter gourd],2012Q3,0,,False,ampalaya_fruit_bitter_gourd
+Ampalaya fruit [Bitter gourd],2012Q4,1.42109e-14,,False,ampalaya_fruit_bitter_gourd
+Ampalaya fruit [Bitter gourd],2013Q1,0,,False,ampalaya_fruit_bitter_gourd
+Ampalaya fruit [Bitter gourd],2013Q2,0,,False,ampalaya_fruit_bitter_gourd
+Ampalaya fruit [Bitter gourd],2013Q3,0,,False,ampalaya_fruit_bitter_gourd
+Ampalaya fruit [Bitter gourd],2013Q4,0,,False,ampalaya_fruit_bitter_gourd
+Ampalaya fruit [Bitter gourd],2014Q1,0,,False,ampalaya_fruit_bitter_gourd
+Ampalaya fruit [Bitter gourd],2014Q2,0,,False,ampalaya_fruit_bitter_gourd
+Ampalaya fruit [Bitter gourd],2014Q3,0,,False,ampalaya_fruit_bitter_gourd
+Ampalaya fruit [Bitter gourd],2014Q4,0,,False,ampalaya_fruit_bitter_gourd
+Ampalaya fruit [Bitter gourd],2015Q1,0,,False,ampalaya_fruit_bitter_gourd
+Ampalaya fruit [Bitter gourd],2015Q2,0,,False,ampalaya_fruit_bitter_gourd
+Ampalaya fruit [Bitter gourd],2015Q3,0,,False,ampalaya_fruit_bitter_gourd
+Ampalaya fruit [Bitter gourd],2015Q4,0,,False,ampalaya_fruit_bitter_gourd
+Ampalaya fruit [Bitter gourd],2016Q1,0,,False,ampalaya_fruit_bitter_gourd
+Ampalaya fruit [Bitter gourd],2016Q2,-7.10543e-15,,False,ampalaya_fruit_bitter_gourd
+Ampalaya fruit [Bitter gourd],2016Q3,0,,False,ampalaya_fruit_bitter_gourd
+Ampalaya fruit [Bitter gourd],2016Q4,-1.42109e-14,,False,ampalaya_fruit_bitter_gourd
+Ampalaya fruit [Bitter gourd],2017Q1,0,,False,ampalaya_fruit_bitter_gourd
+Ampalaya fruit [Bitter gourd],2017Q2,0,,False,ampalaya_fruit_bitter_gourd
+Ampalaya fruit [Bitter gourd],2017Q3,0,,False,ampalaya_fruit_bitter_gourd
+Ampalaya fruit [Bitter gourd],2017Q4,0,,False,ampalaya_fruit_bitter_gourd
+Ampalaya fruit [Bitter gourd],2018Q1,0,,False,ampalaya_fruit_bitter_gourd
+Ampalaya fruit [Bitter gourd],2018Q2,0,,False,ampalaya_fruit_bitter_gourd
+Ampalaya fruit [Bitter gourd],2018Q3,0,,False,ampalaya_fruit_bitter_gourd
+Ampalaya fruit [Bitter gourd],2018Q4,0,,False,ampalaya_fruit_bitter_gourd
+Ampalaya fruit [Bitter gourd],2019Q1,-0.01,,False,ampalaya_fruit_bitter_gourd
+Ampalaya fruit [Bitter gourd],2019Q2,0,,False,ampalaya_fruit_bitter_gourd
+Ampalaya fruit [Bitter gourd],2019Q3,-1.42109e-14,,False,ampalaya_fruit_bitter_gourd
+Ampalaya fruit [Bitter gourd],2019Q4,0,,False,ampalaya_fruit_bitter_gourd
+Ampalaya fruit [Bitter gourd],2020Q1,0,,False,ampalaya_fruit_bitter_gourd
+Ampalaya fruit [Bitter gourd],2020Q2,0,,False,ampalaya_fruit_bitter_gourd
+Ampalaya fruit [Bitter gourd],2020Q3,0,,False,ampalaya_fruit_bitter_gourd
+Ampalaya fruit [Bitter gourd],2020Q4,2.84217e-14,,False,ampalaya_fruit_bitter_gourd
+Ampalaya fruit [Bitter gourd],2021Q1,0,,False,ampalaya_fruit_bitter_gourd
+Ampalaya fruit [Bitter gourd],2021Q2,0,,False,ampalaya_fruit_bitter_gourd
+Ampalaya fruit [Bitter gourd],2021Q3,0,,False,ampalaya_fruit_bitter_gourd
+Ampalaya fruit [Bitter gourd],2021Q4,-2.84217e-14,,False,ampalaya_fruit_bitter_gourd
+Ampalaya fruit [Bitter gourd],2022Q1,0,,False,ampalaya_fruit_bitter_gourd
+Ampalaya fruit [Bitter gourd],2022Q2,0,,False,ampalaya_fruit_bitter_gourd
+Ampalaya fruit [Bitter gourd],2022Q3,0,,False,ampalaya_fruit_bitter_gourd
+Ampalaya fruit [Bitter gourd],2022Q4,0,,False,ampalaya_fruit_bitter_gourd
+Ampalaya fruit [Bitter gourd],2023Q1,0,,True,ampalaya_fruit_bitter_gourd
+Ampalaya fruit [Bitter gourd],2023Q2,0,,True,ampalaya_fruit_bitter_gourd
+Ampalaya fruit [Bitter gourd],2023Q3,0,,True,ampalaya_fruit_bitter_gourd
+Ampalaya fruit [Bitter gourd],2023Q4,0,,True,ampalaya_fruit_bitter_gourd
+Ampalaya fruit [Bitter gourd],2024Q1,0,,True,ampalaya_fruit_bitter_gourd
+Ampalaya fruit [Bitter gourd],2024Q2,0,,True,ampalaya_fruit_bitter_gourd
+Ampalaya fruit [Bitter gourd],2024Q3,0,,True,ampalaya_fruit_bitter_gourd
+Ampalaya fruit [Bitter gourd],2024Q4,5.5,,True,ampalaya_fruit_bitter_gourd
+Ampalaya fruit [Bitter gourd],2025Q1,0,,True,ampalaya_fruit_bitter_gourd
+Ampalaya fruit [Bitter gourd],2025Q2,2.25,,True,ampalaya_fruit_bitter_gourd
+Ampalaya fruit [Bitter gourd],2025Q3,0,,True,ampalaya_fruit_bitter_gourd
+Ampalaya fruit [Bitter gourd],2025Q4,-0.01,,True,ampalaya_fruit_bitter_gourd
+Ampalaya fruit [Bitter gourd],2026Q1,-0.01,,True,ampalaya_fruit_bitter_gourd
+Ampalaya fruit [Bitter gourd],2026Q2,0,,True,ampalaya_fruit_bitter_gourd
+Banana Bungulan,2010Q1,0,,False,banana_bungulan
+Banana Bungulan,2010Q2,0,,False,banana_bungulan
+Banana Bungulan,2010Q3,0,,False,banana_bungulan
+Banana Bungulan,2010Q4,0,,False,banana_bungulan
+Banana Bungulan,2011Q1,0,,False,banana_bungulan
+Banana Bungulan,2011Q2,0,,False,banana_bungulan
+Banana Bungulan,2011Q3,0,,False,banana_bungulan
+Banana Bungulan,2011Q4,0,,False,banana_bungulan
+Banana Bungulan,2012Q1,0,,False,banana_bungulan
+Banana Bungulan,2012Q2,0,,False,banana_bungulan
+Banana Bungulan,2012Q3,9.09495e-13,,False,banana_bungulan
+Banana Bungulan,2012Q4,0,,False,banana_bungulan
+Banana Bungulan,2013Q1,0,,False,banana_bungulan
+Banana Bungulan,2013Q2,0,,False,banana_bungulan
+Banana Bungulan,2013Q3,0,,False,banana_bungulan
+Banana Bungulan,2013Q4,-9.09495e-13,,False,banana_bungulan
+Banana Bungulan,2014Q1,0,,False,banana_bungulan
+Banana Bungulan,2014Q2,0,,False,banana_bungulan
+Banana Bungulan,2014Q3,0,,False,banana_bungulan
+Banana Bungulan,2014Q4,0,,False,banana_bungulan
+Banana Bungulan,2015Q1,0,,False,banana_bungulan
+Banana Bungulan,2015Q2,0,,False,banana_bungulan
+Banana Bungulan,2015Q3,0,,False,banana_bungulan
+Banana Bungulan,2015Q4,0,,False,banana_bungulan
+Banana Bungulan,2016Q1,0,,False,banana_bungulan
+Banana Bungulan,2016Q2,0,,False,banana_bungulan
+Banana Bungulan,2016Q3,0,,False,banana_bungulan
+Banana Bungulan,2016Q4,0,,False,banana_bungulan
+Banana Bungulan,2017Q1,0,,False,banana_bungulan
+Banana Bungulan,2017Q2,0,,False,banana_bungulan
+Banana Bungulan,2017Q3,0,,False,banana_bungulan
+Banana Bungulan,2017Q4,0,,False,banana_bungulan
+Banana Bungulan,2018Q1,0,,False,banana_bungulan
+Banana Bungulan,2018Q2,0,,False,banana_bungulan
+Banana Bungulan,2018Q3,0,,False,banana_bungulan
+Banana Bungulan,2018Q4,0,,False,banana_bungulan
+Banana Bungulan,2019Q1,0,,False,banana_bungulan
+Banana Bungulan,2019Q2,0,,False,banana_bungulan
+Banana Bungulan,2019Q3,1.81899e-12,,False,banana_bungulan
+Banana Bungulan,2019Q4,0,,False,banana_bungulan
+Banana Bungulan,2020Q1,1.81899e-12,,False,banana_bungulan
+Banana Bungulan,2020Q2,0,,False,banana_bungulan
+Banana Bungulan,2020Q3,0,,False,banana_bungulan
+Banana Bungulan,2020Q4,-9.09495e-13,,False,banana_bungulan
+Banana Bungulan,2021Q1,0,,False,banana_bungulan
+Banana Bungulan,2021Q2,-9.09495e-13,,False,banana_bungulan
+Banana Bungulan,2021Q3,0,,False,banana_bungulan
+Banana Bungulan,2021Q4,0,,False,banana_bungulan
+Banana Bungulan,2022Q1,0,,False,banana_bungulan
+Banana Bungulan,2022Q2,0,,False,banana_bungulan
+Banana Bungulan,2022Q3,0,,False,banana_bungulan
+Banana Bungulan,2022Q4,-9.09495e-13,,False,banana_bungulan
+Banana Bungulan,2023Q1,1.81899e-12,,True,banana_bungulan
+Banana Bungulan,2023Q2,0,,True,banana_bungulan
+Banana Bungulan,2023Q3,0,,True,banana_bungulan
+Banana Bungulan,2023Q4,-1.81899e-12,,True,banana_bungulan
+Banana Bungulan,2024Q1,0,,True,banana_bungulan
+Banana Bungulan,2024Q2,0,,True,banana_bungulan
+Banana Bungulan,2024Q3,0,,True,banana_bungulan
+Banana Bungulan,2024Q4,0,,True,banana_bungulan
+Banana Bungulan,2025Q1,0,,True,banana_bungulan
+Banana Bungulan,2025Q2,0,,True,banana_bungulan
+Banana Bungulan,2025Q3,-9.09495e-13,,True,banana_bungulan
+Banana Bungulan,2025Q4,0,,True,banana_bungulan
+Banana Bungulan,2026Q1,0.01,,True,banana_bungulan
+Banana Bungulan,2026Q2,0,,True,banana_bungulan
+Banana Cavendish,2010Q1,0,,False,banana_cavendish
+Banana Cavendish,2010Q2,0,,False,banana_cavendish
+Banana Cavendish,2010Q3,0,,False,banana_cavendish
+Banana Cavendish,2010Q4,0,,False,banana_cavendish
+Banana Cavendish,2011Q1,0,,False,banana_cavendish
+Banana Cavendish,2011Q2,0,,False,banana_cavendish
+Banana Cavendish,2011Q3,0,,False,banana_cavendish
+Banana Cavendish,2011Q4,0,,False,banana_cavendish
+Banana Cavendish,2012Q1,0,,False,banana_cavendish
+Banana Cavendish,2012Q2,0,,False,banana_cavendish
+Banana Cavendish,2012Q3,7.27596e-12,,False,banana_cavendish
+Banana Cavendish,2012Q4,0,,False,banana_cavendish
+Banana Cavendish,2013Q1,0,,False,banana_cavendish
+Banana Cavendish,2013Q2,0,,False,banana_cavendish
+Banana Cavendish,2013Q3,0,,False,banana_cavendish
+Banana Cavendish,2013Q4,0,,False,banana_cavendish
+Banana Cavendish,2014Q1,0,,False,banana_cavendish
+Banana Cavendish,2014Q2,0,,False,banana_cavendish
+Banana Cavendish,2014Q3,0,,False,banana_cavendish
+Banana Cavendish,2014Q4,0,,False,banana_cavendish
+Banana Cavendish,2015Q1,0,,False,banana_cavendish
+Banana Cavendish,2015Q2,0,,False,banana_cavendish
+Banana Cavendish,2015Q3,0,,False,banana_cavendish
+Banana Cavendish,2015Q4,0,,False,banana_cavendish
+Banana Cavendish,2016Q1,0,,False,banana_cavendish
+Banana Cavendish,2016Q2,0,,False,banana_cavendish
+Banana Cavendish,2016Q3,0,,False,banana_cavendish
+Banana Cavendish,2016Q4,7.27596e-12,,False,banana_cavendish
+Banana Cavendish,2017Q1,0,,False,banana_cavendish
+Banana Cavendish,2017Q2,0,,False,banana_cavendish
+Banana Cavendish,2017Q3,0,,False,banana_cavendish
+Banana Cavendish,2017Q4,-1.45519e-11,,False,banana_cavendish
+Banana Cavendish,2018Q1,0,,False,banana_cavendish
+Banana Cavendish,2018Q2,0,,False,banana_cavendish
+Banana Cavendish,2018Q3,0,,False,banana_cavendish
+Banana Cavendish,2018Q4,0,,False,banana_cavendish
+Banana Cavendish,2019Q1,0,,False,banana_cavendish
+Banana Cavendish,2019Q2,0,,False,banana_cavendish
+Banana Cavendish,2019Q3,0,,False,banana_cavendish
+Banana Cavendish,2019Q4,0,,False,banana_cavendish
+Banana Cavendish,2020Q1,0,,False,banana_cavendish
+Banana Cavendish,2020Q2,0,,False,banana_cavendish
+Banana Cavendish,2020Q3,0,,False,banana_cavendish
+Banana Cavendish,2020Q4,0,,False,banana_cavendish
+Banana Cavendish,2021Q1,0,,False,banana_cavendish
+Banana Cavendish,2021Q2,0,,False,banana_cavendish
+Banana Cavendish,2021Q3,0,,False,banana_cavendish
+Banana Cavendish,2021Q4,0,,False,banana_cavendish
+Banana Cavendish,2022Q1,7.27596e-12,,False,banana_cavendish
+Banana Cavendish,2022Q2,0,,False,banana_cavendish
+Banana Cavendish,2022Q3,0,,False,banana_cavendish
+Banana Cavendish,2022Q4,0,,False,banana_cavendish
+Banana Cavendish,2023Q1,0,,True,banana_cavendish
+Banana Cavendish,2023Q2,0,,True,banana_cavendish
+Banana Cavendish,2023Q3,0,,True,banana_cavendish
+Banana Cavendish,2023Q4,0,,True,banana_cavendish
+Banana Cavendish,2024Q1,0,,True,banana_cavendish
+Banana Cavendish,2024Q2,0,,True,banana_cavendish
+Banana Cavendish,2024Q3,0,,True,banana_cavendish
+Banana Cavendish,2024Q4,0,,True,banana_cavendish
+Banana Cavendish,2025Q1,0,,True,banana_cavendish
+Banana Cavendish,2025Q2,0,,True,banana_cavendish
+Banana Cavendish,2025Q3,0,,True,banana_cavendish
+Banana Cavendish,2025Q4,0,,True,banana_cavendish
+Banana Cavendish,2026Q1,0,,True,banana_cavendish
+Banana Cavendish,2026Q2,0,,True,banana_cavendish
+Banana Lakatan,2010Q1,0,,False,banana_lakatan
+Banana Lakatan,2010Q2,-3.63798e-12,,False,banana_lakatan
+Banana Lakatan,2010Q3,0,,False,banana_lakatan
+Banana Lakatan,2010Q4,0,,False,banana_lakatan
+Banana Lakatan,2011Q1,0,,False,banana_lakatan
+Banana Lakatan,2011Q2,0,,False,banana_lakatan
+Banana Lakatan,2011Q3,0,,False,banana_lakatan
+Banana Lakatan,2011Q4,0,,False,banana_lakatan
+Banana Lakatan,2012Q1,0,,False,banana_lakatan
+Banana Lakatan,2012Q2,0,,False,banana_lakatan
+Banana Lakatan,2012Q3,-3.63798e-12,,False,banana_lakatan
+Banana Lakatan,2012Q4,0,,False,banana_lakatan
+Banana Lakatan,2013Q1,3.63798e-12,,False,banana_lakatan
+Banana Lakatan,2013Q2,0,,False,banana_lakatan
+Banana Lakatan,2013Q3,0,,False,banana_lakatan
+Banana Lakatan,2013Q4,0,,False,banana_lakatan
+Banana Lakatan,2014Q1,0,,False,banana_lakatan
+Banana Lakatan,2014Q2,0,,False,banana_lakatan
+Banana Lakatan,2014Q3,0,,False,banana_lakatan
+Banana Lakatan,2014Q4,0,,False,banana_lakatan
+Banana Lakatan,2015Q1,0,,False,banana_lakatan
+Banana Lakatan,2015Q2,0,,False,banana_lakatan
+Banana Lakatan,2015Q3,0,,False,banana_lakatan
+Banana Lakatan,2015Q4,0,,False,banana_lakatan
+Banana Lakatan,2016Q1,0,,False,banana_lakatan
+Banana Lakatan,2016Q2,0,,False,banana_lakatan
+Banana Lakatan,2016Q3,3.63798e-12,,False,banana_lakatan
+Banana Lakatan,2016Q4,0,,False,banana_lakatan
+Banana Lakatan,2017Q1,0,,False,banana_lakatan
+Banana Lakatan,2017Q2,0,,False,banana_lakatan
+Banana Lakatan,2017Q3,0,,False,banana_lakatan
+Banana Lakatan,2017Q4,0,,False,banana_lakatan
+Banana Lakatan,2018Q1,0,,False,banana_lakatan
+Banana Lakatan,2018Q2,0,,False,banana_lakatan
+Banana Lakatan,2018Q3,7.27596e-12,,False,banana_lakatan
+Banana Lakatan,2018Q4,0,,False,banana_lakatan
+Banana Lakatan,2019Q1,-3.63798e-12,,False,banana_lakatan
+Banana Lakatan,2019Q2,0,,False,banana_lakatan
+Banana Lakatan,2019Q3,0,,False,banana_lakatan
+Banana Lakatan,2019Q4,0,,False,banana_lakatan
+Banana Lakatan,2020Q1,0,,False,banana_lakatan
+Banana Lakatan,2020Q2,0,,False,banana_lakatan
+Banana Lakatan,2020Q3,0,,False,banana_lakatan
+Banana Lakatan,2020Q4,0,,False,banana_lakatan
+Banana Lakatan,2021Q1,0,,False,banana_lakatan
+Banana Lakatan,2021Q2,3.63798e-12,,False,banana_lakatan
+Banana Lakatan,2021Q3,-7.27596e-12,,False,banana_lakatan
+Banana Lakatan,2021Q4,0,,False,banana_lakatan
+Banana Lakatan,2022Q1,0,,False,banana_lakatan
+Banana Lakatan,2022Q2,3.63798e-12,,False,banana_lakatan
+Banana Lakatan,2022Q3,0,,False,banana_lakatan
+Banana Lakatan,2022Q4,0,,False,banana_lakatan
+Banana Lakatan,2023Q1,0,,True,banana_lakatan
+Banana Lakatan,2023Q2,3.63798e-12,,True,banana_lakatan
+Banana Lakatan,2023Q3,-7.27596e-12,,True,banana_lakatan
+Banana Lakatan,2023Q4,0,,True,banana_lakatan
+Banana Lakatan,2024Q1,3.63798e-12,,True,banana_lakatan
+Banana Lakatan,2024Q2,0,,True,banana_lakatan
+Banana Lakatan,2024Q3,0,,True,banana_lakatan
+Banana Lakatan,2024Q4,0,,True,banana_lakatan
+Banana Lakatan,2025Q1,0,,True,banana_lakatan
+Banana Lakatan,2025Q2,0.01,,True,banana_lakatan
+Banana Lakatan,2025Q3,0.01,,True,banana_lakatan
+Banana Lakatan,2025Q4,0,,True,banana_lakatan
+Banana Lakatan,2026Q1,106.34,,True,banana_lakatan
+Banana Lakatan,2026Q2,54.88,,True,banana_lakatan
+Banana Latundan,2010Q1,0,,False,banana_latundan
+Banana Latundan,2010Q2,0,,False,banana_latundan
+Banana Latundan,2010Q3,0,,False,banana_latundan
+Banana Latundan,2010Q4,0,,False,banana_latundan
+Banana Latundan,2011Q1,0,,False,banana_latundan
+Banana Latundan,2011Q2,0,,False,banana_latundan
+Banana Latundan,2011Q3,0,,False,banana_latundan
+Banana Latundan,2011Q4,0,,False,banana_latundan
+Banana Latundan,2012Q1,0,,False,banana_latundan
+Banana Latundan,2012Q2,0,,False,banana_latundan
+Banana Latundan,2012Q3,0,,False,banana_latundan
+Banana Latundan,2012Q4,0,,False,banana_latundan
+Banana Latundan,2013Q1,0,,False,banana_latundan
+Banana Latundan,2013Q2,0,,False,banana_latundan
+Banana Latundan,2013Q3,0,,False,banana_latundan
+Banana Latundan,2013Q4,0,,False,banana_latundan
+Banana Latundan,2014Q1,0,,False,banana_latundan
+Banana Latundan,2014Q2,0,,False,banana_latundan
+Banana Latundan,2014Q3,0,,False,banana_latundan
+Banana Latundan,2014Q4,0,,False,banana_latundan
+Banana Latundan,2015Q1,0,,False,banana_latundan
+Banana Latundan,2015Q2,0,,False,banana_latundan
+Banana Latundan,2015Q3,0,,False,banana_latundan
+Banana Latundan,2015Q4,0,,False,banana_latundan
+Banana Latundan,2016Q1,0,,False,banana_latundan
+Banana Latundan,2016Q2,0,,False,banana_latundan
+Banana Latundan,2016Q3,9.09495e-13,,False,banana_latundan
+Banana Latundan,2016Q4,-4.54747e-13,,False,banana_latundan
+Banana Latundan,2017Q1,0,,False,banana_latundan
+Banana Latundan,2017Q2,0,,False,banana_latundan
+Banana Latundan,2017Q3,0,,False,banana_latundan
+Banana Latundan,2017Q4,4.54747e-13,,False,banana_latundan
+Banana Latundan,2018Q1,0,,False,banana_latundan
+Banana Latundan,2018Q2,0,,False,banana_latundan
+Banana Latundan,2018Q3,0,,False,banana_latundan
+Banana Latundan,2018Q4,0,,False,banana_latundan
+Banana Latundan,2019Q1,0,,False,banana_latundan
+Banana Latundan,2019Q2,0,,False,banana_latundan
+Banana Latundan,2019Q3,0,,False,banana_latundan
+Banana Latundan,2019Q4,0,,False,banana_latundan
+Banana Latundan,2020Q1,0,,False,banana_latundan
+Banana Latundan,2020Q2,-9.09495e-13,,False,banana_latundan
+Banana Latundan,2020Q3,0,,False,banana_latundan
+Banana Latundan,2020Q4,0,,False,banana_latundan
+Banana Latundan,2021Q1,0,,False,banana_latundan
+Banana Latundan,2021Q2,0,,False,banana_latundan
+Banana Latundan,2021Q3,-9.09495e-13,,False,banana_latundan
+Banana Latundan,2021Q4,0,,False,banana_latundan
+Banana Latundan,2022Q1,0,,False,banana_latundan
+Banana Latundan,2022Q2,0,,False,banana_latundan
+Banana Latundan,2022Q3,0,,False,banana_latundan
+Banana Latundan,2022Q4,-9.09495e-13,,False,banana_latundan
+Banana Latundan,2023Q1,0,,True,banana_latundan
+Banana Latundan,2023Q2,0,,True,banana_latundan
+Banana Latundan,2023Q3,0,,True,banana_latundan
+Banana Latundan,2023Q4,0,,True,banana_latundan
+Banana Latundan,2024Q1,0,,True,banana_latundan
+Banana Latundan,2024Q2,0,,True,banana_latundan
+Banana Latundan,2024Q3,0,,True,banana_latundan
+Banana Latundan,2024Q4,0.22,,True,banana_latundan
+Banana Latundan,2025Q1,0.26,,True,banana_latundan
+Banana Latundan,2025Q2,0.31,,True,banana_latundan
+Banana Latundan,2025Q3,0,,True,banana_latundan
+Banana Latundan,2025Q4,0,,True,banana_latundan
+Banana Latundan,2026Q1,0.28,,True,banana_latundan
+Banana Latundan,2026Q2,0.5,,True,banana_latundan
+Banana Others,2010Q1,0,,False,banana_others
+Banana Others,2010Q2,0,,False,banana_others
+Banana Others,2010Q3,0,,False,banana_others
+Banana Others,2010Q4,0,,False,banana_others
+Banana Others,2011Q1,0,,False,banana_others
+Banana Others,2011Q2,0,,False,banana_others
+Banana Others,2011Q3,0,,False,banana_others
+Banana Others,2011Q4,0,,False,banana_others
+Banana Others,2012Q1,0,,False,banana_others
+Banana Others,2012Q2,4.54747e-13,,False,banana_others
+Banana Others,2012Q3,0,,False,banana_others
+Banana Others,2012Q4,0,,False,banana_others
+Banana Others,2013Q1,0,,False,banana_others
+Banana Others,2013Q2,0,,False,banana_others
+Banana Others,2013Q3,0,,False,banana_others
+Banana Others,2013Q4,0,,False,banana_others
+Banana Others,2014Q1,0,,False,banana_others
+Banana Others,2014Q2,0,,False,banana_others
+Banana Others,2014Q3,0,,False,banana_others
+Banana Others,2014Q4,0,,False,banana_others
+Banana Others,2015Q1,0,,False,banana_others
+Banana Others,2015Q2,0,,False,banana_others
+Banana Others,2015Q3,0,,False,banana_others
+Banana Others,2015Q4,0,,False,banana_others
+Banana Others,2016Q1,0,,False,banana_others
+Banana Others,2016Q2,0,,False,banana_others
+Banana Others,2016Q3,0,,False,banana_others
+Banana Others,2016Q4,0,,False,banana_others
+Banana Others,2017Q1,0,,False,banana_others
+Banana Others,2017Q2,0,,False,banana_others
+Banana Others,2017Q3,0,,False,banana_others
+Banana Others,2017Q4,0,,False,banana_others
+Banana Others,2018Q1,0,,False,banana_others
+Banana Others,2018Q2,0,,False,banana_others
+Banana Others,2018Q3,0,,False,banana_others
+Banana Others,2018Q4,0,,False,banana_others
+Banana Others,2019Q1,0,,False,banana_others
+Banana Others,2019Q2,0,,False,banana_others
+Banana Others,2019Q3,0,,False,banana_others
+Banana Others,2019Q4,0,,False,banana_others
+Banana Others,2020Q1,0,,False,banana_others
+Banana Others,2020Q2,0,,False,banana_others
+Banana Others,2020Q3,-4.54747e-13,,False,banana_others
+Banana Others,2020Q4,4.54747e-13,,False,banana_others
+Banana Others,2021Q1,0,,False,banana_others
+Banana Others,2021Q2,0,,False,banana_others
+Banana Others,2021Q3,0,,False,banana_others
+Banana Others,2021Q4,0,,False,banana_others
+Banana Others,2022Q1,0,,False,banana_others
+Banana Others,2022Q2,0,,False,banana_others
+Banana Others,2022Q3,-4.54747e-13,,False,banana_others
+Banana Others,2022Q4,0,,False,banana_others
+Banana Others,2023Q1,0,,True,banana_others
+Banana Others,2023Q2,0,,True,banana_others
+Banana Others,2023Q3,0,,True,banana_others
+Banana Others,2023Q4,0,,True,banana_others
+Banana Others,2024Q1,4.54747e-13,,True,banana_others
+Banana Others,2024Q2,0,,True,banana_others
+Banana Others,2024Q3,0,,True,banana_others
+Banana Others,2024Q4,0,,True,banana_others
+Banana Others,2025Q1,0,,True,banana_others
+Banana Others,2025Q2,0,,True,banana_others
+Banana Others,2025Q3,-4.54747e-13,,True,banana_others
+Banana Others,2025Q4,0,,True,banana_others
+Banana Others,2026Q1,0,,True,banana_others
+Banana Others,2026Q2,-4.54747e-13,,True,banana_others
+Banana Saba,2010Q1,0,,False,banana_saba
+Banana Saba,2010Q2,0,,False,banana_saba
+Banana Saba,2010Q3,0,,False,banana_saba
+Banana Saba,2010Q4,0,,False,banana_saba
+Banana Saba,2011Q1,0,,False,banana_saba
+Banana Saba,2011Q2,0,,False,banana_saba
+Banana Saba,2011Q3,0,,False,banana_saba
+Banana Saba,2011Q4,0,,False,banana_saba
+Banana Saba,2012Q1,0,,False,banana_saba
+Banana Saba,2012Q2,0,,False,banana_saba
+Banana Saba,2012Q3,0,,False,banana_saba
+Banana Saba,2012Q4,0,,False,banana_saba
+Banana Saba,2013Q1,-0.01,,False,banana_saba
+Banana Saba,2013Q2,0,,False,banana_saba
+Banana Saba,2013Q3,0,,False,banana_saba
+Banana Saba,2013Q4,0,,False,banana_saba
+Banana Saba,2014Q1,0,,False,banana_saba
+Banana Saba,2014Q2,7.27596e-12,,False,banana_saba
+Banana Saba,2014Q3,0,,False,banana_saba
+Banana Saba,2014Q4,0,,False,banana_saba
+Banana Saba,2015Q1,0,,False,banana_saba
+Banana Saba,2015Q2,0,,False,banana_saba
+Banana Saba,2015Q3,0,,False,banana_saba
+Banana Saba,2015Q4,0,,False,banana_saba
+Banana Saba,2016Q1,0,,False,banana_saba
+Banana Saba,2016Q2,0,,False,banana_saba
+Banana Saba,2016Q3,0,,False,banana_saba
+Banana Saba,2016Q4,7.27596e-12,,False,banana_saba
+Banana Saba,2017Q1,0,,False,banana_saba
+Banana Saba,2017Q2,0,,False,banana_saba
+Banana Saba,2017Q3,0,,False,banana_saba
+Banana Saba,2017Q4,0,,False,banana_saba
+Banana Saba,2018Q1,0,,False,banana_saba
+Banana Saba,2018Q2,-7.27596e-12,,False,banana_saba
+Banana Saba,2018Q3,0,,False,banana_saba
+Banana Saba,2018Q4,0,,False,banana_saba
+Banana Saba,2019Q1,0,,False,banana_saba
+Banana Saba,2019Q2,0,,False,banana_saba
+Banana Saba,2019Q3,0,,False,banana_saba
+Banana Saba,2019Q4,0,,False,banana_saba
+Banana Saba,2020Q1,0,,False,banana_saba
+Banana Saba,2020Q2,0,,False,banana_saba
+Banana Saba,2020Q3,0,,False,banana_saba
+Banana Saba,2020Q4,0,,False,banana_saba
+Banana Saba,2021Q1,0,,False,banana_saba
+Banana Saba,2021Q2,0,,False,banana_saba
+Banana Saba,2021Q3,0,,False,banana_saba
+Banana Saba,2021Q4,0,,False,banana_saba
+Banana Saba,2022Q1,7.27596e-12,,False,banana_saba
+Banana Saba,2022Q2,0,,False,banana_saba
+Banana Saba,2022Q3,0,,False,banana_saba
+Banana Saba,2022Q4,0,,False,banana_saba
+Banana Saba,2023Q1,0,,True,banana_saba
+Banana Saba,2023Q2,-7.27596e-12,,True,banana_saba
+Banana Saba,2023Q3,0,,True,banana_saba
+Banana Saba,2023Q4,0,,True,banana_saba
+Banana Saba,2024Q1,192.94,,True,banana_saba
+Banana Saba,2024Q2,1060.47,,True,banana_saba
+Banana Saba,2024Q3,544,,True,banana_saba
+Banana Saba,2024Q4,280,,True,banana_saba
+Banana Saba,2025Q1,225.5,,True,banana_saba
+Banana Saba,2025Q2,1107.06,,True,banana_saba
+Banana Saba,2025Q3,858.99,,True,banana_saba
+Banana Saba,2025Q4,-0.01,,True,banana_saba
+Banana Saba,2026Q1,94.84,,True,banana_saba
+Banana Saba,2026Q2,1120,,True,banana_saba
+Cabbage,2010Q1,0,,False,cabbage
+Cabbage,2010Q2,0,,False,cabbage
+Cabbage,2010Q3,0,,False,cabbage
+Cabbage,2010Q4,0,,False,cabbage
+Cabbage,2011Q1,0,,False,cabbage
+Cabbage,2011Q2,-8.88178e-16,,False,cabbage
+Cabbage,2011Q3,0,,False,cabbage
+Cabbage,2011Q4,0,,False,cabbage
+Cabbage,2012Q1,0,,False,cabbage
+Cabbage,2012Q2,0,,False,cabbage
+Cabbage,2012Q3,0,,False,cabbage
+Cabbage,2012Q4,0,,False,cabbage
+Cabbage,2013Q1,0,,False,cabbage
+Cabbage,2013Q2,0,,False,cabbage
+Cabbage,2013Q3,0,,False,cabbage
+Cabbage,2013Q4,0,,False,cabbage
+Cabbage,2014Q1,0,,False,cabbage
+Cabbage,2014Q2,8.88178e-16,,False,cabbage
+Cabbage,2014Q3,0,,False,cabbage
+Cabbage,2014Q4,0,,False,cabbage
+Cabbage,2015Q1,0,,False,cabbage
+Cabbage,2015Q2,0,,False,cabbage
+Cabbage,2015Q3,0,,False,cabbage
+Cabbage,2015Q4,0,,False,cabbage
+Cabbage,2016Q1,0,,False,cabbage
+Cabbage,2016Q2,-1.77636e-15,,False,cabbage
+Cabbage,2016Q3,0,,False,cabbage
+Cabbage,2016Q4,0,,False,cabbage
+Cabbage,2017Q1,0,,False,cabbage
+Cabbage,2017Q2,0,,False,cabbage
+Cabbage,2017Q3,0,,False,cabbage
+Cabbage,2017Q4,0,,False,cabbage
+Cabbage,2018Q1,0,,False,cabbage
+Cabbage,2018Q2,0,,False,cabbage
+Cabbage,2018Q3,0,,False,cabbage
+Cabbage,2018Q4,0,,False,cabbage
+Cabbage,2019Q1,0,,False,cabbage
+Cabbage,2019Q2,-1.77636e-15,,False,cabbage
+Cabbage,2019Q3,0,,False,cabbage
+Cabbage,2019Q4,0,,False,cabbage
+Cabbage,2020Q1,0,,False,cabbage
+Cabbage,2020Q2,0,,False,cabbage
+Cabbage,2020Q3,0,,False,cabbage
+Cabbage,2020Q4,0,,False,cabbage
+Cabbage,2021Q1,0,,False,cabbage
+Cabbage,2021Q2,0,,False,cabbage
+Cabbage,2021Q3,0,,False,cabbage
+Cabbage,2021Q4,0,,False,cabbage
+Cabbage,2022Q1,0,,False,cabbage
+Cabbage,2022Q2,0,,False,cabbage
+Cabbage,2022Q3,0,,False,cabbage
+Cabbage,2022Q4,0,,False,cabbage
+Cabbage,2023Q1,0,,True,cabbage
+Cabbage,2023Q2,0,,True,cabbage
+Cabbage,2023Q3,0,,True,cabbage
+Cabbage,2023Q4,0,,True,cabbage
+Cabbage,2024Q1,0,,True,cabbage
+Cabbage,2024Q2,0,,True,cabbage
+Cabbage,2024Q3,0,,True,cabbage
+Cabbage,2024Q4,0,,True,cabbage
+Cabbage,2025Q1,0,,True,cabbage
+Cabbage,2025Q2,0,,True,cabbage
+Cabbage,2025Q3,7.10543e-15,,True,cabbage
+Cabbage,2025Q4,0,,True,cabbage
+Cabbage,2026Q1,0,,True,cabbage
+Cabbage,2026Q2,-1.13687e-13,,True,cabbage
+Calamansi,2010Q1,0,,False,calamansi
+Calamansi,2010Q2,-1.42109e-14,,False,calamansi
+Calamansi,2010Q3,5.68434e-14,,False,calamansi
+Calamansi,2010Q4,0,,False,calamansi
+Calamansi,2011Q1,0,,False,calamansi
+Calamansi,2011Q2,0,,False,calamansi
+Calamansi,2011Q3,0,,False,calamansi
+Calamansi,2011Q4,5.68434e-14,,False,calamansi
+Calamansi,2012Q1,0,,False,calamansi
+Calamansi,2012Q2,0,,False,calamansi
+Calamansi,2012Q3,0,,False,calamansi
+Calamansi,2012Q4,0,,False,calamansi
+Calamansi,2013Q1,0,,False,calamansi
+Calamansi,2013Q2,0,,False,calamansi
+Calamansi,2013Q3,0,,False,calamansi
+Calamansi,2013Q4,0,,False,calamansi
+Calamansi,2014Q1,0,,False,calamansi
+Calamansi,2014Q2,0,,False,calamansi
+Calamansi,2014Q3,0,,False,calamansi
+Calamansi,2014Q4,0,,False,calamansi
+Calamansi,2015Q1,0,,False,calamansi
+Calamansi,2015Q2,0,,False,calamansi
+Calamansi,2015Q3,0,,False,calamansi
+Calamansi,2015Q4,0,,False,calamansi
+Calamansi,2016Q1,0,,False,calamansi
+Calamansi,2016Q2,2.84217e-14,,False,calamansi
+Calamansi,2016Q3,-1.13687e-13,,False,calamansi
+Calamansi,2016Q4,-5.68434e-14,,False,calamansi
+Calamansi,2017Q1,0,,False,calamansi
+Calamansi,2017Q2,2.84217e-14,,False,calamansi
+Calamansi,2017Q3,0,,False,calamansi
+Calamansi,2017Q4,0,,False,calamansi
+Calamansi,2018Q1,0,,False,calamansi
+Calamansi,2018Q2,-2.84217e-14,,False,calamansi
+Calamansi,2018Q3,0,,False,calamansi
+Calamansi,2018Q4,0,,False,calamansi
+Calamansi,2019Q1,0,,False,calamansi
+Calamansi,2019Q2,2.84217e-14,,False,calamansi
+Calamansi,2019Q3,0,,False,calamansi
+Calamansi,2019Q4,0,,False,calamansi
+Calamansi,2020Q1,0,,False,calamansi
+Calamansi,2020Q2,0,,False,calamansi
+Calamansi,2020Q3,0,,False,calamansi
+Calamansi,2020Q4,0,,False,calamansi
+Calamansi,2021Q1,0,,False,calamansi
+Calamansi,2021Q2,0,,False,calamansi
+Calamansi,2021Q3,0,,False,calamansi
+Calamansi,2021Q4,0,,False,calamansi
+Calamansi,2022Q1,0,,False,calamansi
+Calamansi,2022Q2,-2.84217e-14,,False,calamansi
+Calamansi,2022Q3,0,,False,calamansi
+Calamansi,2022Q4,0,,False,calamansi
+Calamansi,2023Q1,0,,True,calamansi
+Calamansi,2023Q2,0,,True,calamansi
+Calamansi,2023Q3,0,,True,calamansi
+Calamansi,2023Q4,0,,True,calamansi
+Calamansi,2024Q1,0,,True,calamansi
+Calamansi,2024Q2,0,,True,calamansi
+Calamansi,2024Q3,0,,True,calamansi
+Calamansi,2024Q4,0,,True,calamansi
+Calamansi,2025Q1,0,,True,calamansi
+Calamansi,2025Q2,0,,True,calamansi
+Calamansi,2025Q3,0,,True,calamansi
+Calamansi,2025Q4,-0.01,,True,calamansi
+Calamansi,2026Q1,0,,True,calamansi
+Calamansi,2026Q2,5.68434e-14,,True,calamansi
+Camote [Sweet potato],2010Q1,0,,False,camote_sweet_potato
+Camote [Sweet potato],2010Q2,0,,False,camote_sweet_potato
+Camote [Sweet potato],2010Q3,0,,False,camote_sweet_potato
+Camote [Sweet potato],2010Q4,0,,False,camote_sweet_potato
+Camote [Sweet potato],2011Q1,0,,False,camote_sweet_potato
+Camote [Sweet potato],2011Q2,1.13687e-13,,False,camote_sweet_potato
+Camote [Sweet potato],2011Q3,0,,False,camote_sweet_potato
+Camote [Sweet potato],2011Q4,0,,False,camote_sweet_potato
+Camote [Sweet potato],2012Q1,-0.01,,False,camote_sweet_potato
+Camote [Sweet potato],2012Q2,0,,False,camote_sweet_potato
+Camote [Sweet potato],2012Q3,0,,False,camote_sweet_potato
+Camote [Sweet potato],2012Q4,0,,False,camote_sweet_potato
+Camote [Sweet potato],2013Q1,0,,False,camote_sweet_potato
+Camote [Sweet potato],2013Q2,0,,False,camote_sweet_potato
+Camote [Sweet potato],2013Q3,0,,False,camote_sweet_potato
+Camote [Sweet potato],2013Q4,0,,False,camote_sweet_potato
+Camote [Sweet potato],2014Q1,0,,False,camote_sweet_potato
+Camote [Sweet potato],2014Q2,0,,False,camote_sweet_potato
+Camote [Sweet potato],2014Q3,0,,False,camote_sweet_potato
+Camote [Sweet potato],2014Q4,0,,False,camote_sweet_potato
+Camote [Sweet potato],2015Q1,0,,False,camote_sweet_potato
+Camote [Sweet potato],2015Q2,0,,False,camote_sweet_potato
+Camote [Sweet potato],2015Q3,0,,False,camote_sweet_potato
+Camote [Sweet potato],2015Q4,-4.54747e-13,,False,camote_sweet_potato
+Camote [Sweet potato],2016Q1,0,,False,camote_sweet_potato
+Camote [Sweet potato],2016Q2,0,,False,camote_sweet_potato
+Camote [Sweet potato],2016Q3,0,,False,camote_sweet_potato
+Camote [Sweet potato],2016Q4,0,,False,camote_sweet_potato
+Camote [Sweet potato],2017Q1,0,,False,camote_sweet_potato
+Camote [Sweet potato],2017Q2,0,,False,camote_sweet_potato
+Camote [Sweet potato],2017Q3,-1.13687e-13,,False,camote_sweet_potato
+Camote [Sweet potato],2017Q4,0,,False,camote_sweet_potato
+Camote [Sweet potato],2018Q1,0,,False,camote_sweet_potato
+Camote [Sweet potato],2018Q2,0,,False,camote_sweet_potato
+Camote [Sweet potato],2018Q3,0,,False,camote_sweet_potato
+Camote [Sweet potato],2018Q4,4.54747e-13,,False,camote_sweet_potato
+Camote [Sweet potato],2019Q1,-1.13687e-13,,False,camote_sweet_potato
+Camote [Sweet potato],2019Q2,0,,False,camote_sweet_potato
+Camote [Sweet potato],2019Q3,0,,False,camote_sweet_potato
+Camote [Sweet potato],2019Q4,4.54747e-13,,False,camote_sweet_potato
+Camote [Sweet potato],2020Q1,0,,False,camote_sweet_potato
+Camote [Sweet potato],2020Q2,0,,False,camote_sweet_potato
+Camote [Sweet potato],2020Q3,0,,False,camote_sweet_potato
+Camote [Sweet potato],2020Q4,0,,False,camote_sweet_potato
+Camote [Sweet potato],2021Q1,0,,False,camote_sweet_potato
+Camote [Sweet potato],2021Q2,0,,False,camote_sweet_potato
+Camote [Sweet potato],2021Q3,1.13687e-13,,False,camote_sweet_potato
+Camote [Sweet potato],2021Q4,4.54747e-13,,False,camote_sweet_potato
+Camote [Sweet potato],2022Q1,0,,False,camote_sweet_potato
+Camote [Sweet potato],2022Q2,0,,False,camote_sweet_potato
+Camote [Sweet potato],2022Q3,0,,False,camote_sweet_potato
+Camote [Sweet potato],2022Q4,0,,False,camote_sweet_potato
+Camote [Sweet potato],2023Q1,1.13687e-13,,True,camote_sweet_potato
+Camote [Sweet potato],2023Q2,0,,True,camote_sweet_potato
+Camote [Sweet potato],2023Q3,-1.13687e-13,,True,camote_sweet_potato
+Camote [Sweet potato],2023Q4,0,,True,camote_sweet_potato
+Camote [Sweet potato],2024Q1,-1.13687e-13,,True,camote_sweet_potato
+Camote [Sweet potato],2024Q2,10.92,,True,camote_sweet_potato
+Camote [Sweet potato],2024Q3,0,,True,camote_sweet_potato
+Camote [Sweet potato],2024Q4,0,,True,camote_sweet_potato
+Camote [Sweet potato],2025Q1,0,,True,camote_sweet_potato
+Camote [Sweet potato],2025Q2,2.73,,True,camote_sweet_potato
+Camote [Sweet potato],2025Q3,0,,True,camote_sweet_potato
+Camote [Sweet potato],2025Q4,-2.27374e-13,,True,camote_sweet_potato
+Camote [Sweet potato],2026Q1,0,,True,camote_sweet_potato
+Camote [Sweet potato],2026Q2,2.43,,True,camote_sweet_potato
+"Cassava, fresh tubers",2010Q1,0,,False,cassava_fresh_tubers
+"Cassava, fresh tubers",2010Q2,0,,False,cassava_fresh_tubers
+"Cassava, fresh tubers",2010Q3,0,,False,cassava_fresh_tubers
+"Cassava, fresh tubers",2010Q4,0,,False,cassava_fresh_tubers
+"Cassava, fresh tubers",2011Q1,0,,False,cassava_fresh_tubers
+"Cassava, fresh tubers",2011Q2,0,,False,cassava_fresh_tubers
+"Cassava, fresh tubers",2011Q3,0,,False,cassava_fresh_tubers
+"Cassava, fresh tubers",2011Q4,0,,False,cassava_fresh_tubers
+"Cassava, fresh tubers",2012Q1,0,,False,cassava_fresh_tubers
+"Cassava, fresh tubers",2012Q2,0,,False,cassava_fresh_tubers
+"Cassava, fresh tubers",2012Q3,0,,False,cassava_fresh_tubers
+"Cassava, fresh tubers",2012Q4,0,,False,cassava_fresh_tubers
+"Cassava, fresh tubers",2013Q1,0,,False,cassava_fresh_tubers
+"Cassava, fresh tubers",2013Q2,0,,False,cassava_fresh_tubers
+"Cassava, fresh tubers",2013Q3,0,,False,cassava_fresh_tubers
+"Cassava, fresh tubers",2013Q4,0,,False,cassava_fresh_tubers
+"Cassava, fresh tubers",2014Q1,-1.45519e-11,,False,cassava_fresh_tubers
+"Cassava, fresh tubers",2014Q2,0,,False,cassava_fresh_tubers
+"Cassava, fresh tubers",2014Q3,0,,False,cassava_fresh_tubers
+"Cassava, fresh tubers",2014Q4,0,,False,cassava_fresh_tubers
+"Cassava, fresh tubers",2015Q1,0,,False,cassava_fresh_tubers
+"Cassava, fresh tubers",2015Q2,0,,False,cassava_fresh_tubers
+"Cassava, fresh tubers",2015Q3,0,,False,cassava_fresh_tubers
+"Cassava, fresh tubers",2015Q4,0,,False,cassava_fresh_tubers
+"Cassava, fresh tubers",2016Q1,0,,False,cassava_fresh_tubers
+"Cassava, fresh tubers",2016Q2,0,,False,cassava_fresh_tubers
+"Cassava, fresh tubers",2016Q3,0,,False,cassava_fresh_tubers
+"Cassava, fresh tubers",2016Q4,0,,False,cassava_fresh_tubers
+"Cassava, fresh tubers",2017Q1,0,,False,cassava_fresh_tubers
+"Cassava, fresh tubers",2017Q2,0,,False,cassava_fresh_tubers
+"Cassava, fresh tubers",2017Q3,0,,False,cassava_fresh_tubers
+"Cassava, fresh tubers",2017Q4,0,,False,cassava_fresh_tubers
+"Cassava, fresh tubers",2018Q1,0,,False,cassava_fresh_tubers
+"Cassava, fresh tubers",2018Q2,0,,False,cassava_fresh_tubers
+"Cassava, fresh tubers",2018Q3,0,,False,cassava_fresh_tubers
+"Cassava, fresh tubers",2018Q4,0,,False,cassava_fresh_tubers
+"Cassava, fresh tubers",2019Q1,-1.45519e-11,,False,cassava_fresh_tubers
+"Cassava, fresh tubers",2019Q2,0,,False,cassava_fresh_tubers
+"Cassava, fresh tubers",2019Q3,0,,False,cassava_fresh_tubers
+"Cassava, fresh tubers",2019Q4,0,,False,cassava_fresh_tubers
+"Cassava, fresh tubers",2020Q1,1.45519e-11,,False,cassava_fresh_tubers
+"Cassava, fresh tubers",2020Q2,0,,False,cassava_fresh_tubers
+"Cassava, fresh tubers",2020Q3,0,,False,cassava_fresh_tubers
+"Cassava, fresh tubers",2020Q4,0,,False,cassava_fresh_tubers
+"Cassava, fresh tubers",2021Q1,0,,False,cassava_fresh_tubers
+"Cassava, fresh tubers",2021Q2,0,,False,cassava_fresh_tubers
+"Cassava, fresh tubers",2021Q3,0,,False,cassava_fresh_tubers
+"Cassava, fresh tubers",2021Q4,0,,False,cassava_fresh_tubers
+"Cassava, fresh tubers",2022Q1,0,,False,cassava_fresh_tubers
+"Cassava, fresh tubers",2022Q2,0,,False,cassava_fresh_tubers
+"Cassava, fresh tubers",2022Q3,0,,False,cassava_fresh_tubers
+"Cassava, fresh tubers",2022Q4,0,,False,cassava_fresh_tubers
+"Cassava, fresh tubers",2023Q1,-1.45519e-11,,True,cassava_fresh_tubers
+"Cassava, fresh tubers",2023Q2,0,,True,cassava_fresh_tubers
+"Cassava, fresh tubers",2023Q3,0,,True,cassava_fresh_tubers
+"Cassava, fresh tubers",2023Q4,0,,True,cassava_fresh_tubers
+"Cassava, fresh tubers",2024Q1,-1.45519e-11,,True,cassava_fresh_tubers
+"Cassava, fresh tubers",2024Q2,0,,True,cassava_fresh_tubers
+"Cassava, fresh tubers",2024Q3,0,,True,cassava_fresh_tubers
+"Cassava, fresh tubers",2024Q4,10.98,,True,cassava_fresh_tubers
+"Cassava, fresh tubers",2025Q1,0,,True,cassava_fresh_tubers
+"Cassava, fresh tubers",2025Q2,2726.08,,True,cassava_fresh_tubers
+"Cassava, fresh tubers",2025Q3,0,,True,cassava_fresh_tubers
+"Cassava, fresh tubers",2025Q4,0,,True,cassava_fresh_tubers
+"Cassava, fresh tubers",2026Q1,519.31,,True,cassava_fresh_tubers
+"Cassava, fresh tubers",2026Q2,2662,,True,cassava_fresh_tubers
+Eggplant,2010Q1,1.42109e-14,,False,eggplant
+Eggplant,2010Q2,0,,False,eggplant
+Eggplant,2010Q3,0,,False,eggplant
+Eggplant,2010Q4,0,,False,eggplant
+Eggplant,2011Q1,1.42109e-14,,False,eggplant
+Eggplant,2011Q2,0,,False,eggplant
+Eggplant,2011Q3,0,,False,eggplant
+Eggplant,2011Q4,5.68434e-14,,False,eggplant
+Eggplant,2012Q1,0.01,,False,eggplant
+Eggplant,2012Q2,0,,False,eggplant
+Eggplant,2012Q3,0,,False,eggplant
+Eggplant,2012Q4,0,,False,eggplant
+Eggplant,2013Q1,-1.42109e-14,,False,eggplant
+Eggplant,2013Q2,-7.10543e-15,,False,eggplant
+Eggplant,2013Q3,0,,False,eggplant
+Eggplant,2013Q4,0,,False,eggplant
+Eggplant,2014Q1,0,,False,eggplant
+Eggplant,2014Q2,0,,False,eggplant
+Eggplant,2014Q3,0,,False,eggplant
+Eggplant,2014Q4,0,,False,eggplant
+Eggplant,2015Q1,0,,False,eggplant
+Eggplant,2015Q2,0,,False,eggplant
+Eggplant,2015Q3,0,,False,eggplant
+Eggplant,2015Q4,0,,False,eggplant
+Eggplant,2016Q1,0,,False,eggplant
+Eggplant,2016Q2,7.10543e-15,,False,eggplant
+Eggplant,2016Q3,0,,False,eggplant
+Eggplant,2016Q4,0,,False,eggplant
+Eggplant,2017Q1,2.84217e-14,,False,eggplant
+Eggplant,2017Q2,0,,False,eggplant
+Eggplant,2017Q3,0,,False,eggplant
+Eggplant,2017Q4,0,,False,eggplant
+Eggplant,2018Q1,-2.84217e-14,,False,eggplant
+Eggplant,2018Q2,0,,False,eggplant
+Eggplant,2018Q3,2.84217e-14,,False,eggplant
+Eggplant,2018Q4,0,,False,eggplant
+Eggplant,2019Q1,0,,False,eggplant
+Eggplant,2019Q2,0,,False,eggplant
+Eggplant,2019Q3,0,,False,eggplant
+Eggplant,2019Q4,0,,False,eggplant
+Eggplant,2020Q1,0,,False,eggplant
+Eggplant,2020Q2,1.42109e-14,,False,eggplant
+Eggplant,2020Q3,0,,False,eggplant
+Eggplant,2020Q4,0,,False,eggplant
+Eggplant,2021Q1,0,,False,eggplant
+Eggplant,2021Q2,0,,False,eggplant
+Eggplant,2021Q3,2.84217e-14,,False,eggplant
+Eggplant,2021Q4,0,,False,eggplant
+Eggplant,2022Q1,0,,False,eggplant
+Eggplant,2022Q2,0,,False,eggplant
+Eggplant,2022Q3,0,,False,eggplant
+Eggplant,2022Q4,0,,False,eggplant
+Eggplant,2023Q1,2.84217e-14,,True,eggplant
+Eggplant,2023Q2,1.42109e-14,,True,eggplant
+Eggplant,2023Q3,0,,True,eggplant
+Eggplant,2023Q4,0,,True,eggplant
+Eggplant,2024Q1,0,,True,eggplant
+Eggplant,2024Q2,0,,True,eggplant
+Eggplant,2024Q3,0,,True,eggplant
+Eggplant,2024Q4,5,,True,eggplant
+Eggplant,2025Q1,0,,True,eggplant
+Eggplant,2025Q2,1.99,,True,eggplant
+Eggplant,2025Q3,-0.01,,True,eggplant
+Eggplant,2025Q4,-0.01,,True,eggplant
+Eggplant,2026Q1,643.85,,True,eggplant
+Eggplant,2026Q2,12.3,,True,eggplant
+Mango,2010Q1,0,,False,mango
+Mango,2010Q2,0,,False,mango
+Mango,2010Q3,0,,False,mango
+Mango,2010Q4,0,,False,mango
+Mango,2011Q1,0,,False,mango
+Mango,2011Q2,0,,False,mango
+Mango,2011Q3,0,,False,mango
+Mango,2011Q4,0,,False,mango
+Mango,2012Q1,0,,False,mango
+Mango,2012Q2,-4.54747e-13,,False,mango
+Mango,2012Q3,0,,False,mango
+Mango,2012Q4,0,,False,mango
+Mango,2013Q1,0,,False,mango
+Mango,2013Q2,0,,False,mango
+Mango,2013Q3,0,,False,mango
+Mango,2013Q4,0,,False,mango
+Mango,2014Q1,0,,False,mango
+Mango,2014Q2,0,,False,mango
+Mango,2014Q3,2.27374e-13,,False,mango
+Mango,2014Q4,0,,False,mango
+Mango,2015Q1,0,,False,mango
+Mango,2015Q2,0,,False,mango
+Mango,2015Q3,0,,False,mango
+Mango,2015Q4,0,,False,mango
+Mango,2016Q1,0,,False,mango
+Mango,2016Q2,0,,False,mango
+Mango,2016Q3,0,,False,mango
+Mango,2016Q4,0,,False,mango
+Mango,2017Q1,0.01,,False,mango
+Mango,2017Q2,0,,False,mango
+Mango,2017Q3,2.27374e-13,,False,mango
+Mango,2017Q4,1.13687e-13,,False,mango
+Mango,2018Q1,0,,False,mango
+Mango,2018Q2,0,,False,mango
+Mango,2018Q3,0,,False,mango
+Mango,2018Q4,1.13687e-13,,False,mango
+Mango,2019Q1,0,,False,mango
+Mango,2019Q2,0,,False,mango
+Mango,2019Q3,0,,False,mango
+Mango,2019Q4,0,,False,mango
+Mango,2020Q1,0,,False,mango
+Mango,2020Q2,0,,False,mango
+Mango,2020Q3,2.27374e-13,,False,mango
+Mango,2020Q4,0,,False,mango
+Mango,2021Q1,0,,False,mango
+Mango,2021Q2,0,,False,mango
+Mango,2021Q3,0,,False,mango
+Mango,2021Q4,0,,False,mango
+Mango,2022Q1,0,,False,mango
+Mango,2022Q2,0,,False,mango
+Mango,2022Q3,2.27374e-13,,False,mango
+Mango,2022Q4,0,,False,mango
+Mango,2023Q1,0,,True,mango
+Mango,2023Q2,0,,True,mango
+Mango,2023Q3,0,,True,mango
+Mango,2023Q4,0,,True,mango
+Mango,2024Q1,35.74,,True,mango
+Mango,2024Q2,0,,True,mango
+Mango,2024Q3,2.27374e-13,,True,mango
+Mango,2024Q4,0,,True,mango
+Mango,2025Q1,0,,True,mango
+Mango,2025Q2,0.01,,True,mango
+Mango,2025Q3,0,,True,mango
+Mango,2025Q4,0,,True,mango
+Mango,2026Q1,70,,True,mango
+Mango,2026Q2,272.88,,True,mango
+Mongo [Mungbean],2010Q1,1.13687e-13,,False,mongo_mungbean
+Mongo [Mungbean],2010Q2,0,,False,mongo_mungbean
+Mongo [Mungbean],2010Q3,0,,False,mongo_mungbean
+Mongo [Mungbean],2010Q4,2.27374e-13,,False,mongo_mungbean
+Mongo [Mungbean],2011Q1,0,,False,mongo_mungbean
+Mongo [Mungbean],2011Q2,0,,False,mongo_mungbean
+Mongo [Mungbean],2011Q3,-2.84217e-14,,False,mongo_mungbean
+Mongo [Mungbean],2011Q4,0,,False,mongo_mungbean
+Mongo [Mungbean],2012Q1,0,,False,mongo_mungbean
+Mongo [Mungbean],2012Q2,0,,False,mongo_mungbean
+Mongo [Mungbean],2012Q3,0,,False,mongo_mungbean
+Mongo [Mungbean],2012Q4,0,,False,mongo_mungbean
+Mongo [Mungbean],2013Q1,-1.13687e-13,,False,mongo_mungbean
+Mongo [Mungbean],2013Q2,0,,False,mongo_mungbean
+Mongo [Mungbean],2013Q3,0.01,,False,mongo_mungbean
+Mongo [Mungbean],2013Q4,2.27374e-13,,False,mongo_mungbean
+Mongo [Mungbean],2014Q1,0,,False,mongo_mungbean
+Mongo [Mungbean],2014Q2,0,,False,mongo_mungbean
+Mongo [Mungbean],2014Q3,0,,False,mongo_mungbean
+Mongo [Mungbean],2014Q4,0,,False,mongo_mungbean
+Mongo [Mungbean],2015Q1,0,,False,mongo_mungbean
+Mongo [Mungbean],2015Q2,2.84217e-14,,False,mongo_mungbean
+Mongo [Mungbean],2015Q3,-1.42109e-14,,False,mongo_mungbean
+Mongo [Mungbean],2015Q4,0,,False,mongo_mungbean
+Mongo [Mungbean],2016Q1,1.13687e-13,,False,mongo_mungbean
+Mongo [Mungbean],2016Q2,0,,False,mongo_mungbean
+Mongo [Mungbean],2016Q3,-1.42109e-14,,False,mongo_mungbean
+Mongo [Mungbean],2016Q4,-2.27374e-13,,False,mongo_mungbean
+Mongo [Mungbean],2017Q1,0,,False,mongo_mungbean
+Mongo [Mungbean],2017Q2,0,,False,mongo_mungbean
+Mongo [Mungbean],2017Q3,0,,False,mongo_mungbean
+Mongo [Mungbean],2017Q4,2.27374e-13,,False,mongo_mungbean
+Mongo [Mungbean],2018Q1,-1.13687e-13,,False,mongo_mungbean
+Mongo [Mungbean],2018Q2,0,,False,mongo_mungbean
+Mongo [Mungbean],2018Q3,0,,False,mongo_mungbean
+Mongo [Mungbean],2018Q4,-2.27374e-13,,False,mongo_mungbean
+Mongo [Mungbean],2019Q1,1.13687e-13,,False,mongo_mungbean
+Mongo [Mungbean],2019Q2,0,,False,mongo_mungbean
+Mongo [Mungbean],2019Q3,0,,False,mongo_mungbean
+Mongo [Mungbean],2019Q4,0,,False,mongo_mungbean
+Mongo [Mungbean],2020Q1,0,,False,mongo_mungbean
+Mongo [Mungbean],2020Q2,0,,False,mongo_mungbean
+Mongo [Mungbean],2020Q3,0,,False,mongo_mungbean
+Mongo [Mungbean],2020Q4,0,,False,mongo_mungbean
+Mongo [Mungbean],2021Q1,1.13687e-13,,False,mongo_mungbean
+Mongo [Mungbean],2021Q2,2.84217e-14,,False,mongo_mungbean
+Mongo [Mungbean],2021Q3,0,,False,mongo_mungbean
+Mongo [Mungbean],2021Q4,0,,False,mongo_mungbean
+Mongo [Mungbean],2022Q1,-1.13687e-13,,False,mongo_mungbean
+Mongo [Mungbean],2022Q2,0,,False,mongo_mungbean
+Mongo [Mungbean],2022Q3,0,,False,mongo_mungbean
+Mongo [Mungbean],2022Q4,0,,False,mongo_mungbean
+Mongo [Mungbean],2023Q1,-1.13687e-13,,True,mongo_mungbean
+Mongo [Mungbean],2023Q2,0,,True,mongo_mungbean
+Mongo [Mungbean],2023Q3,0,,True,mongo_mungbean
+Mongo [Mungbean],2023Q4,-2.27374e-13,,True,mongo_mungbean
+Mongo [Mungbean],2024Q1,-1.13687e-13,,True,mongo_mungbean
+Mongo [Mungbean],2024Q2,0,,True,mongo_mungbean
+Mongo [Mungbean],2024Q3,0,,True,mongo_mungbean
+Mongo [Mungbean],2024Q4,0,,True,mongo_mungbean
+Mongo [Mungbean],2025Q1,1.13687e-13,,True,mongo_mungbean
+Mongo [Mungbean],2025Q2,0,,True,mongo_mungbean
+Mongo [Mungbean],2025Q3,0,,True,mongo_mungbean
+Mongo [Mungbean],2025Q4,0,,True,mongo_mungbean
+Mongo [Mungbean],2026Q1,0,,True,mongo_mungbean
+Mongo [Mungbean],2026Q2,0,,True,mongo_mungbean
+"Onion, mature bulb",2010Q1,0,,False,onion_mature_bulb
+"Onion, mature bulb",2010Q2,0,,False,onion_mature_bulb
+"Onion, mature bulb",2010Q3,0,,False,onion_mature_bulb
+"Onion, mature bulb",2010Q4,0,,False,onion_mature_bulb
+"Onion, mature bulb",2011Q1,0,,False,onion_mature_bulb
+"Onion, mature bulb",2011Q2,0,,False,onion_mature_bulb
+"Onion, mature bulb",2011Q3,0,,False,onion_mature_bulb
+"Onion, mature bulb",2011Q4,0,,False,onion_mature_bulb
+"Onion, mature bulb",2012Q1,0,,False,onion_mature_bulb
+"Onion, mature bulb",2012Q2,0,,False,onion_mature_bulb
+"Onion, mature bulb",2012Q3,0,,False,onion_mature_bulb
+"Onion, mature bulb",2012Q4,0,,False,onion_mature_bulb
+"Onion, mature bulb",2013Q1,0,,False,onion_mature_bulb
+"Onion, mature bulb",2013Q2,0,,False,onion_mature_bulb
+"Onion, mature bulb",2013Q3,0,,False,onion_mature_bulb
+"Onion, mature bulb",2013Q4,0,,False,onion_mature_bulb
+"Onion, mature bulb",2014Q1,0,,False,onion_mature_bulb
+"Onion, mature bulb",2014Q2,0,,False,onion_mature_bulb
+"Onion, mature bulb",2014Q3,0,,False,onion_mature_bulb
+"Onion, mature bulb",2014Q4,0,,False,onion_mature_bulb
+"Onion, mature bulb",2015Q1,0,,False,onion_mature_bulb
+"Onion, mature bulb",2015Q2,0,,False,onion_mature_bulb
+"Onion, mature bulb",2015Q3,0,,False,onion_mature_bulb
+"Onion, mature bulb",2015Q4,0,,False,onion_mature_bulb
+"Onion, mature bulb",2016Q1,0,,False,onion_mature_bulb
+"Onion, mature bulb",2016Q2,0,,False,onion_mature_bulb
+"Onion, mature bulb",2016Q3,0,,False,onion_mature_bulb
+"Onion, mature bulb",2016Q4,0,,False,onion_mature_bulb
+"Onion, mature bulb",2017Q1,0,,False,onion_mature_bulb
+"Onion, mature bulb",2017Q2,0,,False,onion_mature_bulb
+"Onion, mature bulb",2017Q3,0,,False,onion_mature_bulb
+"Onion, mature bulb",2017Q4,0,,False,onion_mature_bulb
+"Onion, mature bulb",2018Q1,0,,False,onion_mature_bulb
+"Onion, mature bulb",2018Q2,0,,False,onion_mature_bulb
+"Onion, mature bulb",2018Q3,0,,False,onion_mature_bulb
+"Onion, mature bulb",2018Q4,0,,False,onion_mature_bulb
+"Onion, mature bulb",2019Q1,0,,False,onion_mature_bulb
+"Onion, mature bulb",2019Q2,0,,False,onion_mature_bulb
+"Onion, mature bulb",2019Q3,0,,False,onion_mature_bulb
+"Onion, mature bulb",2019Q4,0,,False,onion_mature_bulb
+"Onion, mature bulb",2020Q1,0,,False,onion_mature_bulb
+"Onion, mature bulb",2020Q2,0,,False,onion_mature_bulb
+"Onion, mature bulb",2020Q3,0,,False,onion_mature_bulb
+"Onion, mature bulb",2020Q4,0,,False,onion_mature_bulb
+"Onion, mature bulb",2021Q1,0,,False,onion_mature_bulb
+"Onion, mature bulb",2021Q2,0,,False,onion_mature_bulb
+"Onion, mature bulb",2021Q3,0,,False,onion_mature_bulb
+"Onion, mature bulb",2021Q4,0,,False,onion_mature_bulb
+"Onion, mature bulb",2022Q1,0,,False,onion_mature_bulb
+"Onion, mature bulb",2022Q2,0,,False,onion_mature_bulb
+"Onion, mature bulb",2022Q3,0,,False,onion_mature_bulb
+"Onion, mature bulb",2022Q4,0,,False,onion_mature_bulb
+"Onion, mature bulb",2023Q1,0,,True,onion_mature_bulb
+"Onion, mature bulb",2023Q2,0,,True,onion_mature_bulb
+"Onion, mature bulb",2023Q3,0,,True,onion_mature_bulb
+"Onion, mature bulb",2023Q4,0,,True,onion_mature_bulb
+"Onion, mature bulb",2024Q1,0,,True,onion_mature_bulb
+"Onion, mature bulb",2024Q2,0,,True,onion_mature_bulb
+"Onion, mature bulb",2024Q3,0,,True,onion_mature_bulb
+"Onion, mature bulb",2024Q4,0,,True,onion_mature_bulb
+"Onion, mature bulb",2025Q1,-3.55271e-15,,True,onion_mature_bulb
+"Onion, mature bulb",2025Q2,0,,True,onion_mature_bulb
+"Onion, mature bulb",2025Q3,0,,True,onion_mature_bulb
+"Onion, mature bulb",2025Q4,0,,True,onion_mature_bulb
+"Onion, mature bulb",2026Q1,-5.68434e-14,,True,onion_mature_bulb
+"Onion, mature bulb",2026Q2,0,,True,onion_mature_bulb
+Pineapple,2010Q1,0,,False,pineapple
+Pineapple,2010Q2,0,,False,pineapple
+Pineapple,2010Q3,0,,False,pineapple
+Pineapple,2010Q4,5.68434e-14,,False,pineapple
+Pineapple,2011Q1,0,,False,pineapple
+Pineapple,2011Q2,0,,False,pineapple
+Pineapple,2011Q3,0,,False,pineapple
+Pineapple,2011Q4,0,,False,pineapple
+Pineapple,2012Q1,0,,False,pineapple
+Pineapple,2012Q2,0,,False,pineapple
+Pineapple,2012Q3,2.84217e-14,,False,pineapple
+Pineapple,2012Q4,-5.68434e-14,,False,pineapple
+Pineapple,2013Q1,0,,False,pineapple
+Pineapple,2013Q2,5.68434e-14,,False,pineapple
+Pineapple,2013Q3,0,,False,pineapple
+Pineapple,2013Q4,0,,False,pineapple
+Pineapple,2014Q1,0,,False,pineapple
+Pineapple,2014Q2,0,,False,pineapple
+Pineapple,2014Q3,0,,False,pineapple
+Pineapple,2014Q4,0,,False,pineapple
+Pineapple,2015Q1,0,,False,pineapple
+Pineapple,2015Q2,0,,False,pineapple
+Pineapple,2015Q3,0,,False,pineapple
+Pineapple,2015Q4,0,,False,pineapple
+Pineapple,2016Q1,0,,False,pineapple
+Pineapple,2016Q2,0,,False,pineapple
+Pineapple,2016Q3,-2.84217e-14,,False,pineapple
+Pineapple,2016Q4,5.68434e-14,,False,pineapple
+Pineapple,2017Q1,0,,False,pineapple
+Pineapple,2017Q2,0,,False,pineapple
+Pineapple,2017Q3,0,,False,pineapple
+Pineapple,2017Q4,5.68434e-14,,False,pineapple
+Pineapple,2018Q1,0,,False,pineapple
+Pineapple,2018Q2,0,,False,pineapple
+Pineapple,2018Q3,2.84217e-14,,False,pineapple
+Pineapple,2018Q4,0,,False,pineapple
+Pineapple,2019Q1,0,,False,pineapple
+Pineapple,2019Q2,0,,False,pineapple
+Pineapple,2019Q3,0,,False,pineapple
+Pineapple,2019Q4,0,,False,pineapple
+Pineapple,2020Q1,0,,False,pineapple
+Pineapple,2020Q2,5.68434e-14,,False,pineapple
+Pineapple,2020Q3,2.84217e-14,,False,pineapple
+Pineapple,2020Q4,0,,False,pineapple
+Pineapple,2021Q1,0,,False,pineapple
+Pineapple,2021Q2,-5.68434e-14,,False,pineapple
+Pineapple,2021Q3,0,,False,pineapple
+Pineapple,2021Q4,0,,False,pineapple
+Pineapple,2022Q1,2.84217e-14,,False,pineapple
+Pineapple,2022Q2,0,,False,pineapple
+Pineapple,2022Q3,-2.84217e-14,,False,pineapple
+Pineapple,2022Q4,0,,False,pineapple
+Pineapple,2023Q1,2.84217e-14,,True,pineapple
+Pineapple,2023Q2,5.68434e-14,,True,pineapple
+Pineapple,2023Q3,-0.01,,True,pineapple
+Pineapple,2023Q4,0,,True,pineapple
+Pineapple,2024Q1,-2.84217e-14,,True,pineapple
+Pineapple,2024Q2,0,,True,pineapple
+Pineapple,2024Q3,0,,True,pineapple
+Pineapple,2024Q4,0,,True,pineapple
+Pineapple,2025Q1,0,,True,pineapple
+Pineapple,2025Q2,0,,True,pineapple
+Pineapple,2025Q3,0,,True,pineapple
+Pineapple,2025Q4,-5.68434e-14,,True,pineapple
+Pineapple,2026Q1,0,,True,pineapple
+Pineapple,2026Q2,0,,True,pineapple
+Potato,2010Q1,0,,False,potato
+Potato,2010Q2,0,,False,potato
+Potato,2010Q3,0,,False,potato
+Potato,2010Q4,0,,False,potato
+Potato,2011Q1,0,,False,potato
+Potato,2011Q2,0,,False,potato
+Potato,2011Q3,0,,False,potato
+Potato,2011Q4,0,,False,potato
+Potato,2012Q1,0,,False,potato
+Potato,2012Q2,0,,False,potato
+Potato,2012Q3,0,,False,potato
+Potato,2012Q4,0,,False,potato
+Potato,2013Q1,0,,False,potato
+Potato,2013Q2,0,,False,potato
+Potato,2013Q3,0,,False,potato
+Potato,2013Q4,0,,False,potato
+Potato,2014Q1,0,,False,potato
+Potato,2014Q2,0,,False,potato
+Potato,2014Q3,0,,False,potato
+Potato,2014Q4,0,,False,potato
+Potato,2015Q1,0,,False,potato
+Potato,2015Q2,0,,False,potato
+Potato,2015Q3,0,,False,potato
+Potato,2015Q4,0,,False,potato
+Potato,2016Q1,0,,False,potato
+Potato,2016Q2,0,,False,potato
+Potato,2016Q3,0,,False,potato
+Potato,2016Q4,0,,False,potato
+Potato,2017Q1,0,,False,potato
+Potato,2017Q2,0,,False,potato
+Potato,2017Q3,0,,False,potato
+Potato,2017Q4,0,,False,potato
+Potato,2018Q1,0,,False,potato
+Potato,2018Q2,0,,False,potato
+Potato,2018Q3,0,,False,potato
+Potato,2018Q4,0,,False,potato
+Potato,2019Q1,0,,False,potato
+Potato,2019Q2,0,,False,potato
+Potato,2019Q3,0,,False,potato
+Potato,2019Q4,0,,False,potato
+Potato,2020Q1,0,,False,potato
+Potato,2020Q2,0,,False,potato
+Potato,2020Q3,0,,False,potato
+Potato,2020Q4,0,,False,potato
+Potato,2021Q1,0,,False,potato
+Potato,2021Q2,0,,False,potato
+Potato,2021Q3,0,,False,potato
+Potato,2021Q4,0,,False,potato
+Potato,2022Q1,0,,False,potato
+Potato,2022Q2,0,,False,potato
+Potato,2022Q3,0,,False,potato
+Potato,2022Q4,0,,False,potato
+Potato,2023Q1,0,,True,potato
+Potato,2023Q2,0,,True,potato
+Potato,2023Q3,0,,True,potato
+Potato,2023Q4,0,,True,potato
+Potato,2024Q1,0,,True,potato
+Potato,2024Q2,0,,True,potato
+Potato,2024Q3,0,,True,potato
+Potato,2024Q4,0,,True,potato
+Potato,2025Q1,0,,True,potato
+Potato,2025Q2,0,,True,potato
+Potato,2025Q3,0,,True,potato
+Potato,2025Q4,0,,True,potato
+Potato,2026Q1,0,,True,potato
+Potato,2026Q2,-2.84217e-14,,True,potato
+Tomato,2010Q1,0,,False,tomato
+Tomato,2010Q2,0,,False,tomato
+Tomato,2010Q3,0,,False,tomato
+Tomato,2010Q4,0,,False,tomato
+Tomato,2011Q1,-1.42109e-14,,False,tomato
+Tomato,2011Q2,0,,False,tomato
+Tomato,2011Q3,1.42109e-14,,False,tomato
+Tomato,2011Q4,0,,False,tomato
+Tomato,2012Q1,0,,False,tomato
+Tomato,2012Q2,0,,False,tomato
+Tomato,2012Q3,0,,False,tomato
+Tomato,2012Q4,0,,False,tomato
+Tomato,2013Q1,0,,False,tomato
+Tomato,2013Q2,0,,False,tomato
+Tomato,2013Q3,0,,False,tomato
+Tomato,2013Q4,0,,False,tomato
+Tomato,2014Q1,0,,False,tomato
+Tomato,2014Q2,0,,False,tomato
+Tomato,2014Q3,-1.42109e-14,,False,tomato
+Tomato,2014Q4,0,,False,tomato
+Tomato,2015Q1,0,,False,tomato
+Tomato,2015Q2,-1.42109e-14,,False,tomato
+Tomato,2015Q3,0,,False,tomato
+Tomato,2015Q4,0,,False,tomato
+Tomato,2016Q1,0,,False,tomato
+Tomato,2016Q2,0,,False,tomato
+Tomato,2016Q3,0,,False,tomato
+Tomato,2016Q4,0,,False,tomato
+Tomato,2017Q1,-1.42109e-14,,False,tomato
+Tomato,2017Q2,0,,False,tomato
+Tomato,2017Q3,0,,False,tomato
+Tomato,2017Q4,0,,False,tomato
+Tomato,2018Q1,0,,False,tomato
+Tomato,2018Q2,1.42109e-14,,False,tomato
+Tomato,2018Q3,0,,False,tomato
+Tomato,2018Q4,0,,False,tomato
+Tomato,2019Q1,0,,False,tomato
+Tomato,2019Q2,0,,False,tomato
+Tomato,2019Q3,0,,False,tomato
+Tomato,2019Q4,-1.42109e-14,,False,tomato
+Tomato,2020Q1,0,,False,tomato
+Tomato,2020Q2,0,,False,tomato
+Tomato,2020Q3,0,,False,tomato
+Tomato,2020Q4,0,,False,tomato
+Tomato,2021Q1,-1.42109e-14,,False,tomato
+Tomato,2021Q2,0,,False,tomato
+Tomato,2021Q3,0,,False,tomato
+Tomato,2021Q4,0,,False,tomato
+Tomato,2022Q1,0,,False,tomato
+Tomato,2022Q2,0,,False,tomato
+Tomato,2022Q3,0,,False,tomato
+Tomato,2022Q4,0,,False,tomato
+Tomato,2023Q1,0,,True,tomato
+Tomato,2023Q2,0,,True,tomato
+Tomato,2023Q3,0,,True,tomato
+Tomato,2023Q4,0,,True,tomato
+Tomato,2024Q1,1.42109e-14,,True,tomato
+Tomato,2024Q2,0,,True,tomato
+Tomato,2024Q3,0,,True,tomato
+Tomato,2024Q4,0,,True,tomato
+Tomato,2025Q1,0,,True,tomato
+Tomato,2025Q2,0,,True,tomato
+Tomato,2025Q3,0.01,,True,tomato
+Tomato,2025Q4,0,,True,tomato
+Tomato,2026Q1,0,,True,tomato
+Tomato,2026Q2,-1.13687e-13,,True,tomato

@@ -16,3 +16,5 @@ config/paths.toml
 !data/era5/era5_land_sea_mask_0.25deg_phl.nc
 # FNRI calorie-factor workbook (working file; the CSV extract is data/agriculture/fnri_calorie_factors.csv)
 data/agriculture/FNRI_calorie_factors_VR_PF_v35.xlsx
+# geoBoundaries source files cached by scripts/make_regions.py (re-downloaded on demand)
+data/boundaries/source/

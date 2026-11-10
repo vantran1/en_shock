@@ -1,4 +1,4 @@
 ,region_quarters_hit,share_of_region_quarters,mean_share_when_hit,corr_with_damage_index
-ty_share_ts,618,0.233,0.528,0.517
-ty_share_ty,269,0.101,0.228,0.885
-ty_share_sty,77,0.029,0.053,0.838
+ty_share_ts,598,0.24,0.525,0.524
+ty_share_ty,266,0.107,0.223,0.885
+ty_share_sty,77,0.031,0.052,0.837

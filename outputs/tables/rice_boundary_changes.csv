@@ -1,16 +1,17 @@
 unit,change,when,in PSA table,treatment
-Negros Occidental,VI -> NIR,2024 (RA 12000),"under VI to 2023Q4, under NIR from 2024Q1; VI row = 0 in 2025Q1","NIR, all years"
-Negros Oriental,VII -> NIR,2024 (RA 12000),"under VII to 2023Q4, under NIR from 2024Q1; VII row = 0 in 2025Q1","NIR, all years"
-Siquijor,VII -> NIR,2024 (RA 12000),"under VII to 2023Q4, under NIR from 2024Q1; VII row = 0 in 2025Q1","NIR, all years"
-Bacolod City,split out of Negros Occidental,-,separate row from 2026Q1 only,NIR
-Sulu,BARMM -> IX,Executive Order No. 91 (PSA note c/),"under BARMM to 2025Q4, under IX from 2026Q1","IX, all years"
-ARMM -> BARMM,renamed; adds Cotabato City and the Eight Cluster Areas (63 barangays of the Province of Cotabato),2019 (RA 11054),"one BARMM row from 1987; from 2023Q1 the BARMM total includes the Eight Cluster Areas, which are in no province row (PSA note)",BARMM = sum of its provinces; cluster areas kept apart
+Negros Occidental,VI -> NIR,2024 (RA 12000),"under VI to 2023Q4, under NIR from 2024Q1","R06, all years"
+Negros Oriental,VII -> NIR,2024 (RA 12000),"under VII to 2023Q4, under NIR from 2024Q1","R07, all years"
+Siquijor,VII -> NIR,2024 (RA 12000),"under VII to 2023Q4, under NIR from 2024Q1","R07, all years"
+Bacolod City,split out of Negros Occidental,-,separate row from 2026Q1 only,R06
+Sulu,BARMM -> IX,Executive Order No. 91 (PSA note c/),"under BARMM to 2025Q4, under IX from 2026Q1","BARMM, all years"
+Eight Cluster Areas,63 barangays of the Province of Cotabato (XII) -> BARMM,2019,"in the BARMM total from 2023Q1, in no province row (PSA note)","BARMM total - BARMM provinces, added to R12 from 2023Q1"
+Cotabato City,XII -> BARMM,2019 (RA 11054),no separate row,BARMM (v5); in Van's boundaries too
 Maguindanao,split into del Norte and del Sur (both BARMM),2022 (RA 11550),"del Norte from 2024Q1; before, all Maguindanao in the 'del Sur' row",no regional effect
 Compostela Valley,renamed Davao de Oro (XI),2019,one row,no regional effect
-Davao Occidental,created from Davao del Sur (XI),2013,back-cast to 1987,no regional effect
-Dinagat Islands,created from Surigao del Norte (XIII),2006,back-cast to 1987,no regional effect
-Zamboanga Sibugay,created from Zamboanga del Sur (IX),2001,back-cast to 1987,no regional effect
-Apayao,created from Kalinga-Apayao (CAR),1995,back-cast to 1987,no regional effect
-Biliran / Guimaras / Sarangani,created from Leyte / Iloilo / South Cotabato,1992,back-cast to 1987,no regional effect
+Davao Occidental,created from Davao del Sur (XI),2013,back-cast,no regional effect
+Dinagat Islands,created from Surigao del Norte (XIII),2006,back-cast,no regional effect
+Zamboanga Sibugay,created from Zamboanga del Sur (IX),2001,back-cast,no regional effect
+Apayao,created from Kalinga-Apayao (CAR),1995,back-cast,no regional effect
+Biliran / Guimaras / Sarangani,created from Leyte / Iloilo / South Cotabato,1992,back-cast,no regional effect
 "Caraga; 2001 Mindanao regrouping; Region IV split (IV-A, MIMAROPA); Aurora IV -> III",regional reorganisations,1995 / 2001 / 2002,back-cast: provinces listed under current regions from 1987,none needed
 Puerto Princesa City / Butuan City,split out of Palawan / Agusan del Norte,-,"separate rows from 2026Q1 only, same region",no regional effect

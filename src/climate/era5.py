@@ -15,25 +15,45 @@ Units as stored by ECMWF and as returned by load() (convert=True):
   (x 1000 x days in month). This is the common trap: tp is not a monthly total.
   e and pev are negative when water leaves the surface (ECMWF sign convention); they are
   returned with the sign flipped, so positive = evaporation.
-- ssrd: mean daily accumulation in J m-2 -> mean flux in W m-2 (/ 86400).
+- ssrd: mean daily accumulation in J m-2 -> mean daily total in MJ m-2 (/ 1e6), as in
+  methodology v5 Table 2.
 - swvl1-4: volumetric soil water (m3 m-3), layers 0-7, 7-28, 28-100, 100-289 cm; unchanged.
 Accumulated fields are stamped 06:00 on the first of the month; all times are set to the
 first of the month.
 Caution: ERA5 potential evaporation (pev) is known to be unreliable over land; an FAO-56
 estimate from t2m, d2m and ssrd is the safer choice for a drought index (SPEI).
+
+Derived (v5 Table 2): vapour pressure deficit es(T) - es(Td) with the Tetens formula
+es(T) = 0.6108 exp(17.27 T / (T + 237.3)) kPa, relative humidity 100 es(Td)/es(T), and
+root-zone soil moisture = thickness-weighted mean of swvl1-3 (7, 21, 72 cm). They are
+computed from the monthly means, cell by cell, before averaging over regions; this
+slightly understates the monthly mean of daily VPD (es is convex).
+
+Regional averages (region_weights / regional_mean): cells with land fraction > 0.5
+(v5 Section 3.3.2) whose centre lies in one of Van's 16 region polygons
+(data/boundaries/phl_16_regions.gpkg); land cells whose centre falls just outside every
+polygon (coastline simplification) go to the nearest region within NEAREST_KM. Cells are
+weighted by their area (cos latitude) for now; v5 Eq. 7 weights by cropland area, whose
+source (ESA WorldCover or CCI) is still to be confirmed.
 """
 import hashlib
 import json
-import tomllib
 from pathlib import Path
 
+import geopandas as gpd
 import numpy as np
 import pandas as pd
 import xarray as xr
 
+from config import local_path
+
 ROOT = Path(__file__).resolve().parents[2]
-CONFIG = ROOT / "config" / "paths.toml"
 MASK = ROOT / "data" / "era5" / "era5_land_sea_mask_0.25deg_phl.nc"
+REGIONS_FILE = ROOT / "data" / "boundaries" / "phl_16_regions.gpkg"
+LAND_MIN = 0.5      # land fraction threshold (v5)
+NEAREST_KM = 30.0   # land cells just outside the simplified coastline
+METRIC_CRS = 32651  # UTM 51N, for distances
+SOIL_LAYERS_CM = {"swvl1": 7, "swvl2": 21, "swvl3": 72}
 
 # long name used in the file names -> (short name in the file, unit after conversion)
 VARIABLES = {
@@ -43,7 +63,7 @@ VARIABLES = {
     "evaporation": ("e", "mm/month"),
     "potential_evaporation": ("pev", "mm/month"),
     "runoff": ("ro", "mm/month"),
-    "surface_solar_radiation_downwards": ("ssrd", "W m-2"),
+    "surface_solar_radiation_downwards": ("ssrd", "MJ m-2 day-1"),
     "volumetric_soil_water_layer_1": ("swvl1", "m3 m-3"),
     "volumetric_soil_water_layer_2": ("swvl2", "m3 m-3"),
     "volumetric_soil_water_layer_3": ("swvl3", "m3 m-3"),
@@ -54,17 +74,9 @@ UPWARD_NEGATIVE = {"e", "pev"}
 
 
 def era5_dir(directory=None) -> Path:
-    """Folder of the ERA5 files: the argument if given, else config/paths.toml."""
-    if directory is None:
-        if not CONFIG.exists():
-            raise FileNotFoundError(
-                f"{CONFIG} not found: copy config/paths.example.toml to config/paths.toml "
-                "and set era5_monthly_dir, or pass the folder explicitly (--era5-dir).")
-        with open(CONFIG, "rb") as f:
-            directory = tomllib.load(f).get("era5_monthly_dir")
-        if not directory:
-            raise KeyError(f"era5_monthly_dir is not set in {CONFIG}")
-    d = Path(directory).expanduser()
+    """Folder of the ERA5 files: the argument if given, else era5_monthly_dir in
+    config/paths.toml (read by config.local_path)."""
+    d = Path(directory).expanduser() if directory else local_path("era5_monthly_dir")
     if not d.is_dir():
         raise FileNotFoundError(f"ERA5 folder does not exist: {d}")
     return d
@@ -87,7 +99,7 @@ def _convert(da: xr.DataArray, short: str) -> xr.DataArray:
         out = da * 1000.0 * days
         return -out if short in UPWARD_NEGATIVE else out
     if short == "ssrd":
-        return da / 86400.0
+        return da / 1e6
     return da
 
 
@@ -144,3 +156,61 @@ def inventory(directory=None) -> pd.DataFrame:
         rows.append(dict(file=f.name, variable=variable, years=years, months=n, grid=grid,
                          json_record=rec.exists(), sha256_matches=sha_ok))
     return pd.DataFrame(rows)
+
+
+def saturation_vp(t_c):
+    """Saturation vapour pressure (kPa), Tetens; t_c in deg C."""
+    return 0.6108 * np.exp(17.27 * t_c / (t_c + 237.3))
+
+
+def vpd_kpa(t2m_c, d2m_c):
+    return saturation_vp(t2m_c) - saturation_vp(d2m_c)
+
+
+def rh_pct(t2m_c, d2m_c):
+    return 100 * saturation_vp(d2m_c) / saturation_vp(t2m_c)
+
+
+def root_zone(sw1, sw2, sw3):
+    w = SOIL_LAYERS_CM
+    return (sw1 * w["swvl1"] + sw2 * w["swvl2"] + sw3 * w["swvl3"]) / sum(w.values())
+
+
+def region_weights(regions_file=REGIONS_FILE) -> pd.DataFrame:
+    """One row per ERA5 land cell used: latitude, longitude, land fraction, region code,
+    how it was assigned ('inside' or 'nearest', with the distance) and its weight within
+    the region (cell area, cos latitude)."""
+    lsm = land_sea_mask()
+    cells = lsm.to_dataframe(name="lsm").reset_index()
+    cells = cells[cells["lsm"] > LAND_MIN].copy()
+    pts = gpd.GeoDataFrame(cells, geometry=gpd.points_from_xy(cells.longitude, cells.latitude),
+                           crs=4326)
+    reg = gpd.read_file(regions_file)[["code", "geometry"]]
+    inside = gpd.sjoin(pts, reg, predicate="within", how="left")
+    inside = inside[~inside.index.duplicated()]
+    out = inside.drop(columns=["index_right"]).rename(columns={"code": "region_code"})
+    out["assigned"] = np.where(out["region_code"].notna(), "inside", "")
+    out["distance_km"] = 0.0
+    miss = out["region_code"].isna()
+    if miss.any():
+        near = gpd.sjoin_nearest(pts[miss].to_crs(METRIC_CRS), reg.to_crs(METRIC_CRS),
+                                 how="left", distance_col="distance_km")
+        near = near[~near.index.duplicated()]
+        near["distance_km"] /= 1000
+        ok = near["distance_km"] <= NEAREST_KM
+        out.loc[near.index[ok], "region_code"] = near.loc[ok, "code"]
+        out.loc[near.index[ok], "assigned"] = "nearest"
+        out.loc[near.index, "distance_km"] = near["distance_km"]
+    out = out[out["region_code"].notna()].copy()
+    out["area_w"] = np.cos(np.radians(out["latitude"]))
+    out["weight"] = out["area_w"] / out.groupby("region_code")["area_w"].transform("sum")
+    return pd.DataFrame(out.drop(columns=["geometry", "area_w"]))
+
+
+def regional_mean(da: xr.DataArray, w: pd.DataFrame) -> pd.DataFrame:
+    """Weighted regional mean of a (time, latitude, longitude) field -> region x month."""
+    vals = da.sel(latitude=xr.DataArray(w["latitude"].values, dims="cell"),
+                  longitude=xr.DataArray(w["longitude"].values, dims="cell")).values  # time x cell
+    wr = pd.get_dummies(w["region_code"]).mul(w["weight"].values, axis=0)        # cell x region
+    out = pd.DataFrame(vals @ wr.values, index=pd.DatetimeIndex(da.time.values), columns=wr.columns)
+    return out

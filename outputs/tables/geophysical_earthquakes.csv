@@ -1,0 +1,79 @@
+time_pht,period,latitude,longitude,depth,mag,place,dist_land_km,region_code,kept,reason_dropped,id
+2025-10-10 19:12:05.407,2025Q4,7.213,126.658,47.0,6.7,"12 km SE of Santiago, Philippines",9.006,R11,True,,us6000rg2r
+2025-10-10 09:43:59.585,2025Q4,7.287,126.69,59.425,7.4,"12 km E of Santiago, Philippines",9.43,R11,True,,us6000rfwz
+2025-09-30 21:59:43.328,2025Q3,11.156,124.111,10.0,6.9,"8 km ESE of Calape, Philippines",8.15,R07,True,,us6000rdrz
+2024-08-03 06:23:02.111,2024Q3,8.185,126.616,32.0,6.8,"20 km E of Barcelona, Philippines",18.013,R13,True,,us6000nhqc
+2024-07-11 10:13:18.585,2024Q3,6.084,123.15,639.503,7.1,"106 km WSW of Sangay, Philippines",104.92,R12,False,deeper than 300 km,us7000myfa
+2024-01-09 04:48:42.361,2024Q1,4.922,126.158,62.574,6.7,"93 km SE of Sarangani, Philippines",91.573,R11,True,,us6000m2jp
+2023-12-04 03:49:35.739,2023Q4,8.97,126.612,20.0,6.9,"34 km ENE of Aras-asan, Philippines",31.432,R13,True,,us7000lfxx
+2023-12-03 18:35:52.871,2023Q4,8.488,126.745,19.0,6.6,"47 km ENE of Hinatuan, Philippines",38.353,R13,True,,us7000lftp
+2023-12-02 22:37:04.454,2023Q4,8.527,126.416,40.0,7.6,"19 km E of Gamut, Philippines",3.451,R13,True,,us7000lff4
+2023-11-17 16:14:10.513,2023Q4,5.563,125.001,52.0,6.7,"32 km SW of Kablalan, Philippines",30.834,R12,True,,us6000lp12
+2022-07-27 08:43:26.871,2022Q3,17.521,120.818,33.729,7.0,"11 km NE of Bantay, Philippines",0.0,CAR,True,,us6000i5rd
+2021-08-12 01:46:13.143,2021Q3,6.475,126.715,55.14,7.1,"60 km ENE of Pondaguitan, Philippines",54.183,R11,True,,us6000f48v
+2021-07-24 04:48:57.357,2021Q3,13.705,120.726,110.0,6.7,"15 km S of Hukay, Philippines",9.798,R04A,True,,us6000eyfk
+2020-08-18 08:03:48.566,2020Q3,12.026,124.127,10.0,6.6,"13 km E of San Pedro, Philippines",3.004,R08,True,,us6000bgbr
+2019-12-15 14:11:51.155,2019Q4,6.697,125.174,18.0,6.8,"7 km S of Magsaysay, Philippines",0.0,R11,True,,us60006rp9
+2019-10-31 09:11:19.146,2019Q4,6.91,125.178,10.0,6.5,"2 km ENE of Bulatukan, Philippines",0.0,R12,True,,us700061e9
+2019-10-29 09:04:43.879,2019Q4,6.757,125.008,15.0,6.6,"10 km NE of Columbio, Philippines",0.0,R12,True,,us6000645n
+2018-12-29 11:39:09.740,2018Q4,5.898,126.921,60.21,7.0,"96 km ESE of Pondaguitan, Philippines",90.416,R11,True,,us2000iyta
+2017-07-06 16:03:57.550,2017Q3,11.127,124.629,9.0,6.5,"2 km S of Lim-oo, Philippines",0.0,R08,True,,us1000976a
+2017-04-29 04:23:17.260,2017Q2,5.504,125.066,26.0,6.9,"31 km SW of Burias, Philippines",26.717,R12,True,,us10008ls4
+2017-02-10 22:03:43.920,2017Q1,9.907,125.452,15.0,6.5,"11 km N of Mabua, Philippines",0.132,R13,True,,us20008ixa
+2017-01-10 14:13:48.140,2017Q1,4.478,122.617,627.17,7.3,"189 km SSE of Tabiauan, Philippines",187.23,BARMM,False,deeper than 300 km,us10007s9c
+2014-12-02 13:11:31.000,2014Q4,6.157,123.126,614.0,6.6,"106 km WSW of Sangay, Philippines",101.945,BARMM,False,deeper than 300 km,usb000t20t
+2013-10-15 08:12:32.050,2013Q4,9.88,124.117,19.04,7.1,"4 km SE of Sagbayan, Philippines",0.0,R07,True,,usb000kdb4
+2012-08-31 20:47:33.380,2012Q3,10.811,126.638,28.0,7.6,"89 km E of Sulangan, Philippines",73.547,R08,True,,usp000jr83
+2012-02-06 11:49:12.520,2012Q1,9.999,123.206,11.0,6.7,"2 km NNE of Jimalalud, Philippines",0.0,R07,True,,usp000jejw
+2011-02-10 22:41:58.820,2011Q1,4.077,123.039,525.0,6.6,"250 km SSE of Tabiauan, Philippines",248.421,BARMM,False,deeper than 300 km,usp000huac
+2011-02-10 22:39:27.710,2011Q1,4.195,122.974,523.2,6.5,"235 km SSE of Tabiauan, Philippines",233.519,BARMM,False,deeper than 300 km,usp000huab
+2010-07-29 15:31:56.240,2010Q3,6.548,123.222,618.0,6.6,"89 km W of Bantogon, Philippines",85.152,BARMM,False,deeper than 300 km,usp000hh3f
+2010-07-24 13:35:01.060,2010Q3,6.218,123.519,553.0,6.6,"63 km WSW of Sangay, Philippines",61.525,R12,False,deeper than 300 km,usp000hgnj
+2010-07-24 07:15:10.190,2010Q3,6.776,123.259,640.6,7.5,"72 km S of Panubigan, Philippines",66.172,R09,False,deeper than 300 km,usp000hgmq
+2010-07-24 06:51:11.840,2010Q3,6.497,123.48,578.0,7.6,"61 km W of Bantogon, Philippines",59.807,R12,False,deeper than 300 km,usp000hgmh
+2010-07-24 06:08:11.250,2010Q3,6.718,123.409,607.1,7.3,"68 km W of Gadung, Philippines",60.097,BARMM,False,deeper than 300 km,usp000hgmd
+2009-10-08 05:41:13.270,2009Q4,4.079,122.371,574.0,6.8,"221 km SSE of Tabiauan, Philippines",219.456,BARMM,False,deeper than 300 km,usp000h2g6
+2009-10-04 18:58:00.170,2009Q4,6.74,123.378,620.0,6.6,"71 km W of Gadung, Philippines",63.088,BARMM,False,deeper than 300 km,usp000h2c1
+2008-03-03 22:11:14.620,2008Q1,13.351,125.63,24.0,6.9,Philippine Islands region,95.887,R08,True,,usp000g0k9
+2005-02-15 22:42:25.850,2005Q1,4.756,126.421,39.7,6.5,"Pulau-Pulau Talaud, Indonesia",126.134,R11,False,more than 100 km from land,usp000dg73
+2005-02-05 20:23:18.940,2005Q1,5.293,123.337,525.0,7.1,"138 km SW of Palimbang, Philippines",138.213,R12,False,deeper than 300 km,usp000dfj2
+2004-10-08 22:36:06.110,2004Q4,13.925,120.534,105.0,6.5,"9 km W of Talisay, Philippines",8.624,R04A,True,,usp000d60h
+2003-11-19 01:14:22.620,2003Q4,12.025,125.416,35.0,6.5,"4 km NW of Can-Avid, Philippines",0.0,R08,True,,usp000cdb4
+2003-05-27 07:13:29.720,2003Q2,6.761,123.707,565.8,6.9,"34 km W of Gadung, Philippines",26.887,BARMM,False,deeper than 300 km,usp000by7z
+2002-03-06 05:16:09.130,2002Q1,6.033,124.249,31.0,7.5,"Mindanao, Philippines",12.096,R12,True,,usp000azqw
+2001-01-01 16:54:31.580,2001Q1,6.631,126.899,33.0,6.8,"Mindanao, Philippines",63.249,R11,True,,usp000a70q
+2001-01-01 14:57:04.170,2001Q1,6.898,126.579,33.0,7.5,"21 km SE of Lukatan, Philippines",17.092,R11,True,,usp000a70h
+1999-12-12 02:03:36.450,1999Q4,15.766,119.74,33.0,7.3,"14 km WNW of Bolitoc, Philippines",5.59,R03,True,,usp0009jr8
+1999-03-04 16:52:01.900,1999Q1,5.397,121.937,33.0,7.1,"69 km S of Tabiauan, Philippines",67.151,BARMM,True,,usp00093u0
+1998-09-02 16:37:29.910,1998Q3,5.41,126.764,50.0,6.8,"123 km SSE of Pondaguitan, Philippines",114.319,R11,False,more than 100 km from land,usp0008u8z
+1997-10-06 20:30:05.820,1997Q4,9.79,125.779,105.6,6.5,"18 km E of Talisay, Philippines",4.297,R13,True,,usp00088mv
+1996-09-20 12:11:04.550,1996Q3,9.454,126.334,33.0,6.6,"24 km NE of Cortes, Philippines",21.479,R13,True,,usp0007q51
+1996-09-20 12:10:27.680,1996Q3,9.463,126.284,33.0,6.6,"22 km NNE of Cortes, Philippines",19.208,R13,True,,usp0007q50
+1996-06-12 02:22:55.730,1996Q2,12.614,125.154,33.0,7.1,"8 km NNE of Palapag, Philippines",1.766,R08,True,,usp0007jkw
+1995-05-05 11:53:45.050,1995Q2,12.626,125.297,16.0,7.1,"14 km NE of Cabatuan, Philippines",13.499,R08,True,,usp0006ww5
+1995-04-23 13:08:01.970,1995Q2,12.39,125.396,24.1,6.8,"10 km E of Gamay, Philippines",6.334,R08,True,,usp0006w5w
+1995-04-21 13:17:01.330,1995Q2,12.047,125.92,27.4,6.8,"47 km E of Dapdap, Philippines",37.868,R08,True,,usp0006w0m
+1995-04-21 08:34:46.090,1995Q2,12.059,125.58,20.7,7.2,"10 km E of Dapdap, Philippines",0.8,R08,True,,usp0006vz9
+1995-04-21 08:30:10.820,1995Q2,11.925,125.564,17.4,6.8,"14 km ESE of Can-Avid, Philippines",9.051,R08,True,,usp0006vz8
+1995-04-21 08:09:54.360,1995Q2,12.011,125.656,20.1,6.9,"19 km E of Dolores, Philippines",10.389,R08,True,,usp0006vz4
+1995-04-20 16:45:11.670,1995Q2,6.279,126.777,94.1,6.6,"66 km E of Pondaguitan, Philippines",63.378,R11,True,,usp0006vxw
+1994-11-15 03:15:30.660,1994Q4,13.525,121.067,31.5,7.1,"10 km E of Sabang, Philippines",0.967,R04A,True,,usp0006nn2
+1993-05-18 18:19:33.780,1993Q2,19.914,122.45,168.6,6.8,"77 km SE of Basco, Philippines",62.301,R02,True,,usp0005t13
+1993-05-12 02:26:51.320,1993Q2,7.219,126.57,58.7,7.0,"3 km E of Manay, Philippines",0.193,R11,True,,usp0005sm4
+1992-05-17 18:15:31.310,1992Q2,7.191,126.762,33.0,7.3,"23 km ESE of Santiago, Philippines",20.074,R11,True,,usp00057gv
+1992-05-17 17:49:19.110,1992Q2,7.239,126.645,32.8,7.1,"9 km SE of Santiago, Philippines",6.174,R11,True,,usp00057gu
+1991-11-13 19:12:13.240,1991Q4,8.361,126.371,35.9,6.8,"4 km ESE of Hinatuan, Philippines",1.946,R13,True,,usp0004z3m
+1991-02-18 10:37:25.120,1991Q1,8.87,126.48,23.9,7.0,"18 km E of Aras-asan, Philippines",15.222,R13,True,,usp0004n2a
+1990-10-25 19:01:38.720,1990Q4,8.307,126.462,44.1,6.5,"13 km E of Tidman, Philippines",6.948,R13,True,,usp0004g51
+1990-07-18 06:14:43.860,1990Q3,16.495,120.981,23.1,6.5,"14 km NNW of Salinas, Philippines",0.0,R02,True,,usp0004c36
+1990-07-16 16:26:34.610,1990Q3,15.679,121.172,25.1,7.7,"4 km E of Macapsing, Philippines",0.0,R03,True,,usp0004bxs
+1990-06-14 16:40:56.210,1990Q2,11.76,121.899,18.1,7.1,"0 km ESE of Union, Philippines",0.0,R06,True,,usp0004ag6
+1990-02-08 15:46:59.780,1990Q1,9.725,124.625,30.3,6.6,"6 km ESE of Bacong, Philippines",4.926,R07,True,,usp000456m
+1990-02-08 15:15:32.230,1990Q1,9.755,124.694,25.9,6.8,"13 km E of Bacong, Philippines",10.875,R07,True,,usp000456h
+1989-12-20 08:08:20.610,1989Q4,8.094,126.828,21.0,6.5,"43 km ENE of Santa Maria, Philippines",41.43,R13,True,,usp00043a9
+1989-12-16 02:43:45.030,1989Q4,8.337,126.729,24.4,7.6,"37 km ENE of Barcelona, Philippines",31.81,R13,True,,usp000433j
+1988-11-17 14:55:46.060,1988Q4,12.399,124.537,19.3,6.6,"10 km W of Polañge, Philippines",0.0,R08,True,,usp0003nxq
+1988-02-24 11:52:03.290,1988Q1,13.477,124.616,24.9,7.3,"37 km ESE of Bato, Philippines",30.066,R05,True,,usp0003da3
+1987-06-07 02:40:27.480,1987Q2,10.672,126.115,14.4,6.5,"42 km SE of Sulangan, Philippines",18.21,R08,True,,usp00035k6
+1987-05-12 09:30:25.030,1987Q2,7.09,126.701,24.7,6.7,"22 km SE of Manay, Philippines",19.789,R11,True,,usp00034xs
+1987-04-25 20:16:52.440,1987Q2,16.066,120.301,107.0,6.9,"4 km N of Canaoalan, Philippines",0.821,R01,True,,usp00034f9
