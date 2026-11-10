@@ -36,7 +36,8 @@ import pandas as pd  # noqa: E402
 
 from agriculture.regions import REGIONS  # noqa: E402
 from climate.indices import quarterly  # noqa: E402
-from estimation.direct import binomial_weights, blended, lag_matrix, base_design, estimate  # noqa: E402
+from estimation.direct import (base_design, binomial_weights, blended, estimate,  # noqa: E402
+                               lag_matrix)
 from estimation.panel import linear_combination  # noqa: E402
 from estimation.setup import break_dummies  # noqa: E402
 
@@ -69,10 +70,10 @@ def build(ecosystem):
     return p.reset_index(drop=True)
 
 
-def index_lags(name, periods):
+def index_lags(name, periods, K=K, first_lag=1):
     q = quarterly(name)
     q.index = q.index.astype(str)
-    lm = lag_matrix(q, K).reindex(periods)
+    lm = lag_matrix(q, K, first_lag).reindex(periods)
     if lm.isna().any().any():
         raise ValueError(f"{name}: missing lagged values")
     return lm.to_numpy(float)
