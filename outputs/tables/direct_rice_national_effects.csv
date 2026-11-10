@@ -1,41 +1,41 @@
-ecosystem,model,index,harvest_season,period,est,se,t,pct_effect_of_+1,spec,status
-irrigated,ppml,El Nino (RONI+),dry (Q1-Q2),before 2000,-0.1592,0.0359,-4.4337,-14.7153,official,provisional
-irrigated,ppml,El Nino (RONI+),dry (Q1-Q2),from 2000,-0.0475,0.0179,-2.6511,-4.6381,official,provisional
-irrigated,ppml,El Nino (RONI+),wet (Q3-Q4),before 2000,-0.1047,0.0514,-2.0358,-9.944,official,provisional
-irrigated,ppml,El Nino (RONI+),wet (Q3-Q4),from 2000,0.0069,0.0351,0.1981,0.697,official,provisional
-irrigated,ppml,La Nina (RONI-),dry (Q1-Q2),before 2000,0.0285,0.0233,1.2195,2.888,official,provisional
-irrigated,ppml,La Nina (RONI-),dry (Q1-Q2),from 2000,-0.0204,0.0176,-1.1569,-2.0156,official,provisional
-irrigated,ppml,La Nina (RONI-),wet (Q3-Q4),before 2000,0.0299,0.0348,0.859,3.0341,official,provisional
-irrigated,ppml,La Nina (RONI-),wet (Q3-Q4),from 2000,-0.0189,0.0342,-0.5532,-1.8765,official,provisional
-irrigated,ppml,DMI,dry (Q1-Q2),all,0.0078,0.0249,0.3133,0.7831,official,provisional
-irrigated,ppml,DMI,wet (Q3-Q4),all,-0.0741,0.0559,-1.3245,-7.139,official,provisional
-irrigated,ols,El Nino (RONI+),dry (Q1-Q2),before 2000,-0.2195,0.0491,-4.4739,-19.7114,official,provisional
-irrigated,ols,El Nino (RONI+),dry (Q1-Q2),from 2000,-0.066,0.0255,-2.5888,-6.3844,official,provisional
-irrigated,ols,El Nino (RONI+),wet (Q3-Q4),before 2000,-0.241,0.061,-3.9476,-21.4134,official,provisional
-irrigated,ols,El Nino (RONI+),wet (Q3-Q4),from 2000,-0.0874,0.0476,-1.8372,-8.369,official,provisional
-irrigated,ols,La Nina (RONI-),dry (Q1-Q2),before 2000,0.0041,0.027,0.1507,0.4074,official,provisional
-irrigated,ols,La Nina (RONI-),dry (Q1-Q2),from 2000,-0.0548,0.0235,-2.3379,-5.3353,official,provisional
-irrigated,ols,La Nina (RONI-),wet (Q3-Q4),before 2000,-0.0201,0.042,-0.4774,-1.9857,official,provisional
-irrigated,ols,La Nina (RONI-),wet (Q3-Q4),from 2000,-0.079,0.0408,-1.9374,-7.5915,official,provisional
-irrigated,ols,DMI,dry (Q1-Q2),all,0.1355,0.0597,2.268,14.5081,official,provisional
-irrigated,ols,DMI,wet (Q3-Q4),all,0.0899,0.0553,1.6252,9.4089,official,provisional
-rainfed,ppml,El Nino (RONI+),dry (Q1-Q2),before 2000,-0.3073,0.0848,-3.6227,-26.4588,official,provisional
-rainfed,ppml,El Nino (RONI+),dry (Q1-Q2),from 2000,-0.1771,0.0378,-4.6809,-16.229,official,provisional
-rainfed,ppml,El Nino (RONI+),wet (Q3-Q4),before 2000,-0.1946,0.0692,-2.8136,-17.6824,official,provisional
-rainfed,ppml,El Nino (RONI+),wet (Q3-Q4),from 2000,-0.0643,0.0405,-1.5876,-6.2318,official,provisional
-rainfed,ppml,La Nina (RONI-),dry (Q1-Q2),before 2000,0.0727,0.0454,1.6001,7.5357,official,provisional
-rainfed,ppml,La Nina (RONI-),dry (Q1-Q2),from 2000,-0.0528,0.0325,-1.6229,-5.1435,official,provisional
-rainfed,ppml,La Nina (RONI-),wet (Q3-Q4),before 2000,0.0817,0.0453,1.8034,8.5155,official,provisional
-rainfed,ppml,La Nina (RONI-),wet (Q3-Q4),from 2000,-0.0437,0.0325,-1.3464,-4.2793,official,provisional
-rainfed,ppml,DMI,dry (Q1-Q2),all,0.2259,0.0715,3.1581,25.3463,official,provisional
-rainfed,ppml,DMI,wet (Q3-Q4),all,0.0441,0.0432,1.0218,4.5134,official,provisional
-rainfed,ols,El Nino (RONI+),dry (Q1-Q2),before 2000,-0.7083,0.2006,-3.5312,-50.7524,official,provisional
-rainfed,ols,El Nino (RONI+),dry (Q1-Q2),from 2000,-0.2363,0.1004,-2.3551,-21.0488,official,provisional
-rainfed,ols,El Nino (RONI+),wet (Q3-Q4),before 2000,-0.4564,0.1062,-4.298,-36.6424,official,provisional
-rainfed,ols,El Nino (RONI+),wet (Q3-Q4),from 2000,0.0156,0.1032,0.151,1.5716,official,provisional
-rainfed,ols,La Nina (RONI-),dry (Q1-Q2),before 2000,0.002,0.1354,0.0151,0.2043,official,provisional
-rainfed,ols,La Nina (RONI-),dry (Q1-Q2),from 2000,-0.2016,0.0846,-2.3817,-18.2556,official,provisional
-rainfed,ols,La Nina (RONI-),wet (Q3-Q4),before 2000,-0.0316,0.1024,-0.3084,-3.11,official,provisional
-rainfed,ols,La Nina (RONI-),wet (Q3-Q4),from 2000,-0.2352,0.0617,-3.8137,-20.9594,official,provisional
-rainfed,ols,DMI,dry (Q1-Q2),all,0.3518,0.139,2.5312,42.158,official,provisional
-rainfed,ols,DMI,wet (Q3-Q4),all,0.0311,0.082,0.379,3.1585,official,provisional
+ecosystem,model,index,harvest_season,period,est,se,t,pct_effect_of_+1,spec,spec_note,status
+irrigated,ppml,El Nino (RONI+),dry (Q1-Q2),before 2000,-0.1592,0.0359,-4.4337,-14.7153,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ppml,El Nino (RONI+),dry (Q1-Q2),from 2000,-0.0475,0.0179,-2.6511,-4.6381,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ppml,El Nino (RONI+),wet (Q3-Q4),before 2000,-0.1047,0.0514,-2.0358,-9.944,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ppml,El Nino (RONI+),wet (Q3-Q4),from 2000,0.0069,0.0351,0.1981,0.697,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ppml,La Nina (RONI-),dry (Q1-Q2),before 2000,0.0285,0.0233,1.2195,2.888,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ppml,La Nina (RONI-),dry (Q1-Q2),from 2000,-0.0204,0.0176,-1.1569,-2.0156,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ppml,La Nina (RONI-),wet (Q3-Q4),before 2000,0.0299,0.0348,0.859,3.0341,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ppml,La Nina (RONI-),wet (Q3-Q4),from 2000,-0.0189,0.0342,-0.5532,-1.8765,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ppml,DMI,dry (Q1-Q2),all,0.0078,0.0249,0.3133,0.7831,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ppml,DMI,wet (Q3-Q4),all,-0.0741,0.0559,-1.3245,-7.139,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ols,El Nino (RONI+),dry (Q1-Q2),before 2000,-0.2195,0.0491,-4.4739,-19.7114,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ols,El Nino (RONI+),dry (Q1-Q2),from 2000,-0.066,0.0255,-2.5888,-6.3844,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ols,El Nino (RONI+),wet (Q3-Q4),before 2000,-0.241,0.061,-3.9476,-21.4134,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ols,El Nino (RONI+),wet (Q3-Q4),from 2000,-0.0874,0.0476,-1.8372,-8.369,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ols,La Nina (RONI-),dry (Q1-Q2),before 2000,0.0041,0.027,0.1507,0.4074,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ols,La Nina (RONI-),dry (Q1-Q2),from 2000,-0.0548,0.0235,-2.3379,-5.3353,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ols,La Nina (RONI-),wet (Q3-Q4),before 2000,-0.0201,0.042,-0.4774,-1.9857,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ols,La Nina (RONI-),wet (Q3-Q4),from 2000,-0.079,0.0408,-1.9374,-7.5915,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ols,DMI,dry (Q1-Q2),all,0.1355,0.0597,2.268,14.5081,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ols,DMI,wet (Q3-Q4),all,0.0899,0.0553,1.6252,9.4089,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ppml,El Nino (RONI+),dry (Q1-Q2),before 2000,-0.3073,0.0848,-3.6227,-26.4588,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ppml,El Nino (RONI+),dry (Q1-Q2),from 2000,-0.1771,0.0378,-4.6809,-16.229,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ppml,El Nino (RONI+),wet (Q3-Q4),before 2000,-0.1946,0.0692,-2.8136,-17.6824,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ppml,El Nino (RONI+),wet (Q3-Q4),from 2000,-0.0643,0.0405,-1.5876,-6.2318,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ppml,La Nina (RONI-),dry (Q1-Q2),before 2000,0.0727,0.0454,1.6001,7.5357,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ppml,La Nina (RONI-),dry (Q1-Q2),from 2000,-0.0528,0.0325,-1.6229,-5.1435,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ppml,La Nina (RONI-),wet (Q3-Q4),before 2000,0.0817,0.0453,1.8034,8.5155,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ppml,La Nina (RONI-),wet (Q3-Q4),from 2000,-0.0437,0.0325,-1.3464,-4.2793,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ppml,DMI,dry (Q1-Q2),all,0.2259,0.0715,3.1581,25.3463,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ppml,DMI,wet (Q3-Q4),all,0.0441,0.0432,1.0218,4.5134,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ols,El Nino (RONI+),dry (Q1-Q2),before 2000,-0.7083,0.2006,-3.5312,-50.7524,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ols,El Nino (RONI+),dry (Q1-Q2),from 2000,-0.2363,0.1004,-2.3551,-21.0488,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ols,El Nino (RONI+),wet (Q3-Q4),before 2000,-0.4564,0.1062,-4.298,-36.6424,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ols,El Nino (RONI+),wet (Q3-Q4),from 2000,0.0156,0.1032,0.151,1.5716,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ols,La Nina (RONI-),dry (Q1-Q2),before 2000,0.002,0.1354,0.0151,0.2043,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ols,La Nina (RONI-),dry (Q1-Q2),from 2000,-0.2016,0.0846,-2.3817,-18.2556,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ols,La Nina (RONI-),wet (Q3-Q4),before 2000,-0.0316,0.1024,-0.3084,-3.11,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ols,La Nina (RONI-),wet (Q3-Q4),from 2000,-0.2352,0.0617,-3.8137,-20.9594,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ols,DMI,dry (Q1-Q2),all,0.3518,0.139,2.5312,42.158,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ols,DMI,wet (Q3-Q4),all,0.0311,0.082,0.379,3.1585,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional

@@ -1,9 +1,11 @@
-"""Direct approach for irrigated and rainfed palay: OFFICIAL specification of this repo.
+"""Direct approach for irrigated and rainfed palay: RECOMMENDED specification.
 PROVISIONAL results.
 
-The official specification is methodology v5, Eqs. (4)-(6), with the changes the palay
-data support (tests and episode validation in scripts/compare_direct_v5_rice.py; proposed
-to Alper in docs/methodology_change_log.md, B1-B3, not yet in the v5 text):
+DIFFERS FROM THE CURRENT METHODOLOGY (v5). The recommended specification is v5,
+Eqs. (4)-(6), with the changes the palay data support (tests and episode validation in
+scripts/compare_direct_v5_rice.py). Because it fits and predicts the past El Nino
+episodes better, we suggest going forward with it; the changes are proposed to Alper
+(docs/methodology_change_log.md, B1-B3) and are not in the v5 text:
 - El Nino and La Nina with separate total effects (RONI+ = max(RONI, 0), RONI- =
   min(RONI, 0), lag by lag), same timing parameter                         (log B1)
 - smooth regional trends (natural cubic spline, 3 df) instead of linear    (log B2)
@@ -16,8 +18,8 @@ region; region x quarter-of-year effects; controls X_rq (typhoon exposure by PAG
 category, current and previous quarter; flood share, current and previous; earthquake;
 eruption; Pinatubo 1991); Driscoll-Kraay standard errors conditional on the timing.
 Main estimator Poisson pseudo-ML (levels); least squares on logs as a check.
-Benchmarks: the v5 base specification (compare_direct_v5_rice.py, spec 'base') and the
-free-lag first look (estimate_rice_direct.py).
+The current-methodology version (v5 base, compare_direct_v5_rice.py, spec 'base') and
+the free-lag first look (estimate_rice_direct.py) are kept for comparison.
 
 National effects: production-weighted mean of the regional effects (2016-2025 shares of
 the ecosystem's production) plus the common shifts, for dry / wet harvest quarters and
@@ -46,7 +48,9 @@ from estimation.setup import break_dummies  # noqa: E402
 
 PROC, TAB, FIG = ROOT / "data/processed", ROOT / "outputs/tables", ROOT / "outputs/figures"
 K = 4
-OFFICIAL = Spec("official", split=True, season=True, trend="region_spline", effect_break=2000)
+# differs from v5 (log B1-B3); recommended because the data support it
+RECOMMENDED = Spec("recommended", split=True, season=True, trend="region_spline", effect_break=2000)
+SPEC_NOTE = "recommended; differs from methodology v5 (change log B1-B3)"
 TY = ["ty_share_ts", "ty_share_ty", "ty_share_sty"]
 CONTROLS = TY + [f"{c}_lag1" for c in TY] + ["flood_share", "flood_share_lag1",
                                               "eq", "eruption", "pinatubo_1991"]
@@ -111,7 +115,7 @@ def implied_losses(d, X, b):
     return out.groupby("period").sum()
 
 
-def main(spec=OFFICIAL):
+def main(spec=RECOMMENDED):
     coef_rows, nat_rows, timing_rows, losses, profiles = [], [], [], [], []
     for eco in ("irrigated", "rainfed"):
         p = build(eco)
@@ -152,15 +156,15 @@ def main(spec=OFFICIAL):
 
     coef = pd.DataFrame(coef_rows)
     coef["t"] = coef.est / coef.se
-    coef.assign(spec=spec.name, status=STATUS).round(4).to_csv(TAB / "direct_rice_coefficients.csv",
+    coef.assign(spec=spec.name, spec_note=SPEC_NOTE, status=STATUS).round(4).to_csv(TAB / "direct_rice_coefficients.csv",
                                                                index=False)
     nat = pd.DataFrame(nat_rows)
     nat["t"] = nat.est / nat.se
     nat["pct_effect_of_+1"] = (np.exp(nat.est) - 1) * 100
-    nat.assign(spec=spec.name, status=STATUS).round(4).to_csv(TAB / "direct_rice_national_effects.csv",
+    nat.assign(spec=spec.name, spec_note=SPEC_NOTE, status=STATUS).round(4).to_csv(TAB / "direct_rice_national_effects.csv",
                                                               index=False)
     timing = pd.DataFrame(timing_rows)
-    timing.assign(spec=spec.name, status=STATUS).round(4).to_csv(TAB / "direct_rice_timing.csv",
+    timing.assign(spec=spec.name, spec_note=SPEC_NOTE, status=STATUS).round(4).to_csv(TAB / "direct_rice_timing.csv",
                                                                  index=False)
     pd.concat(profiles).round(4).to_csv(TAB / "direct_rice_profile.csv", index=False)
 
@@ -168,7 +172,7 @@ def main(spec=OFFICIAL):
     L["loss_roni_pct"] = (1 - L.actual / L.neutral_roni) * 100
     L["loss_roni_dmi_pct"] = (1 - L.actual / L.neutral_roni_dmi) * 100
     L.index = pd.PeriodIndex(L.index, freq="Q")
-    L.assign(spec=spec.name, status=STATUS).round(2).to_csv(TAB / "direct_rice_implied_losses.csv")
+    L.assign(spec=spec.name, spec_note=SPEC_NOTE, status=STATUS).round(2).to_csv(TAB / "direct_rice_implied_losses.csv")
     yr = L.groupby(L.index.year)[["actual", "neutral_roni", "neutral_roni_dmi"]].sum()
     yr["implied_loss_roni_pct"] = (1 - yr.actual / yr.neutral_roni) * 100
     yr["implied_loss_roni_dmi_pct"] = (1 - yr.actual / yr.neutral_roni_dmi) * 100
@@ -212,8 +216,9 @@ def main(spec=OFFICIAL):
     ax.grid(axis="y", color=GRID, lw=0.5)
     ax.legend(frameon=False, fontsize=8,
               title="lines: national, dashed before 2000, dotted from 2000", title_fontsize=7)
-    ax.set_title("PROVISIONAL. Official direct specification: El Niño effect by region, "
-                 "dry-season harvest, Poisson, 95% Driscoll–Kraay", fontsize=10, color=INK, loc="left")
+    ax.set_title("PROVISIONAL. Recommended specification, differs from v5 (El Niño / La Niña split, "
+                 "spline trends, change from 2000):\nEl Niño effect by region, dry-season harvest, "
+                 "Poisson, 95% Driscoll–Kraay", fontsize=10, color=INK, loc="left")
     fig.savefig(FIG / "direct_rice_effects.png", dpi=150, facecolor="white")
     plt.close(fig)
 

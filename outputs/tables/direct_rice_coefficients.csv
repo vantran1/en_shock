@@ -1,257 +1,257 @@
-ecosystem,model,kind,term,est,se,t,spec,status
-irrigated,ppml,climate,BRP_BARMM,-0.2949,0.1065,-2.7694,official,provisional
-irrigated,ppml,climate,BRP_CAR,-0.2022,0.0427,-4.735,official,provisional
-irrigated,ppml,climate,BRP_MIMAROPA,-0.1677,0.039,-4.2999,official,provisional
-irrigated,ppml,climate,BRP_R01,-0.1118,0.047,-2.3791,official,provisional
-irrigated,ppml,climate,BRP_R02,-0.1526,0.0565,-2.7004,official,provisional
-irrigated,ppml,climate,BRP_R03,-0.1516,0.0399,-3.8038,official,provisional
-irrigated,ppml,climate,BRP_R04A,-0.0769,0.0382,-2.0099,official,provisional
-irrigated,ppml,climate,BRP_R05,-0.1204,0.0442,-2.7216,official,provisional
-irrigated,ppml,climate,BRP_R06,-0.1832,0.0563,-3.253,official,provisional
-irrigated,ppml,climate,BRP_R07,-0.258,0.0613,-4.2092,official,provisional
-irrigated,ppml,climate,BRP_R08,-0.1443,0.0518,-2.7878,official,provisional
-irrigated,ppml,climate,BRP_R09,-0.2058,0.0644,-3.1962,official,provisional
-irrigated,ppml,climate,BRP_R10,-0.1057,0.0547,-1.9337,official,provisional
-irrigated,ppml,climate,BRP_R11,-0.247,0.0521,-4.7414,official,provisional
-irrigated,ppml,climate,BRP_R12,-0.1933,0.0506,-3.8172,official,provisional
-irrigated,ppml,climate,BRP_R13,-0.2409,0.0581,-4.1449,official,provisional
-irrigated,ppml,climate,BRN_BARMM,0.0332,0.0947,0.3501,official,provisional
-irrigated,ppml,climate,BRN_CAR,0.0834,0.0321,2.5993,official,provisional
-irrigated,ppml,climate,BRN_MIMAROPA,0.0431,0.0376,1.1449,official,provisional
-irrigated,ppml,climate,BRN_R01,-0.0159,0.0366,-0.4335,official,provisional
-irrigated,ppml,climate,BRN_R02,-0.0069,0.0336,-0.2059,official,provisional
-irrigated,ppml,climate,BRN_R03,0.0743,0.0324,2.293,official,provisional
-irrigated,ppml,climate,BRN_R04A,-0.0028,0.0326,-0.0845,official,provisional
-irrigated,ppml,climate,BRN_R05,0.07,0.0393,1.78,official,provisional
-irrigated,ppml,climate,BRN_R06,-0.0187,0.0399,-0.4675,official,provisional
-irrigated,ppml,climate,BRN_R07,0.0641,0.0545,1.1755,official,provisional
-irrigated,ppml,climate,BRN_R08,0.0101,0.0483,0.2092,official,provisional
-irrigated,ppml,climate,BRN_R09,0.0563,0.0484,1.1638,official,provisional
-irrigated,ppml,climate,BRN_R10,-0.0069,0.047,-0.1472,official,provisional
-irrigated,ppml,climate,BRN_R11,0.1036,0.0379,2.7338,official,provisional
-irrigated,ppml,climate,BRN_R12,-0.0328,0.0458,-0.7167,official,provisional
-irrigated,ppml,climate,BRN_R13,0.1264,0.0453,2.7902,official,provisional
-irrigated,ppml,climate,BD_BARMM,0.0777,0.1877,0.4138,official,provisional
-irrigated,ppml,climate,BD_CAR,0.0275,0.052,0.5282,official,provisional
-irrigated,ppml,climate,BD_MIMAROPA,0.0143,0.0633,0.2267,official,provisional
-irrigated,ppml,climate,BD_R01,0.0465,0.0575,0.8079,official,provisional
-irrigated,ppml,climate,BD_R02,-0.0003,0.0499,-0.0059,official,provisional
-irrigated,ppml,climate,BD_R03,-0.041,0.0449,-0.9114,official,provisional
-irrigated,ppml,climate,BD_R04A,-0.0364,0.0601,-0.6061,official,provisional
-irrigated,ppml,climate,BD_R05,-0.024,0.0572,-0.4201,official,provisional
-irrigated,ppml,climate,BD_R06,-0.0368,0.0783,-0.4697,official,provisional
-irrigated,ppml,climate,BD_R07,-0.075,0.0982,-0.7644,official,provisional
-irrigated,ppml,climate,BD_R08,0.1125,0.0726,1.5503,official,provisional
-irrigated,ppml,climate,BD_R09,-0.0146,0.0661,-0.2203,official,provisional
-irrigated,ppml,climate,BD_R10,0.0844,0.0962,0.878,official,provisional
-irrigated,ppml,climate,BD_R11,0.0495,0.0592,0.8353,official,provisional
-irrigated,ppml,climate,BD_R12,0.06,0.0458,1.3095,official,provisional
-irrigated,ppml,climate,BD_R13,0.1456,0.0857,1.6983,official,provisional
-irrigated,ppml,climate,SRP_wet,0.0544,0.0386,1.4085,official,provisional
-irrigated,ppml,climate,SRN_wet,0.0014,0.0316,0.0449,official,provisional
-irrigated,ppml,climate,SD_wet,-0.0819,0.0563,-1.4533,official,provisional
-irrigated,ppml,climate,SRP_post,0.1117,0.0377,2.9644,official,provisional
-irrigated,ppml,climate,SRN_post,-0.0488,0.0252,-1.935,official,provisional
-irrigated,ppml,control,ty_share_ts,-0.0534,0.0291,-1.8331,official,provisional
-irrigated,ppml,control,ty_share_ty,-0.057,0.0621,-0.9186,official,provisional
-irrigated,ppml,control,ty_share_sty,-0.584,0.324,-1.8027,official,provisional
-irrigated,ppml,control,ty_share_ts_lag1,0.0357,0.0286,1.2463,official,provisional
-irrigated,ppml,control,ty_share_ty_lag1,-0.0949,0.0633,-1.4999,official,provisional
-irrigated,ppml,control,ty_share_sty_lag1,-0.0628,0.3952,-0.159,official,provisional
-irrigated,ppml,control,flood_share,0.0084,0.0168,0.4996,official,provisional
-irrigated,ppml,control,flood_share_lag1,-0.0225,0.0178,-1.2645,official,provisional
-irrigated,ppml,control,eq,-0.0018,0.0348,-0.0524,official,provisional
-irrigated,ppml,control,eruption,-0.0683,0.0294,-2.3269,official,provisional
-irrigated,ppml,control,pinatubo_1991,-0.1094,0.0855,-1.2786,official,provisional
-irrigated,ols,climate,BRP_BARMM,-0.3446,0.1501,-2.2958,official,provisional
-irrigated,ols,climate,BRP_CAR,-0.1455,0.0522,-2.7864,official,provisional
-irrigated,ols,climate,BRP_MIMAROPA,-0.2368,0.0426,-5.5528,official,provisional
-irrigated,ols,climate,BRP_R01,-0.2528,0.1077,-2.346,official,provisional
-irrigated,ols,climate,BRP_R02,-0.2384,0.0751,-3.1741,official,provisional
-irrigated,ols,climate,BRP_R03,-0.1786,0.0392,-4.5535,official,provisional
-irrigated,ols,climate,BRP_R04A,-0.0964,0.0412,-2.3389,official,provisional
-irrigated,ols,climate,BRP_R05,-0.1419,0.0521,-2.7212,official,provisional
-irrigated,ols,climate,BRP_R06,-0.2417,0.0674,-3.588,official,provisional
-irrigated,ols,climate,BRP_R07,-0.2713,0.058,-4.6771,official,provisional
-irrigated,ols,climate,BRP_R08,-0.1655,0.0816,-2.0288,official,provisional
-irrigated,ols,climate,BRP_R09,-0.2756,0.0757,-3.6408,official,provisional
-irrigated,ols,climate,BRP_R10,-0.1857,0.1012,-1.8356,official,provisional
-irrigated,ols,climate,BRP_R11,-0.257,0.0566,-4.5453,official,provisional
-irrigated,ols,climate,BRP_R12,-0.3196,0.0933,-3.4261,official,provisional
-irrigated,ols,climate,BRP_R13,-0.257,0.0876,-2.9334,official,provisional
-irrigated,ols,climate,BRN_BARMM,-0.0397,0.1028,-0.3868,official,provisional
-irrigated,ols,climate,BRN_CAR,0.0308,0.0393,0.7844,official,provisional
-irrigated,ols,climate,BRN_MIMAROPA,0.029,0.0437,0.6634,official,provisional
-irrigated,ols,climate,BRN_R01,-0.0433,0.0548,-0.7894,official,provisional
-irrigated,ols,climate,BRN_R02,-0.0296,0.0411,-0.7186,official,provisional
-irrigated,ols,climate,BRN_R03,0.0318,0.0334,0.9512,official,provisional
-irrigated,ols,climate,BRN_R04A,0.0044,0.0398,0.1097,official,provisional
-irrigated,ols,climate,BRN_R05,0.0664,0.0408,1.6294,official,provisional
-irrigated,ols,climate,BRN_R06,-0.059,0.0532,-1.1091,official,provisional
-irrigated,ols,climate,BRN_R07,0.0675,0.0532,1.2693,official,provisional
-irrigated,ols,climate,BRN_R08,-0.0136,0.0557,-0.2445,official,provisional
-irrigated,ols,climate,BRN_R09,0.079,0.0525,1.5058,official,provisional
-irrigated,ols,climate,BRN_R10,-0.0154,0.0562,-0.273,official,provisional
-irrigated,ols,climate,BRN_R11,0.1126,0.0396,2.8425,official,provisional
-irrigated,ols,climate,BRN_R12,-0.0579,0.0604,-0.9582,official,provisional
-irrigated,ols,climate,BRN_R13,0.1257,0.0591,2.126,official,provisional
-irrigated,ols,climate,BD_BARMM,0.1361,0.1642,0.8286,official,provisional
-irrigated,ols,climate,BD_CAR,0.0718,0.0591,1.2157,official,provisional
-irrigated,ols,climate,BD_MIMAROPA,0.1836,0.06,3.0582,official,provisional
-irrigated,ols,climate,BD_R01,0.185,0.1313,1.4086,official,provisional
-irrigated,ols,climate,BD_R02,0.1814,0.0997,1.8188,official,provisional
-irrigated,ols,climate,BD_R03,0.0807,0.0563,1.4335,official,provisional
-irrigated,ols,climate,BD_R04A,-0.0175,0.0597,-0.2926,official,provisional
-irrigated,ols,climate,BD_R05,0.0984,0.0794,1.2393,official,provisional
-irrigated,ols,climate,BD_R06,0.0931,0.058,1.605,official,provisional
-irrigated,ols,climate,BD_R07,-0.0095,0.0894,-0.1067,official,provisional
-irrigated,ols,climate,BD_R08,0.139,0.0918,1.5142,official,provisional
-irrigated,ols,climate,BD_R09,0.0948,0.0794,1.1938,official,provisional
-irrigated,ols,climate,BD_R10,0.2354,0.1121,2.0997,official,provisional
-irrigated,ols,climate,BD_R11,0.0882,0.0809,1.0891,official,provisional
-irrigated,ols,climate,BD_R12,0.2268,0.0674,3.3624,official,provisional
-irrigated,ols,climate,BD_R13,0.1608,0.13,1.2366,official,provisional
-irrigated,ols,climate,SRP_wet,-0.0214,0.0517,-0.4141,official,provisional
-irrigated,ols,climate,SRN_wet,-0.0241,0.0357,-0.676,official,provisional
-irrigated,ols,climate,SD_wet,-0.0456,0.0687,-0.6628,official,provisional
-irrigated,ols,climate,SRP_post,0.1536,0.0426,3.6022,official,provisional
-irrigated,ols,climate,SRN_post,-0.0589,0.032,-1.8428,official,provisional
-irrigated,ols,control,ty_share_ts,-0.0462,0.045,-1.0261,official,provisional
-irrigated,ols,control,ty_share_ty,-0.0803,0.0774,-1.0376,official,provisional
-irrigated,ols,control,ty_share_sty,-0.4947,0.3456,-1.4314,official,provisional
-irrigated,ols,control,ty_share_ts_lag1,0.0222,0.0395,0.5632,official,provisional
-irrigated,ols,control,ty_share_ty_lag1,-0.079,0.0851,-0.9282,official,provisional
-irrigated,ols,control,ty_share_sty_lag1,-0.4134,0.3997,-1.0343,official,provisional
-irrigated,ols,control,flood_share,0.0157,0.0211,0.7469,official,provisional
-irrigated,ols,control,flood_share_lag1,-0.0442,0.022,-2.0055,official,provisional
-irrigated,ols,control,eq,0.0152,0.0481,0.3166,official,provisional
-irrigated,ols,control,eruption,-0.0941,0.028,-3.3594,official,provisional
-irrigated,ols,control,pinatubo_1991,-0.3369,0.151,-2.2301,official,provisional
-rainfed,ppml,climate,BRP_BARMM,-0.3183,0.1159,-2.7469,official,provisional
-rainfed,ppml,climate,BRP_CAR,-0.4041,0.1375,-2.9397,official,provisional
-rainfed,ppml,climate,BRP_MIMAROPA,-0.2363,0.102,-2.3175,official,provisional
-rainfed,ppml,climate,BRP_R01,-0.2484,0.0956,-2.597,official,provisional
-rainfed,ppml,climate,BRP_R02,-0.5377,0.1468,-3.6617,official,provisional
-rainfed,ppml,climate,BRP_R03,-0.4155,0.1164,-3.5689,official,provisional
-rainfed,ppml,climate,BRP_R04A,-0.171,0.1045,-1.6364,official,provisional
-rainfed,ppml,climate,BRP_R05,-0.2154,0.1077,-2.0001,official,provisional
-rainfed,ppml,climate,BRP_R06,-0.2738,0.1057,-2.5919,official,provisional
-rainfed,ppml,climate,BRP_R07,-0.5723,0.1518,-3.7699,official,provisional
-rainfed,ppml,climate,BRP_R08,-0.1913,0.0874,-2.1871,official,provisional
-rainfed,ppml,climate,BRP_R09,-0.3616,0.1229,-2.9421,official,provisional
-rainfed,ppml,climate,BRP_R10,-0.3979,0.1126,-3.5342,official,provisional
-rainfed,ppml,climate,BRP_R11,-0.5975,0.1289,-4.6352,official,provisional
-rainfed,ppml,climate,BRP_R12,-0.4146,0.1304,-3.1784,official,provisional
-rainfed,ppml,climate,BRP_R13,-0.3927,0.0991,-3.961,official,provisional
-rainfed,ppml,climate,BRN_BARMM,0.0765,0.0751,1.0187,official,provisional
-rainfed,ppml,climate,BRN_CAR,-0.0774,0.0949,-0.8156,official,provisional
-rainfed,ppml,climate,BRN_MIMAROPA,0.0356,0.0586,0.6072,official,provisional
-rainfed,ppml,climate,BRN_R01,0.076,0.0881,0.8637,official,provisional
-rainfed,ppml,climate,BRN_R02,0.0382,0.0796,0.4804,official,provisional
-rainfed,ppml,climate,BRN_R03,0.4541,0.0978,4.6437,official,provisional
-rainfed,ppml,climate,BRN_R04A,-0.0774,0.0698,-1.109,official,provisional
-rainfed,ppml,climate,BRN_R05,0.0215,0.0716,0.3008,official,provisional
-rainfed,ppml,climate,BRN_R06,-0.0099,0.0629,-0.1575,official,provisional
-rainfed,ppml,climate,BRN_R07,0.0566,0.1021,0.5549,official,provisional
-rainfed,ppml,climate,BRN_R08,0.1139,0.0586,1.9445,official,provisional
-rainfed,ppml,climate,BRN_R09,0.176,0.0679,2.5902,official,provisional
-rainfed,ppml,climate,BRN_R10,0.1368,0.0913,1.4988,official,provisional
-rainfed,ppml,climate,BRN_R11,0.085,0.0814,1.0441,official,provisional
-rainfed,ppml,climate,BRN_R12,0.0192,0.0758,0.2535,official,provisional
-rainfed,ppml,climate,BRN_R13,0.286,0.0749,3.8157,official,provisional
-rainfed,ppml,climate,BD_BARMM,0.2433,0.1018,2.3885,official,provisional
-rainfed,ppml,climate,BD_CAR,0.4024,0.1316,3.0575,official,provisional
-rainfed,ppml,climate,BD_MIMAROPA,0.2065,0.0824,2.5075,official,provisional
-rainfed,ppml,climate,BD_R01,0.2026,0.0921,2.1988,official,provisional
-rainfed,ppml,climate,BD_R02,0.2444,0.1294,1.8883,official,provisional
-rainfed,ppml,climate,BD_R03,0.0368,0.1133,0.3249,official,provisional
-rainfed,ppml,climate,BD_R04A,0.1836,0.1039,1.7665,official,provisional
-rainfed,ppml,climate,BD_R05,0.1345,0.1058,1.2711,official,provisional
-rainfed,ppml,climate,BD_R06,0.3166,0.0996,3.1785,official,provisional
-rainfed,ppml,climate,BD_R07,0.148,0.1366,1.0831,official,provisional
-rainfed,ppml,climate,BD_R08,0.148,0.0897,1.6501,official,provisional
-rainfed,ppml,climate,BD_R09,0.2234,0.0937,2.3856,official,provisional
-rainfed,ppml,climate,BD_R10,0.2648,0.1121,2.3612,official,provisional
-rainfed,ppml,climate,BD_R11,0.2075,0.1161,1.7864,official,provisional
-rainfed,ppml,climate,BD_R12,0.3962,0.114,3.4753,official,provisional
-rainfed,ppml,climate,BD_R13,0.0502,0.1479,0.3395,official,provisional
-rainfed,ppml,climate,SRP_wet,0.1127,0.0537,2.1002,official,provisional
-rainfed,ppml,climate,SRN_wet,0.0091,0.0445,0.2039,official,provisional
-rainfed,ppml,climate,SD_wet,-0.1818,0.0905,-2.0084,official,provisional
-rainfed,ppml,climate,SRP_post,0.1302,0.0785,1.6593,official,provisional
-rainfed,ppml,climate,SRN_post,-0.1255,0.043,-2.9193,official,provisional
-rainfed,ppml,control,ty_share_ts,-0.0633,0.0433,-1.4607,official,provisional
-rainfed,ppml,control,ty_share_ty,0.0427,0.1036,0.4125,official,provisional
-rainfed,ppml,control,ty_share_sty,-0.2769,0.3483,-0.7951,official,provisional
-rainfed,ppml,control,ty_share_ts_lag1,0.129,0.0291,4.434,official,provisional
-rainfed,ppml,control,ty_share_ty_lag1,-0.2003,0.1082,-1.8517,official,provisional
-rainfed,ppml,control,ty_share_sty_lag1,-0.5259,0.4112,-1.2788,official,provisional
-rainfed,ppml,control,flood_share,0.0297,0.0203,1.4635,official,provisional
-rainfed,ppml,control,flood_share_lag1,-0.0045,0.0208,-0.2146,official,provisional
-rainfed,ppml,control,eq,-0.0234,0.0502,-0.467,official,provisional
-rainfed,ppml,control,eruption,-0.0136,0.049,-0.2768,official,provisional
-rainfed,ppml,control,pinatubo_1991,-1.5488,0.159,-9.7434,official,provisional
-rainfed,ols,climate,BRP_BARMM,-0.9864,0.3422,-2.8824,official,provisional
-rainfed,ols,climate,BRP_CAR,-0.6085,0.2451,-2.4828,official,provisional
-rainfed,ols,climate,BRP_MIMAROPA,-0.6812,0.1407,-4.8411,official,provisional
-rainfed,ols,climate,BRP_R01,-0.3062,0.2169,-1.4118,official,provisional
-rainfed,ols,climate,BRP_R02,-0.8467,0.1853,-4.5686,official,provisional
-rainfed,ols,climate,BRP_R03,-0.4986,0.1424,-3.5013,official,provisional
-rainfed,ols,climate,BRP_R04A,-0.466,0.1272,-3.6644,official,provisional
-rainfed,ols,climate,BRP_R05,-0.6369,0.1827,-3.4853,official,provisional
-rainfed,ols,climate,BRP_R06,-0.6156,0.312,-1.973,official,provisional
-rainfed,ols,climate,BRP_R07,-1.2047,0.2706,-4.4517,official,provisional
-rainfed,ols,climate,BRP_R08,-0.5596,0.1677,-3.3376,official,provisional
-rainfed,ols,climate,BRP_R09,-0.9302,0.2682,-3.4685,official,provisional
-rainfed,ols,climate,BRP_R10,-1.2689,0.3929,-3.2295,official,provisional
-rainfed,ols,climate,BRP_R11,-0.8427,0.1854,-4.5464,official,provisional
-rainfed,ols,climate,BRP_R12,-1.2265,0.3436,-3.5692,official,provisional
-rainfed,ols,climate,BRP_R13,-0.8308,0.2008,-4.1379,official,provisional
-rainfed,ols,climate,BRN_BARMM,0.1282,0.1461,0.8773,official,provisional
-rainfed,ols,climate,BRN_CAR,0.0822,0.1835,0.4477,official,provisional
-rainfed,ols,climate,BRN_MIMAROPA,0.0341,0.0987,0.345,official,provisional
-rainfed,ols,climate,BRN_R01,0.0769,0.2201,0.3495,official,provisional
-rainfed,ols,climate,BRN_R02,-0.1107,0.1732,-0.6389,official,provisional
-rainfed,ols,climate,BRN_R03,-0.0202,0.1817,-0.1112,official,provisional
-rainfed,ols,climate,BRN_R04A,-0.0912,0.095,-0.9599,official,provisional
-rainfed,ols,climate,BRN_R05,-0.0164,0.126,-0.1301,official,provisional
-rainfed,ols,climate,BRN_R06,-0.1949,0.2086,-0.9344,official,provisional
-rainfed,ols,climate,BRN_R07,-0.0641,0.1728,-0.371,official,provisional
-rainfed,ols,climate,BRN_R08,0.085,0.1011,0.8403,official,provisional
-rainfed,ols,climate,BRN_R09,0.1695,0.1659,1.0219,official,provisional
-rainfed,ols,climate,BRN_R10,0.1589,0.2325,0.6837,official,provisional
-rainfed,ols,climate,BRN_R11,0.1264,0.1018,1.2422,official,provisional
-rainfed,ols,climate,BRN_R12,0.0337,0.1897,0.1774,official,provisional
-rainfed,ols,climate,BRN_R13,0.2312,0.1428,1.6189,official,provisional
-rainfed,ols,climate,BD_BARMM,0.6436,0.3084,2.087,official,provisional
-rainfed,ols,climate,BD_CAR,0.0757,0.3344,0.2265,official,provisional
-rainfed,ols,climate,BD_MIMAROPA,0.4383,0.1122,3.9058,official,provisional
-rainfed,ols,climate,BD_R01,0.2319,0.2502,0.927,official,provisional
-rainfed,ols,climate,BD_R02,0.4462,0.1854,2.4062,official,provisional
-rainfed,ols,climate,BD_R03,0.4126,0.2061,2.0022,official,provisional
-rainfed,ols,climate,BD_R04A,0.2114,0.1347,1.57,official,provisional
-rainfed,ols,climate,BD_R05,0.3763,0.1745,2.1562,official,provisional
-rainfed,ols,climate,BD_R06,0.1898,0.1305,1.454,official,provisional
-rainfed,ols,climate,BD_R07,0.4507,0.2037,2.2129,official,provisional
-rainfed,ols,climate,BD_R08,0.4358,0.1883,2.3137,official,provisional
-rainfed,ols,climate,BD_R09,0.1812,0.1102,1.6433,official,provisional
-rainfed,ols,climate,BD_R10,0.6584,0.2596,2.5361,official,provisional
-rainfed,ols,climate,BD_R11,0.2825,0.2116,1.3351,official,provisional
-rainfed,ols,climate,BD_R12,0.3875,0.1274,3.0408,official,provisional
-rainfed,ols,climate,BD_R13,0.3806,0.2098,1.8141,official,provisional
-rainfed,ols,climate,SRP_wet,0.2519,0.1555,1.6201,official,provisional
-rainfed,ols,climate,SRN_wet,-0.0336,0.0875,-0.3845,official,provisional
-rainfed,ols,climate,SD_wet,-0.3207,0.1593,-2.0133,official,provisional
-rainfed,ols,climate,SRP_post,0.472,0.1381,3.4171,official,provisional
-rainfed,ols,climate,SRN_post,-0.2036,0.095,-2.1441,official,provisional
-rainfed,ols,control,ty_share_ts,-0.1079,0.0686,-1.5737,official,provisional
-rainfed,ols,control,ty_share_ty,-0.0411,0.2078,-0.1978,official,provisional
-rainfed,ols,control,ty_share_sty,-0.3077,1.432,-0.2149,official,provisional
-rainfed,ols,control,ty_share_ts_lag1,0.1424,0.0635,2.242,official,provisional
-rainfed,ols,control,ty_share_ty_lag1,-0.1356,0.1864,-0.7276,official,provisional
-rainfed,ols,control,ty_share_sty_lag1,-0.8977,0.8539,-1.0513,official,provisional
-rainfed,ols,control,flood_share,0.0366,0.038,0.9641,official,provisional
-rainfed,ols,control,flood_share_lag1,-0.0559,0.0344,-1.6253,official,provisional
-rainfed,ols,control,eq,0.0597,0.0804,0.7426,official,provisional
-rainfed,ols,control,eruption,-0.0058,0.0681,-0.0858,official,provisional
-rainfed,ols,control,pinatubo_1991,-0.9478,0.1325,-7.1533,official,provisional
+ecosystem,model,kind,term,est,se,t,spec,spec_note,status
+irrigated,ppml,climate,BRP_BARMM,-0.2949,0.1065,-2.7694,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ppml,climate,BRP_CAR,-0.2022,0.0427,-4.735,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ppml,climate,BRP_MIMAROPA,-0.1677,0.039,-4.2999,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ppml,climate,BRP_R01,-0.1118,0.047,-2.3791,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ppml,climate,BRP_R02,-0.1526,0.0565,-2.7004,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ppml,climate,BRP_R03,-0.1516,0.0399,-3.8038,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ppml,climate,BRP_R04A,-0.0769,0.0382,-2.0099,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ppml,climate,BRP_R05,-0.1204,0.0442,-2.7216,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ppml,climate,BRP_R06,-0.1832,0.0563,-3.253,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ppml,climate,BRP_R07,-0.258,0.0613,-4.2092,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ppml,climate,BRP_R08,-0.1443,0.0518,-2.7878,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ppml,climate,BRP_R09,-0.2058,0.0644,-3.1962,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ppml,climate,BRP_R10,-0.1057,0.0547,-1.9337,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ppml,climate,BRP_R11,-0.247,0.0521,-4.7414,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ppml,climate,BRP_R12,-0.1933,0.0506,-3.8172,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ppml,climate,BRP_R13,-0.2409,0.0581,-4.1449,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ppml,climate,BRN_BARMM,0.0332,0.0947,0.3501,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ppml,climate,BRN_CAR,0.0834,0.0321,2.5993,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ppml,climate,BRN_MIMAROPA,0.0431,0.0376,1.1449,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ppml,climate,BRN_R01,-0.0159,0.0366,-0.4335,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ppml,climate,BRN_R02,-0.0069,0.0336,-0.2059,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ppml,climate,BRN_R03,0.0743,0.0324,2.293,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ppml,climate,BRN_R04A,-0.0028,0.0326,-0.0845,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ppml,climate,BRN_R05,0.07,0.0393,1.78,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ppml,climate,BRN_R06,-0.0187,0.0399,-0.4675,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ppml,climate,BRN_R07,0.0641,0.0545,1.1755,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ppml,climate,BRN_R08,0.0101,0.0483,0.2092,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ppml,climate,BRN_R09,0.0563,0.0484,1.1638,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ppml,climate,BRN_R10,-0.0069,0.047,-0.1472,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ppml,climate,BRN_R11,0.1036,0.0379,2.7338,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ppml,climate,BRN_R12,-0.0328,0.0458,-0.7167,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ppml,climate,BRN_R13,0.1264,0.0453,2.7902,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ppml,climate,BD_BARMM,0.0777,0.1877,0.4138,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ppml,climate,BD_CAR,0.0275,0.052,0.5282,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ppml,climate,BD_MIMAROPA,0.0143,0.0633,0.2267,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ppml,climate,BD_R01,0.0465,0.0575,0.8079,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ppml,climate,BD_R02,-0.0003,0.0499,-0.0059,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ppml,climate,BD_R03,-0.041,0.0449,-0.9114,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ppml,climate,BD_R04A,-0.0364,0.0601,-0.6061,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ppml,climate,BD_R05,-0.024,0.0572,-0.4201,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ppml,climate,BD_R06,-0.0368,0.0783,-0.4697,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ppml,climate,BD_R07,-0.075,0.0982,-0.7644,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ppml,climate,BD_R08,0.1125,0.0726,1.5503,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ppml,climate,BD_R09,-0.0146,0.0661,-0.2203,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ppml,climate,BD_R10,0.0844,0.0962,0.878,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ppml,climate,BD_R11,0.0495,0.0592,0.8353,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ppml,climate,BD_R12,0.06,0.0458,1.3095,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ppml,climate,BD_R13,0.1456,0.0857,1.6983,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ppml,climate,SRP_wet,0.0544,0.0386,1.4085,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ppml,climate,SRN_wet,0.0014,0.0316,0.0449,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ppml,climate,SD_wet,-0.0819,0.0563,-1.4533,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ppml,climate,SRP_post,0.1117,0.0377,2.9644,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ppml,climate,SRN_post,-0.0488,0.0252,-1.935,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ppml,control,ty_share_ts,-0.0534,0.0291,-1.8331,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ppml,control,ty_share_ty,-0.057,0.0621,-0.9186,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ppml,control,ty_share_sty,-0.584,0.324,-1.8027,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ppml,control,ty_share_ts_lag1,0.0357,0.0286,1.2463,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ppml,control,ty_share_ty_lag1,-0.0949,0.0633,-1.4999,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ppml,control,ty_share_sty_lag1,-0.0628,0.3952,-0.159,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ppml,control,flood_share,0.0084,0.0168,0.4996,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ppml,control,flood_share_lag1,-0.0225,0.0178,-1.2645,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ppml,control,eq,-0.0018,0.0348,-0.0524,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ppml,control,eruption,-0.0683,0.0294,-2.3269,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ppml,control,pinatubo_1991,-0.1094,0.0855,-1.2786,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ols,climate,BRP_BARMM,-0.3446,0.1501,-2.2958,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ols,climate,BRP_CAR,-0.1455,0.0522,-2.7864,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ols,climate,BRP_MIMAROPA,-0.2368,0.0426,-5.5528,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ols,climate,BRP_R01,-0.2528,0.1077,-2.346,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ols,climate,BRP_R02,-0.2384,0.0751,-3.1741,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ols,climate,BRP_R03,-0.1786,0.0392,-4.5535,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ols,climate,BRP_R04A,-0.0964,0.0412,-2.3389,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ols,climate,BRP_R05,-0.1419,0.0521,-2.7212,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ols,climate,BRP_R06,-0.2417,0.0674,-3.588,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ols,climate,BRP_R07,-0.2713,0.058,-4.6771,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ols,climate,BRP_R08,-0.1655,0.0816,-2.0288,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ols,climate,BRP_R09,-0.2756,0.0757,-3.6408,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ols,climate,BRP_R10,-0.1857,0.1012,-1.8356,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ols,climate,BRP_R11,-0.257,0.0566,-4.5453,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ols,climate,BRP_R12,-0.3196,0.0933,-3.4261,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ols,climate,BRP_R13,-0.257,0.0876,-2.9334,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ols,climate,BRN_BARMM,-0.0397,0.1028,-0.3868,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ols,climate,BRN_CAR,0.0308,0.0393,0.7844,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ols,climate,BRN_MIMAROPA,0.029,0.0437,0.6634,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ols,climate,BRN_R01,-0.0433,0.0548,-0.7894,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ols,climate,BRN_R02,-0.0296,0.0411,-0.7186,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ols,climate,BRN_R03,0.0318,0.0334,0.9512,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ols,climate,BRN_R04A,0.0044,0.0398,0.1097,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ols,climate,BRN_R05,0.0664,0.0408,1.6294,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ols,climate,BRN_R06,-0.059,0.0532,-1.1091,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ols,climate,BRN_R07,0.0675,0.0532,1.2693,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ols,climate,BRN_R08,-0.0136,0.0557,-0.2445,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ols,climate,BRN_R09,0.079,0.0525,1.5058,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ols,climate,BRN_R10,-0.0154,0.0562,-0.273,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ols,climate,BRN_R11,0.1126,0.0396,2.8425,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ols,climate,BRN_R12,-0.0579,0.0604,-0.9582,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ols,climate,BRN_R13,0.1257,0.0591,2.126,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ols,climate,BD_BARMM,0.1361,0.1642,0.8286,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ols,climate,BD_CAR,0.0718,0.0591,1.2157,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ols,climate,BD_MIMAROPA,0.1836,0.06,3.0582,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ols,climate,BD_R01,0.185,0.1313,1.4086,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ols,climate,BD_R02,0.1814,0.0997,1.8188,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ols,climate,BD_R03,0.0807,0.0563,1.4335,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ols,climate,BD_R04A,-0.0175,0.0597,-0.2926,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ols,climate,BD_R05,0.0984,0.0794,1.2393,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ols,climate,BD_R06,0.0931,0.058,1.605,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ols,climate,BD_R07,-0.0095,0.0894,-0.1067,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ols,climate,BD_R08,0.139,0.0918,1.5142,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ols,climate,BD_R09,0.0948,0.0794,1.1938,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ols,climate,BD_R10,0.2354,0.1121,2.0997,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ols,climate,BD_R11,0.0882,0.0809,1.0891,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ols,climate,BD_R12,0.2268,0.0674,3.3624,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ols,climate,BD_R13,0.1608,0.13,1.2366,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ols,climate,SRP_wet,-0.0214,0.0517,-0.4141,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ols,climate,SRN_wet,-0.0241,0.0357,-0.676,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ols,climate,SD_wet,-0.0456,0.0687,-0.6628,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ols,climate,SRP_post,0.1536,0.0426,3.6022,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ols,climate,SRN_post,-0.0589,0.032,-1.8428,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ols,control,ty_share_ts,-0.0462,0.045,-1.0261,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ols,control,ty_share_ty,-0.0803,0.0774,-1.0376,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ols,control,ty_share_sty,-0.4947,0.3456,-1.4314,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ols,control,ty_share_ts_lag1,0.0222,0.0395,0.5632,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ols,control,ty_share_ty_lag1,-0.079,0.0851,-0.9282,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ols,control,ty_share_sty_lag1,-0.4134,0.3997,-1.0343,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ols,control,flood_share,0.0157,0.0211,0.7469,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ols,control,flood_share_lag1,-0.0442,0.022,-2.0055,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ols,control,eq,0.0152,0.0481,0.3166,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ols,control,eruption,-0.0941,0.028,-3.3594,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ols,control,pinatubo_1991,-0.3369,0.151,-2.2301,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ppml,climate,BRP_BARMM,-0.3183,0.1159,-2.7469,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ppml,climate,BRP_CAR,-0.4041,0.1375,-2.9397,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ppml,climate,BRP_MIMAROPA,-0.2363,0.102,-2.3175,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ppml,climate,BRP_R01,-0.2484,0.0956,-2.597,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ppml,climate,BRP_R02,-0.5377,0.1468,-3.6617,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ppml,climate,BRP_R03,-0.4155,0.1164,-3.5689,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ppml,climate,BRP_R04A,-0.171,0.1045,-1.6364,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ppml,climate,BRP_R05,-0.2154,0.1077,-2.0001,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ppml,climate,BRP_R06,-0.2738,0.1057,-2.5919,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ppml,climate,BRP_R07,-0.5723,0.1518,-3.7699,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ppml,climate,BRP_R08,-0.1913,0.0874,-2.1871,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ppml,climate,BRP_R09,-0.3616,0.1229,-2.9421,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ppml,climate,BRP_R10,-0.3979,0.1126,-3.5342,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ppml,climate,BRP_R11,-0.5975,0.1289,-4.6352,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ppml,climate,BRP_R12,-0.4146,0.1304,-3.1784,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ppml,climate,BRP_R13,-0.3927,0.0991,-3.961,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ppml,climate,BRN_BARMM,0.0765,0.0751,1.0187,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ppml,climate,BRN_CAR,-0.0774,0.0949,-0.8156,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ppml,climate,BRN_MIMAROPA,0.0356,0.0586,0.6072,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ppml,climate,BRN_R01,0.076,0.0881,0.8637,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ppml,climate,BRN_R02,0.0382,0.0796,0.4804,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ppml,climate,BRN_R03,0.4541,0.0978,4.6437,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ppml,climate,BRN_R04A,-0.0774,0.0698,-1.109,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ppml,climate,BRN_R05,0.0215,0.0716,0.3008,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ppml,climate,BRN_R06,-0.0099,0.0629,-0.1575,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ppml,climate,BRN_R07,0.0566,0.1021,0.5549,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ppml,climate,BRN_R08,0.1139,0.0586,1.9445,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ppml,climate,BRN_R09,0.176,0.0679,2.5902,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ppml,climate,BRN_R10,0.1368,0.0913,1.4988,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ppml,climate,BRN_R11,0.085,0.0814,1.0441,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ppml,climate,BRN_R12,0.0192,0.0758,0.2535,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ppml,climate,BRN_R13,0.286,0.0749,3.8157,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ppml,climate,BD_BARMM,0.2433,0.1018,2.3885,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ppml,climate,BD_CAR,0.4024,0.1316,3.0575,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ppml,climate,BD_MIMAROPA,0.2065,0.0824,2.5075,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ppml,climate,BD_R01,0.2026,0.0921,2.1988,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ppml,climate,BD_R02,0.2444,0.1294,1.8883,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ppml,climate,BD_R03,0.0368,0.1133,0.3249,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ppml,climate,BD_R04A,0.1836,0.1039,1.7665,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ppml,climate,BD_R05,0.1345,0.1058,1.2711,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ppml,climate,BD_R06,0.3166,0.0996,3.1785,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ppml,climate,BD_R07,0.148,0.1366,1.0831,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ppml,climate,BD_R08,0.148,0.0897,1.6501,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ppml,climate,BD_R09,0.2234,0.0937,2.3856,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ppml,climate,BD_R10,0.2648,0.1121,2.3612,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ppml,climate,BD_R11,0.2075,0.1161,1.7864,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ppml,climate,BD_R12,0.3962,0.114,3.4753,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ppml,climate,BD_R13,0.0502,0.1479,0.3395,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ppml,climate,SRP_wet,0.1127,0.0537,2.1002,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ppml,climate,SRN_wet,0.0091,0.0445,0.2039,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ppml,climate,SD_wet,-0.1818,0.0905,-2.0084,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ppml,climate,SRP_post,0.1302,0.0785,1.6593,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ppml,climate,SRN_post,-0.1255,0.043,-2.9193,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ppml,control,ty_share_ts,-0.0633,0.0433,-1.4607,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ppml,control,ty_share_ty,0.0427,0.1036,0.4125,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ppml,control,ty_share_sty,-0.2769,0.3483,-0.7951,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ppml,control,ty_share_ts_lag1,0.129,0.0291,4.434,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ppml,control,ty_share_ty_lag1,-0.2003,0.1082,-1.8517,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ppml,control,ty_share_sty_lag1,-0.5259,0.4112,-1.2788,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ppml,control,flood_share,0.0297,0.0203,1.4635,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ppml,control,flood_share_lag1,-0.0045,0.0208,-0.2146,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ppml,control,eq,-0.0234,0.0502,-0.467,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ppml,control,eruption,-0.0136,0.049,-0.2768,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ppml,control,pinatubo_1991,-1.5488,0.159,-9.7434,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ols,climate,BRP_BARMM,-0.9864,0.3422,-2.8824,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ols,climate,BRP_CAR,-0.6085,0.2451,-2.4828,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ols,climate,BRP_MIMAROPA,-0.6812,0.1407,-4.8411,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ols,climate,BRP_R01,-0.3062,0.2169,-1.4118,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ols,climate,BRP_R02,-0.8467,0.1853,-4.5686,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ols,climate,BRP_R03,-0.4986,0.1424,-3.5013,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ols,climate,BRP_R04A,-0.466,0.1272,-3.6644,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ols,climate,BRP_R05,-0.6369,0.1827,-3.4853,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ols,climate,BRP_R06,-0.6156,0.312,-1.973,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ols,climate,BRP_R07,-1.2047,0.2706,-4.4517,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ols,climate,BRP_R08,-0.5596,0.1677,-3.3376,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ols,climate,BRP_R09,-0.9302,0.2682,-3.4685,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ols,climate,BRP_R10,-1.2689,0.3929,-3.2295,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ols,climate,BRP_R11,-0.8427,0.1854,-4.5464,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ols,climate,BRP_R12,-1.2265,0.3436,-3.5692,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ols,climate,BRP_R13,-0.8308,0.2008,-4.1379,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ols,climate,BRN_BARMM,0.1282,0.1461,0.8773,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ols,climate,BRN_CAR,0.0822,0.1835,0.4477,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ols,climate,BRN_MIMAROPA,0.0341,0.0987,0.345,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ols,climate,BRN_R01,0.0769,0.2201,0.3495,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ols,climate,BRN_R02,-0.1107,0.1732,-0.6389,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ols,climate,BRN_R03,-0.0202,0.1817,-0.1112,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ols,climate,BRN_R04A,-0.0912,0.095,-0.9599,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ols,climate,BRN_R05,-0.0164,0.126,-0.1301,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ols,climate,BRN_R06,-0.1949,0.2086,-0.9344,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ols,climate,BRN_R07,-0.0641,0.1728,-0.371,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ols,climate,BRN_R08,0.085,0.1011,0.8403,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ols,climate,BRN_R09,0.1695,0.1659,1.0219,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ols,climate,BRN_R10,0.1589,0.2325,0.6837,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ols,climate,BRN_R11,0.1264,0.1018,1.2422,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ols,climate,BRN_R12,0.0337,0.1897,0.1774,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ols,climate,BRN_R13,0.2312,0.1428,1.6189,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ols,climate,BD_BARMM,0.6436,0.3084,2.087,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ols,climate,BD_CAR,0.0757,0.3344,0.2265,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ols,climate,BD_MIMAROPA,0.4383,0.1122,3.9058,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ols,climate,BD_R01,0.2319,0.2502,0.927,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ols,climate,BD_R02,0.4462,0.1854,2.4062,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ols,climate,BD_R03,0.4126,0.2061,2.0022,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ols,climate,BD_R04A,0.2114,0.1347,1.57,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ols,climate,BD_R05,0.3763,0.1745,2.1562,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ols,climate,BD_R06,0.1898,0.1305,1.454,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ols,climate,BD_R07,0.4507,0.2037,2.2129,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ols,climate,BD_R08,0.4358,0.1883,2.3137,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ols,climate,BD_R09,0.1812,0.1102,1.6433,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ols,climate,BD_R10,0.6584,0.2596,2.5361,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ols,climate,BD_R11,0.2825,0.2116,1.3351,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ols,climate,BD_R12,0.3875,0.1274,3.0408,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ols,climate,BD_R13,0.3806,0.2098,1.8141,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ols,climate,SRP_wet,0.2519,0.1555,1.6201,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ols,climate,SRN_wet,-0.0336,0.0875,-0.3845,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ols,climate,SD_wet,-0.3207,0.1593,-2.0133,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ols,climate,SRP_post,0.472,0.1381,3.4171,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ols,climate,SRN_post,-0.2036,0.095,-2.1441,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ols,control,ty_share_ts,-0.1079,0.0686,-1.5737,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ols,control,ty_share_ty,-0.0411,0.2078,-0.1978,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ols,control,ty_share_sty,-0.3077,1.432,-0.2149,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ols,control,ty_share_ts_lag1,0.1424,0.0635,2.242,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ols,control,ty_share_ty_lag1,-0.1356,0.1864,-0.7276,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ols,control,ty_share_sty_lag1,-0.8977,0.8539,-1.0513,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ols,control,flood_share,0.0366,0.038,0.9641,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ols,control,flood_share_lag1,-0.0559,0.0344,-1.6253,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ols,control,eq,0.0597,0.0804,0.7426,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ols,control,eruption,-0.0058,0.0681,-0.0858,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+rainfed,ols,control,pinatubo_1991,-0.9478,0.1325,-7.1533,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional

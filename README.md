@@ -101,14 +101,17 @@ Validation report: `outputs/panel_validation.md` (`scripts/report_panel.py`).
 
 ### Direct model (agriculture)
 
-The official specification in this repo is methodology v5, Eqs. (4)-(6), with the changes
-the palay data support: El Niño and La Niña with separate effects, smooth regional trends,
-effects that shift from 2000 on, and a wet-season shift (Poisson main, log-LS check).
+**Recommended specification — differs from the current methodology (v5).** It is v5,
+Eqs. (4)-(6), with the changes the palay data support: El Niño and La Niña with separate
+effects, smooth regional trends, effects that shift from 2000 on, and a wet-season shift
+(Poisson main, log-LS check). It fits and predicts the past El Niño episodes better than
+the v5 specification, so we suggest going forward with it; the changes are proposed to
+Alper and are not in the v5 text yet.
 Code: `src/estimation/direct.py`; palay: `scripts/estimate_direct_rice.py` (results in
-`outputs/tables/direct_rice_*`, provisional). Specification tests and leave-one-episode-out
-validation: `scripts/compare_direct_v5_rice.py`. Benchmarks: the v5 base specification and
-the free-lag first look (`scripts/estimate_rice_direct.py`). The changes to the v5 text are
-proposed to Alper and not yet agreed.
+`outputs/tables/direct_rice_*`, provisional, column `spec_note`). Specification tests and
+leave-one-episode-out validation: `scripts/compare_direct_v5_rice.py`, which also runs the
+current-methodology (v5 base) version. The free-lag first look
+(`scripts/estimate_rice_direct.py`) is kept for comparison.
 
 ### Rebuilding from scratch
 
