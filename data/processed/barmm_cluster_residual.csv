@@ -128,28 +128,28 @@ Corn,2018Q2,0,0,False,corn
 Corn,2018Q3,0,0,False,corn
 Corn,2018Q4,0,0,False,corn
 Corn,2019Q1,0,0,False,corn
-Corn,2019Q2,-2.91038e-11,0,False,corn
+Corn,2019Q2,-2.910383046e-11,0,False,corn
 Corn,2019Q3,0,0,False,corn
 Corn,2019Q4,0,0,False,corn
 Corn,2020Q1,0,0,False,corn
-Corn,2020Q2,0,-7.27596e-12,False,corn
-Corn,2020Q3,5.82077e-11,0,False,corn
-Corn,2020Q4,0,-1.45519e-11,False,corn
+Corn,2020Q2,0,-7.275957614e-12,False,corn
+Corn,2020Q3,5.820766091e-11,0,False,corn
+Corn,2020Q4,0,-1.455191523e-11,False,corn
 Corn,2021Q1,0,0,False,corn
-Corn,2021Q2,-2.91038e-11,0,False,corn
+Corn,2021Q2,-2.910383046e-11,0,False,corn
 Corn,2021Q3,0,0,False,corn
-Corn,2021Q4,-2.91038e-11,0,False,corn
+Corn,2021Q4,-2.910383046e-11,0,False,corn
 Corn,2022Q1,0,0,False,corn
-Corn,2022Q2,2.91038e-11,0,False,corn
-Corn,2022Q3,-5.82077e-11,0,False,corn
+Corn,2022Q2,2.910383046e-11,0,False,corn
+Corn,2022Q3,-5.820766091e-11,0,False,corn
 Corn,2022Q4,0,0,False,corn
 Corn,2023Q1,8663.2,6469.9,True,corn
-Corn,2023Q2,15517,5565,True,corn
+Corn,2023Q2,15516.99,5565,True,corn
 Corn,2023Q3,18068,6443,True,corn
 Corn,2023Q4,24218,8207,True,corn
 Corn,2024Q1,17300,7567,True,corn
 Corn,2024Q2,11701,5451,True,corn
-Corn,2024Q3,15010,5096,True,corn
+Corn,2024Q3,15009.99,5096,True,corn
 Corn,2024Q4,14122,5309,True,corn
 Corn,2025Q1,20757,6617,True,corn
 Corn,2025Q2,14413,4651,True,corn
@@ -292,15 +292,15 @@ Irrigated Palay,2019Q4,0,0,False,palay_irrigated
 Irrigated Palay,2020Q1,0,0,False,palay_irrigated
 Irrigated Palay,2020Q2,0,0,False,palay_irrigated
 Irrigated Palay,2020Q3,0,0,False,palay_irrigated
-Irrigated Palay,2020Q4,0,1.81899e-12,False,palay_irrigated
-Irrigated Palay,2021Q1,7.27596e-12,0,False,palay_irrigated
+Irrigated Palay,2020Q4,0,1.818989404e-12,False,palay_irrigated
+Irrigated Palay,2021Q1,7.275957614e-12,0,False,palay_irrigated
 Irrigated Palay,2021Q2,0,0,False,palay_irrigated
 Irrigated Palay,2021Q3,0,0,False,palay_irrigated
-Irrigated Palay,2021Q4,0,1.81899e-12,False,palay_irrigated
+Irrigated Palay,2021Q4,0,1.818989404e-12,False,palay_irrigated
 Irrigated Palay,2022Q1,0,0,False,palay_irrigated
 Irrigated Palay,2022Q2,0,0,False,palay_irrigated
 Irrigated Palay,2022Q3,0,0,False,palay_irrigated
-Irrigated Palay,2022Q4,0,1.81899e-12,False,palay_irrigated
+Irrigated Palay,2022Q4,0,1.818989404e-12,False,palay_irrigated
 Irrigated Palay,2023Q1,2173.27,1369.89,True,palay_irrigated
 Irrigated Palay,2023Q2,10462,3219,True,palay_irrigated
 Irrigated Palay,2023Q3,15890,5595,True,palay_irrigated
@@ -444,20 +444,20 @@ Palay,2018Q2,0,0,False,palay
 Palay,2018Q3,0,0,False,palay
 Palay,2018Q4,0,0,False,palay
 Palay,2019Q1,0,0,False,palay
-Palay,2019Q2,-1.45519e-11,0,False,palay
+Palay,2019Q2,-1.455191523e-11,0,False,palay
 Palay,2019Q3,0,0,False,palay
 Palay,2019Q4,0,0,False,palay
 Palay,2020Q1,0,0,False,palay
 Palay,2020Q2,0,0,False,palay
 Palay,2020Q3,0,0,False,palay
-Palay,2020Q4,2.91038e-11,0,False,palay
+Palay,2020Q4,2.910383046e-11,0,False,palay
 Palay,2021Q1,0,0,False,palay
-Palay,2021Q2,0,3.63798e-12,False,palay
+Palay,2021Q2,0,3.637978807e-12,False,palay
 Palay,2021Q3,0,0,False,palay
 Palay,2021Q4,0,0,False,palay
 Palay,2022Q1,0,0,False,palay
 Palay,2022Q2,0,0,False,palay
-Palay,2022Q3,-0.01,0,False,palay
+Palay,2022Q3,-0.009999999951,0,False,palay
 Palay,2022Q4,0,0,False,palay
 Palay,2023Q1,3251.48,1936.21,True,palay
 Palay,2023Q2,13049,4404,True,palay
@@ -603,19 +603,19 @@ Rainfed Palay,2018Q3,0,0,False,palay_rainfed
 Rainfed Palay,2018Q4,0,0,False,palay_rainfed
 Rainfed Palay,2019Q1,0,0,False,palay_rainfed
 Rainfed Palay,2019Q2,0,0,False,palay_rainfed
-Rainfed Palay,2019Q3,-2.91038e-11,0,False,palay_rainfed
+Rainfed Palay,2019Q3,-2.910383046e-11,0,False,palay_rainfed
 Rainfed Palay,2019Q4,0,0,False,palay_rainfed
 Rainfed Palay,2020Q1,0,0,False,palay_rainfed
-Rainfed Palay,2020Q2,7.27596e-12,0,False,palay_rainfed
+Rainfed Palay,2020Q2,7.275957614e-12,0,False,palay_rainfed
 Rainfed Palay,2020Q3,0,0,False,palay_rainfed
 Rainfed Palay,2020Q4,0,0,False,palay_rainfed
-Rainfed Palay,2021Q1,-2.91038e-11,0,False,palay_rainfed
+Rainfed Palay,2021Q1,-2.910383046e-11,0,False,palay_rainfed
 Rainfed Palay,2021Q2,0,0,False,palay_rainfed
 Rainfed Palay,2021Q3,0,0,False,palay_rainfed
-Rainfed Palay,2021Q4,-2.91038e-11,0,False,palay_rainfed
+Rainfed Palay,2021Q4,-2.910383046e-11,0,False,palay_rainfed
 Rainfed Palay,2022Q1,0,0,False,palay_rainfed
-Rainfed Palay,2022Q2,-1.45519e-11,0,False,palay_rainfed
-Rainfed Palay,2022Q3,2.91038e-11,0,False,palay_rainfed
+Rainfed Palay,2022Q2,-1.455191523e-11,0,False,palay_rainfed
+Rainfed Palay,2022Q3,2.910383046e-11,0,False,palay_rainfed
 Rainfed Palay,2022Q4,0,0,False,palay_rainfed
 Rainfed Palay,2023Q1,1078.21,566.32,True,palay_rainfed
 Rainfed Palay,2023Q2,2586.99,1185,True,palay_rainfed
@@ -758,14 +758,14 @@ White Corn,2017Q4,0,0,False,corn_white
 White Corn,2018Q1,0,0,False,corn_white
 White Corn,2018Q2,0,0,False,corn_white
 White Corn,2018Q3,0,0,False,corn_white
-White Corn,2018Q4,-1.45519e-11,0,False,corn_white
-White Corn,2019Q1,1.45519e-11,0,False,corn_white
+White Corn,2018Q4,-1.455191523e-11,0,False,corn_white
+White Corn,2019Q1,1.455191523e-11,0,False,corn_white
 White Corn,2019Q2,0,0,False,corn_white
 White Corn,2019Q3,0,0,False,corn_white
-White Corn,2019Q4,1.45519e-11,0,False,corn_white
+White Corn,2019Q4,1.455191523e-11,0,False,corn_white
 White Corn,2020Q1,0,0,False,corn_white
 White Corn,2020Q2,0,0,False,corn_white
-White Corn,2020Q3,0,1.45519e-11,False,corn_white
+White Corn,2020Q3,0,1.455191523e-11,False,corn_white
 White Corn,2020Q4,0,0,False,corn_white
 White Corn,2021Q1,0,0,False,corn_white
 White Corn,2021Q2,0,0,False,corn_white
@@ -920,21 +920,21 @@ Yellow Corn,2018Q4,0,0,False,corn_yellow
 Yellow Corn,2019Q1,0,0,False,corn_yellow
 Yellow Corn,2019Q2,0,0,False,corn_yellow
 Yellow Corn,2019Q3,0,0,False,corn_yellow
-Yellow Corn,2019Q4,-1.45519e-11,0,False,corn_yellow
+Yellow Corn,2019Q4,-1.455191523e-11,0,False,corn_yellow
 Yellow Corn,2020Q1,0,0,False,corn_yellow
 Yellow Corn,2020Q2,0,0,False,corn_yellow
-Yellow Corn,2020Q3,2.91038e-11,0,False,corn_yellow
-Yellow Corn,2020Q4,-2.91038e-11,7.27596e-12,False,corn_yellow
+Yellow Corn,2020Q3,2.910383046e-11,0,False,corn_yellow
+Yellow Corn,2020Q4,-2.910383046e-11,7.275957614e-12,False,corn_yellow
 Yellow Corn,2021Q1,0,0,False,corn_yellow
 Yellow Corn,2021Q2,0,0,False,corn_yellow
 Yellow Corn,2021Q3,0,0,False,corn_yellow
 Yellow Corn,2021Q4,0,0,False,corn_yellow
-Yellow Corn,2022Q1,-2.91038e-11,0,False,corn_yellow
+Yellow Corn,2022Q1,-2.910383046e-11,0,False,corn_yellow
 Yellow Corn,2022Q2,0,0,False,corn_yellow
 Yellow Corn,2022Q3,0,0,False,corn_yellow
 Yellow Corn,2022Q4,0,0,False,corn_yellow
 Yellow Corn,2023Q1,8135.72,5959.11,True,corn_yellow
-Yellow Corn,2023Q2,12339,4059,True,corn_yellow
+Yellow Corn,2023Q2,12338.99,4059,True,corn_yellow
 Yellow Corn,2023Q3,15952,5335,True,corn_yellow
 Yellow Corn,2023Q4,21049,6725,True,corn_yellow
 Yellow Corn,2024Q1,16309,6940,True,corn_yellow
@@ -958,7 +958,7 @@ Ampalaya fruit [Bitter gourd],2011Q4,0,,False,ampalaya_fruit_bitter_gourd
 Ampalaya fruit [Bitter gourd],2012Q1,0,,False,ampalaya_fruit_bitter_gourd
 Ampalaya fruit [Bitter gourd],2012Q2,0,,False,ampalaya_fruit_bitter_gourd
 Ampalaya fruit [Bitter gourd],2012Q3,0,,False,ampalaya_fruit_bitter_gourd
-Ampalaya fruit [Bitter gourd],2012Q4,1.42109e-14,,False,ampalaya_fruit_bitter_gourd
+Ampalaya fruit [Bitter gourd],2012Q4,1.421085472e-14,,False,ampalaya_fruit_bitter_gourd
 Ampalaya fruit [Bitter gourd],2013Q1,0,,False,ampalaya_fruit_bitter_gourd
 Ampalaya fruit [Bitter gourd],2013Q2,0,,False,ampalaya_fruit_bitter_gourd
 Ampalaya fruit [Bitter gourd],2013Q3,0,,False,ampalaya_fruit_bitter_gourd
@@ -972,9 +972,9 @@ Ampalaya fruit [Bitter gourd],2015Q2,0,,False,ampalaya_fruit_bitter_gourd
 Ampalaya fruit [Bitter gourd],2015Q3,0,,False,ampalaya_fruit_bitter_gourd
 Ampalaya fruit [Bitter gourd],2015Q4,0,,False,ampalaya_fruit_bitter_gourd
 Ampalaya fruit [Bitter gourd],2016Q1,0,,False,ampalaya_fruit_bitter_gourd
-Ampalaya fruit [Bitter gourd],2016Q2,-7.10543e-15,,False,ampalaya_fruit_bitter_gourd
+Ampalaya fruit [Bitter gourd],2016Q2,-7.105427358e-15,,False,ampalaya_fruit_bitter_gourd
 Ampalaya fruit [Bitter gourd],2016Q3,0,,False,ampalaya_fruit_bitter_gourd
-Ampalaya fruit [Bitter gourd],2016Q4,-1.42109e-14,,False,ampalaya_fruit_bitter_gourd
+Ampalaya fruit [Bitter gourd],2016Q4,-1.421085472e-14,,False,ampalaya_fruit_bitter_gourd
 Ampalaya fruit [Bitter gourd],2017Q1,0,,False,ampalaya_fruit_bitter_gourd
 Ampalaya fruit [Bitter gourd],2017Q2,0,,False,ampalaya_fruit_bitter_gourd
 Ampalaya fruit [Bitter gourd],2017Q3,0,,False,ampalaya_fruit_bitter_gourd
@@ -985,16 +985,16 @@ Ampalaya fruit [Bitter gourd],2018Q3,0,,False,ampalaya_fruit_bitter_gourd
 Ampalaya fruit [Bitter gourd],2018Q4,0,,False,ampalaya_fruit_bitter_gourd
 Ampalaya fruit [Bitter gourd],2019Q1,-0.01,,False,ampalaya_fruit_bitter_gourd
 Ampalaya fruit [Bitter gourd],2019Q2,0,,False,ampalaya_fruit_bitter_gourd
-Ampalaya fruit [Bitter gourd],2019Q3,-1.42109e-14,,False,ampalaya_fruit_bitter_gourd
+Ampalaya fruit [Bitter gourd],2019Q3,-1.421085472e-14,,False,ampalaya_fruit_bitter_gourd
 Ampalaya fruit [Bitter gourd],2019Q4,0,,False,ampalaya_fruit_bitter_gourd
 Ampalaya fruit [Bitter gourd],2020Q1,0,,False,ampalaya_fruit_bitter_gourd
 Ampalaya fruit [Bitter gourd],2020Q2,0,,False,ampalaya_fruit_bitter_gourd
 Ampalaya fruit [Bitter gourd],2020Q3,0,,False,ampalaya_fruit_bitter_gourd
-Ampalaya fruit [Bitter gourd],2020Q4,2.84217e-14,,False,ampalaya_fruit_bitter_gourd
+Ampalaya fruit [Bitter gourd],2020Q4,2.842170943e-14,,False,ampalaya_fruit_bitter_gourd
 Ampalaya fruit [Bitter gourd],2021Q1,0,,False,ampalaya_fruit_bitter_gourd
 Ampalaya fruit [Bitter gourd],2021Q2,0,,False,ampalaya_fruit_bitter_gourd
 Ampalaya fruit [Bitter gourd],2021Q3,0,,False,ampalaya_fruit_bitter_gourd
-Ampalaya fruit [Bitter gourd],2021Q4,-2.84217e-14,,False,ampalaya_fruit_bitter_gourd
+Ampalaya fruit [Bitter gourd],2021Q4,-2.842170943e-14,,False,ampalaya_fruit_bitter_gourd
 Ampalaya fruit [Bitter gourd],2022Q1,0,,False,ampalaya_fruit_bitter_gourd
 Ampalaya fruit [Bitter gourd],2022Q2,0,,False,ampalaya_fruit_bitter_gourd
 Ampalaya fruit [Bitter gourd],2022Q3,0,,False,ampalaya_fruit_bitter_gourd
@@ -1023,12 +1023,12 @@ Banana Bungulan,2011Q3,0,,False,banana_bungulan
 Banana Bungulan,2011Q4,0,,False,banana_bungulan
 Banana Bungulan,2012Q1,0,,False,banana_bungulan
 Banana Bungulan,2012Q2,0,,False,banana_bungulan
-Banana Bungulan,2012Q3,9.09495e-13,,False,banana_bungulan
+Banana Bungulan,2012Q3,9.094947018e-13,,False,banana_bungulan
 Banana Bungulan,2012Q4,0,,False,banana_bungulan
 Banana Bungulan,2013Q1,0,,False,banana_bungulan
 Banana Bungulan,2013Q2,0,,False,banana_bungulan
 Banana Bungulan,2013Q3,0,,False,banana_bungulan
-Banana Bungulan,2013Q4,-9.09495e-13,,False,banana_bungulan
+Banana Bungulan,2013Q4,-9.094947018e-13,,False,banana_bungulan
 Banana Bungulan,2014Q1,0,,False,banana_bungulan
 Banana Bungulan,2014Q2,0,,False,banana_bungulan
 Banana Bungulan,2014Q3,0,,False,banana_bungulan
@@ -1051,33 +1051,33 @@ Banana Bungulan,2018Q3,0,,False,banana_bungulan
 Banana Bungulan,2018Q4,0,,False,banana_bungulan
 Banana Bungulan,2019Q1,0,,False,banana_bungulan
 Banana Bungulan,2019Q2,0,,False,banana_bungulan
-Banana Bungulan,2019Q3,1.81899e-12,,False,banana_bungulan
+Banana Bungulan,2019Q3,1.818989404e-12,,False,banana_bungulan
 Banana Bungulan,2019Q4,0,,False,banana_bungulan
-Banana Bungulan,2020Q1,1.81899e-12,,False,banana_bungulan
+Banana Bungulan,2020Q1,1.818989404e-12,,False,banana_bungulan
 Banana Bungulan,2020Q2,0,,False,banana_bungulan
 Banana Bungulan,2020Q3,0,,False,banana_bungulan
-Banana Bungulan,2020Q4,-9.09495e-13,,False,banana_bungulan
+Banana Bungulan,2020Q4,-9.094947018e-13,,False,banana_bungulan
 Banana Bungulan,2021Q1,0,,False,banana_bungulan
-Banana Bungulan,2021Q2,-9.09495e-13,,False,banana_bungulan
+Banana Bungulan,2021Q2,-9.094947018e-13,,False,banana_bungulan
 Banana Bungulan,2021Q3,0,,False,banana_bungulan
 Banana Bungulan,2021Q4,0,,False,banana_bungulan
 Banana Bungulan,2022Q1,0,,False,banana_bungulan
 Banana Bungulan,2022Q2,0,,False,banana_bungulan
 Banana Bungulan,2022Q3,0,,False,banana_bungulan
-Banana Bungulan,2022Q4,-9.09495e-13,,False,banana_bungulan
-Banana Bungulan,2023Q1,1.81899e-12,,True,banana_bungulan
+Banana Bungulan,2022Q4,-9.094947018e-13,,False,banana_bungulan
+Banana Bungulan,2023Q1,1.818989404e-12,,True,banana_bungulan
 Banana Bungulan,2023Q2,0,,True,banana_bungulan
 Banana Bungulan,2023Q3,0,,True,banana_bungulan
-Banana Bungulan,2023Q4,-1.81899e-12,,True,banana_bungulan
+Banana Bungulan,2023Q4,-1.818989404e-12,,True,banana_bungulan
 Banana Bungulan,2024Q1,0,,True,banana_bungulan
 Banana Bungulan,2024Q2,0,,True,banana_bungulan
 Banana Bungulan,2024Q3,0,,True,banana_bungulan
 Banana Bungulan,2024Q4,0,,True,banana_bungulan
 Banana Bungulan,2025Q1,0,,True,banana_bungulan
 Banana Bungulan,2025Q2,0,,True,banana_bungulan
-Banana Bungulan,2025Q3,-9.09495e-13,,True,banana_bungulan
+Banana Bungulan,2025Q3,-9.094947018e-13,,True,banana_bungulan
 Banana Bungulan,2025Q4,0,,True,banana_bungulan
-Banana Bungulan,2026Q1,0.01,,True,banana_bungulan
+Banana Bungulan,2026Q1,0.009999999998,,True,banana_bungulan
 Banana Bungulan,2026Q2,0,,True,banana_bungulan
 Banana Cavendish,2010Q1,0,,False,banana_cavendish
 Banana Cavendish,2010Q2,0,,False,banana_cavendish
@@ -1089,7 +1089,7 @@ Banana Cavendish,2011Q3,0,,False,banana_cavendish
 Banana Cavendish,2011Q4,0,,False,banana_cavendish
 Banana Cavendish,2012Q1,0,,False,banana_cavendish
 Banana Cavendish,2012Q2,0,,False,banana_cavendish
-Banana Cavendish,2012Q3,7.27596e-12,,False,banana_cavendish
+Banana Cavendish,2012Q3,7.275957614e-12,,False,banana_cavendish
 Banana Cavendish,2012Q4,0,,False,banana_cavendish
 Banana Cavendish,2013Q1,0,,False,banana_cavendish
 Banana Cavendish,2013Q2,0,,False,banana_cavendish
@@ -1106,11 +1106,11 @@ Banana Cavendish,2015Q4,0,,False,banana_cavendish
 Banana Cavendish,2016Q1,0,,False,banana_cavendish
 Banana Cavendish,2016Q2,0,,False,banana_cavendish
 Banana Cavendish,2016Q3,0,,False,banana_cavendish
-Banana Cavendish,2016Q4,7.27596e-12,,False,banana_cavendish
+Banana Cavendish,2016Q4,7.275957614e-12,,False,banana_cavendish
 Banana Cavendish,2017Q1,0,,False,banana_cavendish
 Banana Cavendish,2017Q2,0,,False,banana_cavendish
 Banana Cavendish,2017Q3,0,,False,banana_cavendish
-Banana Cavendish,2017Q4,-1.45519e-11,,False,banana_cavendish
+Banana Cavendish,2017Q4,-1.455191523e-11,,False,banana_cavendish
 Banana Cavendish,2018Q1,0,,False,banana_cavendish
 Banana Cavendish,2018Q2,0,,False,banana_cavendish
 Banana Cavendish,2018Q3,0,,False,banana_cavendish
@@ -1127,7 +1127,7 @@ Banana Cavendish,2021Q1,0,,False,banana_cavendish
 Banana Cavendish,2021Q2,0,,False,banana_cavendish
 Banana Cavendish,2021Q3,0,,False,banana_cavendish
 Banana Cavendish,2021Q4,0,,False,banana_cavendish
-Banana Cavendish,2022Q1,7.27596e-12,,False,banana_cavendish
+Banana Cavendish,2022Q1,7.275957614e-12,,False,banana_cavendish
 Banana Cavendish,2022Q2,0,,False,banana_cavendish
 Banana Cavendish,2022Q3,0,,False,banana_cavendish
 Banana Cavendish,2022Q4,0,,False,banana_cavendish
@@ -1146,7 +1146,7 @@ Banana Cavendish,2025Q4,0,,True,banana_cavendish
 Banana Cavendish,2026Q1,0,,True,banana_cavendish
 Banana Cavendish,2026Q2,0,,True,banana_cavendish
 Banana Lakatan,2010Q1,0,,False,banana_lakatan
-Banana Lakatan,2010Q2,-3.63798e-12,,False,banana_lakatan
+Banana Lakatan,2010Q2,-3.637978807e-12,,False,banana_lakatan
 Banana Lakatan,2010Q3,0,,False,banana_lakatan
 Banana Lakatan,2010Q4,0,,False,banana_lakatan
 Banana Lakatan,2011Q1,0,,False,banana_lakatan
@@ -1155,9 +1155,9 @@ Banana Lakatan,2011Q3,0,,False,banana_lakatan
 Banana Lakatan,2011Q4,0,,False,banana_lakatan
 Banana Lakatan,2012Q1,0,,False,banana_lakatan
 Banana Lakatan,2012Q2,0,,False,banana_lakatan
-Banana Lakatan,2012Q3,-3.63798e-12,,False,banana_lakatan
+Banana Lakatan,2012Q3,-3.637978807e-12,,False,banana_lakatan
 Banana Lakatan,2012Q4,0,,False,banana_lakatan
-Banana Lakatan,2013Q1,3.63798e-12,,False,banana_lakatan
+Banana Lakatan,2013Q1,3.637978807e-12,,False,banana_lakatan
 Banana Lakatan,2013Q2,0,,False,banana_lakatan
 Banana Lakatan,2013Q3,0,,False,banana_lakatan
 Banana Lakatan,2013Q4,0,,False,banana_lakatan
@@ -1171,7 +1171,7 @@ Banana Lakatan,2015Q3,0,,False,banana_lakatan
 Banana Lakatan,2015Q4,0,,False,banana_lakatan
 Banana Lakatan,2016Q1,0,,False,banana_lakatan
 Banana Lakatan,2016Q2,0,,False,banana_lakatan
-Banana Lakatan,2016Q3,3.63798e-12,,False,banana_lakatan
+Banana Lakatan,2016Q3,3.637978807e-12,,False,banana_lakatan
 Banana Lakatan,2016Q4,0,,False,banana_lakatan
 Banana Lakatan,2017Q1,0,,False,banana_lakatan
 Banana Lakatan,2017Q2,0,,False,banana_lakatan
@@ -1179,9 +1179,9 @@ Banana Lakatan,2017Q3,0,,False,banana_lakatan
 Banana Lakatan,2017Q4,0,,False,banana_lakatan
 Banana Lakatan,2018Q1,0,,False,banana_lakatan
 Banana Lakatan,2018Q2,0,,False,banana_lakatan
-Banana Lakatan,2018Q3,7.27596e-12,,False,banana_lakatan
+Banana Lakatan,2018Q3,7.275957614e-12,,False,banana_lakatan
 Banana Lakatan,2018Q4,0,,False,banana_lakatan
-Banana Lakatan,2019Q1,-3.63798e-12,,False,banana_lakatan
+Banana Lakatan,2019Q1,-3.637978807e-12,,False,banana_lakatan
 Banana Lakatan,2019Q2,0,,False,banana_lakatan
 Banana Lakatan,2019Q3,0,,False,banana_lakatan
 Banana Lakatan,2019Q4,0,,False,banana_lakatan
@@ -1190,23 +1190,23 @@ Banana Lakatan,2020Q2,0,,False,banana_lakatan
 Banana Lakatan,2020Q3,0,,False,banana_lakatan
 Banana Lakatan,2020Q4,0,,False,banana_lakatan
 Banana Lakatan,2021Q1,0,,False,banana_lakatan
-Banana Lakatan,2021Q2,3.63798e-12,,False,banana_lakatan
-Banana Lakatan,2021Q3,-7.27596e-12,,False,banana_lakatan
+Banana Lakatan,2021Q2,3.637978807e-12,,False,banana_lakatan
+Banana Lakatan,2021Q3,-7.275957614e-12,,False,banana_lakatan
 Banana Lakatan,2021Q4,0,,False,banana_lakatan
 Banana Lakatan,2022Q1,0,,False,banana_lakatan
-Banana Lakatan,2022Q2,3.63798e-12,,False,banana_lakatan
+Banana Lakatan,2022Q2,3.637978807e-12,,False,banana_lakatan
 Banana Lakatan,2022Q3,0,,False,banana_lakatan
 Banana Lakatan,2022Q4,0,,False,banana_lakatan
 Banana Lakatan,2023Q1,0,,True,banana_lakatan
-Banana Lakatan,2023Q2,3.63798e-12,,True,banana_lakatan
-Banana Lakatan,2023Q3,-7.27596e-12,,True,banana_lakatan
+Banana Lakatan,2023Q2,3.637978807e-12,,True,banana_lakatan
+Banana Lakatan,2023Q3,-7.275957614e-12,,True,banana_lakatan
 Banana Lakatan,2023Q4,0,,True,banana_lakatan
-Banana Lakatan,2024Q1,3.63798e-12,,True,banana_lakatan
+Banana Lakatan,2024Q1,3.637978807e-12,,True,banana_lakatan
 Banana Lakatan,2024Q2,0,,True,banana_lakatan
 Banana Lakatan,2024Q3,0,,True,banana_lakatan
 Banana Lakatan,2024Q4,0,,True,banana_lakatan
 Banana Lakatan,2025Q1,0,,True,banana_lakatan
-Banana Lakatan,2025Q2,0.01,,True,banana_lakatan
+Banana Lakatan,2025Q2,0.009999999998,,True,banana_lakatan
 Banana Lakatan,2025Q3,0.01,,True,banana_lakatan
 Banana Lakatan,2025Q4,0,,True,banana_lakatan
 Banana Lakatan,2026Q1,106.34,,True,banana_lakatan
@@ -1237,12 +1237,12 @@ Banana Latundan,2015Q3,0,,False,banana_latundan
 Banana Latundan,2015Q4,0,,False,banana_latundan
 Banana Latundan,2016Q1,0,,False,banana_latundan
 Banana Latundan,2016Q2,0,,False,banana_latundan
-Banana Latundan,2016Q3,9.09495e-13,,False,banana_latundan
-Banana Latundan,2016Q4,-4.54747e-13,,False,banana_latundan
+Banana Latundan,2016Q3,9.094947018e-13,,False,banana_latundan
+Banana Latundan,2016Q4,-4.547473509e-13,,False,banana_latundan
 Banana Latundan,2017Q1,0,,False,banana_latundan
 Banana Latundan,2017Q2,0,,False,banana_latundan
 Banana Latundan,2017Q3,0,,False,banana_latundan
-Banana Latundan,2017Q4,4.54747e-13,,False,banana_latundan
+Banana Latundan,2017Q4,4.547473509e-13,,False,banana_latundan
 Banana Latundan,2018Q1,0,,False,banana_latundan
 Banana Latundan,2018Q2,0,,False,banana_latundan
 Banana Latundan,2018Q3,0,,False,banana_latundan
@@ -1252,17 +1252,17 @@ Banana Latundan,2019Q2,0,,False,banana_latundan
 Banana Latundan,2019Q3,0,,False,banana_latundan
 Banana Latundan,2019Q4,0,,False,banana_latundan
 Banana Latundan,2020Q1,0,,False,banana_latundan
-Banana Latundan,2020Q2,-9.09495e-13,,False,banana_latundan
+Banana Latundan,2020Q2,-9.094947018e-13,,False,banana_latundan
 Banana Latundan,2020Q3,0,,False,banana_latundan
 Banana Latundan,2020Q4,0,,False,banana_latundan
 Banana Latundan,2021Q1,0,,False,banana_latundan
 Banana Latundan,2021Q2,0,,False,banana_latundan
-Banana Latundan,2021Q3,-9.09495e-13,,False,banana_latundan
+Banana Latundan,2021Q3,-9.094947018e-13,,False,banana_latundan
 Banana Latundan,2021Q4,0,,False,banana_latundan
 Banana Latundan,2022Q1,0,,False,banana_latundan
 Banana Latundan,2022Q2,0,,False,banana_latundan
 Banana Latundan,2022Q3,0,,False,banana_latundan
-Banana Latundan,2022Q4,-9.09495e-13,,False,banana_latundan
+Banana Latundan,2022Q4,-9.094947018e-13,,False,banana_latundan
 Banana Latundan,2023Q1,0,,True,banana_latundan
 Banana Latundan,2023Q2,0,,True,banana_latundan
 Banana Latundan,2023Q3,0,,True,banana_latundan
@@ -1286,7 +1286,7 @@ Banana Others,2011Q2,0,,False,banana_others
 Banana Others,2011Q3,0,,False,banana_others
 Banana Others,2011Q4,0,,False,banana_others
 Banana Others,2012Q1,0,,False,banana_others
-Banana Others,2012Q2,4.54747e-13,,False,banana_others
+Banana Others,2012Q2,4.547473509e-13,,False,banana_others
 Banana Others,2012Q3,0,,False,banana_others
 Banana Others,2012Q4,0,,False,banana_others
 Banana Others,2013Q1,0,,False,banana_others
@@ -1319,30 +1319,30 @@ Banana Others,2019Q3,0,,False,banana_others
 Banana Others,2019Q4,0,,False,banana_others
 Banana Others,2020Q1,0,,False,banana_others
 Banana Others,2020Q2,0,,False,banana_others
-Banana Others,2020Q3,-4.54747e-13,,False,banana_others
-Banana Others,2020Q4,4.54747e-13,,False,banana_others
+Banana Others,2020Q3,-4.547473509e-13,,False,banana_others
+Banana Others,2020Q4,4.547473509e-13,,False,banana_others
 Banana Others,2021Q1,0,,False,banana_others
 Banana Others,2021Q2,0,,False,banana_others
 Banana Others,2021Q3,0,,False,banana_others
 Banana Others,2021Q4,0,,False,banana_others
 Banana Others,2022Q1,0,,False,banana_others
 Banana Others,2022Q2,0,,False,banana_others
-Banana Others,2022Q3,-4.54747e-13,,False,banana_others
+Banana Others,2022Q3,-4.547473509e-13,,False,banana_others
 Banana Others,2022Q4,0,,False,banana_others
 Banana Others,2023Q1,0,,True,banana_others
 Banana Others,2023Q2,0,,True,banana_others
 Banana Others,2023Q3,0,,True,banana_others
 Banana Others,2023Q4,0,,True,banana_others
-Banana Others,2024Q1,4.54747e-13,,True,banana_others
+Banana Others,2024Q1,4.547473509e-13,,True,banana_others
 Banana Others,2024Q2,0,,True,banana_others
 Banana Others,2024Q3,0,,True,banana_others
 Banana Others,2024Q4,0,,True,banana_others
 Banana Others,2025Q1,0,,True,banana_others
 Banana Others,2025Q2,0,,True,banana_others
-Banana Others,2025Q3,-4.54747e-13,,True,banana_others
+Banana Others,2025Q3,-4.547473509e-13,,True,banana_others
 Banana Others,2025Q4,0,,True,banana_others
 Banana Others,2026Q1,0,,True,banana_others
-Banana Others,2026Q2,-4.54747e-13,,True,banana_others
+Banana Others,2026Q2,-4.547473509e-13,,True,banana_others
 Banana Saba,2010Q1,0,,False,banana_saba
 Banana Saba,2010Q2,0,,False,banana_saba
 Banana Saba,2010Q3,0,,False,banana_saba
@@ -1360,7 +1360,7 @@ Banana Saba,2013Q2,0,,False,banana_saba
 Banana Saba,2013Q3,0,,False,banana_saba
 Banana Saba,2013Q4,0,,False,banana_saba
 Banana Saba,2014Q1,0,,False,banana_saba
-Banana Saba,2014Q2,7.27596e-12,,False,banana_saba
+Banana Saba,2014Q2,7.275957614e-12,,False,banana_saba
 Banana Saba,2014Q3,0,,False,banana_saba
 Banana Saba,2014Q4,0,,False,banana_saba
 Banana Saba,2015Q1,0,,False,banana_saba
@@ -1370,13 +1370,13 @@ Banana Saba,2015Q4,0,,False,banana_saba
 Banana Saba,2016Q1,0,,False,banana_saba
 Banana Saba,2016Q2,0,,False,banana_saba
 Banana Saba,2016Q3,0,,False,banana_saba
-Banana Saba,2016Q4,7.27596e-12,,False,banana_saba
+Banana Saba,2016Q4,7.275957614e-12,,False,banana_saba
 Banana Saba,2017Q1,0,,False,banana_saba
 Banana Saba,2017Q2,0,,False,banana_saba
 Banana Saba,2017Q3,0,,False,banana_saba
 Banana Saba,2017Q4,0,,False,banana_saba
 Banana Saba,2018Q1,0,,False,banana_saba
-Banana Saba,2018Q2,-7.27596e-12,,False,banana_saba
+Banana Saba,2018Q2,-7.275957614e-12,,False,banana_saba
 Banana Saba,2018Q3,0,,False,banana_saba
 Banana Saba,2018Q4,0,,False,banana_saba
 Banana Saba,2019Q1,0,,False,banana_saba
@@ -1391,12 +1391,12 @@ Banana Saba,2021Q1,0,,False,banana_saba
 Banana Saba,2021Q2,0,,False,banana_saba
 Banana Saba,2021Q3,0,,False,banana_saba
 Banana Saba,2021Q4,0,,False,banana_saba
-Banana Saba,2022Q1,7.27596e-12,,False,banana_saba
+Banana Saba,2022Q1,7.275957614e-12,,False,banana_saba
 Banana Saba,2022Q2,0,,False,banana_saba
 Banana Saba,2022Q3,0,,False,banana_saba
 Banana Saba,2022Q4,0,,False,banana_saba
 Banana Saba,2023Q1,0,,True,banana_saba
-Banana Saba,2023Q2,-7.27596e-12,,True,banana_saba
+Banana Saba,2023Q2,-7.275957614e-12,,True,banana_saba
 Banana Saba,2023Q3,0,,True,banana_saba
 Banana Saba,2023Q4,0,,True,banana_saba
 Banana Saba,2024Q1,192.94,,True,banana_saba
@@ -1406,7 +1406,7 @@ Banana Saba,2024Q4,280,,True,banana_saba
 Banana Saba,2025Q1,225.5,,True,banana_saba
 Banana Saba,2025Q2,1107.06,,True,banana_saba
 Banana Saba,2025Q3,858.99,,True,banana_saba
-Banana Saba,2025Q4,-0.01,,True,banana_saba
+Banana Saba,2025Q4,-0.009999999995,,True,banana_saba
 Banana Saba,2026Q1,94.84,,True,banana_saba
 Banana Saba,2026Q2,1120,,True,banana_saba
 Cabbage,2010Q1,0,,False,cabbage
@@ -1414,7 +1414,7 @@ Cabbage,2010Q2,0,,False,cabbage
 Cabbage,2010Q3,0,,False,cabbage
 Cabbage,2010Q4,0,,False,cabbage
 Cabbage,2011Q1,0,,False,cabbage
-Cabbage,2011Q2,-8.88178e-16,,False,cabbage
+Cabbage,2011Q2,-8.881784197e-16,,False,cabbage
 Cabbage,2011Q3,0,,False,cabbage
 Cabbage,2011Q4,0,,False,cabbage
 Cabbage,2012Q1,0,,False,cabbage
@@ -1426,7 +1426,7 @@ Cabbage,2013Q2,0,,False,cabbage
 Cabbage,2013Q3,0,,False,cabbage
 Cabbage,2013Q4,0,,False,cabbage
 Cabbage,2014Q1,0,,False,cabbage
-Cabbage,2014Q2,8.88178e-16,,False,cabbage
+Cabbage,2014Q2,8.881784197e-16,,False,cabbage
 Cabbage,2014Q3,0,,False,cabbage
 Cabbage,2014Q4,0,,False,cabbage
 Cabbage,2015Q1,0,,False,cabbage
@@ -1434,7 +1434,7 @@ Cabbage,2015Q2,0,,False,cabbage
 Cabbage,2015Q3,0,,False,cabbage
 Cabbage,2015Q4,0,,False,cabbage
 Cabbage,2016Q1,0,,False,cabbage
-Cabbage,2016Q2,-1.77636e-15,,False,cabbage
+Cabbage,2016Q2,-1.776356839e-15,,False,cabbage
 Cabbage,2016Q3,0,,False,cabbage
 Cabbage,2016Q4,0,,False,cabbage
 Cabbage,2017Q1,0,,False,cabbage
@@ -1446,7 +1446,7 @@ Cabbage,2018Q2,0,,False,cabbage
 Cabbage,2018Q3,0,,False,cabbage
 Cabbage,2018Q4,0,,False,cabbage
 Cabbage,2019Q1,0,,False,cabbage
-Cabbage,2019Q2,-1.77636e-15,,False,cabbage
+Cabbage,2019Q2,-1.776356839e-15,,False,cabbage
 Cabbage,2019Q3,0,,False,cabbage
 Cabbage,2019Q4,0,,False,cabbage
 Cabbage,2020Q1,0,,False,cabbage
@@ -1471,18 +1471,18 @@ Cabbage,2024Q3,0,,True,cabbage
 Cabbage,2024Q4,0,,True,cabbage
 Cabbage,2025Q1,0,,True,cabbage
 Cabbage,2025Q2,0,,True,cabbage
-Cabbage,2025Q3,7.10543e-15,,True,cabbage
+Cabbage,2025Q3,7.105427358e-15,,True,cabbage
 Cabbage,2025Q4,0,,True,cabbage
 Cabbage,2026Q1,0,,True,cabbage
-Cabbage,2026Q2,-1.13687e-13,,True,cabbage
+Cabbage,2026Q2,-1.136868377e-13,,True,cabbage
 Calamansi,2010Q1,0,,False,calamansi
-Calamansi,2010Q2,-1.42109e-14,,False,calamansi
-Calamansi,2010Q3,5.68434e-14,,False,calamansi
+Calamansi,2010Q2,-1.421085472e-14,,False,calamansi
+Calamansi,2010Q3,5.684341886e-14,,False,calamansi
 Calamansi,2010Q4,0,,False,calamansi
 Calamansi,2011Q1,0,,False,calamansi
 Calamansi,2011Q2,0,,False,calamansi
 Calamansi,2011Q3,0,,False,calamansi
-Calamansi,2011Q4,5.68434e-14,,False,calamansi
+Calamansi,2011Q4,5.684341886e-14,,False,calamansi
 Calamansi,2012Q1,0,,False,calamansi
 Calamansi,2012Q2,0,,False,calamansi
 Calamansi,2012Q3,0,,False,calamansi
@@ -1500,19 +1500,19 @@ Calamansi,2015Q2,0,,False,calamansi
 Calamansi,2015Q3,0,,False,calamansi
 Calamansi,2015Q4,0,,False,calamansi
 Calamansi,2016Q1,0,,False,calamansi
-Calamansi,2016Q2,2.84217e-14,,False,calamansi
-Calamansi,2016Q3,-1.13687e-13,,False,calamansi
-Calamansi,2016Q4,-5.68434e-14,,False,calamansi
+Calamansi,2016Q2,2.842170943e-14,,False,calamansi
+Calamansi,2016Q3,-1.136868377e-13,,False,calamansi
+Calamansi,2016Q4,-5.684341886e-14,,False,calamansi
 Calamansi,2017Q1,0,,False,calamansi
-Calamansi,2017Q2,2.84217e-14,,False,calamansi
+Calamansi,2017Q2,2.842170943e-14,,False,calamansi
 Calamansi,2017Q3,0,,False,calamansi
 Calamansi,2017Q4,0,,False,calamansi
 Calamansi,2018Q1,0,,False,calamansi
-Calamansi,2018Q2,-2.84217e-14,,False,calamansi
+Calamansi,2018Q2,-2.842170943e-14,,False,calamansi
 Calamansi,2018Q3,0,,False,calamansi
 Calamansi,2018Q4,0,,False,calamansi
 Calamansi,2019Q1,0,,False,calamansi
-Calamansi,2019Q2,2.84217e-14,,False,calamansi
+Calamansi,2019Q2,2.842170943e-14,,False,calamansi
 Calamansi,2019Q3,0,,False,calamansi
 Calamansi,2019Q4,0,,False,calamansi
 Calamansi,2020Q1,0,,False,calamansi
@@ -1524,7 +1524,7 @@ Calamansi,2021Q2,0,,False,calamansi
 Calamansi,2021Q3,0,,False,calamansi
 Calamansi,2021Q4,0,,False,calamansi
 Calamansi,2022Q1,0,,False,calamansi
-Calamansi,2022Q2,-2.84217e-14,,False,calamansi
+Calamansi,2022Q2,-2.842170943e-14,,False,calamansi
 Calamansi,2022Q3,0,,False,calamansi
 Calamansi,2022Q4,0,,False,calamansi
 Calamansi,2023Q1,0,,True,calamansi
@@ -1540,13 +1540,13 @@ Calamansi,2025Q2,0,,True,calamansi
 Calamansi,2025Q3,0,,True,calamansi
 Calamansi,2025Q4,-0.01,,True,calamansi
 Calamansi,2026Q1,0,,True,calamansi
-Calamansi,2026Q2,5.68434e-14,,True,calamansi
+Calamansi,2026Q2,5.684341886e-14,,True,calamansi
 Camote [Sweet potato],2010Q1,0,,False,camote_sweet_potato
 Camote [Sweet potato],2010Q2,0,,False,camote_sweet_potato
 Camote [Sweet potato],2010Q3,0,,False,camote_sweet_potato
 Camote [Sweet potato],2010Q4,0,,False,camote_sweet_potato
 Camote [Sweet potato],2011Q1,0,,False,camote_sweet_potato
-Camote [Sweet potato],2011Q2,1.13687e-13,,False,camote_sweet_potato
+Camote [Sweet potato],2011Q2,1.136868377e-13,,False,camote_sweet_potato
 Camote [Sweet potato],2011Q3,0,,False,camote_sweet_potato
 Camote [Sweet potato],2011Q4,0,,False,camote_sweet_potato
 Camote [Sweet potato],2012Q1,-0.01,,False,camote_sweet_potato
@@ -1564,47 +1564,47 @@ Camote [Sweet potato],2014Q4,0,,False,camote_sweet_potato
 Camote [Sweet potato],2015Q1,0,,False,camote_sweet_potato
 Camote [Sweet potato],2015Q2,0,,False,camote_sweet_potato
 Camote [Sweet potato],2015Q3,0,,False,camote_sweet_potato
-Camote [Sweet potato],2015Q4,-4.54747e-13,,False,camote_sweet_potato
+Camote [Sweet potato],2015Q4,-4.547473509e-13,,False,camote_sweet_potato
 Camote [Sweet potato],2016Q1,0,,False,camote_sweet_potato
 Camote [Sweet potato],2016Q2,0,,False,camote_sweet_potato
 Camote [Sweet potato],2016Q3,0,,False,camote_sweet_potato
 Camote [Sweet potato],2016Q4,0,,False,camote_sweet_potato
 Camote [Sweet potato],2017Q1,0,,False,camote_sweet_potato
 Camote [Sweet potato],2017Q2,0,,False,camote_sweet_potato
-Camote [Sweet potato],2017Q3,-1.13687e-13,,False,camote_sweet_potato
+Camote [Sweet potato],2017Q3,-1.136868377e-13,,False,camote_sweet_potato
 Camote [Sweet potato],2017Q4,0,,False,camote_sweet_potato
 Camote [Sweet potato],2018Q1,0,,False,camote_sweet_potato
 Camote [Sweet potato],2018Q2,0,,False,camote_sweet_potato
 Camote [Sweet potato],2018Q3,0,,False,camote_sweet_potato
-Camote [Sweet potato],2018Q4,4.54747e-13,,False,camote_sweet_potato
-Camote [Sweet potato],2019Q1,-1.13687e-13,,False,camote_sweet_potato
+Camote [Sweet potato],2018Q4,4.547473509e-13,,False,camote_sweet_potato
+Camote [Sweet potato],2019Q1,-1.136868377e-13,,False,camote_sweet_potato
 Camote [Sweet potato],2019Q2,0,,False,camote_sweet_potato
 Camote [Sweet potato],2019Q3,0,,False,camote_sweet_potato
-Camote [Sweet potato],2019Q4,4.54747e-13,,False,camote_sweet_potato
+Camote [Sweet potato],2019Q4,4.547473509e-13,,False,camote_sweet_potato
 Camote [Sweet potato],2020Q1,0,,False,camote_sweet_potato
 Camote [Sweet potato],2020Q2,0,,False,camote_sweet_potato
 Camote [Sweet potato],2020Q3,0,,False,camote_sweet_potato
 Camote [Sweet potato],2020Q4,0,,False,camote_sweet_potato
 Camote [Sweet potato],2021Q1,0,,False,camote_sweet_potato
 Camote [Sweet potato],2021Q2,0,,False,camote_sweet_potato
-Camote [Sweet potato],2021Q3,1.13687e-13,,False,camote_sweet_potato
-Camote [Sweet potato],2021Q4,4.54747e-13,,False,camote_sweet_potato
+Camote [Sweet potato],2021Q3,1.136868377e-13,,False,camote_sweet_potato
+Camote [Sweet potato],2021Q4,4.547473509e-13,,False,camote_sweet_potato
 Camote [Sweet potato],2022Q1,0,,False,camote_sweet_potato
 Camote [Sweet potato],2022Q2,0,,False,camote_sweet_potato
 Camote [Sweet potato],2022Q3,0,,False,camote_sweet_potato
 Camote [Sweet potato],2022Q4,0,,False,camote_sweet_potato
-Camote [Sweet potato],2023Q1,1.13687e-13,,True,camote_sweet_potato
+Camote [Sweet potato],2023Q1,1.136868377e-13,,True,camote_sweet_potato
 Camote [Sweet potato],2023Q2,0,,True,camote_sweet_potato
-Camote [Sweet potato],2023Q3,-1.13687e-13,,True,camote_sweet_potato
+Camote [Sweet potato],2023Q3,-1.136868377e-13,,True,camote_sweet_potato
 Camote [Sweet potato],2023Q4,0,,True,camote_sweet_potato
-Camote [Sweet potato],2024Q1,-1.13687e-13,,True,camote_sweet_potato
+Camote [Sweet potato],2024Q1,-1.136868377e-13,,True,camote_sweet_potato
 Camote [Sweet potato],2024Q2,10.92,,True,camote_sweet_potato
 Camote [Sweet potato],2024Q3,0,,True,camote_sweet_potato
 Camote [Sweet potato],2024Q4,0,,True,camote_sweet_potato
 Camote [Sweet potato],2025Q1,0,,True,camote_sweet_potato
 Camote [Sweet potato],2025Q2,2.73,,True,camote_sweet_potato
 Camote [Sweet potato],2025Q3,0,,True,camote_sweet_potato
-Camote [Sweet potato],2025Q4,-2.27374e-13,,True,camote_sweet_potato
+Camote [Sweet potato],2025Q4,-2.273736754e-13,,True,camote_sweet_potato
 Camote [Sweet potato],2026Q1,0,,True,camote_sweet_potato
 Camote [Sweet potato],2026Q2,2.43,,True,camote_sweet_potato
 "Cassava, fresh tubers",2010Q1,0,,False,cassava_fresh_tubers
@@ -1623,7 +1623,7 @@ Camote [Sweet potato],2026Q2,2.43,,True,camote_sweet_potato
 "Cassava, fresh tubers",2013Q2,0,,False,cassava_fresh_tubers
 "Cassava, fresh tubers",2013Q3,0,,False,cassava_fresh_tubers
 "Cassava, fresh tubers",2013Q4,0,,False,cassava_fresh_tubers
-"Cassava, fresh tubers",2014Q1,-1.45519e-11,,False,cassava_fresh_tubers
+"Cassava, fresh tubers",2014Q1,-1.455191523e-11,,False,cassava_fresh_tubers
 "Cassava, fresh tubers",2014Q2,0,,False,cassava_fresh_tubers
 "Cassava, fresh tubers",2014Q3,0,,False,cassava_fresh_tubers
 "Cassava, fresh tubers",2014Q4,0,,False,cassava_fresh_tubers
@@ -1643,11 +1643,11 @@ Camote [Sweet potato],2026Q2,2.43,,True,camote_sweet_potato
 "Cassava, fresh tubers",2018Q2,0,,False,cassava_fresh_tubers
 "Cassava, fresh tubers",2018Q3,0,,False,cassava_fresh_tubers
 "Cassava, fresh tubers",2018Q4,0,,False,cassava_fresh_tubers
-"Cassava, fresh tubers",2019Q1,-1.45519e-11,,False,cassava_fresh_tubers
+"Cassava, fresh tubers",2019Q1,-1.455191523e-11,,False,cassava_fresh_tubers
 "Cassava, fresh tubers",2019Q2,0,,False,cassava_fresh_tubers
 "Cassava, fresh tubers",2019Q3,0,,False,cassava_fresh_tubers
 "Cassava, fresh tubers",2019Q4,0,,False,cassava_fresh_tubers
-"Cassava, fresh tubers",2020Q1,1.45519e-11,,False,cassava_fresh_tubers
+"Cassava, fresh tubers",2020Q1,1.455191523e-11,,False,cassava_fresh_tubers
 "Cassava, fresh tubers",2020Q2,0,,False,cassava_fresh_tubers
 "Cassava, fresh tubers",2020Q3,0,,False,cassava_fresh_tubers
 "Cassava, fresh tubers",2020Q4,0,,False,cassava_fresh_tubers
@@ -1659,11 +1659,11 @@ Camote [Sweet potato],2026Q2,2.43,,True,camote_sweet_potato
 "Cassava, fresh tubers",2022Q2,0,,False,cassava_fresh_tubers
 "Cassava, fresh tubers",2022Q3,0,,False,cassava_fresh_tubers
 "Cassava, fresh tubers",2022Q4,0,,False,cassava_fresh_tubers
-"Cassava, fresh tubers",2023Q1,-1.45519e-11,,True,cassava_fresh_tubers
+"Cassava, fresh tubers",2023Q1,-1.455191523e-11,,True,cassava_fresh_tubers
 "Cassava, fresh tubers",2023Q2,0,,True,cassava_fresh_tubers
 "Cassava, fresh tubers",2023Q3,0,,True,cassava_fresh_tubers
 "Cassava, fresh tubers",2023Q4,0,,True,cassava_fresh_tubers
-"Cassava, fresh tubers",2024Q1,-1.45519e-11,,True,cassava_fresh_tubers
+"Cassava, fresh tubers",2024Q1,-1.455191523e-11,,True,cassava_fresh_tubers
 "Cassava, fresh tubers",2024Q2,0,,True,cassava_fresh_tubers
 "Cassava, fresh tubers",2024Q3,0,,True,cassava_fresh_tubers
 "Cassava, fresh tubers",2024Q4,10.98,,True,cassava_fresh_tubers
@@ -1673,20 +1673,20 @@ Camote [Sweet potato],2026Q2,2.43,,True,camote_sweet_potato
 "Cassava, fresh tubers",2025Q4,0,,True,cassava_fresh_tubers
 "Cassava, fresh tubers",2026Q1,519.31,,True,cassava_fresh_tubers
 "Cassava, fresh tubers",2026Q2,2662,,True,cassava_fresh_tubers
-Eggplant,2010Q1,1.42109e-14,,False,eggplant
+Eggplant,2010Q1,1.421085472e-14,,False,eggplant
 Eggplant,2010Q2,0,,False,eggplant
 Eggplant,2010Q3,0,,False,eggplant
 Eggplant,2010Q4,0,,False,eggplant
-Eggplant,2011Q1,1.42109e-14,,False,eggplant
+Eggplant,2011Q1,1.421085472e-14,,False,eggplant
 Eggplant,2011Q2,0,,False,eggplant
 Eggplant,2011Q3,0,,False,eggplant
-Eggplant,2011Q4,5.68434e-14,,False,eggplant
+Eggplant,2011Q4,5.684341886e-14,,False,eggplant
 Eggplant,2012Q1,0.01,,False,eggplant
 Eggplant,2012Q2,0,,False,eggplant
 Eggplant,2012Q3,0,,False,eggplant
 Eggplant,2012Q4,0,,False,eggplant
-Eggplant,2013Q1,-1.42109e-14,,False,eggplant
-Eggplant,2013Q2,-7.10543e-15,,False,eggplant
+Eggplant,2013Q1,-1.421085472e-14,,False,eggplant
+Eggplant,2013Q2,-7.105427358e-15,,False,eggplant
 Eggplant,2013Q3,0,,False,eggplant
 Eggplant,2013Q4,0,,False,eggplant
 Eggplant,2014Q1,0,,False,eggplant
@@ -1698,35 +1698,35 @@ Eggplant,2015Q2,0,,False,eggplant
 Eggplant,2015Q3,0,,False,eggplant
 Eggplant,2015Q4,0,,False,eggplant
 Eggplant,2016Q1,0,,False,eggplant
-Eggplant,2016Q2,7.10543e-15,,False,eggplant
+Eggplant,2016Q2,7.105427358e-15,,False,eggplant
 Eggplant,2016Q3,0,,False,eggplant
 Eggplant,2016Q4,0,,False,eggplant
-Eggplant,2017Q1,2.84217e-14,,False,eggplant
+Eggplant,2017Q1,2.842170943e-14,,False,eggplant
 Eggplant,2017Q2,0,,False,eggplant
 Eggplant,2017Q3,0,,False,eggplant
 Eggplant,2017Q4,0,,False,eggplant
-Eggplant,2018Q1,-2.84217e-14,,False,eggplant
+Eggplant,2018Q1,-2.842170943e-14,,False,eggplant
 Eggplant,2018Q2,0,,False,eggplant
-Eggplant,2018Q3,2.84217e-14,,False,eggplant
+Eggplant,2018Q3,2.842170943e-14,,False,eggplant
 Eggplant,2018Q4,0,,False,eggplant
 Eggplant,2019Q1,0,,False,eggplant
 Eggplant,2019Q2,0,,False,eggplant
 Eggplant,2019Q3,0,,False,eggplant
 Eggplant,2019Q4,0,,False,eggplant
 Eggplant,2020Q1,0,,False,eggplant
-Eggplant,2020Q2,1.42109e-14,,False,eggplant
+Eggplant,2020Q2,1.421085472e-14,,False,eggplant
 Eggplant,2020Q3,0,,False,eggplant
 Eggplant,2020Q4,0,,False,eggplant
 Eggplant,2021Q1,0,,False,eggplant
 Eggplant,2021Q2,0,,False,eggplant
-Eggplant,2021Q3,2.84217e-14,,False,eggplant
+Eggplant,2021Q3,2.842170943e-14,,False,eggplant
 Eggplant,2021Q4,0,,False,eggplant
 Eggplant,2022Q1,0,,False,eggplant
 Eggplant,2022Q2,0,,False,eggplant
 Eggplant,2022Q3,0,,False,eggplant
 Eggplant,2022Q4,0,,False,eggplant
-Eggplant,2023Q1,2.84217e-14,,True,eggplant
-Eggplant,2023Q2,1.42109e-14,,True,eggplant
+Eggplant,2023Q1,2.842170943e-14,,True,eggplant
+Eggplant,2023Q2,1.421085472e-14,,True,eggplant
 Eggplant,2023Q3,0,,True,eggplant
 Eggplant,2023Q4,0,,True,eggplant
 Eggplant,2024Q1,0,,True,eggplant
@@ -1748,7 +1748,7 @@ Mango,2011Q2,0,,False,mango
 Mango,2011Q3,0,,False,mango
 Mango,2011Q4,0,,False,mango
 Mango,2012Q1,0,,False,mango
-Mango,2012Q2,-4.54747e-13,,False,mango
+Mango,2012Q2,-4.547473509e-13,,False,mango
 Mango,2012Q3,0,,False,mango
 Mango,2012Q4,0,,False,mango
 Mango,2013Q1,0,,False,mango
@@ -1757,7 +1757,7 @@ Mango,2013Q3,0,,False,mango
 Mango,2013Q4,0,,False,mango
 Mango,2014Q1,0,,False,mango
 Mango,2014Q2,0,,False,mango
-Mango,2014Q3,2.27374e-13,,False,mango
+Mango,2014Q3,2.273736754e-13,,False,mango
 Mango,2014Q4,0,,False,mango
 Mango,2015Q1,0,,False,mango
 Mango,2015Q2,0,,False,mango
@@ -1769,19 +1769,19 @@ Mango,2016Q3,0,,False,mango
 Mango,2016Q4,0,,False,mango
 Mango,2017Q1,0.01,,False,mango
 Mango,2017Q2,0,,False,mango
-Mango,2017Q3,2.27374e-13,,False,mango
-Mango,2017Q4,1.13687e-13,,False,mango
+Mango,2017Q3,2.273736754e-13,,False,mango
+Mango,2017Q4,1.136868377e-13,,False,mango
 Mango,2018Q1,0,,False,mango
 Mango,2018Q2,0,,False,mango
 Mango,2018Q3,0,,False,mango
-Mango,2018Q4,1.13687e-13,,False,mango
+Mango,2018Q4,1.136868377e-13,,False,mango
 Mango,2019Q1,0,,False,mango
 Mango,2019Q2,0,,False,mango
 Mango,2019Q3,0,,False,mango
 Mango,2019Q4,0,,False,mango
 Mango,2020Q1,0,,False,mango
 Mango,2020Q2,0,,False,mango
-Mango,2020Q3,2.27374e-13,,False,mango
+Mango,2020Q3,2.273736754e-13,,False,mango
 Mango,2020Q4,0,,False,mango
 Mango,2021Q1,0,,False,mango
 Mango,2021Q2,0,,False,mango
@@ -1789,7 +1789,7 @@ Mango,2021Q3,0,,False,mango
 Mango,2021Q4,0,,False,mango
 Mango,2022Q1,0,,False,mango
 Mango,2022Q2,0,,False,mango
-Mango,2022Q3,2.27374e-13,,False,mango
+Mango,2022Q3,2.273736754e-13,,False,mango
 Mango,2022Q4,0,,False,mango
 Mango,2023Q1,0,,True,mango
 Mango,2023Q2,0,,True,mango
@@ -1797,7 +1797,7 @@ Mango,2023Q3,0,,True,mango
 Mango,2023Q4,0,,True,mango
 Mango,2024Q1,35.74,,True,mango
 Mango,2024Q2,0,,True,mango
-Mango,2024Q3,2.27374e-13,,True,mango
+Mango,2024Q3,2.273736754e-13,,True,mango
 Mango,2024Q4,0,,True,mango
 Mango,2025Q1,0,,True,mango
 Mango,2025Q2,0.01,,True,mango
@@ -1805,43 +1805,43 @@ Mango,2025Q3,0,,True,mango
 Mango,2025Q4,0,,True,mango
 Mango,2026Q1,70,,True,mango
 Mango,2026Q2,272.88,,True,mango
-Mongo [Mungbean],2010Q1,1.13687e-13,,False,mongo_mungbean
+Mongo [Mungbean],2010Q1,1.136868377e-13,,False,mongo_mungbean
 Mongo [Mungbean],2010Q2,0,,False,mongo_mungbean
 Mongo [Mungbean],2010Q3,0,,False,mongo_mungbean
-Mongo [Mungbean],2010Q4,2.27374e-13,,False,mongo_mungbean
+Mongo [Mungbean],2010Q4,2.273736754e-13,,False,mongo_mungbean
 Mongo [Mungbean],2011Q1,0,,False,mongo_mungbean
 Mongo [Mungbean],2011Q2,0,,False,mongo_mungbean
-Mongo [Mungbean],2011Q3,-2.84217e-14,,False,mongo_mungbean
+Mongo [Mungbean],2011Q3,-2.842170943e-14,,False,mongo_mungbean
 Mongo [Mungbean],2011Q4,0,,False,mongo_mungbean
 Mongo [Mungbean],2012Q1,0,,False,mongo_mungbean
 Mongo [Mungbean],2012Q2,0,,False,mongo_mungbean
 Mongo [Mungbean],2012Q3,0,,False,mongo_mungbean
 Mongo [Mungbean],2012Q4,0,,False,mongo_mungbean
-Mongo [Mungbean],2013Q1,-1.13687e-13,,False,mongo_mungbean
+Mongo [Mungbean],2013Q1,-1.136868377e-13,,False,mongo_mungbean
 Mongo [Mungbean],2013Q2,0,,False,mongo_mungbean
 Mongo [Mungbean],2013Q3,0.01,,False,mongo_mungbean
-Mongo [Mungbean],2013Q4,2.27374e-13,,False,mongo_mungbean
+Mongo [Mungbean],2013Q4,2.273736754e-13,,False,mongo_mungbean
 Mongo [Mungbean],2014Q1,0,,False,mongo_mungbean
 Mongo [Mungbean],2014Q2,0,,False,mongo_mungbean
 Mongo [Mungbean],2014Q3,0,,False,mongo_mungbean
 Mongo [Mungbean],2014Q4,0,,False,mongo_mungbean
 Mongo [Mungbean],2015Q1,0,,False,mongo_mungbean
-Mongo [Mungbean],2015Q2,2.84217e-14,,False,mongo_mungbean
-Mongo [Mungbean],2015Q3,-1.42109e-14,,False,mongo_mungbean
+Mongo [Mungbean],2015Q2,2.842170943e-14,,False,mongo_mungbean
+Mongo [Mungbean],2015Q3,-1.421085472e-14,,False,mongo_mungbean
 Mongo [Mungbean],2015Q4,0,,False,mongo_mungbean
-Mongo [Mungbean],2016Q1,1.13687e-13,,False,mongo_mungbean
+Mongo [Mungbean],2016Q1,1.136868377e-13,,False,mongo_mungbean
 Mongo [Mungbean],2016Q2,0,,False,mongo_mungbean
-Mongo [Mungbean],2016Q3,-1.42109e-14,,False,mongo_mungbean
-Mongo [Mungbean],2016Q4,-2.27374e-13,,False,mongo_mungbean
+Mongo [Mungbean],2016Q3,-1.421085472e-14,,False,mongo_mungbean
+Mongo [Mungbean],2016Q4,-2.273736754e-13,,False,mongo_mungbean
 Mongo [Mungbean],2017Q1,0,,False,mongo_mungbean
 Mongo [Mungbean],2017Q2,0,,False,mongo_mungbean
 Mongo [Mungbean],2017Q3,0,,False,mongo_mungbean
-Mongo [Mungbean],2017Q4,2.27374e-13,,False,mongo_mungbean
-Mongo [Mungbean],2018Q1,-1.13687e-13,,False,mongo_mungbean
+Mongo [Mungbean],2017Q4,2.273736754e-13,,False,mongo_mungbean
+Mongo [Mungbean],2018Q1,-1.136868377e-13,,False,mongo_mungbean
 Mongo [Mungbean],2018Q2,0,,False,mongo_mungbean
 Mongo [Mungbean],2018Q3,0,,False,mongo_mungbean
-Mongo [Mungbean],2018Q4,-2.27374e-13,,False,mongo_mungbean
-Mongo [Mungbean],2019Q1,1.13687e-13,,False,mongo_mungbean
+Mongo [Mungbean],2018Q4,-2.273736754e-13,,False,mongo_mungbean
+Mongo [Mungbean],2019Q1,1.136868377e-13,,False,mongo_mungbean
 Mongo [Mungbean],2019Q2,0,,False,mongo_mungbean
 Mongo [Mungbean],2019Q3,0,,False,mongo_mungbean
 Mongo [Mungbean],2019Q4,0,,False,mongo_mungbean
@@ -1849,23 +1849,23 @@ Mongo [Mungbean],2020Q1,0,,False,mongo_mungbean
 Mongo [Mungbean],2020Q2,0,,False,mongo_mungbean
 Mongo [Mungbean],2020Q3,0,,False,mongo_mungbean
 Mongo [Mungbean],2020Q4,0,,False,mongo_mungbean
-Mongo [Mungbean],2021Q1,1.13687e-13,,False,mongo_mungbean
-Mongo [Mungbean],2021Q2,2.84217e-14,,False,mongo_mungbean
+Mongo [Mungbean],2021Q1,1.136868377e-13,,False,mongo_mungbean
+Mongo [Mungbean],2021Q2,2.842170943e-14,,False,mongo_mungbean
 Mongo [Mungbean],2021Q3,0,,False,mongo_mungbean
 Mongo [Mungbean],2021Q4,0,,False,mongo_mungbean
-Mongo [Mungbean],2022Q1,-1.13687e-13,,False,mongo_mungbean
+Mongo [Mungbean],2022Q1,-1.136868377e-13,,False,mongo_mungbean
 Mongo [Mungbean],2022Q2,0,,False,mongo_mungbean
 Mongo [Mungbean],2022Q3,0,,False,mongo_mungbean
 Mongo [Mungbean],2022Q4,0,,False,mongo_mungbean
-Mongo [Mungbean],2023Q1,-1.13687e-13,,True,mongo_mungbean
+Mongo [Mungbean],2023Q1,-1.136868377e-13,,True,mongo_mungbean
 Mongo [Mungbean],2023Q2,0,,True,mongo_mungbean
 Mongo [Mungbean],2023Q3,0,,True,mongo_mungbean
-Mongo [Mungbean],2023Q4,-2.27374e-13,,True,mongo_mungbean
-Mongo [Mungbean],2024Q1,-1.13687e-13,,True,mongo_mungbean
+Mongo [Mungbean],2023Q4,-2.273736754e-13,,True,mongo_mungbean
+Mongo [Mungbean],2024Q1,-1.136868377e-13,,True,mongo_mungbean
 Mongo [Mungbean],2024Q2,0,,True,mongo_mungbean
 Mongo [Mungbean],2024Q3,0,,True,mongo_mungbean
 Mongo [Mungbean],2024Q4,0,,True,mongo_mungbean
-Mongo [Mungbean],2025Q1,1.13687e-13,,True,mongo_mungbean
+Mongo [Mungbean],2025Q1,1.136868377e-13,,True,mongo_mungbean
 Mongo [Mungbean],2025Q2,0,,True,mongo_mungbean
 Mongo [Mungbean],2025Q3,0,,True,mongo_mungbean
 Mongo [Mungbean],2025Q4,0,,True,mongo_mungbean
@@ -1931,26 +1931,26 @@ Mongo [Mungbean],2026Q2,0,,True,mongo_mungbean
 "Onion, mature bulb",2024Q2,0,,True,onion_mature_bulb
 "Onion, mature bulb",2024Q3,0,,True,onion_mature_bulb
 "Onion, mature bulb",2024Q4,0,,True,onion_mature_bulb
-"Onion, mature bulb",2025Q1,-3.55271e-15,,True,onion_mature_bulb
+"Onion, mature bulb",2025Q1,-3.552713679e-15,,True,onion_mature_bulb
 "Onion, mature bulb",2025Q2,0,,True,onion_mature_bulb
 "Onion, mature bulb",2025Q3,0,,True,onion_mature_bulb
 "Onion, mature bulb",2025Q4,0,,True,onion_mature_bulb
-"Onion, mature bulb",2026Q1,-5.68434e-14,,True,onion_mature_bulb
+"Onion, mature bulb",2026Q1,-5.684341886e-14,,True,onion_mature_bulb
 "Onion, mature bulb",2026Q2,0,,True,onion_mature_bulb
 Pineapple,2010Q1,0,,False,pineapple
 Pineapple,2010Q2,0,,False,pineapple
 Pineapple,2010Q3,0,,False,pineapple
-Pineapple,2010Q4,5.68434e-14,,False,pineapple
+Pineapple,2010Q4,5.684341886e-14,,False,pineapple
 Pineapple,2011Q1,0,,False,pineapple
 Pineapple,2011Q2,0,,False,pineapple
 Pineapple,2011Q3,0,,False,pineapple
 Pineapple,2011Q4,0,,False,pineapple
 Pineapple,2012Q1,0,,False,pineapple
 Pineapple,2012Q2,0,,False,pineapple
-Pineapple,2012Q3,2.84217e-14,,False,pineapple
-Pineapple,2012Q4,-5.68434e-14,,False,pineapple
+Pineapple,2012Q3,2.842170943e-14,,False,pineapple
+Pineapple,2012Q4,-5.684341886e-14,,False,pineapple
 Pineapple,2013Q1,0,,False,pineapple
-Pineapple,2013Q2,5.68434e-14,,False,pineapple
+Pineapple,2013Q2,5.684341886e-14,,False,pineapple
 Pineapple,2013Q3,0,,False,pineapple
 Pineapple,2013Q4,0,,False,pineapple
 Pineapple,2014Q1,0,,False,pineapple
@@ -1963,44 +1963,44 @@ Pineapple,2015Q3,0,,False,pineapple
 Pineapple,2015Q4,0,,False,pineapple
 Pineapple,2016Q1,0,,False,pineapple
 Pineapple,2016Q2,0,,False,pineapple
-Pineapple,2016Q3,-2.84217e-14,,False,pineapple
-Pineapple,2016Q4,5.68434e-14,,False,pineapple
+Pineapple,2016Q3,-2.842170943e-14,,False,pineapple
+Pineapple,2016Q4,5.684341886e-14,,False,pineapple
 Pineapple,2017Q1,0,,False,pineapple
 Pineapple,2017Q2,0,,False,pineapple
 Pineapple,2017Q3,0,,False,pineapple
-Pineapple,2017Q4,5.68434e-14,,False,pineapple
+Pineapple,2017Q4,5.684341886e-14,,False,pineapple
 Pineapple,2018Q1,0,,False,pineapple
 Pineapple,2018Q2,0,,False,pineapple
-Pineapple,2018Q3,2.84217e-14,,False,pineapple
+Pineapple,2018Q3,2.842170943e-14,,False,pineapple
 Pineapple,2018Q4,0,,False,pineapple
 Pineapple,2019Q1,0,,False,pineapple
 Pineapple,2019Q2,0,,False,pineapple
 Pineapple,2019Q3,0,,False,pineapple
 Pineapple,2019Q4,0,,False,pineapple
 Pineapple,2020Q1,0,,False,pineapple
-Pineapple,2020Q2,5.68434e-14,,False,pineapple
-Pineapple,2020Q3,2.84217e-14,,False,pineapple
+Pineapple,2020Q2,5.684341886e-14,,False,pineapple
+Pineapple,2020Q3,2.842170943e-14,,False,pineapple
 Pineapple,2020Q4,0,,False,pineapple
 Pineapple,2021Q1,0,,False,pineapple
-Pineapple,2021Q2,-5.68434e-14,,False,pineapple
+Pineapple,2021Q2,-5.684341886e-14,,False,pineapple
 Pineapple,2021Q3,0,,False,pineapple
 Pineapple,2021Q4,0,,False,pineapple
-Pineapple,2022Q1,2.84217e-14,,False,pineapple
+Pineapple,2022Q1,2.842170943e-14,,False,pineapple
 Pineapple,2022Q2,0,,False,pineapple
-Pineapple,2022Q3,-2.84217e-14,,False,pineapple
+Pineapple,2022Q3,-2.842170943e-14,,False,pineapple
 Pineapple,2022Q4,0,,False,pineapple
-Pineapple,2023Q1,2.84217e-14,,True,pineapple
-Pineapple,2023Q2,5.68434e-14,,True,pineapple
+Pineapple,2023Q1,2.842170943e-14,,True,pineapple
+Pineapple,2023Q2,5.684341886e-14,,True,pineapple
 Pineapple,2023Q3,-0.01,,True,pineapple
 Pineapple,2023Q4,0,,True,pineapple
-Pineapple,2024Q1,-2.84217e-14,,True,pineapple
+Pineapple,2024Q1,-2.842170943e-14,,True,pineapple
 Pineapple,2024Q2,0,,True,pineapple
 Pineapple,2024Q3,0,,True,pineapple
 Pineapple,2024Q4,0,,True,pineapple
 Pineapple,2025Q1,0,,True,pineapple
 Pineapple,2025Q2,0,,True,pineapple
 Pineapple,2025Q3,0,,True,pineapple
-Pineapple,2025Q4,-5.68434e-14,,True,pineapple
+Pineapple,2025Q4,-5.684341886e-14,,True,pineapple
 Pineapple,2026Q1,0,,True,pineapple
 Pineapple,2026Q2,0,,True,pineapple
 Potato,2010Q1,0,,False,potato
@@ -2068,14 +2068,14 @@ Potato,2025Q2,0,,True,potato
 Potato,2025Q3,0,,True,potato
 Potato,2025Q4,0,,True,potato
 Potato,2026Q1,0,,True,potato
-Potato,2026Q2,-2.84217e-14,,True,potato
+Potato,2026Q2,-2.842170943e-14,,True,potato
 Tomato,2010Q1,0,,False,tomato
 Tomato,2010Q2,0,,False,tomato
 Tomato,2010Q3,0,,False,tomato
 Tomato,2010Q4,0,,False,tomato
-Tomato,2011Q1,-1.42109e-14,,False,tomato
+Tomato,2011Q1,-1.421085472e-14,,False,tomato
 Tomato,2011Q2,0,,False,tomato
-Tomato,2011Q3,1.42109e-14,,False,tomato
+Tomato,2011Q3,1.421085472e-14,,False,tomato
 Tomato,2011Q4,0,,False,tomato
 Tomato,2012Q1,0,,False,tomato
 Tomato,2012Q2,0,,False,tomato
@@ -2087,33 +2087,33 @@ Tomato,2013Q3,0,,False,tomato
 Tomato,2013Q4,0,,False,tomato
 Tomato,2014Q1,0,,False,tomato
 Tomato,2014Q2,0,,False,tomato
-Tomato,2014Q3,-1.42109e-14,,False,tomato
+Tomato,2014Q3,-1.421085472e-14,,False,tomato
 Tomato,2014Q4,0,,False,tomato
 Tomato,2015Q1,0,,False,tomato
-Tomato,2015Q2,-1.42109e-14,,False,tomato
+Tomato,2015Q2,-1.421085472e-14,,False,tomato
 Tomato,2015Q3,0,,False,tomato
 Tomato,2015Q4,0,,False,tomato
 Tomato,2016Q1,0,,False,tomato
 Tomato,2016Q2,0,,False,tomato
 Tomato,2016Q3,0,,False,tomato
 Tomato,2016Q4,0,,False,tomato
-Tomato,2017Q1,-1.42109e-14,,False,tomato
+Tomato,2017Q1,-1.421085472e-14,,False,tomato
 Tomato,2017Q2,0,,False,tomato
 Tomato,2017Q3,0,,False,tomato
 Tomato,2017Q4,0,,False,tomato
 Tomato,2018Q1,0,,False,tomato
-Tomato,2018Q2,1.42109e-14,,False,tomato
+Tomato,2018Q2,1.421085472e-14,,False,tomato
 Tomato,2018Q3,0,,False,tomato
 Tomato,2018Q4,0,,False,tomato
 Tomato,2019Q1,0,,False,tomato
 Tomato,2019Q2,0,,False,tomato
 Tomato,2019Q3,0,,False,tomato
-Tomato,2019Q4,-1.42109e-14,,False,tomato
+Tomato,2019Q4,-1.421085472e-14,,False,tomato
 Tomato,2020Q1,0,,False,tomato
 Tomato,2020Q2,0,,False,tomato
 Tomato,2020Q3,0,,False,tomato
 Tomato,2020Q4,0,,False,tomato
-Tomato,2021Q1,-1.42109e-14,,False,tomato
+Tomato,2021Q1,-1.421085472e-14,,False,tomato
 Tomato,2021Q2,0,,False,tomato
 Tomato,2021Q3,0,,False,tomato
 Tomato,2021Q4,0,,False,tomato
@@ -2125,7 +2125,7 @@ Tomato,2023Q1,0,,True,tomato
 Tomato,2023Q2,0,,True,tomato
 Tomato,2023Q3,0,,True,tomato
 Tomato,2023Q4,0,,True,tomato
-Tomato,2024Q1,1.42109e-14,,True,tomato
+Tomato,2024Q1,1.421085472e-14,,True,tomato
 Tomato,2024Q2,0,,True,tomato
 Tomato,2024Q3,0,,True,tomato
 Tomato,2024Q4,0,,True,tomato
@@ -2134,4 +2134,4 @@ Tomato,2025Q2,0,,True,tomato
 Tomato,2025Q3,0.01,,True,tomato
 Tomato,2025Q4,0,,True,tomato
 Tomato,2026Q1,0,,True,tomato
-Tomato,2026Q2,-1.13687e-13,,True,tomato
+Tomato,2026Q2,-1.136868377e-13,,True,tomato

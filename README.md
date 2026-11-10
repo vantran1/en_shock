@@ -90,8 +90,8 @@ copied into or committed to the repo (`*.nc` is gitignored except the land-sea m
 |---|---|---|
 | `crop_region_quarter.csv` | long panel: `group`, `series`, `region_code`, `period`, `variable` (`production_t` t, `area_ha` ha, `energy_bkcal` billion kcal, `index` 2021–2023 = 100), `value`, `provisional` (2026). Palay (irrigated, rainfed, total) and corn (white, yellow, total) 1987Q1–2026Q2; the 13 VR and PF crops (bananas by variety) and the calorie indices `vr`, `vr_noroot`, `pf`, `pf_nobanana`, `pf_nocavendish` 2010Q1–2026Q2 | `build_crop_panel.py` |
 | `barmm_cluster_residual.csv` | Eight Cluster Areas (BARMM total − BARMM provinces) by crop and quarter | `build_crop_panel.py` |
-| `weather_region_month.csv` | region × month, 1950-01–2025-12: `t2m_c`, `d2m_c` (°C), `tp_mm`, `e_mm`, `pev_mm`, `ro_mm` (mm/month; evaporation positive), `ssrd_mj` (MJ m⁻² day⁻¹), `swvl1`–`swvl4`, `swvl_rz` (m³ m⁻³), `rh_pct` (%), `vpd_kpa` (kPa) | `build_weather_monthly.py` |
-| `era5_region_cells.csv` | ERA5 land cells used per region and their weights | `build_weather_monthly.py` |
+| `weather_region_month.csv` | **PROVISIONAL: cells weighted by area, to be replaced by Van's cropland weights (v5 Eq. 7).** Region × month, 1950-01–2025-12: `t2m_c`, `d2m_c` (°C), `tp_mm`, `e_mm`, `pev_mm`, `ro_mm` (mm/month; evaporation positive), `ssrd_mj` (MJ m⁻² day⁻¹), `swvl1`–`swvl4`, `swvl_rz` (m³ m⁻³), `rh_pct` (%), `vpd_kpa` (kPa) | `build_weather_monthly.py` |
+| `era5_region_cells.csv` | ERA5 land cells used per region and their (provisional, area) weights | `build_weather_monthly.py` |
 | `geophysical_region_quarter.csv` | `eq`, `eq_next`, `eruption`, `eruption_kanlaon_vi_vii`, `pinatubo_1991` by region × quarter, 1987Q1–2026Q2 | `build_geophysical_controls.py` |
 | `typhoon_region_quarter.csv`, `typhoon_storm_province.csv` | typhoon exposure by PAGASA category (rice-production weights) | `build_typhoon_exposure.py` |
 | `flood_region_quarter.csv` | flood occurrence (rice-production weights) | `build_flood_exposure.py` |
@@ -109,6 +109,7 @@ python scripts/check_era5.py
 python scripts/build_rice_panel.py
 python scripts/build_crop_panel.py
 python scripts/build_weather_monthly.py
+python scripts/check_island_coverage.py     # provinces with no ERA5 cell
 python scripts/build_typhoon_exposure.py
 python scripts/build_flood_exposure.py        # needs the EM-DAT file
 python scripts/build_geophysical_controls.py

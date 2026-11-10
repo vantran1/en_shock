@@ -1,0 +1,15 @@
+province,region_code,note,palay_share_pct,corn_share_pct,vr_share_pct,pf_share_pct
+Basilan,BARMM,,0.08,0.04,28.22,3.49
+Cotabato City,BARMM,no PSA row,,,,
+Sulu,BARMM,,0.14,0.12,15.25,2.77
+Tawi-Tawi,BARMM,,0.05,0.08,8.55,1.47
+Marinduque,MIMAROPA,,1.51,0.91,2.73,0.62
+Romblon,MIMAROPA,,3.08,1.29,5.29,5.17
+Batanes,R02,,0.0,0.02,0.38,0.01
+Catanduanes,R05,,1.66,0.07,3.47,0.35
+Guimaras,R06,,2.6,0.53,3.08,6.02
+Siquijor,R07,,1.03,3.09,3.13,5.89
+Biliran,R08,,6.18,0.94,3.09,3.38
+City of Isabela,R09,"no PSA row; Region IX, on Basilan island",,,,
+Camiguin,R10,,0.27,0.04,0.37,0.16
+Dinagat Islands,R13,,1.28,0.23,1.62,0.11

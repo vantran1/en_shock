@@ -15,6 +15,7 @@ mean of daily VPD) and root-zone soil moisture (swvl1-3, thickness-weighted).
 Run:  python scripts/build_weather_monthly.py [--era5-dir PATH]
 Writes
 - data/processed/weather_region_month.csv  one row per region x month, one column per variable
+  (PROVISIONAL: area weights until Van's cropland weights, v5 Eq. 7, are available)
 - data/processed/era5_region_cells.csv     the cells used and their weights
 - outputs/tables/weather_cells_per_region.csv
 - outputs/tables/weather_provinces_without_cells.csv  provinces (geoBoundaries ADM2) with no

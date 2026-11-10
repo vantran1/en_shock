@@ -78,6 +78,11 @@ def main():
     r.columns = [f"{'t' if a == 'residual_t' else '%'} {b}" for a, b in r.columns]
     r = r[r.filter(like="t ").abs().max(axis=1) >= 0.5].reset_index()
     w(md(r))
+    c = t["check_barmm_xii"]
+    w(f"\nCheck, every crop and quarter from 2023Q1 (`panel_check_barmm_xii.csv`): XII in "
+      "`crop_region_quarter.csv` = XII provinces + residual (largest gap "
+      f"{c.xii_gap.abs().max():.2f} t), and XII + BARMM = PSA's published XII + BARMM, plus "
+      f"Sulu in 2026 when PSA lists it under IX (largest gap {c.xii_barmm_gap.abs().max():.2f} t).\n")
     w("\nThe residual is mainly palay and corn (the cluster areas are lowland farmland). "
       "Maguindanao del Norte and del Sur are parts of the Maguindanao row in the VR table "
       "from 2025 and are dropped there to avoid counting them twice (in the fruit table the "
@@ -88,8 +93,19 @@ def main():
       "rebuilt, of the provinces PSA moved to NIR, and of the country. The Negros provinces "
       "are present in every year, so adding them back leaves no gap. The 2024 falls in VI "
       "and VII come from their own provinces (VI palay: Iloilo -22%) in the 2024 El Niño "
-      "year. One series to ask PSA about: Negros Occidental corn halves in 2024 "
-      "(-49%) and falls again in 2025, the year it starts being reported under NIR.\n")
+      "year.\n\n"
+      "One series to ask PSA about: **Negros Occidental corn** halves in 2024 (-49%) and "
+      "falls again in 2025, from the year it is reported under NIR. The fall is not "
+      "concentrated in the El Niño months: corn is -25% in 2024H1 against 2023H1 (country "
+      "-7%), but -61% in 2024H2 (country +0.4%; 2024Q3 -81%) and still -50% / -68% in the "
+      "two halves of 2025. It is mostly area harvested (69,000 ha in 2019-2022, 34,000 in "
+      "2024, 27,000 in 2025), with yield only slightly lower (2.3 to 2.0 and 1.9 t/ha); "
+      "white and yellow corn both fall, yellow more. The missing output does not appear "
+      "elsewhere: Negros Occidental has data in every quarter (its 2024-2025 rows under VI "
+      "are 0, the NIR row has the values), the NIR, VI and VII totals equal the sums of their "
+      "provinces, Bacolod City reports only 3-10 t from 2026, and neither Negros Oriental nor "
+      "the rest of VI rises. It looks like a level change in the series rather than drought; "
+      "the data are left as published.\n")
     w(md(t["vi_vii_break"], "{:,.1f}"))
     w("")
 
@@ -130,9 +146,12 @@ def main():
     w("\nCaveats:\n"
       "- Provinces with no ERA5 cell (land fraction > 0.5) at 0.25°, so not represented in "
       f"their region's weather: {', '.join(noc)}. BARMM's weather comes from mainland "
-      "Mindanao (Lanao del Sur, Maguindanao) only.\n"
-      "- Cells are weighted by area; v5 Eq. 7 weights by cropland area, whose source "
-      "(ESA WorldCover or CCI) is to be confirmed.\n"
+      "Mindanao (Lanao del Sur, Maguindanao) only. Their share of their region's "
+      "production, 2021–2023 (%; VR and PF in kcal), from `scripts/check_island_coverage.py`; "
+      "nothing is changed yet:\n\n" + md(pd.read_csv(TAB / "weather_uncovered_province_shares.csv"),
+                                         "{:.1f}") + "\n"
+      "- **Provisional**: cells are weighted by area; they will be weighted by cropland "
+      "area (v5 Eq. 7) once Van's cropland weights are available.\n"
       "- RH and VPD are computed from the monthly means of t2m and d2m (v5 Table 2). Because "
       "saturation vapour pressure is convex, this slightly understates the monthly mean of "
       "daily VPD; the hourly-based variables of Table 2 will correct this.\n"

@@ -156,6 +156,29 @@ def vi_vii_break(pc, vp, f):
     return t.round(1)
 
 
+def barmm_xii_check(df, panel, resid):
+    """From 2023Q1: XII in the panel = XII provinces + cluster residual, and XII + BARMM in
+    the panel = PSA's published XII + BARMM (+ Sulu, listed under IX in 2026)."""
+    d = df[df["period"] >= pd.Period("2023Q1", "Q")]
+    pub = d[d["level"] == "region"].assign(code=lambda x: code_of_published(x.geo))
+    pub = pub[pub.code.isin(["R12", "BARMM"])].groupby(["crop", "period"])["production_t"].sum()
+    prov = d[d["level"] == "province"].assign(code=lambda x: assign_region(x.geo),
+                                               pub=lambda x: code_of_published(x.region_published))
+    xii_prov = prov[prov.code == "R12"].groupby(["crop", "period"])["production_t"].sum()
+    sulu_ix = (prov[(prov.geo == "Sulu") & (prov.pub == "R09")]
+               .groupby(["crop", "period"])["production_t"].sum())
+    pn = panel[panel["period"] >= pd.Period("2023Q1", "Q")]
+    xii = pn[pn.region_code == "R12"].set_index(["crop", "period"])["production_t"]
+    both = pn[pn.region_code.isin(["R12", "BARMM"])].groupby(["crop", "period"])["production_t"].sum()
+    r = resid[resid.applied].set_index(["crop", "period"])["production_t"]
+    out = pd.DataFrame({"xii_panel": xii, "xii_provinces": xii_prov, "residual": r,
+                        "xii_barmm_panel": both, "xii_barmm_psa": pub,
+                        "sulu_under_ix": sulu_ix}).fillna(0)
+    out["xii_gap"] = out.xii_panel - out.xii_provinces - out.residual
+    out["xii_barmm_gap"] = out.xii_barmm_panel - out.xii_barmm_psa - out.sulu_under_ix
+    return out.reset_index()
+
+
 def main():
     for d in (PROC, TAB):
         d.mkdir(parents=True, exist_ok=True)
@@ -206,11 +229,11 @@ def main():
     # compact columns (region labels: data/processed/province_region_map.csv; units: UNITS)
     out = out[["group", "series", "region_code", "period", "variable", "value", "provisional"]]
     out = out.sort_values(["group", "series", "variable", "region_code", "period"])
-    out.to_csv(PROC / "crop_region_quarter.csv", index=False, float_format="%.6g")
+    out.to_csv(PROC / "crop_region_quarter.csv", index=False, float_format="%.10g")
 
     resid = pd.concat([pc_res, vp_res], ignore_index=True)
     resid["series"] = resid["crop"].map(series_name)
-    resid.to_csv(PROC / "barmm_cluster_residual.csv", index=False, float_format="%.6g")
+    resid.to_csv(PROC / "barmm_cluster_residual.csv", index=False, float_format="%.10g")
 
     # validation tables
     cov = (out[out.variable == "production_t"].dropna(subset=["value"])
@@ -233,6 +256,8 @@ def main():
     res_tab.to_csv(TAB / "panel_barmm_residual_by_year.csv")
     early = resid[~resid["applied"] & (resid["production_t"].abs() > 0.5)]
     early.to_csv(TAB / "panel_barmm_residual_pre2023.csv", index=False)
+    chk = pd.concat([barmm_xii_check(pc, pc_panel, pc_res), barmm_xii_check(vp, vp_panel, vp_res)])
+    chk.round(3).to_csv(TAB / "panel_check_barmm_xii.csv", index=False)
     ban_summ.to_csv(TAB / "panel_banana_varieties_check.csv", index=False)
     ban_worst.to_csv(TAB / "panel_banana_varieties_gaps.csv", index=False)
     summ, detail, last_alper = alper_compare(idx_all)
@@ -246,6 +271,8 @@ def main():
     print("\nbanana varieties vs Banana:\n", ban_summ.to_string(index=False))
     print("\nvs national:\n", pd.read_csv(TAB / "panel_vs_national.csv").to_string(index=False))
     print("\nBARMM residual before 2023 (not applied):", len(early), "rows")
+    print(f"XII = provinces + residual, max gap {chk.xii_gap.abs().max():.3f} t; "
+          f"XII + BARMM vs PSA, max gap {chk.xii_barmm_gap.abs().max():.3f} t")
     print("\nresidual by year (t):\n", res_y.round(0).to_string())
     print(f"\nvs Alper (his sheet ends {last_alper}):\n", summ.to_string(index=False))
     print("\nVI / VII break check:\n",

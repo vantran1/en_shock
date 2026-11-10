@@ -103,11 +103,16 @@ From 2023Q1 PSA's BARMM total includes the Eight Cluster Areas (63 barangays of 
 | palay_irrigated | 35,746.27 | 47,997.00 | 49,260.00 | 14,294.00 | 14.14 | 19.00 | 18.50 | 10.27 |
 | palay_rainfed | 9,413.20 | 13,086.00 | 13,399.00 | 2,812.00 | 1.58 | 2.17 | 2.17 | 1.08 |
 
+Check, every crop and quarter from 2023Q1 (`panel_check_barmm_xii.csv`): XII in `crop_region_quarter.csv` = XII provinces + residual (largest gap 0.00 t), and XII + BARMM = PSA's published XII + BARMM, plus Sulu in 2026 when PSA lists it under IX (largest gap 0.01 t).
+
+
 The residual is mainly palay and corn (the cluster areas are lowland farmland). Maguindanao del Norte and del Sur are parts of the Maguindanao row in the VR table from 2025 and are dropped there to avoid counting them twice (in the fruit table the Maguindanao row is empty from 2025 and the two halves are used).
 
 ## 5. Negros Island Region: VI and VII across 2023–2024
 
-Annual production (palay and corn in t, VR and PF in billion kcal) of VI and VII as rebuilt, of the provinces PSA moved to NIR, and of the country. The Negros provinces are present in every year, so adding them back leaves no gap. The 2024 falls in VI and VII come from their own provinces (VI palay: Iloilo -22%) in the 2024 El Niño year. One series to ask PSA about: Negros Occidental corn halves in 2024 (-49%) and falls again in 2025, the year it starts being reported under NIR.
+Annual production (palay and corn in t, VR and PF in billion kcal) of VI and VII as rebuilt, of the provinces PSA moved to NIR, and of the country. The Negros provinces are present in every year, so adding them back leaves no gap. The 2024 falls in VI and VII come from their own provinces (VI palay: Iloilo -22%) in the 2024 El Niño year.
+
+One series to ask PSA about: **Negros Occidental corn** halves in 2024 (-49%) and falls again in 2025, from the year it is reported under NIR. The fall is not concentrated in the El Niño months: corn is -25% in 2024H1 against 2023H1 (country -7%), but -61% in 2024H2 (country +0.4%; 2024Q3 -81%) and still -50% / -68% in the two halves of 2025. It is mostly area harvested (69,000 ha in 2019-2022, 34,000 in 2024, 27,000 in 2025), with yield only slightly lower (2.3 to 2.0 and 1.9 t/ha); white and yellow corn both fall, yellow more. The missing output does not appear elsewhere: Negros Occidental has data in every quarter (its 2024-2025 rows under VI are 0, the NIR row has the values), the NIR, VI and VII totals equal the sums of their provinces, Bacolod City reports only 3-10 t from 2026, and neither Negros Oriental nor the rest of VI rises. It looks like a level change in the series rather than drought; the data are left as published.
 
 | series | unit | 2021 | 2022 | 2023 | 2024 | 2025 | pct_change_2023_2024 |
 |---|---|---|---|---|---|---|---|
@@ -188,8 +193,25 @@ Sheet 'Quarterly indices' of FNRI_calorie_factors_VR_PF_v35.xlsx (A. Aras, built
 | R13 | 24 | 1 | 1.0 |
 
 Caveats:
-- Provinces with no ERA5 cell (land fraction > 0.5) at 0.25°, so not represented in their region's weather: Basilan, Batanes, Biliran, Camiguin, Catanduanes, City of Isabela, Cotabato City, Dinagat Islands, Guimaras, Marinduque, Romblon, Siquijor, Sulu, Tawi-Tawi. BARMM's weather comes from mainland Mindanao (Lanao del Sur, Maguindanao) only.
-- Cells are weighted by area; v5 Eq. 7 weights by cropland area, whose source (ESA WorldCover or CCI) is to be confirmed.
+- Provinces with no ERA5 cell (land fraction > 0.5) at 0.25°, so not represented in their region's weather: Basilan, Batanes, Biliran, Camiguin, Catanduanes, City of Isabela, Cotabato City, Dinagat Islands, Guimaras, Marinduque, Romblon, Siquijor, Sulu, Tawi-Tawi. BARMM's weather comes from mainland Mindanao (Lanao del Sur, Maguindanao) only. Their share of their region's production, 2021–2023 (%; VR and PF in kcal), from `scripts/check_island_coverage.py`; nothing is changed yet:
+
+| province | region_code | note | palay_share_pct | corn_share_pct | vr_share_pct | pf_share_pct |
+|---|---|---|---|---|---|---|
+| Basilan | BARMM |  | 0.1 | 0.0 | 28.2 | 3.5 |
+| Cotabato City | BARMM | no PSA row |  |  |  |  |
+| Sulu | BARMM |  | 0.1 | 0.1 | 15.2 | 2.8 |
+| Tawi-Tawi | BARMM |  | 0.1 | 0.1 | 8.6 | 1.5 |
+| Marinduque | MIMAROPA |  | 1.5 | 0.9 | 2.7 | 0.6 |
+| Romblon | MIMAROPA |  | 3.1 | 1.3 | 5.3 | 5.2 |
+| Batanes | R02 |  | 0.0 | 0.0 | 0.4 | 0.0 |
+| Catanduanes | R05 |  | 1.7 | 0.1 | 3.5 | 0.3 |
+| Guimaras | R06 |  | 2.6 | 0.5 | 3.1 | 6.0 |
+| Siquijor | R07 |  | 1.0 | 3.1 | 3.1 | 5.9 |
+| Biliran | R08 |  | 6.2 | 0.9 | 3.1 | 3.4 |
+| City of Isabela | R09 | no PSA row; Region IX, on Basilan island |  |  |  |  |
+| Camiguin | R10 |  | 0.3 | 0.0 | 0.4 | 0.2 |
+| Dinagat Islands | R13 |  | 1.3 | 0.2 | 1.6 | 0.1 |
+- **Provisional**: cells are weighted by area; they will be weighted by cropland area (v5 Eq. 7) once Van's cropland weights are available.
 - RH and VPD are computed from the monthly means of t2m and d2m (v5 Table 2). Because saturation vapour pressure is convex, this slightly understates the monthly mean of daily VPD; the hourly-based variables of Table 2 will correct this.
 - ERA5 potential evaporation is known to be unreliable over land; for the climatic water balance an FAO-56 estimate from t2m, d2m and ssrd is preferable.
 
