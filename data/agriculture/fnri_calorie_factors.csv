@@ -1,0 +1,19 @@
+index,psa_commodity,root_crop,banana,fnri_food_id,fnri_description,edible_portion,kcal_per_100g_edible,kcal_per_kg_as_produced,source,note
+VR,Mongo [Mungbean],0,0,C027,"Mung bean seed, green, dried",1.0,348.0,3480.0,https://i.fnri.dost.gov.ph/fct/library/report/3237,
+VR,Potato,0,0,B007,Potato,0.85,78.0,663.0,https://i.fnri.dost.gov.ph/fct/library/report/3174,
+VR,Cabbage,0,0,D035,"Cabbage, green",0.63,31.0,195.3,https://i.fnri.dost.gov.ph/fct/library/report/3314,
+VR,Eggplant,0,0,D073,Eggplant,0.88,29.0,255.2,https://i.fnri.dost.gov.ph/fct/library/report/3352,
+VR,Tomato,0,0,D257,Tomato,0.99,25.0,247.5,https://i.fnri.dost.gov.ph/fct/library/report/3536,
+VR,Ampalaya fruit [Bitter gourd],0,0,D018,Bitter melon/gourd fruit,0.78,23.0,179.4,https://i.fnri.dost.gov.ph/fct/library/report/3297,
+VR,"Onion, mature bulb",0,0,D141,"Onion, Bombay bulb",0.93,52.0,483.6,https://i.fnri.dost.gov.ph/fct/library/report/3420,Bombay bulb record used for all onion
+VR,Camote [Sweet potato],1,0,B013,"Sweet potato, yellow",0.88,135.0,1188.0,https://i.fnri.dost.gov.ph/fct/library/report/3180,yellow variety record
+VR,"Cassava, fresh tubers",1,0,B001,Cassava,0.74,145.0,1073.0,https://i.fnri.dost.gov.ph/fct/library/report/3168,incl. industrial use
+PF,Banana Cavendish,0,1,E008,"Banana, cavendish, ripe",0.64,104.0,665.6,https://i.fnri.dost.gov.ph/fct/library/report/3590,
+PF,Banana Lakatan,0,1,E008 (assumed),No raw record in PhilFCT; Cavendish values assumed,0.64,104.0,665.6,https://i.fnri.dost.gov.ph/fct/library/report/3590,no PhilFCT raw record found; Cavendish values assumed
+PF,Banana Latundan,0,1,E008 (assumed),No raw record in PhilFCT; Cavendish values assumed,0.64,104.0,665.6,https://i.fnri.dost.gov.ph/fct/library/report/3590,no PhilFCT raw record found; Cavendish values assumed
+PF,Banana Bungulan,0,1,E008 (assumed),No raw record in PhilFCT; Cavendish values assumed,0.64,104.0,665.6,https://i.fnri.dost.gov.ph/fct/library/report/3590,no PhilFCT raw record found; Cavendish values assumed
+PF,Banana Others,0,1,E008 (assumed),No raw record in PhilFCT; Cavendish values assumed,0.64,104.0,665.6,https://i.fnri.dost.gov.ph/fct/library/report/3590,no PhilFCT raw record found; Cavendish values assumed
+PF,Banana Saba,0,1,E014,"Banana, saba",0.57,110.0,627.0,https://i.fnri.dost.gov.ph/fct/library/report/3596,
+PF,Pineapple,0,0,E073,Pineapple,0.58,55.0,319.0,https://i.fnri.dost.gov.ph/fct/library/report/3655,
+PF,Mango,0,0,E051,"Mango, Manila super (carabao), ripe",0.67,70.0,469.0,https://i.fnri.dost.gov.ph/fct/library/report/3633,carabao ripe record used for all mango
+PF,Calamansi,0,0,,"Calamansi/Philippine lemon (PhilFCT, via secondary source)",0.38,44.0,167.2,https://nuxt-ssr-juanutrisyon.pages.dev/food/calamansiphilippine-lemon,secondary source citing PhilFCT; to verify
