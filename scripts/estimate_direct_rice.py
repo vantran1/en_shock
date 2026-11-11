@@ -26,10 +26,13 @@ the ecosystem's production) plus the common shifts, for dry / wet harvest quarte
 before / from 2000. Implied losses: production relative to a neutral path (RONI = DMI = 0),
 summed over regions, for the RONI part and for RONI + DMI.
 
-Run:  python scripts/estimate_direct_rice.py
+Run:  python scripts/estimate_direct_rice.py [--check kanlaon]
 Writes outputs/tables/direct_rice_{coefficients,national_effects,timing,profile,
-implied_losses}.csv and outputs/figures/direct_rice_effects.png
+implied_losses}.csv and outputs/figures/direct_rice_effects.png. With --check kanlaon the
+eruption marker includes Kanlaon Oct 2024 - Mar 2026 in Region VI
+(eruption_check_kanlaon2024) and the tables end in _check_kanlaon (no figure).
 """
+import argparse
 import sys
 from pathlib import Path
 
@@ -62,7 +65,10 @@ BLUE, ORANGE, INK, MUTED, GRID = "#2a78d6", "#eb6834", "#0b0b0b", "#52514e", "#d
 INDEX_NAME = {"RP": "El Nino (RONI+)", "RN": "La Nina (RONI-)", "D": "DMI"}
 
 
-def build(ecosystem):
+CHECKS = {"kanlaon": {"eruption": "eruption_check_kanlaon2024"}}
+
+
+def build(ecosystem, replace=None):
     p = pd.read_csv(PROC / "rice_region_quarter.csv")
     p = p[p.ecosystem == ecosystem].copy()
     keys = ["ecosystem", "region_code", "period"]
@@ -72,6 +78,8 @@ def build(ecosystem):
     p = (p.merge(ty[keys + TY + [f"{c}_lag1" for c in TY]], on=keys)
           .merge(fl[keys + ["flood_share", "flood_share_lag1"]], on=keys)
           .merge(geo, on=["region_code", "period"], how="left"))
+    for new, old in (replace or {}).items():
+        p[new] = p[old]
     p[["eq", "eruption", "pinatubo_1991"]] = p[["eq", "eruption", "pinatubo_1991"]].fillna(0)
     per = pd.PeriodIndex(p.period, freq="Q")
     p["q"] = per.quarter
@@ -115,10 +123,12 @@ def implied_losses(d, X, b):
     return out.groupby("period").sum()
 
 
-def main(spec=RECOMMENDED):
+def main(spec=RECOMMENDED, check=None):
+    replace = CHECKS[check] if check else None
+    sfx = f"_check_{check}" if check else ""
     coef_rows, nat_rows, timing_rows, losses, profiles = [], [], [], [], []
     for eco in ("irrigated", "rainfed"):
-        p = build(eco)
+        p = build(eco, replace)
         w = weights(eco)
         for model in ("ppml", "ols"):
             d, y = sample(p, model)
@@ -156,23 +166,23 @@ def main(spec=RECOMMENDED):
 
     coef = pd.DataFrame(coef_rows)
     coef["t"] = coef.est / coef.se
-    coef.assign(spec=spec.name, spec_note=SPEC_NOTE, status=STATUS).round(4).to_csv(TAB / "direct_rice_coefficients.csv",
+    coef.assign(spec=spec.name, spec_note=SPEC_NOTE, status=STATUS).round(4).to_csv(TAB / f"direct_rice_coefficients{sfx}.csv",
                                                                index=False)
     nat = pd.DataFrame(nat_rows)
     nat["t"] = nat.est / nat.se
     nat["pct_effect_of_+1"] = (np.exp(nat.est) - 1) * 100
-    nat.assign(spec=spec.name, spec_note=SPEC_NOTE, status=STATUS).round(4).to_csv(TAB / "direct_rice_national_effects.csv",
+    nat.assign(spec=spec.name, spec_note=SPEC_NOTE, status=STATUS).round(4).to_csv(TAB / f"direct_rice_national_effects{sfx}.csv",
                                                               index=False)
     timing = pd.DataFrame(timing_rows)
-    timing.assign(spec=spec.name, spec_note=SPEC_NOTE, status=STATUS).round(4).to_csv(TAB / "direct_rice_timing.csv",
+    timing.assign(spec=spec.name, spec_note=SPEC_NOTE, status=STATUS).round(4).to_csv(TAB / f"direct_rice_timing{sfx}.csv",
                                                                  index=False)
-    pd.concat(profiles).round(4).to_csv(TAB / "direct_rice_profile.csv", index=False)
+    pd.concat(profiles).round(4).to_csv(TAB / f"direct_rice_profile{sfx}.csv", index=False)
 
     L = pd.concat(losses).groupby(level=0)[["actual", "neutral_roni", "neutral_roni_dmi"]].sum()
     L["loss_roni_pct"] = (1 - L.actual / L.neutral_roni) * 100
     L["loss_roni_dmi_pct"] = (1 - L.actual / L.neutral_roni_dmi) * 100
     L.index = pd.PeriodIndex(L.index, freq="Q")
-    L.assign(spec=spec.name, spec_note=SPEC_NOTE, status=STATUS).round(2).to_csv(TAB / "direct_rice_implied_losses.csv")
+    L.assign(spec=spec.name, spec_note=SPEC_NOTE, status=STATUS).round(2).to_csv(TAB / f"direct_rice_implied_losses{sfx}.csv")
     yr = L.groupby(L.index.year)[["actual", "neutral_roni", "neutral_roni_dmi"]].sum()
     yr["implied_loss_roni_pct"] = (1 - yr.actual / yr.neutral_roni) * 100
     yr["implied_loss_roni_dmi_pct"] = (1 - yr.actual / yr.neutral_roni_dmi) * 100
@@ -194,6 +204,8 @@ def main(spec=RECOMMENDED):
                                ["implied_loss_roni_pct", "implied_loss_roni_dmi_pct",
                                 "actual_change_pct"]].round(1).to_string())
 
+    if check:
+        return
     # figure: regional El Nino effect (dry-season harvest, from 2000 = regional B + shift)
     reg = coef[(coef.model == "ppml") & coef.term.str.startswith("BRP_")].copy()
     reg["region_code"] = reg.term.str[4:]
@@ -224,4 +236,6 @@ def main(spec=RECOMMENDED):
 
 
 if __name__ == "__main__":
-    main()
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--check", choices=list(CHECKS))
+    main(check=ap.parse_args().check)

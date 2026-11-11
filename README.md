@@ -113,6 +113,13 @@ leave-one-episode-out validation: `scripts/compare_direct_v5_rice.py`, which als
 current-methodology (v5 base) version. The free-lag first look
 (`scripts/estimate_rice_direct.py`) is kept for comparison.
 
+Shocks (v5 §3.5, Eqs. 12–13b; `src/estimation/shocks.py`): `scripts/shocks_rice.py` gives
+the quarterly share of palay production lost against the neutral path, under today's
+conditions, by region, national, and scaled for DEFINE-PH, with a 90% range from a block
+bootstrap over years (`outputs/tables/shocks_rice*.csv`, `outputs/figures/shocks_rice.png`;
+provisional, recommended specification). Paths: the 1997–98, 2015–16 and 2023–24 El Niño
+quarters, and a unit path.
+
 ### Rebuilding from scratch
 
 ```bash
