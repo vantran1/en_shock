@@ -92,8 +92,20 @@ def shade(cell, hex_fill):
     tcPr.append(shd)
 
 
+def keep_with_next(paragraph):
+    paragraph.paragraph_format.keep_with_next = True
+
+
 def table(doc, df, widths_cm, note=None, fmt=None):
+    """Caption (note) above the table, kept with it; rows kept on one page where they fit;
+    header row repeated if the table breaks."""
     fmt = fmt or {}
+    if note:
+        p = doc.add_paragraph()
+        r = p.add_run(note)
+        r.italic, r.font.size, r.font.color.rgb = True, Pt(8.5), MUTED
+        p.paragraph_format.space_after = Pt(3)
+        keep_with_next(p)
     t = doc.add_table(rows=1, cols=len(df.columns))
     t.style = "Table Grid"
     t.alignment = WD_TABLE_ALIGNMENT.CENTER
@@ -113,25 +125,29 @@ def table(doc, df, widths_cm, note=None, fmt=None):
         for i, v in enumerate(row):
             col = df.columns[i]
             if isinstance(v, float):
-                s = "" if pd.isna(v) else fmt.get(col, "{:.1f}").format(v)
+                s_ = "" if pd.isna(v) else fmt.get(col, "{:.1f}").format(v)
             else:
-                s = str(v)
+                s_ = str(v)
             cells[i].text = ""
-            r = cells[i].paragraphs[0].add_run(s)
+            r = cells[i].paragraphs[0].add_run(s_)
             r.font.size = Pt(9)
             if i > 0 and isinstance(v, float):
                 cells[i].paragraphs[0].alignment = WD_ALIGN_PARAGRAPH.RIGHT
     for i, w in enumerate(widths_cm):
         t.columns[i].width = Cm(w)
-    for row in t.rows:
+    for k, row in enumerate(t.rows):
+        trPr = row._tr.get_or_add_trPr()
+        cant = OxmlElement("w:cantSplit")
+        trPr.append(cant)
+        if k == 0:
+            hdr = OxmlElement("w:tblHeader")
+            trPr.append(hdr)
         for i, w in enumerate(widths_cm):
             row.cells[i].width = Cm(w)
-    if note:
-        p = doc.add_paragraph()
-        r = p.add_run(note)
-        r.italic, r.font.size, r.font.color.rgb = True, Pt(8.5), MUTED
-    else:
-        doc.add_paragraph()
+            if k < len(t.rows) - 1:
+                for p in row.cells[i].paragraphs:
+                    keep_with_next(p)
+    doc.add_paragraph().paragraph_format.space_after = Pt(2)
 
 
 def figure(doc, path, width_cm, caption):

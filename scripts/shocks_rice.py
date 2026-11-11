@@ -195,13 +195,16 @@ def main():
     print("\nPalay shock, % of neutral production (S, Eq. 13a) and scaled for DEFINE-PH (S_D, Eq. 13b):")
     print(show.drop(columns=["crop", "S_D_logLS_check"]).to_string(index=False))
 
-    # figure: palay shock (Eq. 13a) by path with 90% bootstrap range
-    names = list(paths())
-    fig, axes = plt.subplots(1, len(names), figsize=(14, 3.8), sharey=True, constrained_layout=True)
-    for ax, name in zip(axes, names):
+    plot(out)
+
+def plot(out):
+    """Palay shock (Eq. 13a) by path with the 90% bootstrap range, 2 x 2 panels."""
+    names = list(dict.fromkeys(out.path))
+    fig, axes = plt.subplots(2, 2, figsize=(10, 7.2), sharey=True, constrained_layout=True)
+    for ax, name in zip(axes.flat, names):
         e = out[(out.path == name) & (out.crop == "palay")]
         ax.fill_between(e.step, e.S_p05 * 100, e.S_p95 * 100, color="#b7d3f6", lw=0,
-                        label="90% range (bootstrap)")
+                        label="palay, 90% range (bootstrap)")
         ax.plot(e.step, e.S * 100, color="#2a78d6", lw=2, marker="o", ms=4, label="palay (central)")
         for eco, col in (("irrigated", "#0d366b"), ("rainfed", "#eb6834")):
             f = out[(out.path == name) & (out.crop == eco)]
@@ -209,17 +212,18 @@ def main():
         ax.axhline(0, color="#52514e", lw=0.8)
         last = e[e.in_path].step.max()
         ax.axvspan(-0.5, last + 0.5, color="#e6e5e1", lw=0, zorder=0)
-        ax.set_xticks(e.step, [str(p) for p in e.scenario_q] if not name.startswith("unit") else
-                      [f"+{s}" for s in e.step], fontsize=7, rotation=45)
-        ax.set_title(name, fontsize=9, color="#0b0b0b", loc="left")
+        labels = [f"+{v}" for v in e.step] if name.startswith("unit") else [str(v) for v in e.scenario_q]
+        ax.set_xticks(e.step, labels, fontsize=8, rotation=45)
+        ax.set_title(name, fontsize=10, color="#0b0b0b", loc="left")
         for sp in ("top", "right"):
             ax.spines[sp].set_visible(False)
-        ax.tick_params(labelsize=7, colors="#52514e")
+        ax.tick_params(labelsize=8, colors="#52514e")
         ax.grid(axis="y", color="#d9d8d4", lw=0.5)
-    axes[0].set_ylabel("share of quarterly production lost (%)", fontsize=8, color="#52514e")
-    axes[0].legend(frameon=False, fontsize=7)
+    for ax in axes[:, 0]:
+        ax.set_ylabel("share of the quarter's production lost (%)", fontsize=8, color="#52514e")
+    axes[0, 0].legend(frameon=False, fontsize=8)
     fig.suptitle("PROVISIONAL. El Niño shock to palay under today's conditions (recommended "
-                 "specification, differs from v5); shaded: quarters of the path", fontsize=10,
+                 "specification, differs from v5)\nshaded: quarters of the path", fontsize=10,
                  color="#0b0b0b")
     fig.savefig(FIG / "shocks_rice.png", dpi=150, facecolor="white")
     plt.close(fig)
