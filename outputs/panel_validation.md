@@ -387,7 +387,7 @@ USGS ComCat, M >= 6.5, 1987–2025: 78 events; 62 kept, dropped 14 deeper than 3
 
 ## 10. Volcanic eruptions
 
-GVP eruption list joined to the volcano list; Philippines, VEI >= 3, start year >= 1987: **6 eruptions**. Region = the volcano's own region; Kanlaon to VI (check version `eruption_kanlaon_vi_vii` gives it to VI and VII). Pinatubo 1991 has its own marker `pinatubo_1991`. Kanlaon October 2024 is VEI 2 in this file (VEI 3 in the current GVP database), so it is not included.
+GVP eruption list joined to the volcano list; Philippines, VEI >= 3, start year >= 1987: **6 eruptions**. Region = the volcano's own region; Kanlaon to VI (check version `eruption_kanlaon_vi_vii` gives it to VI and VII). Pinatubo 1991 has its own marker `pinatubo_1991`. Kanlaon October 2024 is VEI 2 in this file (VEI 3 in the current GVP database), so it is not in `eruption`; because its ash fell on Negros farmland and Negros Occidental palay yield falls in 2025 (3.25 t/ha against 3.6-3.85 in 2018-2024, while the country's is stable), the check marker `eruption_check_kanlaon2024` adds it to Region VI (2024Q4-2026Q1).
 
 | Volcano Name | VEI | start | end | first_quarter | last_quarter | region_of_coordinates | region_code | region_code_check |
 |---|---|---|---|---|---|---|---|---|

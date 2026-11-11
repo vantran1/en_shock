@@ -4,7 +4,7 @@ src/hazards/geophysical.py for the rules).
 Run:  python scripts/build_geophysical_controls.py
 Writes
 - data/processed/geophysical_region_quarter.csv   eq, eq_next, eruption,
-  eruption_kanlaon_vi_vii, pinatubo_1991 by region x quarter
+  eruption_kanlaon_vi_vii, pinatubo_1991, eruption_check_kanlaon2024 by region x quarter
 - outputs/tables/geophysical_earthquakes.csv       every USGS event, kept or dropped, with region
 - outputs/tables/geophysical_eruptions.csv         the eruptions used, with region and quarters
 """
@@ -26,9 +26,11 @@ PERIODS = pd.period_range("1987Q1", "2026Q2", freq="Q")
 def main():
     q = earthquakes()
     e = eruptions()
+    ec = eruptions(check=True)
     q.round(3).to_csv(TAB / "geophysical_earthquakes.csv", index=False)
-    e.to_csv(TAB / "geophysical_eruptions.csv", index=False)
-    rq = region_quarter(q, e, list(REGIONS), PERIODS)
+    pd.concat([e.assign(use="eruption (VEI >= 3)"), ec.assign(use="check only")]).to_csv(
+        TAB / "geophysical_eruptions.csv", index=False)
+    rq = region_quarter(q, e, list(REGIONS), PERIODS, ec)
     rq.to_csv(PROC / "geophysical_region_quarter.csv", index=False)
 
     pd.set_option("display.width", 220, "display.max_rows", 100)

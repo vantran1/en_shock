@@ -13,6 +13,11 @@ VEI >= 3, start year >= 1987. Each eruption marks the quarters from its start to
 end month in the region of the volcano: Pinatubo III, Mayon V, Taal IV-A, Kanlaon VI
 (the 2024 ash fell mainly on Negros Occidental); a check version gives Kanlaon to both
 VI and VII. Pinatubo 1991 (VEI 6) has its own marker.
+
+Kanlaon check: Kanlaon's eruption of October 2024 - March 2026 is VEI 2 in the GVP
+eruption file used (VEI 3 in the current GVP database), so it is not in `eruption`. Its
+ash fell on Negros farmland, and Negros Occidental palay yield falls in 2025 while the
+country's does not. The check marker `eruption_check_kanlaon2024` adds it to Region VI.
 """
 from pathlib import Path
 
@@ -56,11 +61,23 @@ def earthquakes() -> pd.DataFrame:
               "dist_land_km", "region_code", "kept", "reason_dropped", "id"]]
 
 
-def eruptions() -> pd.DataFrame:
+# eruptions below the VEI threshold added in a check marker: (volcano, start year, start month)
+CHECK_ERUPTIONS = [("Kanlaon", 2024, 10)]
+
+
+def eruptions(check: bool = False) -> pd.DataFrame:
+    """Eruptions with VEI >= 3 since 1987; check=True returns the CHECK_ERUPTIONS instead."""
     e = pd.read_excel(ERUPTIONS, sheet_name="Eruption List", header=1)
     v = pd.read_excel(VOLCANOES, header=1)[["Volcano Number", "Country", "Latitude", "Longitude"]]
     m = e.merge(v, on="Volcano Number", how="left", validate="m:1")
-    m = m[(m["Country"] == "Philippines") & (m["VEI"] >= MIN_VEI) & (m["Start Year"] >= FIRST_YEAR)]
+    m = m[m["Country"] == "Philippines"]
+    if check:
+        keys = set(CHECK_ERUPTIONS)
+        m = m[[(n, y, mo) in keys for n, y, mo in zip(m["Volcano Name"], m["Start Year"], m["Start Month"])]]
+        if len(m) != len(CHECK_ERUPTIONS):
+            raise ValueError("check eruptions not found in the GVP file")
+    else:
+        m = m[(m["VEI"] >= MIN_VEI) & (m["Start Year"] >= FIRST_YEAR)]
     m = m.copy()
     start = pd.PeriodIndex.from_fields(year=m["Start Year"].astype(int),
                                        month=m["Start Month"].astype(int), freq="M")
@@ -81,16 +98,19 @@ def eruptions() -> pd.DataFrame:
               "region_code_check", "pinatubo_1991"]].sort_values("start").reset_index(drop=True)
 
 
-def region_quarter(quakes: pd.DataFrame, erupt: pd.DataFrame, codes, periods) -> pd.DataFrame:
+def region_quarter(quakes: pd.DataFrame, erupt: pd.DataFrame, codes, periods,
+                   erupt_check: pd.DataFrame | None = None) -> pd.DataFrame:
     """Dummies by region x quarter:
     eq           1 in the quarter of a kept earthquake;
     eq_next      1 in that quarter or the following one;
     eruption     1 in the quarters of an eruption (VEI >= 3), Pinatubo 1991 excluded;
     eruption_kanlaon_vi_vii   same, with Kanlaon in both VI and VII (check);
-    pinatubo_1991             1 in the quarters of the 1991 Pinatubo eruption (Region III)."""
+    pinatubo_1991             1 in the quarters of the 1991 Pinatubo eruption (Region III);
+    eruption_check_kanlaon2024  eruption + the check eruptions (Kanlaon 2024-26 in VI)."""
     idx = pd.MultiIndex.from_product([codes, periods], names=["region_code", "period"])
     out = pd.DataFrame(0, index=idx, columns=["eq", "eq_next", "eruption",
-                                              "eruption_kanlaon_vi_vii", "pinatubo_1991"])
+                                              "eruption_kanlaon_vi_vii", "pinatubo_1991",
+                                              "eruption_check_kanlaon2024"])
     for _, r in quakes[quakes["kept"]].iterrows():
         for k, col in ((0, "eq"), (0, "eq_next"), (1, "eq_next")):
             key = (r.region_code, r.period + k)
@@ -99,10 +119,17 @@ def region_quarter(quakes: pd.DataFrame, erupt: pd.DataFrame, codes, periods) ->
     for _, r in erupt.iterrows():
         qs = pd.period_range(r.first_quarter, r.last_quarter, freq="Q")
         cols = [("pinatubo_1991", r.region_code)] if r.pinatubo_1991 else \
-            [("eruption", r.region_code), ("eruption_kanlaon_vi_vii", r.region_code_check)]
+            [("eruption", r.region_code), ("eruption_kanlaon_vi_vii", r.region_code_check),
+             ("eruption_check_kanlaon2024", r.region_code)]
         for col, regs in cols:
             for reg in regs.split("+"):
                 for q in qs:
                     if (reg, q) in out.index:
                         out.loc[(reg, q), col] = 1
+    if erupt_check is not None:
+        for _, r in erupt_check.iterrows():
+            for q in pd.period_range(r.first_quarter, r.last_quarter, freq="Q"):
+                for reg in r.region_code.split("+"):
+                    if (reg, q) in out.index:
+                        out.loc[(reg, q), "eruption_check_kanlaon2024"] = 1
     return out.reset_index()

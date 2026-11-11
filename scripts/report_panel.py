@@ -28,7 +28,8 @@ def main():
     t = {f.stem.removeprefix("panel_").removeprefix("geophysical_"): pd.read_csv(f)
          for f in TAB.glob("panel_*.csv")}
     quakes = pd.read_csv(TAB / "geophysical_earthquakes.csv")
-    erupt = pd.read_csv(TAB / "geophysical_eruptions.csv")
+    erupt_all = pd.read_csv(TAB / "geophysical_eruptions.csv")
+    erupt = erupt_all[erupt_all["use"] != "check only"]
     cells = pd.read_csv(TAB / "weather_cells_per_region.csv")
     weather = pd.read_csv(PROC / "weather_region_month.csv", usecols=["region_code", "month"])
     s = []
@@ -202,7 +203,10 @@ def main():
       f"1987: **{len(erupt)} eruptions**. Region = the volcano's own region; Kanlaon to VI "
       "(check version `eruption_kanlaon_vi_vii` gives it to VI and VII). Pinatubo 1991 has "
       "its own marker `pinatubo_1991`. Kanlaon October 2024 is VEI 2 in this file (VEI 3 in "
-      "the current GVP database), so it is not included.\n")
+      "the current GVP database), so it is not in `eruption`; because its ash fell on Negros "
+      "farmland and Negros Occidental palay yield falls in 2025 (3.25 t/ha against 3.6-3.85 in "
+      "2018-2024, while the country's is stable), the check marker "
+      "`eruption_check_kanlaon2024` adds it to Region VI (2024Q4-2026Q1).\n")
     w(md(erupt[["Volcano Name", "VEI", "start", "end", "first_quarter", "last_quarter",
                 "region_of_coordinates", "region_code", "region_code_check"]], "{:.0f}"))
     w("")
