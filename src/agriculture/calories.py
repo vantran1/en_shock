@@ -8,9 +8,12 @@ a fixed-calorie-share index: sum_i s_i * Q_it / mean(Q_i, 2021-2023), with s_i t
 share of the region's energy in 2021-2023.
 
 Factors: data/agriculture/fnri_calorie_factors.csv (FNRI PhilFCT, compiled by A. Aras,
-UNDRR ROAP, 9 Nov 2026), one row per PSA commodity. kcal per kg as produced is
-recomputed here as kcal_per_100g_edible x 10 x edible_portion and checked against the
-file's own column.
+UNDRR ROAP, 9 Nov 2026; banana Lakatan E011, Latundan E012 and Bungulan E006 updated
+11 Nov 2026, edible portion 0.64 assumed from Cavendish until checked), one row per PSA
+commodity. version="v35" reproduces the factors of Alper's workbook v35, in which those
+three varieties had the Cavendish values (used only to check that we reproduce it).
+kcal per kg as produced is recomputed here as kcal_per_100g_edible x 10 x edible_portion
+and checked against the file's own column.
 """
 from pathlib import Path
 
@@ -29,9 +32,12 @@ VARIANTS = {
 }
 
 
-def factors(tol: float = 0.05) -> pd.DataFrame:
+V35_AS_CAVENDISH = ["Banana Lakatan", "Banana Latundan", "Banana Bungulan"]
+
+
+def factors(tol: float = 0.05, version: str = "current") -> pd.DataFrame:
     """Factor table with kcal_per_kg recomputed; fails if it differs from the file's column
-    by more than `tol` kcal/kg (rounding)."""
+    by more than `tol` kcal/kg (rounding). version: 'current' or 'v35' (see module doc)."""
     f = pd.read_csv(FACTORS).rename(columns={"index": "group"})
     f["kcal_per_kg"] = f["kcal_per_100g_edible"] * 10 * f["edible_portion"]
     gap = (f["kcal_per_kg"] - f["kcal_per_kg_as_produced"]).abs()
@@ -39,7 +45,13 @@ def factors(tol: float = 0.05) -> pd.DataFrame:
         raise ValueError(f"kcal per kg differs from the file:\n{f[gap > tol]}")
     if f["psa_commodity"].duplicated().any():
         raise ValueError("duplicated commodities in the factor table")
-    return f.set_index("psa_commodity")
+    f = f.set_index("psa_commodity")
+    if version == "v35":
+        cols = ["edible_portion", "kcal_per_100g_edible", "kcal_per_kg"]
+        f.loc[V35_AS_CAVENDISH, cols] = f.loc["Banana Cavendish", cols].values
+    elif version != "current":
+        raise ValueError(version)
+    return f
 
 
 def energy(prod: pd.DataFrame, f: pd.DataFrame) -> pd.DataFrame:

@@ -1,0 +1,73 @@
+unit,crop,year,area_ha,production_t,yield_t_ha
+Negros Occidental,total,2018,69394.0,152900.0,2.203
+Negros Occidental,total,2019,69806.0,157155.0,2.251
+Negros Occidental,total,2020,69830.0,158290.0,2.267
+Negros Occidental,total,2021,68883.0,159888.0,2.321
+Negros Occidental,total,2022,68303.0,155196.0,2.272
+Negros Occidental,total,2023,59307.0,136091.0,2.295
+Negros Occidental,total,2024,34367.64,69977.1,2.036
+Negros Occidental,total,2025,26977.0,51840.0,1.922
+Negros Occidental,white,2018,42234.0,73222.0,1.734
+Negros Occidental,white,2019,40943.0,72795.0,1.778
+Negros Occidental,white,2020,41520.0,76714.0,1.848
+Negros Occidental,white,2021,40683.0,75618.0,1.859
+Negros Occidental,white,2022,40274.0,71970.0,1.787
+Negros Occidental,white,2023,34927.0,65426.0,1.873
+Negros Occidental,white,2024,21654.49,41495.0,1.916
+Negros Occidental,white,2025,18052.0,33259.0,1.842
+Negros Occidental,yellow,2018,27160.0,79678.0,2.934
+Negros Occidental,yellow,2019,28863.0,84360.0,2.923
+Negros Occidental,yellow,2020,28310.0,81576.0,2.882
+Negros Occidental,yellow,2021,28200.0,84270.0,2.988
+Negros Occidental,yellow,2022,28029.0,83226.0,2.969
+Negros Occidental,yellow,2023,24380.0,70665.0,2.898
+Negros Occidental,yellow,2024,12713.15,28482.1,2.24
+Negros Occidental,yellow,2025,8925.0,18581.0,2.082
+Philippines,total,2018,2511436.27,7771918.63,3.095
+Philippines,total,2019,2516722.96,7978844.57,3.17
+Philippines,total,2020,2553780.55,8118545.88,3.179
+Philippines,total,2021,2564726.79,8287191.14,3.231
+Philippines,total,2022,2525477.24,8255609.69,3.269
+Philippines,total,2023,2540928.99,8405004.29,3.308
+Philippines,total,2024,2456494.69,8138177.92,3.313
+Philippines,total,2025,2439109.32,8318911.75,3.411
+Philippines,white,2018,1153744.07,2145306.33,1.859
+Philippines,white,2019,1101269.95,2070887.49,1.88
+Philippines,white,2020,1115272.51,2107499.44,1.89
+Philippines,white,2021,1126720.34,2242401.15,1.99
+Philippines,white,2022,1089261.76,2166704.87,1.989
+Philippines,white,2023,1036774.68,2037394.06,1.965
+Philippines,white,2024,976991.85,1911711.02,1.957
+Philippines,white,2025,968839.09,1960502.5,2.024
+Philippines,yellow,2018,1357692.2,5626612.3,4.144
+Philippines,yellow,2019,1415453.01,5907957.07,4.174
+Philippines,yellow,2020,1438508.04,6011046.46,4.179
+Philippines,yellow,2021,1438006.44,6044790.01,4.204
+Philippines,yellow,2022,1436215.49,6088904.83,4.24
+Philippines,yellow,2023,1504154.3,6367610.23,4.233
+Philippines,yellow,2024,1479502.84,6226466.92,4.208
+Philippines,yellow,2025,1470270.24,6358409.25,4.325
+Rest of VI,total,2018,38604.0,157938.81,4.091
+Rest of VI,total,2019,38786.0,156819.95,4.043
+Rest of VI,total,2020,39647.0,162089.86,4.088
+Rest of VI,total,2021,45322.9,191545.67,4.226
+Rest of VI,total,2022,43668.82,189264.64,4.334
+Rest of VI,total,2023,45364.7,193057.75,4.256
+Rest of VI,total,2024,40118.0,180338.98,4.495
+Rest of VI,total,2025,44837.66,201858.58,4.502
+Rest of VI,white,2018,6451.0,14506.59,2.249
+Rest of VI,white,2019,6121.0,13667.0,2.233
+Rest of VI,white,2020,6591.0,16071.55,2.438
+Rest of VI,white,2021,5072.5,12543.45,2.473
+Rest of VI,white,2022,4350.04,10429.54,2.398
+Rest of VI,white,2023,4659.8,11256.91,2.416
+Rest of VI,white,2024,2823.0,6644.86,2.354
+Rest of VI,white,2025,3219.63,8327.04,2.586
+Rest of VI,yellow,2018,32153.0,143432.22,4.461
+Rest of VI,yellow,2019,32665.0,143152.95,4.382
+Rest of VI,yellow,2020,33056.0,146018.31,4.417
+Rest of VI,yellow,2021,40250.4,179002.22,4.447
+Rest of VI,yellow,2022,39318.78,178835.1,4.548
+Rest of VI,yellow,2023,40704.9,181800.84,4.466
+Rest of VI,yellow,2024,37295.0,173694.12,4.657
+Rest of VI,yellow,2025,41618.03,193531.54,4.65

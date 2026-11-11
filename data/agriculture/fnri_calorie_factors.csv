@@ -9,9 +9,9 @@ VR,"Onion, mature bulb",0,0,D141,"Onion, Bombay bulb",0.93,52.0,483.6,https://i.
 VR,Camote [Sweet potato],1,0,B013,"Sweet potato, yellow",0.88,135.0,1188.0,https://i.fnri.dost.gov.ph/fct/library/report/3180,yellow variety record
 VR,"Cassava, fresh tubers",1,0,B001,Cassava,0.74,145.0,1073.0,https://i.fnri.dost.gov.ph/fct/library/report/3168,incl. industrial use
 PF,Banana Cavendish,0,1,E008,"Banana, cavendish, ripe",0.64,104.0,665.6,https://i.fnri.dost.gov.ph/fct/library/report/3590,
-PF,Banana Lakatan,0,1,E008 (assumed),No raw record in PhilFCT; Cavendish values assumed,0.64,104.0,665.6,https://i.fnri.dost.gov.ph/fct/library/report/3590,no PhilFCT raw record found; Cavendish values assumed
-PF,Banana Latundan,0,1,E008 (assumed),No raw record in PhilFCT; Cavendish values assumed,0.64,104.0,665.6,https://i.fnri.dost.gov.ph/fct/library/report/3590,no PhilFCT raw record found; Cavendish values assumed
-PF,Banana Bungulan,0,1,E008 (assumed),No raw record in PhilFCT; Cavendish values assumed,0.64,104.0,665.6,https://i.fnri.dost.gov.ph/fct/library/report/3590,no PhilFCT raw record found; Cavendish values assumed
+PF,Banana Lakatan,0,1,E011,"Banana, lakatan",0.64,126.0,806.4,"FNRI PhilFCT E011 (kcal per 100 g), per A. Aras, 11 Nov 2026",edible portion 0.64 assumed from Banana Cavendish (E008) until checked
+PF,Banana Latundan,0,1,E012,"Banana, latundan",0.64,105.0,672.0,"FNRI PhilFCT E012 (kcal per 100 g), per A. Aras, 11 Nov 2026",edible portion 0.64 assumed from Banana Cavendish (E008) until checked
+PF,Banana Bungulan,0,1,E006,"Banana, bungulan",0.64,106.0,678.4,"FNRI PhilFCT E006 (kcal per 100 g), per A. Aras, 11 Nov 2026",edible portion 0.64 assumed from Banana Cavendish (E008) until checked
 PF,Banana Others,0,1,E008 (assumed),No raw record in PhilFCT; Cavendish values assumed,0.64,104.0,665.6,https://i.fnri.dost.gov.ph/fct/library/report/3590,no PhilFCT raw record found; Cavendish values assumed
 PF,Banana Saba,0,1,E014,"Banana, saba",0.57,110.0,627.0,https://i.fnri.dost.gov.ph/fct/library/report/3596,
 PF,Pineapple,0,0,E073,Pineapple,0.58,55.0,319.0,https://i.fnri.dost.gov.ph/fct/library/report/3655,

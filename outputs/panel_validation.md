@@ -112,9 +112,80 @@ The residual is mainly palay and corn (the cluster areas are lowland farmland). 
 
 Annual production (palay and corn in t, VR and PF in billion kcal) of VI and VII as rebuilt, of the provinces PSA moved to NIR, and of the country. The Negros provinces are present in every year, so adding them back leaves no gap. The 2024 falls in VI and VII come from their own provinces (VI palay: Iloilo -22%) in the 2024 El Niño year.
 
-One series to ask PSA about: **Negros Occidental corn** halves in 2024 (-49%) and falls again in 2025, from the year it is reported under NIR. The fall is not concentrated in the El Niño months: corn is -25% in 2024H1 against 2023H1 (country -7%), but -61% in 2024H2 (country +0.4%; 2024Q3 -81%) and still -50% / -68% in the two halves of 2025. It is mostly area harvested (69,000 ha in 2019-2022, 34,000 in 2024, 27,000 in 2025), with yield only slightly lower (2.3 to 2.0 and 1.9 t/ha); white and yellow corn both fall, yellow more. The missing output does not appear elsewhere: Negros Occidental has data in every quarter (its 2024-2025 rows under VI are 0, the NIR row has the values), the NIR, VI and VII totals equal the sums of their provinces, Bacolod City reports only 3-10 t from 2026, and neither Negros Oriental nor the rest of VI rises. It looks like a level change in the series rather than drought; the data are left as published.
+**Negros Occidental corn.** Area harvested falls from 2023Q3 (-24% on a year earlier, while the rest of VI and the country do not fall in that quarter) and keeps falling: about 68,000-70,000 ha a year in 2018-2022, 59,300 ha in 2023, 34,400 in 2024 and 27,000 in 2025. Yellow corn yield falls too (-23% in 2024 and -28% in 2025 against 2023); white corn yield does not; total corn yield falls 11% and 16%. The fall is not limited to the El Niño months, continues after them, and does not reappear in any other row (the NIR, VI and VII totals equal the sums of their provinces). We keep the published PSA data and treat it as a measurement break in the estimation (`src/estimation/setup.py`): a level dummy for Region VI corn (start to be decided, see below) and a check version without VI corn from 2023Q3. The issue will be noted in the paper.
 
-Treatment (in the estimation, not the data; `src/estimation/setup.py`): a PSA measurement break, with a level dummy for Region VI corn from 2024Q1 in the corn models, and a check version in which VI corn ends in 2023Q4. The question stays open with PSA.
+
+Corn area harvested (ha), quarterly:
+
+| unit | crop | 2022Q1 | 2022Q2 | 2022Q3 | 2022Q4 | 2023Q1 | 2023Q2 | 2023Q3 | 2023Q4 | 2024Q1 | 2024Q2 | 2024Q3 | 2024Q4 | 2025Q1 | 2025Q2 | 2025Q3 | 2025Q4 |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| Negros Occidental | total | 14,113 | 8,470 | 28,400 | 17,320 | 14,350 | 8,380 | 21,502 | 15,075 | 12,778 | 5,668 | 6,519 | 9,403 | 6,766 | 5,703 | 6,636 | 7,872 |
+| Negros Occidental | white | 9,024 | 5,950 | 16,980 | 8,320 | 9,120 | 5,975 | 12,207 | 7,625 | 8,068 | 4,140 | 4,483 | 4,963 | 4,543 | 4,170 | 4,735 | 4,604 |
+| Negros Occidental | yellow | 5,089 | 2,520 | 11,420 | 9,000 | 5,230 | 2,405 | 9,295 | 7,450 | 4,710 | 1,528 | 2,035 | 4,440 | 2,223 | 1,533 | 1,901 | 3,268 |
+| Philippines | total | 671,195 | 419,986 | 806,417 | 627,880 | 694,394 | 408,831 | 822,402 | 615,302 | 705,521 | 346,877 | 806,157 | 597,940 | 646,647 | 402,661 | 789,244 | 600,557 |
+| Philippines | white | 232,958 | 155,901 | 427,564 | 272,840 | 233,315 | 139,324 | 393,842 | 270,293 | 225,300 | 122,922 | 368,573 | 260,197 | 220,816 | 129,559 | 368,864 | 249,600 |
+| Philippines | yellow | 438,237 | 264,086 | 378,853 | 355,039 | 461,079 | 269,507 | 428,560 | 345,009 | 480,221 | 223,956 | 437,584 | 337,742 | 425,831 | 273,102 | 420,380 | 350,957 |
+| Rest of VI | total | 17,873 | 5,439 | 16,262 | 4,096 | 18,090 | 6,196 | 17,190 | 3,889 | 16,388 | 4,865 | 14,247 | 4,618 | 15,752 | 5,020 | 19,636 | 4,429 |
+| Rest of VI | white | 782 | 967 | 1,992 | 609 | 791 | 1,133 | 2,056 | 680 | 721 | 522 | 913 | 667 | 784 | 610 | 1,193 | 632 |
+| Rest of VI | yellow | 17,091 | 4,472 | 14,270 | 3,487 | 17,299 | 5,063 | 15,134 | 3,209 | 15,667 | 4,343 | 13,334 | 3,951 | 14,968 | 4,410 | 18,443 | 3,796 |
+
+Corn yield (t/ha), quarterly:
+
+| unit | crop | 2022Q1 | 2022Q2 | 2022Q3 | 2022Q4 | 2023Q1 | 2023Q2 | 2023Q3 | 2023Q4 | 2024Q1 | 2024Q2 | 2024Q3 | 2024Q4 | 2025Q1 | 2025Q2 | 2025Q3 | 2025Q4 |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| Negros Occidental | total | 2.22 | 1.65 | 2.27 | 2.61 | 2.30 | 1.54 | 2.35 | 2.63 | 2.13 | 1.28 | 1.46 | 2.77 | 2.19 | 1.39 | 1.78 | 2.20 |
+| Negros Occidental | white | 1.80 | 1.39 | 1.88 | 1.87 | 1.89 | 1.44 | 1.94 | 2.09 | 1.88 | 1.24 | 1.64 | 2.79 | 2.03 | 1.38 | 1.70 | 2.23 |
+| Negros Occidental | yellow | 2.98 | 2.27 | 2.86 | 3.30 | 3.03 | 1.77 | 2.89 | 3.18 | 2.56 | 1.37 | 1.07 | 2.74 | 2.53 | 1.42 | 1.98 | 2.15 |
+| Philippines | total | 3.64 | 3.54 | 2.91 | 3.15 | 3.63 | 3.60 | 3.00 | 3.16 | 3.59 | 3.38 | 3.10 | 3.23 | 3.72 | 3.71 | 3.07 | 3.32 |
+| Philippines | white | 2.05 | 2.01 | 1.95 | 1.98 | 2.02 | 1.90 | 1.87 | 2.09 | 1.98 | 1.87 | 1.86 | 2.12 | 2.14 | 2.00 | 1.92 | 2.09 |
+| Philippines | yellow | 4.48 | 4.44 | 4.00 | 4.05 | 4.44 | 4.49 | 4.04 | 4.00 | 4.35 | 4.21 | 4.15 | 4.09 | 4.54 | 4.53 | 4.09 | 4.19 |
+| Rest of VI | total | 4.56 | 3.16 | 4.54 | 4.08 | 4.25 | 3.51 | 4.58 | 4.07 | 4.54 | 3.73 | 4.75 | 4.33 | 4.84 | 4.09 | 4.48 | 3.87 |
+| Rest of VI | white | 2.27 | 2.24 | 2.56 | 2.26 | 2.27 | 2.32 | 2.53 | 2.41 | 2.33 | 2.05 | 2.51 | 2.41 | 2.63 | 2.44 | 2.71 | 2.42 |
+| Rest of VI | yellow | 4.67 | 3.36 | 4.81 | 4.40 | 4.34 | 3.78 | 4.85 | 4.42 | 4.64 | 3.94 | 4.91 | 4.65 | 4.96 | 4.32 | 4.59 | 4.11 |
+
+Corn production (t), quarterly:
+
+| unit | crop | 2022Q1 | 2022Q2 | 2022Q3 | 2022Q4 | 2023Q1 | 2023Q2 | 2023Q3 | 2023Q4 | 2024Q1 | 2024Q2 | 2024Q3 | 2024Q4 | 2025Q1 | 2025Q2 | 2025Q3 | 2025Q4 |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| Negros Occidental | total | 31,365 | 13,990 | 64,583 | 45,258 | 33,034 | 12,890 | 50,536 | 39,631 | 27,200 | 7,240 | 9,543 | 25,995 | 14,844 | 7,907 | 11,801 | 17,288 |
+| Negros Occidental | white | 16,220 | 8,270 | 31,922 | 15,558 | 17,209 | 8,628 | 23,638 | 15,951 | 15,156 | 5,148 | 7,370 | 13,822 | 9,219 | 5,736 | 8,036 | 10,268 |
+| Negros Occidental | yellow | 15,145 | 5,720 | 32,661 | 29,700 | 15,825 | 4,262 | 26,898 | 23,680 | 12,044 | 2,092 | 2,173 | 12,173 | 5,625 | 2,171 | 3,765 | 7,020 |
+| Philippines | total | 2,441,391 | 1,484,641 | 2,349,526 | 1,980,051 | 2,519,217 | 1,473,477 | 2,466,968 | 1,945,342 | 2,532,633 | 1,174,034 | 2,498,530 | 1,932,981 | 2,404,580 | 1,495,083 | 2,425,515 | 1,993,734 |
+| Philippines | white | 478,161 | 312,955 | 835,179 | 540,410 | 470,102 | 264,554 | 737,692 | 565,047 | 445,520 | 230,276 | 684,225 | 551,690 | 471,974 | 258,638 | 707,472 | 522,419 |
+| Philippines | yellow | 1,963,230 | 1,171,686 | 1,514,347 | 1,439,642 | 2,049,114 | 1,208,923 | 1,729,277 | 1,380,296 | 2,087,113 | 943,758 | 1,814,305 | 1,381,291 | 1,932,606 | 1,236,444 | 1,718,043 | 1,471,315 |
+| Rest of VI | total | 81,568 | 17,179 | 73,807 | 16,710 | 76,842 | 21,750 | 78,640 | 15,825 | 74,458 | 18,169 | 67,729 | 19,983 | 76,286 | 20,527 | 87,923 | 17,123 |
+| Rest of VI | white | 1,779 | 2,168 | 5,107 | 1,376 | 1,791 | 2,630 | 5,196 | 1,639 | 1,678 | 1,070 | 2,288 | 1,608 | 2,064 | 1,491 | 3,239 | 1,533 |
+| Rest of VI | yellow | 79,789 | 15,012 | 68,700 | 15,335 | 75,051 | 19,119 | 73,444 | 14,186 | 72,780 | 17,098 | 65,442 | 18,374 | 74,222 | 19,036 | 84,684 | 15,590 |
+
+Area harvested, % change on the same quarter a year earlier:
+
+| unit | crop | 2022Q1 | 2022Q2 | 2022Q3 | 2022Q4 | 2023Q1 | 2023Q2 | 2023Q3 | 2023Q4 | 2024Q1 | 2024Q2 | 2024Q3 | 2024Q4 | 2025Q1 | 2025Q2 | 2025Q3 | 2025Q4 |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| Negros Occidental | total | -3 | 5 | -2 | 1 | 2 | -1 | -24 | -13 | -11 | -32 | -70 | -38 | -47 | 1 | 2 | -16 |
+| Negros Occidental | white | -4 | 3 | -3 | 5 | 1 | 0 | -28 | -8 | -12 | -31 | -63 | -35 | -44 | 1 | 6 | -7 |
+| Negros Occidental | yellow | -0 | 10 | -1 | -3 | 3 | -5 | -19 | -17 | -10 | -36 | -78 | -40 | -53 | 0 | -7 | -26 |
+| Philippines | total | -2 | 3 | -0 | -5 | 3 | -3 | 2 | -2 | 2 | -15 | -2 | -3 | -8 | 16 | -2 | 0 |
+| Philippines | white | -2 | 4 | -6 | -4 | 0 | -11 | -8 | -1 | -3 | -12 | -6 | -4 | -2 | 5 | 0 | -4 |
+| Philippines | yellow | -2 | 3 | 7 | -6 | 5 | 2 | 13 | -3 | 4 | -17 | 2 | -2 | -11 | 22 | -4 | 4 |
+| Rest of VI | total | 13 | -15 | -17 | 12 | 1 | 14 | 6 | -5 | -9 | -21 | -17 | 19 | -4 | 3 | 38 | -4 |
+| Rest of VI | white | -35 | -12 | -7 | -5 | 1 | 17 | 3 | 12 | -9 | -54 | -56 | -2 | 9 | 17 | 31 | -5 |
+| Rest of VI | yellow | 17 | -16 | -18 | 16 | 1 | 13 | 6 | -8 | -9 | -14 | -12 | 23 | -4 | 2 | 38 | -4 |
+
+Yearly yield (t/ha):
+
+| unit | crop | 2018 | 2019 | 2020 | 2021 | 2022 | 2023 | 2024 | 2025 |
+|---|---|---|---|---|---|---|---|---|---|
+| Negros Occidental | total | 2.20 | 2.25 | 2.27 | 2.32 | 2.27 | 2.29 | 2.04 | 1.92 |
+| Negros Occidental | white | 1.73 | 1.78 | 1.85 | 1.86 | 1.79 | 1.87 | 1.92 | 1.84 |
+| Negros Occidental | yellow | 2.93 | 2.92 | 2.88 | 2.99 | 2.97 | 2.90 | 2.24 | 2.08 |
+| Philippines | total | 3.10 | 3.17 | 3.18 | 3.23 | 3.27 | 3.31 | 3.31 | 3.41 |
+| Philippines | white | 1.86 | 1.88 | 1.89 | 1.99 | 1.99 | 1.97 | 1.96 | 2.02 |
+| Philippines | yellow | 4.14 | 4.17 | 4.18 | 4.20 | 4.24 | 4.23 | 4.21 | 4.33 |
+| Rest of VI | total | 4.09 | 4.04 | 4.09 | 4.23 | 4.33 | 4.26 | 4.50 | 4.50 |
+| Rest of VI | white | 2.25 | 2.23 | 2.44 | 2.47 | 2.40 | 2.42 | 2.35 | 2.59 |
+| Rest of VI | yellow | 4.46 | 4.38 | 4.42 | 4.45 | 4.55 | 4.47 | 4.66 | 4.65 |
+
+VI and VII around the NIR change (annual):
 
 | series | unit | 2021 | 2022 | 2023 | 2024 | 2025 | pct_change_2023_2024 |
 |---|---|---|---|---|---|---|---|
@@ -128,11 +199,11 @@ Treatment (in the estimation, not the data; `src/estimation/setup.py`): a PSA me
 | palay | PHILIPPINES | 19,960,170.2 | 19,756,513.4 | 20,059,562.0 | 19,087,135.4 | 19,674,390.0 | -4.8 |
 | palay | R06 | 2,356,902.4 | 2,321,593.7 | 2,263,158.3 | 1,891,368.1 | 1,910,916.4 | -16.4 |
 | palay | R07 | 289,502.0 | 242,394.6 | 293,073.4 | 316,573.6 | 347,068.1 | 8.0 |
-| pf | Negros Occidental | 64.8 | 64.6 | 69.1 | 68.6 | 67.3 | -0.7 |
-| pf | Negros Or. + Siquijor | 78.4 | 63.7 | 102.8 | 76.3 | 75.2 | -25.7 |
-| pf | PHILIPPINES | 7,232.0 | 7,183.8 | 7,229.7 | 6,996.2 | 6,899.6 | -3.2 |
-| pf | R06 | 232.4 | 229.9 | 236.0 | 235.6 | 240.6 | -0.2 |
-| pf | R07 | 177.8 | 138.9 | 186.1 | 162.4 | 164.1 | -12.7 |
+| pf | Negros Occidental | 65.7 | 65.4 | 70.0 | 69.5 | 68.1 | -0.7 |
+| pf | Negros Or. + Siquijor | 79.3 | 64.3 | 103.9 | 77.2 | 75.9 | -25.7 |
+| pf | PHILIPPINES | 7,373.3 | 7,325.7 | 7,368.7 | 7,128.3 | 7,034.4 | -3.3 |
+| pf | R06 | 236.5 | 233.9 | 239.9 | 239.4 | 244.5 | -0.2 |
+| pf | R07 | 180.8 | 141.2 | 189.1 | 165.1 | 166.8 | -12.7 |
 | vr | Negros Occidental | 53.7 | 53.3 | 53.2 | 53.2 | 52.8 | 0.1 |
 | vr | Negros Or. + Siquijor | 39.9 | 38.3 | 40.2 | 33.2 | 30.6 | -17.4 |
 | vr | PHILIPPINES | 3,850.2 | 3,882.8 | 3,834.6 | 3,600.4 | 3,508.2 | -6.1 |
@@ -150,7 +221,9 @@ The six varieties add up to the 'Banana' row in every published row and quarter:
 
 ## 7. Calorie indices compared with Alper's workbook
 
-Sheet 'Quarterly indices' of FNRI_calorie_factors_VR_PF_v35.xlsx (A. Aras, built from PSA's regional table). Alper combines VI + VII + NIR into one unit, compared with our R06 + R07. His sheet has no 'PF without Cavendish' (our extra check) and runs to 2026Q3, one quarter beyond our files. kcal per kg is recomputed from the factor file and matches its own column.
+Source of the indices: the provincial PSA tables (Vegetables and Root Crops, and Fruit Crops: volume of production by region, province and quarter); the province rows are needed to put the NIR provinces back into VI and VII.
+
+Replication check against sheet 'Quarterly indices' of FNRI_calorie_factors_VR_PF_v35.xlsx (A. Aras, built from PSA's regional table), computed here with the v35 factors (Lakatan, Latundan and Bungulan at the Cavendish values). Alper combines VI + VII + NIR into one unit, compared with our R06 + R07. His sheet has no 'PF without Cavendish' (our extra check) and runs to 2026Q3, one quarter beyond our files. kcal per kg is recomputed from the factor file and matches its own column.
 
 **Identical** (largest index difference < 0.05 points): CAR, MIMAROPA, PH, R01, R02, R03, R04A, R05, R06+R07, R08, R10, R11, R13.
 
@@ -170,6 +243,32 @@ Sheet 'Quarterly indices' of FNRI_calorie_factors_VR_PF_v35.xlsx (A. Aras, built
 | R12 | pf_nobanana | 0.000 | 0.023 | 0.177 |
 | R12 | vr | 0.000 | 10.487 | 10.248 |
 | R12 | vr_noroot | 0.000 | 0.190 | 14.074 |
+
+**Banana factors updated (11 Nov 2026).** The indices in the panel use FNRI E011 (Lakatan, 126 kcal/100 g), E012 (Latundan, 105) and E006 (Bungulan, 106), with the Cavendish edible portion (0.64) assumed until checked; Banana Others keeps the Cavendish values. Effect on PF against the v35 factors (mean % change in energy, largest index change in points):
+
+| unit | series | mean_energy_change_pct | max_abs_index_diff_pts |
+|---|---|---|---|
+| BARMM | pf | 5.08 | 1.34 |
+| BARMM | pf_nobanana | 0.00 | 0.00 |
+| BARMM | pf_nocavendish | 7.46 | 2.98 |
+| CAR | pf | 3.30 | 3.79 |
+| CAR | pf_nobanana | 0.00 | 0.00 |
+| CAR | pf_nocavendish | 3.31 | 3.79 |
+| PH | pf | 1.92 | 0.36 |
+| PH | pf_nobanana | 0.00 | 0.00 |
+| PH | pf_nocavendish | 3.40 | 0.86 |
+| R03 | pf | 3.20 | 2.06 |
+| R03 | pf_nobanana | 0.00 | 0.00 |
+| R03 | pf_nocavendish | 3.20 | 2.06 |
+| R09 | pf | 4.38 | 2.64 |
+| R09 | pf_nobanana | 0.00 | 0.00 |
+| R09 | pf_nocavendish | 4.38 | 2.64 |
+| R11 | pf | 1.36 | 0.55 |
+| R11 | pf_nobanana | 0.00 | 0.00 |
+| R11 | pf_nocavendish | 5.48 | 0.61 |
+| R12 | pf | 2.78 | 0.99 |
+| R12 | pf_nobanana | 0.00 | 0.00 |
+| R12 | pf_nocavendish | 4.22 | 1.16 |
 
 ## 8. Weather (ERA5 monthly)
 

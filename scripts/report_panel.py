@@ -94,22 +94,32 @@ def main():
       "are present in every year, so adding them back leaves no gap. The 2024 falls in VI "
       "and VII come from their own provinces (VI palay: Iloilo -22%) in the 2024 El Niño "
       "year.\n\n"
-      "One series to ask PSA about: **Negros Occidental corn** halves in 2024 (-49%) and "
-      "falls again in 2025, from the year it is reported under NIR. The fall is not "
-      "concentrated in the El Niño months: corn is -25% in 2024H1 against 2023H1 (country "
-      "-7%), but -61% in 2024H2 (country +0.4%; 2024Q3 -81%) and still -50% / -68% in the "
-      "two halves of 2025. It is mostly area harvested (69,000 ha in 2019-2022, 34,000 in "
-      "2024, 27,000 in 2025), with yield only slightly lower (2.3 to 2.0 and 1.9 t/ha); "
-      "white and yellow corn both fall, yellow more. The missing output does not appear "
-      "elsewhere: Negros Occidental has data in every quarter (its 2024-2025 rows under VI "
-      "are 0, the NIR row has the values), the NIR, VI and VII totals equal the sums of their "
-      "provinces, Bacolod City reports only 3-10 t from 2026, and neither Negros Oriental nor "
-      "the rest of VI rises. It looks like a level change in the series rather than drought; "
-      "the data are left as published.\n\n"
-      "Treatment (in the estimation, not the data; `src/estimation/setup.py`): a PSA "
-      "measurement break, with a level dummy for Region VI corn from 2024Q1 in the corn "
-      "models, and a check version in which VI corn ends in 2023Q4. The question stays open "
-      "with PSA.\n")
+      "**Negros Occidental corn.** Area harvested falls from 2023Q3 (-24% on a year "
+      "earlier, while the rest of VI and the country do not fall in that quarter) and keeps "
+      "falling: about 68,000-70,000 ha a year in 2018-2022, 59,300 ha in 2023, 34,400 in "
+      "2024 and 27,000 in 2025. Yellow corn yield falls too (-23% in 2024 and -28% in 2025 "
+      "against 2023); white corn yield does not; total corn yield falls 11% and 16%. The "
+      "fall is not limited to the El Niño months, continues after them, and does not "
+      "reappear in any other row (the NIR, VI and VII totals equal the sums of their "
+      "provinces). We keep the published PSA data and treat it as a measurement break in "
+      "the estimation (`src/estimation/setup.py`): a level dummy for Region VI corn (start "
+      "to be decided, see below) and a check version without VI corn from 2023Q3. The issue "
+      "will be noted in the paper.\n")
+    nq = t["negros_corn_quarterly"]
+    for var, lab, fmt in (("area_ha", "area harvested (ha)", "{:,.0f}"),
+                          ("yield_t_ha", "yield (t/ha)", "{:.2f}"),
+                          ("production_t", "production (t)", "{:,.0f}")):
+        wq = nq.pivot_table(index=["unit", "crop"], columns="period", values=var).reset_index()
+        w(f"\nCorn {lab}, quarterly:\n")
+        w(md(wq, fmt))
+    wq = nq.pivot_table(index=["unit", "crop"], columns="period", values="area_ha_yoy_pct").reset_index()
+    w("\nArea harvested, % change on the same quarter a year earlier:\n")
+    w(md(wq, "{:.0f}"))
+    ny = t["negros_corn_yearly"].pivot_table(index=["unit", "crop"], columns="year",
+                                             values="yield_t_ha").reset_index()
+    w("\nYearly yield (t/ha):\n")
+    w(md(ny, "{:.2f}"))
+    w("\nVI and VII around the NIR change (annual):\n")
     w(md(t["vi_vii_break"], "{:,.1f}"))
     w("")
 
@@ -124,11 +134,16 @@ def main():
                         values="max_abs_index_diff_pts").reset_index()
     same = sorted(set(a.unit) - set(piv[(piv[["2010-2022", "2023-2025", "2026"]] > 0.05)
                                         .any(axis=1)].unit))
-    w("Sheet 'Quarterly indices' of FNRI_calorie_factors_VR_PF_v35.xlsx (A. Aras, built "
-      "from PSA's regional table). Alper combines VI + VII + NIR into one unit, compared "
-      "with our R06 + R07. His sheet has no 'PF without Cavendish' (our extra check) and "
-      "runs to 2026Q3, one quarter beyond our files. kcal per kg is recomputed from the "
-      "factor file and matches its own column.\n")
+    w("Source of the indices: the provincial PSA tables (Vegetables and Root Crops, and "
+      "Fruit Crops: volume of production by region, province and quarter); the province "
+      "rows are needed to put the NIR provinces back into VI and VII.\n\n"
+      "Replication check against sheet 'Quarterly indices' of "
+      "FNRI_calorie_factors_VR_PF_v35.xlsx (A. Aras, built from PSA's regional table), "
+      "computed here with the v35 factors (Lakatan, Latundan and Bungulan at the Cavendish "
+      "values). Alper combines VI + VII + NIR into one unit, compared with our R06 + R07. "
+      "His sheet has no 'PF without Cavendish' (our extra check) and runs to 2026Q3, one "
+      "quarter beyond our files. kcal per kg is recomputed from the factor file and matches "
+      "its own column.\n")
     w(f"**Identical** (largest index difference < 0.05 points): {', '.join(same)}.\n")
     w("**Different, as expected from the boundary rules**: BARMM and XII from 2023 (Eight "
       "Cluster Areas moved from BARMM to XII here, in BARMM in Alper's regional table), and "
@@ -136,6 +151,13 @@ def main():
       "Largest absolute index difference (points), by window:\n")
     diff = piv[~piv.unit.isin(same)]
     w(md(diff, "{:.3f}"))
+    w("\n**Banana factors updated (11 Nov 2026).** The indices in the panel use FNRI E011 "
+      "(Lakatan, 126 kcal/100 g), E012 (Latundan, 105) and E006 (Bungulan, 106), with the "
+      "Cavendish edible portion (0.64) assumed until checked; Banana Others keeps the "
+      "Cavendish values. Effect on PF against the v35 factors (mean % change in energy, "
+      "largest index change in points):\n")
+    up = t["banana_factor_update"]
+    w(md(up[up.unit.isin(["PH"] + list(up.unit[up.mean_energy_change_pct.abs() > 3]))], "{:.2f}"))
     w("")
 
     w("## 8. Weather (ERA5 monthly)\n")

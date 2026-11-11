@@ -5,8 +5,12 @@ Sources (data/agriculture/, PSA OpenSTAT, read by agriculture.psa_openstat):
   province x quarter, 1987Q1-2026Q2;
 - VR and PF: production (t) of the 13 crops of methodology v5 (bananas by variety),
   province x quarter, 2010Q1-2026Q2;
-- calorie factors: fnri_calorie_factors.csv; Alper's workbook
-  FNRI_calorie_factors_VR_PF_v35.xlsx (local, gitignored) for the comparison only.
+- calorie factors: fnri_calorie_factors.csv (banana varieties updated 11 Nov 2026);
+  Alper's workbook FNRI_calorie_factors_VR_PF_v35.xlsx (local, gitignored) for the
+  comparison only, made with the v35 factors so that it checks the replication.
+The provincial PSA tables (Vegetables and Root Crops, and Fruit Crops, by region and
+province) are the source of the indices: the province rows are needed to put the NIR
+provinces back into VI and VII.
 
 Every series is rebuilt from provinces on the 16 regions of v5 (agriculture.regions,
 agriculture.rebuild): NIR provinces back in VI and VII, Sulu in BARMM, the Eight Cluster
@@ -130,6 +134,56 @@ def alper_compare(ours):
     return summ, m, last
 
 
+def all_indices(vp_panel, f):
+    """Energy and indices by region, plus VI+VII combined and national (PH)."""
+    en = energy(vp_panel, f)
+    by_region = indices(en.rename(columns={"region_code": "unit"}), f, ["unit"])
+    en_vi = en[en["region_code"].isin(["R06", "R07"])].assign(unit=VI_VII)
+    en_ph = en.assign(unit="PH")
+    agg = lambda e: (e.groupby(["unit", "crop", "period"])["energy_bkcal"]  # noqa: E731
+                     .sum(min_count=1).reset_index())
+    extra = indices(pd.concat([agg(en_vi), agg(en_ph)]), f, ["unit"])
+    return by_region, pd.concat([by_region, extra], ignore_index=True)
+
+
+def factor_update_effect(new, old):
+    """Effect of the 11 Nov 2026 banana factors: PF energy and index, current vs v35."""
+    k = ["unit", "series", "period"]
+    m = new.merge(old, on=k, suffixes=("", "_v35"))
+    m = m[m.series.str.startswith("pf")]
+    m["energy_change_pct"] = (m.energy_bkcal / m.energy_bkcal_v35 - 1) * 100
+    m["index_diff_pts"] = m["index"] - m["index_v35"]
+    return (m.groupby(["unit", "series"])
+            .agg(mean_energy_change_pct=("energy_change_pct", "mean"),
+                 max_abs_index_diff_pts=("index_diff_pts", lambda x: x.abs().max()))
+            .reset_index())
+
+
+def negros_corn(pc):
+    """Negros Occidental, rest of Region VI and the Philippines: corn area, production and
+    yield by type, quarterly 2022Q1-2025Q4 (with % change on the same quarter a year
+    earlier) and yearly 2018-2025."""
+    d = pc[pc.crop.isin(["White Corn", "Yellow Corn", "Corn"])].copy()
+    d = d[d.period.dt.year.between(2018, 2025)]
+    prov = d[d.level == "province"].assign(reg=lambda x: assign_region(x.geo))
+    units = {"Negros Occidental": prov[prov.geo == "Negros Occidental"],
+             "Rest of VI": prov[(prov.reg == "R06")
+                                & ~prov.geo.isin(["Negros Occidental", "Bacolod City"])],
+             "Philippines": d[d.level == "national"]}
+    t = pd.concat([x.groupby(["crop", "period"])[["area_ha", "production_t"]].sum(min_count=1)
+                   .reset_index().assign(unit=u) for u, x in units.items()])
+    t["crop"] = t.crop.map({"White Corn": "white", "Yellow Corn": "yellow", "Corn": "total"})
+    t["yield_t_ha"] = t.production_t / t.area_ha
+    t = t.sort_values(["unit", "crop", "period"])
+    for v in ("area_ha", "production_t", "yield_t_ha"):
+        t[f"{v}_yoy_pct"] = t.groupby(["unit", "crop"])[v].pct_change(4) * 100
+    q = t[t.period.dt.year >= 2022]
+    a = (t.assign(year=t.period.dt.year).groupby(["unit", "crop", "year"])
+         [["area_ha", "production_t"]].sum().reset_index())
+    a["yield_t_ha"] = a.production_t / a.area_ha
+    return q, a
+
+
 def vi_vii_break(pc, vp, f):
     """Annual production 2021-2025 of VI and VII as rebuilt, of the Negros provinces that
     PSA moved to NIR in 2024, and of the country; % change 2023 -> 2024. Palay and corn in
@@ -199,14 +253,8 @@ def main():
     vp_panel, vp_res = rebuild(vp, ["production_t"], ["crop"])
 
     # calorie energy and indices, by region, VI+VII combined, and national
-    en = energy(vp_panel, f)
-    by_region = indices(en.rename(columns={"region_code": "unit"}), f, ["unit"])
-    en_vi = en[en["region_code"].isin(["R06", "R07"])].assign(unit=VI_VII)
-    en_ph = en.assign(unit="PH")
-    agg = lambda e: (e.groupby(["unit", "crop", "period"])["energy_bkcal"]  # noqa: E731
-                     .sum(min_count=1).reset_index())
-    extra = indices(pd.concat([agg(en_vi), agg(en_ph)]), f, ["unit"])
-    idx_all = pd.concat([by_region, extra], ignore_index=True)
+    by_region, idx_all = all_indices(vp_panel, f)
+    _, idx_v35 = all_indices(vp_panel, factors(version="v35"))
 
     # long panel
     pc_long = pc_panel.melt(id_vars=["crop", "region_code", "region", "period"],
@@ -260,9 +308,14 @@ def main():
     chk.round(3).to_csv(TAB / "panel_check_barmm_xii.csv", index=False)
     ban_summ.to_csv(TAB / "panel_banana_varieties_check.csv", index=False)
     ban_worst.to_csv(TAB / "panel_banana_varieties_gaps.csv", index=False)
-    summ, detail, last_alper = alper_compare(idx_all)
+    summ, detail, last_alper = alper_compare(idx_v35)  # Alper's v35 factors: replication check
+    factor_update_effect(idx_all, idx_v35).round(3).to_csv(TAB / "panel_banana_factor_update.csv",
+                                                           index=False)
     summ.to_csv(TAB / "panel_vs_alper.csv", index=False)
     vi_vii_break(pc, vp, f).to_csv(TAB / "panel_vi_vii_break.csv")
+    nq, ny = negros_corn(pc)
+    nq.round(3).to_csv(TAB / "panel_negros_corn_quarterly.csv", index=False)
+    ny.round(3).to_csv(TAB / "panel_negros_corn_yearly.csv", index=False)
 
     pd.set_option("display.width", 220, "display.max_rows", 200, "display.max_columns", 30)
     print(f"panel: {len(out)} rows, {out.region_code.nunique()} regions; "
