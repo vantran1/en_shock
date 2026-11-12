@@ -8,9 +8,12 @@ Known breaks
   falling to about 27,000 ha in 2025 (68,000-70,000 ha in 2018-2022); yellow corn yield
   falls too, white corn yield does not. It does not reappear in any other row
   (outputs/panel_validation.md, section 5). Treated as a PSA measurement break.
-  Main: a level dummy for R06 corn (all corn series: total, white, yellow). Its start is
-  TO BE DECIDED: 2023Q3 (start of the fall) overlaps the 2023Q3-2024Q2 El Nino episode;
-  currently 2024Q1.
+  Main: a level dummy for R06 corn (all corn series: total, white, yellow) from 2023Q3,
+  where the quarterly data show the Negros-specific fall beginning (proposed 12 Nov 2026;
+  to be confirmed). Test of the start (scripts/test_break_start_corn.py): with the spline
+  trends of the recommended specification the R06 trend absorbs the fall, the dummy is
+  small and its start not identified; with v5's linear trends the dummy is large (-0.55 to
+  -0.73). In both, the national El Nino effect does not depend on the start.
   Check: R06 corn quarters from 2023Q3 on are dropped.
 """
 import pandas as pd
@@ -18,16 +21,20 @@ import pandas as pd
 # crop group -> list of (region_code, first quarter of the dummy, first quarter dropped in
 # the check sample, name of the dummy)
 BREAKS = {
-    "corn": [("R06", "2024Q1", "2023Q3", "break_r06_corn")],
+    "corn": [("R06", "2023Q3", "2023Q3", "break_r06_corn")],
 }
 
 
-def break_dummies(p: pd.DataFrame, group: str) -> pd.DataFrame:
+def break_dummies(p: pd.DataFrame, group: str, start: str | None = None) -> pd.DataFrame:
     """Level-shift dummies for the breaks of a crop group: 1 for the region from the dummy
-    start on. p needs region_code and period (pd.Period or 'YYYYQn' strings)."""
+    start on (start overrides it, for the test of the start date; 'none' = no dummy).
+    p needs region_code and period (pd.Period or 'YYYYQn' strings)."""
     per = pd.PeriodIndex(p["period"].astype(str), freq="Q")
     out = pd.DataFrame(index=p.index)
-    for region, start, _, name in BREAKS.get(group, []):
+    if start == "none":
+        return out
+    for region, default_start, _, name in BREAKS.get(group, []):
+        start = start or default_start
         out[name] = ((p["region_code"].values == region)
                      & (per >= pd.Period(start, "Q"))).astype(float)
     return out

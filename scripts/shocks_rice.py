@@ -1,5 +1,5 @@
 """El Nino shocks for palay from the direct approach (methodology v5 Section 3.5), with the
-recommended specification of scripts/estimate_direct_rice.py (differs from v5: El Nino /
+recommended specification of scripts/estimate_direct.py --crop rice (differs from v5: El Nino /
 La Nina split, spline trends, effect change from 2000, wet-season shift).
 PROVISIONAL.
 
@@ -45,7 +45,7 @@ import numpy as np  # noqa: E402
 import pandas as pd  # noqa: E402
 import statsmodels.api as sm  # noqa: E402
 
-import estimate_direct_rice as m  # noqa: E402
+import estimate_direct as m  # noqa: E402
 from agriculture.regions import REGIONS  # noqa: E402
 from climate.indices import quarterly  # noqa: E402
 from estimation.direct import THETA_GRID, base_design, climate_design, profile  # noqa: E402

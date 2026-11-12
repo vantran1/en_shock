@@ -1,7 +1,7 @@
 """Direct model for rice, FIRST LOOK (unconstrained lags, no constrained lag profile yet).
 PROVISIONAL results: first-look (free-lag) specification on the 16 regions of methodology
 v5, kept as the benchmark that v5 asks for; the recommended specification is
-scripts/estimate_direct_rice.py. The direct model uses RONI, DMI and the hazard controls,
+scripts/estimate_direct.py --crop rice. The direct model uses RONI, DMI and the hazard controls,
 not the ERA5 weather, so the ERA5 cropland weights and island coverage do not affect it.
 
 For each ecosystem (irrigated, rainfed palay), region r, quarter t:

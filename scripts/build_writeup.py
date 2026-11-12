@@ -497,7 +497,7 @@ def main():
                "(Eq. 13b).",
           fmt={"Shock (% of quarter)": "{:.1f}", "Scaled for DEFINE-PH (%)": "{:.1f}"})
     para(doc, "Code and results: GitHub repository en_shock, branch ginevra-agriculture "
-              "(scripts/estimate_direct_rice.py, scripts/compare_direct_v5_rice.py, "
+              "(scripts/estimate_direct.py, scripts/compare_direct_v5_rice.py, "
               "scripts/shocks_rice.py; tables in outputs/tables).", size=9, color=MUTED)
 
     OUT.parent.mkdir(parents=True, exist_ok=True)

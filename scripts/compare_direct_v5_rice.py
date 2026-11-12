@@ -30,10 +30,11 @@ Sets of specifications (--set):
               and the same with the RONI effects shifting from 2000, 2005 or 2010 on
               (effect_break: has the El Nino effect changed over time?)
 
-Run:  python scripts/compare_direct_v5_rice.py [--set one_change|candidate]
+Run:  python scripts/compare_direct_v5_rice.py [--crop rice|corn] [--set SET] [--break-start YYYYQn]
+      (corn: total corn; --break-start sets the Region VI break dummy, estimation.setup)
       (about 10 minutes on 8 cores per set)
-Writes outputs/tables/direct_v5_rice_spec_comparison[_candidate].csv,
-direct_v5_rice_validation[_candidate].csv, outputs/direct_v5_rice_specs[_candidate].md
+Writes outputs/tables/direct_v5_<crop>_spec_comparison[_<set>].csv,
+direct_v5_<crop>_validation[_<set>].csv, outputs/direct_v5_<crop>_specs[_<set>].md
 """
 import argparse
 import os
@@ -53,7 +54,7 @@ sys.path.insert(0, str(ROOT / "scripts"))
 import numpy as np  # noqa: E402
 import pandas as pd  # noqa: E402
 
-import estimate_direct_rice as m  # noqa: E402
+import estimate_direct as m  # noqa: E402
 from estimation.direct import (Spec, base_design, climate_design, estimate,  # noqa: E402
                                is_climate, national_effect)
 from estimation.setup import break_dummies  # noqa: E402
@@ -68,19 +69,22 @@ CANDIDATE = [Spec("candidate", **_CAND)] + [Spec(f"candidate_break{y}", effect_b
                                             for y in (2000, 2005, 2010)]
 DECLINE = [Spec("step_2000", effect_break=2000, **_CAND),
            Spec("gradual_linear", effect_trend=True, **_CAND)]
-SETS = {"one_change": ONE_CHANGE, "candidate": CANDIDATE, "decline": DECLINE}
+SUMMARY = [Spec("base"), Spec("candidate", **_CAND), Spec("step_2000", effect_break=2000, **_CAND),
+           Spec("gradual_linear", effect_trend=True, **_CAND)]
+SETS = {"one_change": ONE_CHANGE, "candidate": CANDIDATE, "decline": DECLINE, "summary": SUMMARY}
+TEST_SERIES = {"rice": ["irrigated", "rainfed"], "corn": ["corn"]}
 T_1995 = (1995 - 2006) / 10  # t of 1995 in the panel's time variable
 SPEC_OF = {s.name: s for v in SETS.values() for s in v}
 EPISODES = m.EPISODES
 WORKERS = 8
 
 
-def prepare(eco, model, spec):
+def prepare(eco, model, spec, break_start=None):
     p = m.build(eco)
     d, y = m.sample(p, model)
     LR = m.index_lags("roni", d.period, spec.K, spec.first_lag)
     LD = m.index_lags("dmi", d.period, spec.K, spec.first_lag)
-    base = base_design(d, m.CONTROLS, break_dummies(d, "palay"), spec.trend)
+    base = base_design(d, m.CONTROLS, break_dummies(d, m.GROUP[eco], start=break_start), spec.trend)
     return d, y, LR, LD, base
 
 
@@ -100,9 +104,9 @@ def episode_losses(d, X_full, b, holdout_mask=None):
 
 
 def run(job):
-    eco, model, name, holdout = job
+    eco, model, name, holdout, break_start = job
     spec = SPEC_OF[name]
-    d, y, LR, LD, base = prepare(eco, model, spec)
+    d, y, LR, LD, base = prepare(eco, model, spec, break_start)
     if holdout is None:
         r = estimate(d, y, LR, LD, base, model, spec)
         w = m.weights(eco)
@@ -165,17 +169,20 @@ def md(df, fmt="{:.3f}"):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--set", default="one_change", choices=list(SETS))
+    ap.add_argument("--crop", default="rice", choices=list(TEST_SERIES))
+    ap.add_argument("--break-start", help="start of the measurement-break dummy (corn), e.g. 2023Q3")
     ap.add_argument("--report-only", action="store_true",
                     help="rewrite the markdown report from the saved tables")
     args = ap.parse_args()
     SPECS = SETS[args.set]
     suffix = "" if args.set == "one_change" else f"_{args.set}"
-    OUT = ROOT / f"outputs/direct_v5_rice_specs{suffix}.md"
+    crop = args.crop
+    OUT = ROOT / f"outputs/direct_v5_{crop}_specs{suffix}.md"
     first = SPECS[0].name
-    jobs = [(e, mod, s.name, None) for e in ("irrigated", "rainfed") for mod in ("ppml", "ols")
-            for s in SPECS]
-    jobs += [(e, "ppml", s.name, ep) for e in ("irrigated", "rainfed") for s in SPECS
-             for ep in EPISODES]
+    series = TEST_SERIES[crop]
+    bs = args.break_start
+    jobs = [(e, mod, s.name, None, bs) for e in series for mod in ("ppml", "ols") for s in SPECS]
+    jobs += [(e, "ppml", s.name, ep, bs) for e in series for s in SPECS for ep in EPISODES]
     if not args.report_only:
         with ProcessPoolExecutor(WORKERS) as ex:
             results = list(ex.map(run, jobs))
@@ -184,12 +191,12 @@ def main():
         base_ic = spec[spec.spec == first].set_index(["ecosystem", "model"]).ic
         spec["ic_minus_base"] = spec.ic - spec.set_index(["ecosystem", "model"]).index.map(base_ic)
         spec.assign(status=m.STATUS).round(4).to_csv(
-            TAB / f"direct_v5_rice_spec_comparison{suffix}.csv", index=False)
+            TAB / f"direct_v5_{crop}_spec_comparison{suffix}.csv", index=False)
         val["error_pts"] = val.predicted_loss_pct - val.observed_loss_pct
-        val.assign(status=m.STATUS).round(3).to_csv(TAB / f"direct_v5_rice_validation{suffix}.csv",
+        val.assign(status=m.STATUS).round(3).to_csv(TAB / f"direct_v5_{crop}_validation{suffix}.csv",
                                                     index=False)
-    spec = pd.read_csv(TAB / f"direct_v5_rice_spec_comparison{suffix}.csv")
-    val = pd.read_csv(TAB / f"direct_v5_rice_validation{suffix}.csv")
+    spec = pd.read_csv(TAB / f"direct_v5_{crop}_spec_comparison{suffix}.csv")
+    val = pd.read_csv(TAB / f"direct_v5_{crop}_validation{suffix}.csv")
 
     order = [s.name for s in SPECS]
     pd.set_option("display.width", 250, "display.max_columns", 40)
@@ -217,8 +224,10 @@ def main():
     print(tab.round(3).to_string(index=False))
     print(vt.to_string(index=False))
 
-    s = ["# v5 direct approach for palay: specification tests and validation (PROVISIONAL)\n",
-         f"Built by `scripts/compare_direct_v5_rice.py --set {args.set}`. "
+    s = [f"# v5 direct approach for {'palay' if crop == 'rice' else crop}: specification tests "
+         "and validation (PROVISIONAL)\n",
+         f"Built by `scripts/compare_direct_v5_rice.py --crop {crop} --set {args.set}"
+         + (f" --break-start {bs}" if bs else "") + "`. "
          + ("Each variant changes one choice of the base specification (v5 Eq. 4). "
             if args.set == "one_change" else
             "Step versus gradual change of the El Niño effect, both on the candidate (El Niño / "
@@ -227,6 +236,10 @@ def main():
             "(B_RP = today's effect, change_per_decade_RP its rate of change). B_RP_today and "
             "B_RP_1995 compare the two (dry-season harvest). "
             if args.set == "decline" else
+            "Summary set: v5 as written (base), the candidate (El Niño / La Niña split + season shift "
+            "+ spline trends), and the candidate with the effect changing in a step in 2000 or "
+            "gradually (B_RP_today / B_RP_1995 compare them). "
+            if args.set == "summary" else
             "Candidate = El Niño / La Niña split + season shift + spline trends + regional effects; "
             "the break variants let the El Niño and La Niña effects shift from 2000, 2005 or 2010 on "
             "(B_RP = El Niño effect in dry-season harvest quarters before the break; B_RP_post after; "
