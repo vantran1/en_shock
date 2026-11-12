@@ -1,0 +1,43 @@
+{
+  "created_utc": "2026-11-12T03:34:39+00:00",
+  "sources": {
+    "ADM1": {
+      "file": "data/boundaries/source/geoBoundaries-PHL-ADM1_simplified.geojson",
+      "url": "https://media.githubusercontent.com/media/wmgeolab/geoBoundaries/main/releaseData/gbOpen/PHL/ADM1/geoBoundaries-PHL-ADM1_simplified.geojson",
+      "sha256": "8eeef6a9a525a81a647dcaac85e1337b990fc527c4a0e9c70556d5b0905be087"
+    },
+    "ADM2": {
+      "file": "data/boundaries/source/geoBoundaries-PHL-ADM2_simplified.geojson",
+      "url": "https://media.githubusercontent.com/media/wmgeolab/geoBoundaries/main/releaseData/gbOpen/PHL/ADM2/geoBoundaries-PHL-ADM2_simplified.geojson",
+      "sha256": "fa77b9f17db2e419acaae714a935f7812be4409e2983675d34020e8426a3e189"
+    }
+  },
+  "license": "geoBoundaries gbOpen PHL: CC BY 3.0 IGO (NAMRIA, PSA, OCHA Philippines)",
+  "sulu": "barmm",
+  "grid_res_deg": 0.25,
+  "era5_cells_per_region": {
+    "BARMM": 21,
+    "CAR": 25,
+    "MIMAROPA": 36,
+    "R01": 17,
+    "R02": 35,
+    "R03": 26,
+    "R04A": 22,
+    "R09": 18,
+    "R05": 25,
+    "R06": 27,
+    "R07": 20,
+    "R08": 26,
+    "R10": 21,
+    "R11": 28,
+    "R12": 21,
+    "R13": 25
+  },
+  "notes": [
+    "Cotabato City (86 km2) moved from Region XII to BARMM",
+    "Sulu kept in BARMM (as in most years of the BARMM corn series)",
+    "NCR dropped (no corn series)",
+    "16 units, total 293,802 km2, overlap between units 0.00 km2",
+    "ERA5 grid (0.25 deg) cell centres per region: min 17, median 25, max 36"
+  ]
+}
