@@ -76,8 +76,10 @@ DMI_SETS = {"rice": [Spec("recommended", effect_break=2000, **_CAND),
                      Spec("recommended_no_dmi", effect_break=2000, dmi=False, **_CAND)],
             "corn": [Spec("recommended_corn", **_CAND),
                      Spec("recommended_corn_no_dmi", dmi=False, **_CAND)]}
+BREAK_YEARS = [Spec("no_break", **_CAND)] + [Spec(f"step_{y}", effect_break=y, **_CAND)
+                                              for y in (2000, 2005, 2010)]
 SETS = {"one_change": ONE_CHANGE, "candidate": CANDIDATE, "decline": DECLINE, "summary": SUMMARY,
-        "dmi": None}
+        "dmi": None, "breaks": BREAK_YEARS}
 TEST_SERIES = {"rice": ["irrigated", "rainfed"], "corn": ["corn"]}
 T_1995 = (1995 - 2006) / 10  # t of 1995 in the panel's time variable
 SPEC_OF = {s.name: s for v in list(SETS.values()) + list(DMI_SETS.values()) if v for s in v}
@@ -249,6 +251,10 @@ def main():
             "With and without the DMI, on the crop's recommended specification (the DMI moves "
             "together with RONI when El Niño builds and its timing is poorly identified). "
             if args.set == "dmi" else
+            "Break year of the El Niño effect on the full sample: no break versus a step in 2000, "
+            "2005 or 2010 (candidate specification otherwise; B_RP = effect before the break, "
+            "B_RP_today = from the break on, shift_RP_post = the change). "
+            if args.set == "breaks" else
             "Candidate = El Niño / La Niña split + season shift + spline trends + regional effects; "
             "the break variants let the El Niño and La Niña effects shift from 2000, 2005 or 2010 on "
             "(B_RP = El Niño effect in dry-season harvest quarters before the break; B_RP_post after; "

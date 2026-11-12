@@ -540,6 +540,17 @@ def main():
               "improves the predictions; plausibly because corn is largely rainfed and did not benefit "
               "from the expansion of irrigation. The recommended corn "
               "specification therefore has no change over time.")
+    cb = pd.read_csv(TAB / "direct_v5_corn_spec_comparison_breaks.csv")
+    cb = cb.set_index(["model", "spec"])
+    para(doc, "A stricter validation, which chooses the break year inside each fold, picked 2005 for "
+              "corn, so the break year was also tested on the full sample (2000, 2005, 2010). With "
+              f"Poisson a step in 2005 fits better ({-cb.loc[('ppml', 'step_2005'), 'ic_minus_base']:.0f} "
+              "points), but much of the gain comes from La Niña's effect, and El Niño's changes only "
+              f"from {cb.loc[('ppml', 'step_2005'), 'B_RP']:.2f} to {cb.loc[('ppml', 'step_2005'), 'B_RP_today']:.2f} "
+              f"(t = {cb.loc[('ppml', 'step_2005'), 't_shift_RP_post']:.1f}); least squares on logs prefers "
+              "no break for every year, and the predictions do not improve. The recommended corn "
+              "specification is kept without a break; the 2005 step is a sensitivity that puts today's "
+              "effect, and so the loss, somewhat lower.")
     table(doc, corn_effects(), [2.0, 3.6, 1.8, 3.6, 1.8],
           note="Table 6. Effect of a sustained +1 °C El Niño (RONI) on corn production, % (Poisson; "
                "production-weighted national effect; recommended corn specification).",
