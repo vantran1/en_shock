@@ -11,6 +11,7 @@ Run:  python scripts/build_writeup.py
 from datetime import date
 from pathlib import Path
 
+import numpy as np
 import pandas as pd
 from docx import Document
 from docx.enum.table import WD_TABLE_ALIGNMENT
@@ -248,6 +249,22 @@ def decline():
             for e in ("irrigated", "rainfed") for sp in ("step_2000", "gradual_linear")}
 
 
+def decline_table():
+    """Table 3a: step versus gradual change of the El Nino effect."""
+    dc = decline()
+    rows = []
+    for e in ("irrigated", "rainfed"):
+        for sp, lab in (("step_2000", "step in 2000 (recommended)"),
+                        ("gradual_linear", "gradual (linear) decline")):
+            d = dc[(e, sp)]
+            rows.append({"Palay": e, "Change of the effect": lab,
+                         "Fit vs step": "reference" if sp == "step_2000" else f"{-d['ic']:,.0f}",
+                         "Validation error (pts)": d["mae"],
+                         "Effect in 1995 (%)": (np.exp(d["y1995"]) - 1) * 100,
+                         "Effect today (%)": (np.exp(d["today"]) - 1) * 100})
+    return pd.DataFrame(rows)
+
+
 def key_numbers():
     e = effects().set_index(["Palay", "Harvest season"])
     dry = "dry (Q1–Q2)"
@@ -385,6 +402,13 @@ def main():
               f"{dc[('rainfed', 'gradual_linear')]['today']:+.2f} against "
               f"{dc[('rainfed', 'step_2000')]['today']:+.2f}). The step is kept; the gradual decline is "
               "a sensitivity that gives a lower bound for the loss.")
+    table(doc, decline_table(), [1.8, 4.6, 2.2, 2.6, 2.4, 2.4],
+          note="Table 3a. Step versus gradual change of the El Niño effect (Poisson, recommended "
+               "specification otherwise). Fit vs step = fall in the information criterion against the "
+               "step (negative = worse). Validation error = mean absolute error of the leave-one-episode-"
+               "out predictions. Effects: sustained +1 °C El Niño, dry-season harvest, production-weighted "
+               "national effect, %.",
+          fmt={"Validation error (pts)": "{:.1f}", "Effect in 1995 (%)": "{:.1f}", "Effect today (%)": "{:.1f}"})
     table(doc, effects(), [2.0, 3.0, 2.4, 2.1, 2.4, 2.4],
           note="Table 3. Effect of a sustained +1 °C El Niño (RONI) on palay production, % (Poisson; "
                "production-weighted national effect).",
