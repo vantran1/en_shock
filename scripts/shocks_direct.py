@@ -1,7 +1,12 @@
-"""El Nino shocks for palay from the direct approach (methodology v5 Section 3.5), with the
-recommended specification of scripts/estimate_direct.py --crop rice (differs from v5: El Nino /
-La Nina split, spline trends, effect change from 2000, wet-season shift).
+"""El Nino shocks from the direct approach (methodology v5 Section 3.5) for a crop, with
+its recommended specification in scripts/estimate_direct.py (differs from v5: El Nino /
+La Nina split, spline trends, wet-season shift; for rice also the effect change from 2000).
 PROVISIONAL.
+
+Crops: rice = irrigated and rainfed palay, combined into palay with neutral production
+shares; corn = total corn (the corn shock), with white and yellow corn reported
+separately and combined (white + yellow) as a consistency check. Corn includes the
+Region VI measurement-break dummy (estimation.setup), which describes today's level.
 
 Shocks (src/estimation/shocks.py): share of production lost against the neutral path
 (RONI = DMI = 0), controls at "no event" in both runs, today's conditions (the effect
@@ -20,10 +25,10 @@ Central estimate: Poisson on the full sample (timing on the 0.05 grid). Range (v
 timing parameters on a 0.10 grid in each replication; 5th and 95th percentiles.
 Log-LS central shocks are reported as a check.
 
-Run:  python scripts/shocks_rice.py [--reps 200]
-Writes outputs/tables/shocks_rice.csv (national and palay), shocks_rice_regional.csv
-(central, by region), shocks_rice_bootstrap.csv (draws), shocks_rice_episode_totals.csv
-(total loss over each scenario, % of a year's production), outputs/figures/shocks_rice.png
+Run:  python scripts/shocks_direct.py --crop rice|corn [--reps 200]
+Writes outputs/tables/shocks_<crop>.csv (national), shocks_<crop>_regional.csv (central,
+by region), shocks_<crop>_bootstrap.csv (draws), shocks_<crop>_episode_totals.csv (total
+loss over each scenario, % of a year's production), outputs/figures/shocks_<crop>.png
 """
 import os
 
@@ -54,9 +59,11 @@ from estimation.shocks import (aggregate, combine, neutral_production,  # noqa: 
                                regional_shocks, seasonal_scaling)
 
 TAB, FIG = ROOT / "outputs/tables", ROOT / "outputs/figures"
-SPEC = m.RECOMMENDED
 K = m.K
-ECOS = ("irrigated", "rainfed")
+CONF = {"rice": {"series": ["irrigated", "rainfed"], "main": "palay",
+                 "combine": ("palay", ["irrigated", "rainfed"])},
+        "corn": {"series": ["corn", "corn_white", "corn_yellow"], "main": "corn",
+                 "combine": ("white + yellow", ["corn_white", "corn_yellow"])}}
 BOOT_GRID = np.round(np.arange(0.05, 0.951, 0.10), 2)
 EPISODE_PATHS = {"1997-98": ("1997Q2", "1998Q1"), "2015-16": ("2015Q2", "2016Q1"),
                  "2023-24": ("2023Q3", "2024Q1")}
@@ -71,24 +78,24 @@ def paths():
     return out
 
 
-def prepare(eco, model="ppml"):
+def prepare(eco, spec, model="ppml"):
     p = m.build(eco)
     d, y = m.sample(p, model)
-    LR = m.index_lags("roni", d.period, K, SPEC.first_lag)
-    LD = m.index_lags("dmi", d.period, K, SPEC.first_lag)
-    base = base_design(d, m.CONTROLS, break_dummies(d, "palay"), SPEC.trend)
+    LR = m.index_lags("roni", d.period, K, spec.first_lag)
+    LD = m.index_lags("dmi", d.period, K, spec.first_lag)
+    base = base_design(d, m.CONTROLS, break_dummies(d, m.GROUP[eco]), spec.trend)
     return d, y.to_numpy(float), LR, LD, base
 
 
-def fit_params(d, y, LR, LD, base, model, grid):
+def fit_params(d, y, LR, LD, base, model, grid, spec):
     """Profile the timing on `grid`, then fit; returns params (Series) and thetas.
     Columns that are all zero in the sample (e.g. the Pinatubo marker in a bootstrap draw
     without 1991) are dropped first."""
     base = base.loc[:, base.abs().sum() > 0]
-    prof = profile(d, y, LR, LD, base, model, SPEC, grid)
+    prof = profile(d, y, LR, LD, base, model, spec, grid)
     best = prof.loc[prof.loss.idxmin()]
     tR, tD = float(best.theta_R), float(best.theta_D)
-    X = pd.concat([climate_design(d, LR, LD, tR, tD, SPEC), base], axis=1)
+    X = pd.concat([climate_design(d, LR, LD, tR, tD, spec), base], axis=1)
     X = X.loc[:, X.abs().sum() > 0]
     if model == "ppml":
         res = sm.GLM(y, X.to_numpy(float), family=sm.families.Poisson()).fit(maxiter=200, tol=1e-10)
@@ -97,28 +104,29 @@ def fit_params(d, y, LR, LD, base, model, grid):
     return pd.Series(res.params, index=X.columns), tR, tD
 
 
-def shocks(fits, data):
-    """fits: eco -> (params, tR, tD); data: eco -> (d, y, LR, LD, base) on the full sample.
-    Returns national shocks by path, scenario quarter and crop (irrigated, rainfed, palay)
-    and the central regional shocks."""
+def shocks(fits, data, crop, spec):
+    """fits: series -> (params, tR, tD); data: series -> (d, y, LR, LD, base) on the full
+    sample. Returns national shocks by path, scenario quarter and series (plus the combined
+    series of CONF) and the central regional shocks."""
     rows, regs = [], []
+    cname, parts = CONF[crop]["combine"]
     for name, path in paths().items():
         nats, y0q = {}, {}
-        for eco in ECOS:
+        for eco in CONF[crop]["series"]:
             params, tR, tD = fits[eco]
             d, y, LR, LD, base = data[eco]
-            reg = regional_shocks(params, SPEC, tR, tD, path, list(REGIONS), K)
-            X = pd.concat([climate_design(d, LR, LD, tR, tD, SPEC), base], axis=1)
+            reg = regional_shocks(params, spec, tR, tD, path, list(REGIONS), K)
+            X = pd.concat([climate_design(d, LR, LD, tR, tD, spec), base], axis=1)
             y0 = neutral_production(params, X, d, m.CONTROLS)
             nat = aggregate(reg, y0)
             y0q[eco] = y0.groupby(level="q").sum()
             nat["S_D"] = seasonal_scaling(nat, y0q[eco])
             nats[eco] = nat
             regs.append(reg.assign(path=name, crop=eco))
-        pal = combine(nats)
-        pal["S_D"] = seasonal_scaling(pal, y0q["irrigated"] + y0q["rainfed"])
-        for crop, nat in {**nats, "palay": pal}.items():
-            rows.append(nat.assign(path=name, crop=crop, path_start=path.index.min(),
+        comb = combine({k: nats[k] for k in parts})
+        comb["S_D"] = seasonal_scaling(comb, sum(y0q[k] for k in parts))
+        for series, nat in {**nats, cname: comb}.items():
+            rows.append(nat.assign(path=name, crop=series, path_start=path.index.min(),
                                    path_end=path.index.max()))
     out = pd.concat(rows, ignore_index=True)
     out["step"] = [(q - s).n for q, s in zip(out.scenario_q, out.path_start)]
@@ -140,38 +148,44 @@ def episode_totals(out, draws):
     return t.reset_index()
 
 
-def boot(rep):
+def boot(job):
+    rep, crop = job
+    spec = m.RECOMMENDED_BY_CROP[crop]
     rng = np.random.default_rng(1000 + rep)
-    data = {eco: prepare(eco) for eco in ECOS}
+    data = {eco: prepare(eco, spec) for eco in CONF[crop]["series"]}
     years = np.arange(1987, 2026)
     draw = rng.choice(years, size=len(years), replace=True)
     fits = {}
-    for eco in ECOS:
+    for eco in CONF[crop]["series"]:
         d, y, LR, LD, base = data[eco]
         yr = d.period.str[:4].astype(int).to_numpy()
         idx = np.concatenate([np.flatnonzero(yr == v) for v in draw])
         db = d.iloc[idx].reset_index(drop=True)
         fits[eco] = fit_params(db, y[idx], LR[idx], LD[idx], base.iloc[idx].reset_index(drop=True),
-                               "ppml", BOOT_GRID)
-    nat, _ = shocks(fits, data)
-    return nat.assign(rep=rep, theta_R_irr=fits["irrigated"][1], theta_R_rf=fits["rainfed"][1])
+                               "ppml", BOOT_GRID, spec)
+    nat, _ = shocks(fits, data, crop, spec)
+    return nat.assign(rep=rep, **{f"theta_R_{e}": fits[e][1] for e in CONF[crop]["series"]})
 
 
 def main():
     ap = argparse.ArgumentParser()
+    ap.add_argument("--crop", choices=list(CONF), default="rice")
     ap.add_argument("--reps", type=int, default=200)
     args = ap.parse_args()
-    data = {eco: prepare(eco) for eco in ECOS}
-    central = {eco: fit_params(*data[eco], "ppml", THETA_GRID) for eco in ECOS}
-    nat, reg = shocks(central, data)
-    ols_data = {eco: prepare(eco, "ols") for eco in ECOS}
-    ols = {eco: fit_params(*ols_data[eco], "ols", THETA_GRID) for eco in ECOS}
-    nat_ols, _ = shocks(ols, ols_data)
-    print("central thetas (Poisson):", {e: central[e][1:] for e in ECOS})
+    crop = args.crop
+    spec = m.RECOMMENDED_BY_CROP[crop]
+    series = CONF[crop]["series"]
+    data = {eco: prepare(eco, spec) for eco in series}
+    central = {eco: fit_params(*data[eco], "ppml", THETA_GRID, spec) for eco in series}
+    nat, reg = shocks(central, data, crop, spec)
+    ols_data = {eco: prepare(eco, spec, "ols") for eco in series}
+    ols = {eco: fit_params(*ols_data[eco], "ols", THETA_GRID, spec) for eco in series}
+    nat_ols, _ = shocks(ols, ols_data, crop, spec)
+    print("central thetas (Poisson):", {e: central[e][1:] for e in series})
 
     with ProcessPoolExecutor(WORKERS) as ex:
-        draws = pd.concat(list(ex.map(boot, range(args.reps))), ignore_index=True)
-    draws.round(6).to_csv(TAB / "shocks_rice_bootstrap.csv", index=False)
+        draws = pd.concat(list(ex.map(boot, [(r, crop) for r in range(args.reps)])), ignore_index=True)
+    draws.round(6).to_csv(TAB / f"shocks_{crop}_bootstrap.csv", index=False)
     key = ["path", "crop", "scenario_q"]
     q = draws.groupby(key).agg(S_p05=("S", lambda s: s.quantile(0.05)),
                                S_p95=("S", lambda s: s.quantile(0.95)),
@@ -183,32 +197,37 @@ def main():
     out = out[["path", "crop", "scenario_q", "q", "step", "in_path", "S", "S_p05", "S_p95",
                "S_D", "S_D_p05", "S_D_p95", "S_logLS_check", "S_D_logLS_check"]]
     note = "recommended spec, differs from methodology v5; provisional"
-    out.assign(reps=args.reps, spec_note=note).round(5).to_csv(TAB / "shocks_rice.csv", index=False)
-    reg.assign(spec_note=note).round(5).to_csv(TAB / "shocks_rice_regional.csv", index=False)
+    out.assign(reps=args.reps, spec_note=note).round(5).to_csv(TAB / f"shocks_{crop}.csv", index=False)
+    reg.assign(spec_note=note).round(5).to_csv(TAB / f"shocks_{crop}_regional.csv", index=False)
     episode_totals(out, draws).assign(spec_note=note).round(2).to_csv(
-        TAB / "shocks_rice_episode_totals.csv", index=False)
+        TAB / f"shocks_{crop}_episode_totals.csv", index=False)
 
     pd.set_option("display.width", 220, "display.max_rows", 200)
-    show = out[out.crop == "palay"].copy()
+    main_series = CONF[crop]["main"]
+    show = out[out.crop == main_series].copy()
     for c in ("S", "S_p05", "S_p95", "S_D", "S_D_p05", "S_D_p95", "S_logLS_check"):
         show[c] = (show[c] * 100).round(1)
-    print("\nPalay shock, % of neutral production (S, Eq. 13a) and scaled for DEFINE-PH (S_D, Eq. 13b):")
+    print(f"\n{main_series} shock, % of neutral production (S, Eq. 13a) and scaled for DEFINE-PH (S_D, Eq. 13b):")
     print(show.drop(columns=["crop", "S_D_logLS_check"]).to_string(index=False))
 
-    plot(out)
+    plot(out, crop)
 
-def plot(out):
-    """Palay shock (Eq. 13a) by path with the 90% bootstrap range, 2 x 2 panels."""
+def plot(out, crop):
+    """Main shock (Eq. 13a) by path with the 90% bootstrap range, 2 x 2 panels; dashed: the
+    component series (irrigated and rainfed palay; white and yellow corn)."""
+    main_series = CONF[crop]["main"]
+    parts = CONF[crop]["combine"][1]
+    label = "palay" if crop == "rice" else "corn"
     names = list(dict.fromkeys(out.path))
     fig, axes = plt.subplots(2, 2, figsize=(10, 7.2), sharey=True, constrained_layout=True)
     for ax, name in zip(axes.flat, names):
-        e = out[(out.path == name) & (out.crop == "palay")]
+        e = out[(out.path == name) & (out.crop == main_series)]
         ax.fill_between(e.step, e.S_p05 * 100, e.S_p95 * 100, color="#b7d3f6", lw=0,
-                        label="palay, 90% range (bootstrap)")
-        ax.plot(e.step, e.S * 100, color="#2a78d6", lw=2, marker="o", ms=4, label="palay (central)")
-        for eco, col in (("irrigated", "#0d366b"), ("rainfed", "#eb6834")):
+                        label=f"{label}, 90% range (bootstrap)")
+        ax.plot(e.step, e.S * 100, color="#2a78d6", lw=2, marker="o", ms=4, label=f"{label} (central)")
+        for eco, col in zip(parts, ("#0d366b", "#eb6834")):
             f = out[(out.path == name) & (out.crop == eco)]
-            ax.plot(f.step, f.S * 100, color=col, lw=1, ls="--", label=eco)
+            ax.plot(f.step, f.S * 100, color=col, lw=1, ls="--", label=eco.replace("corn_", "") )
         ax.axhline(0, color="#52514e", lw=0.8)
         last = e[e.in_path].step.max()
         ax.axvspan(-0.5, last + 0.5, color="#e6e5e1", lw=0, zorder=0)
@@ -222,12 +241,11 @@ def plot(out):
     for ax in axes[:, 0]:
         ax.set_ylabel("share of the quarter's production lost (%)", fontsize=8, color="#52514e")
     axes[0, 0].legend(frameon=False, fontsize=8)
-    fig.suptitle("PROVISIONAL. El Niño shock to palay under today's conditions (recommended "
+    fig.suptitle(f"PROVISIONAL. El Niño shock to {label} under today's conditions (recommended "
                  "specification, differs from v5)\nshaded: quarters of the path", fontsize=10,
                  color="#0b0b0b")
-    fig.savefig(FIG / "shocks_rice.png", dpi=150, facecolor="white")
+    fig.savefig(FIG / f"shocks_{crop}.png", dpi=150, facecolor="white")
     plt.close(fig)
-
 
 if __name__ == "__main__":
     main()

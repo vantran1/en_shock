@@ -1,0 +1,37 @@
+ecosystem,model,index,harvest_season,period,est,se,t,pct_effect_of_+1,spec,spec_note,status
+corn,ppml,El Nino (RONI+),dry (Q1-Q2),all,-0.3111,0.0651,-4.7784,-26.7382,recommended_corn,recommended; differs from methodology v5 (change log B1-B2; no change over time for corn),provisional
+corn,ppml,El Nino (RONI+),wet (Q3-Q4),all,0.1229,0.0474,2.5917,13.0756,recommended_corn,recommended; differs from methodology v5 (change log B1-B2; no change over time for corn),provisional
+corn,ppml,La Nina (RONI-),dry (Q1-Q2),all,-0.0403,0.0562,-0.7166,-3.9463,recommended_corn,recommended; differs from methodology v5 (change log B1-B2; no change over time for corn),provisional
+corn,ppml,La Nina (RONI-),wet (Q3-Q4),all,0.0006,0.0519,0.0118,0.0614,recommended_corn,recommended; differs from methodology v5 (change log B1-B2; no change over time for corn),provisional
+corn,ppml,DMI,dry (Q1-Q2),all,0.2375,0.0574,4.1379,26.8034,recommended_corn,recommended; differs from methodology v5 (change log B1-B2; no change over time for corn),provisional
+corn,ppml,DMI,wet (Q3-Q4),all,-0.0838,0.0592,-1.4169,-8.0395,recommended_corn,recommended; differs from methodology v5 (change log B1-B2; no change over time for corn),provisional
+corn,ols,El Nino (RONI+),dry (Q1-Q2),all,-0.3815,0.0718,-5.3113,-31.714,recommended_corn,recommended; differs from methodology v5 (change log B1-B2; no change over time for corn),provisional
+corn,ols,El Nino (RONI+),wet (Q3-Q4),all,0.0488,0.0929,0.5257,5.0038,recommended_corn,recommended; differs from methodology v5 (change log B1-B2; no change over time for corn),provisional
+corn,ols,La Nina (RONI-),dry (Q1-Q2),all,-0.0118,0.0535,-0.2212,-1.1771,recommended_corn,recommended; differs from methodology v5 (change log B1-B2; no change over time for corn),provisional
+corn,ols,La Nina (RONI-),wet (Q3-Q4),all,-0.0582,0.0756,-0.769,-5.6511,recommended_corn,recommended; differs from methodology v5 (change log B1-B2; no change over time for corn),provisional
+corn,ols,DMI,dry (Q1-Q2),all,0.2674,0.0661,4.0458,30.6619,recommended_corn,recommended; differs from methodology v5 (change log B1-B2; no change over time for corn),provisional
+corn,ols,DMI,wet (Q3-Q4),all,0.0295,0.0711,0.4148,2.9946,recommended_corn,recommended; differs from methodology v5 (change log B1-B2; no change over time for corn),provisional
+corn_white,ppml,El Nino (RONI+),dry (Q1-Q2),all,-0.3552,0.0641,-5.5388,-29.8979,recommended_corn,recommended; differs from methodology v5 (change log B1-B2; no change over time for corn),provisional
+corn_white,ppml,El Nino (RONI+),wet (Q3-Q4),all,0.0665,0.0389,1.7101,6.8813,recommended_corn,recommended; differs from methodology v5 (change log B1-B2; no change over time for corn),provisional
+corn_white,ppml,La Nina (RONI-),dry (Q1-Q2),all,0.0529,0.058,0.913,5.4374,recommended_corn,recommended; differs from methodology v5 (change log B1-B2; no change over time for corn),provisional
+corn_white,ppml,La Nina (RONI-),wet (Q3-Q4),all,0.0263,0.0588,0.4473,2.6655,recommended_corn,recommended; differs from methodology v5 (change log B1-B2; no change over time for corn),provisional
+corn_white,ppml,DMI,dry (Q1-Q2),all,0.1541,0.0897,1.7181,16.6598,recommended_corn,recommended; differs from methodology v5 (change log B1-B2; no change over time for corn),provisional
+corn_white,ppml,DMI,wet (Q3-Q4),all,-0.1167,0.0762,-1.5322,-11.0149,recommended_corn,recommended; differs from methodology v5 (change log B1-B2; no change over time for corn),provisional
+corn_white,ols,El Nino (RONI+),dry (Q1-Q2),all,-0.3547,0.1011,-3.5085,-29.8632,recommended_corn,recommended; differs from methodology v5 (change log B1-B2; no change over time for corn),provisional
+corn_white,ols,El Nino (RONI+),wet (Q3-Q4),all,-0.0795,0.0606,-1.3122,-7.6422,recommended_corn,recommended; differs from methodology v5 (change log B1-B2; no change over time for corn),provisional
+corn_white,ols,La Nina (RONI-),dry (Q1-Q2),all,0.0446,0.0585,0.7626,4.5592,recommended_corn,recommended; differs from methodology v5 (change log B1-B2; no change over time for corn),provisional
+corn_white,ols,La Nina (RONI-),wet (Q3-Q4),all,0.0853,0.0519,1.6459,8.9096,recommended_corn,recommended; differs from methodology v5 (change log B1-B2; no change over time for corn),provisional
+corn_white,ols,DMI,dry (Q1-Q2),all,-0.0189,0.114,-0.1653,-1.8674,recommended_corn,recommended; differs from methodology v5 (change log B1-B2; no change over time for corn),provisional
+corn_white,ols,DMI,wet (Q3-Q4),all,0.0127,0.0839,0.1514,1.2776,recommended_corn,recommended; differs from methodology v5 (change log B1-B2; no change over time for corn),provisional
+corn_yellow,ppml,El Nino (RONI+),dry (Q1-Q2),all,-0.306,0.0832,-3.6794,-26.3637,recommended_corn,recommended; differs from methodology v5 (change log B1-B2; no change over time for corn),provisional
+corn_yellow,ppml,El Nino (RONI+),wet (Q3-Q4),all,0.1457,0.0558,2.6116,15.6894,recommended_corn,recommended; differs from methodology v5 (change log B1-B2; no change over time for corn),provisional
+corn_yellow,ppml,La Nina (RONI-),dry (Q1-Q2),all,-0.0807,0.06,-1.3451,-7.7572,recommended_corn,recommended; differs from methodology v5 (change log B1-B2; no change over time for corn),provisional
+corn_yellow,ppml,La Nina (RONI-),wet (Q3-Q4),all,-0.0077,0.0547,-0.1414,-0.7709,recommended_corn,recommended; differs from methodology v5 (change log B1-B2; no change over time for corn),provisional
+corn_yellow,ppml,DMI,dry (Q1-Q2),all,0.2803,0.0657,4.2656,32.352,recommended_corn,recommended; differs from methodology v5 (change log B1-B2; no change over time for corn),provisional
+corn_yellow,ppml,DMI,wet (Q3-Q4),all,-0.0759,0.0678,-1.1199,-7.3088,recommended_corn,recommended; differs from methodology v5 (change log B1-B2; no change over time for corn),provisional
+corn_yellow,ols,El Nino (RONI+),dry (Q1-Q2),all,-0.4127,0.088,-4.6908,-33.8145,recommended_corn,recommended; differs from methodology v5 (change log B1-B2; no change over time for corn),provisional
+corn_yellow,ols,El Nino (RONI+),wet (Q3-Q4),all,-0.001,0.0859,-0.0112,-0.0961,recommended_corn,recommended; differs from methodology v5 (change log B1-B2; no change over time for corn),provisional
+corn_yellow,ols,La Nina (RONI-),dry (Q1-Q2),all,-0.0361,0.0864,-0.4181,-3.5461,recommended_corn,recommended; differs from methodology v5 (change log B1-B2; no change over time for corn),provisional
+corn_yellow,ols,La Nina (RONI-),wet (Q3-Q4),all,-0.009,0.0958,-0.0941,-0.8977,recommended_corn,recommended; differs from methodology v5 (change log B1-B2; no change over time for corn),provisional
+corn_yellow,ols,DMI,dry (Q1-Q2),all,0.1857,0.1303,1.4245,20.4003,recommended_corn,recommended; differs from methodology v5 (change log B1-B2; no change over time for corn),provisional
+corn_yellow,ols,DMI,wet (Q3-Q4),all,-0.0802,0.1318,-0.6081,-7.7041,recommended_corn,recommended; differs from methodology v5 (change log B1-B2; no change over time for corn),provisional

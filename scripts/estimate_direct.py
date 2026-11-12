@@ -26,8 +26,10 @@ the ecosystem's production) plus the common shifts, for dry / wet harvest quarte
 before / from 2000. Implied losses: production relative to a neutral path (RONI = DMI = 0),
 summed over regions, for the RONI part and for RONI + DMI.
 
-For corn the recommended specification of rice is applied as it is; whether its changes
-hold for corn is tested in compare_direct_v5_rice.py --crop corn. Corn has the Region VI
+Corn (tests in compare_direct_v5_rice.py --crop corn --set summary): El Nino / La Nina
+split, spline trends and the wet-season shift, as for rice, but NO change of the effect
+over time: neither a step in 2000 nor a gradual change is supported for corn (largely
+rainfed, without rice's irrigation expansion). Corn has the Region VI
 measurement break (Negros Occidental, estimation.setup): a level dummy whose start can be
 set with --break-start (default: estimation.setup.BREAKS).
 
@@ -62,7 +64,12 @@ PROC, TAB, FIG = ROOT / "data/processed", ROOT / "outputs/tables", ROOT / "outpu
 K = 4
 # differs from v5 (log B1-B3); recommended because the data support it
 RECOMMENDED = Spec("recommended", split=True, season=True, trend="region_spline", effect_break=2000)
+RECOMMENDED_CORN = Spec("recommended_corn", split=True, season=True, trend="region_spline")
+RECOMMENDED_BY_CROP = {"rice": RECOMMENDED, "corn": RECOMMENDED_CORN}
 SPEC_NOTE = "recommended; differs from methodology v5 (change log B1-B3)"
+SPEC_NOTE_BY_CROP = {"rice": SPEC_NOTE,
+                     "corn": "recommended; differs from methodology v5 (change log B1-B2; no change "
+                             "over time for corn)"}
 EPISODES = {"1997-98": ("1997Q2", "1998Q4"), "2015-16": ("2015Q2", "2016Q4"),
             "2023-24": ("2023Q2", "2024Q4")}
 STATUS = "provisional"
@@ -85,7 +92,9 @@ def implied_losses(d, X, b):
     return out.groupby("period").sum()
 
 
-def main(crop="rice", spec=RECOMMENDED, check=None, break_start=None):
+def main(crop="rice", spec=None, check=None, break_start=None):
+    spec = spec or RECOMMENDED_BY_CROP[crop]
+    note = SPEC_NOTE_BY_CROP[crop]
     replace = CHECKS.get(check) if check else None
     sfx = f"_check_{check}" if check else (f"_break{break_start}" if break_start else "")
     coef_rows, nat_rows, timing_rows, losses, profiles = [], [], [], [], []
@@ -138,15 +147,15 @@ def main(crop="rice", spec=RECOMMENDED, check=None, break_start=None):
 
     coef = pd.DataFrame(coef_rows)
     coef["t"] = coef.est / coef.se
-    coef.assign(spec=spec.name, spec_note=SPEC_NOTE, status=STATUS).round(4).to_csv(TAB / f"direct_{crop}_coefficients{sfx}.csv",
+    coef.assign(spec=spec.name, spec_note=note, status=STATUS).round(4).to_csv(TAB / f"direct_{crop}_coefficients{sfx}.csv",
                                                                index=False)
     nat = pd.DataFrame(nat_rows)
     nat["t"] = nat.est / nat.se
     nat["pct_effect_of_+1"] = (np.exp(nat.est) - 1) * 100
-    nat.assign(spec=spec.name, spec_note=SPEC_NOTE, status=STATUS).round(4).to_csv(TAB / f"direct_{crop}_national_effects{sfx}.csv",
+    nat.assign(spec=spec.name, spec_note=note, status=STATUS).round(4).to_csv(TAB / f"direct_{crop}_national_effects{sfx}.csv",
                                                               index=False)
     timing = pd.DataFrame(timing_rows)
-    timing.assign(spec=spec.name, spec_note=SPEC_NOTE, status=STATUS).round(4).to_csv(TAB / f"direct_{crop}_timing{sfx}.csv",
+    timing.assign(spec=spec.name, spec_note=note, status=STATUS).round(4).to_csv(TAB / f"direct_{crop}_timing{sfx}.csv",
                                                                  index=False)
     pd.concat(profiles).round(4).to_csv(TAB / f"direct_{crop}_profile{sfx}.csv", index=False)
 
@@ -154,7 +163,7 @@ def main(crop="rice", spec=RECOMMENDED, check=None, break_start=None):
     L["loss_roni_pct"] = (1 - L.actual / L.neutral_roni) * 100
     L["loss_roni_dmi_pct"] = (1 - L.actual / L.neutral_roni_dmi) * 100
     L.index = pd.PeriodIndex(L.index, freq="Q")
-    L.assign(spec=spec.name, spec_note=SPEC_NOTE, status=STATUS).round(2).to_csv(TAB / f"direct_{crop}_implied_losses{sfx}.csv")
+    L.assign(spec=spec.name, spec_note=note, status=STATUS).round(2).to_csv(TAB / f"direct_{crop}_implied_losses{sfx}.csv")
     yr = L.groupby(L.index.year)[["actual", "neutral_roni", "neutral_roni_dmi"]].sum()
     yr["implied_loss_roni_pct"] = (1 - yr.actual / yr.neutral_roni) * 100
     yr["implied_loss_roni_dmi_pct"] = (1 - yr.actual / yr.neutral_roni_dmi) * 100
@@ -187,8 +196,10 @@ def main(crop="rice", spec=RECOMMENDED, check=None, break_start=None):
         e = reg[reg.ecosystem == eco].set_index("region_code").reindex(list(REGIONS))
         x = np.arange(len(REGIONS)) + (j - (len(series) - 1) / 2) * 0.25
         ax.errorbar(x, e.est, yerr=1.96 * e.se, fmt="o", ms=5, color=col, capsize=2.5, lw=1.1,
-                    label=f"{eco} {CROPS[crop]['label'] if crop == 'rice' else ''}, before 2000".replace(" ,", ","))
-        for per, ls in (("before 2000", "--"), ("from 2000", ":")):
+                    label=f"{eco} {CROPS[crop]['label'] if crop == 'rice' else ''}".strip()
+                    + (", before 2000" if spec.effect_break else ""))
+        periods = list(dict.fromkeys(nat[nat["index"] == INDEX_NAME["RP"]].period))
+        for per, ls in zip(periods, ("--", ":")):
             v = nat[(nat.ecosystem == eco) & (nat.model == "ppml") & (nat["index"] == INDEX_NAME["RP"])
                     & (nat.harvest_season == "dry (Q1-Q2)") & (nat.period == per)].est.iloc[0]
             ax.axhline(v, color=col, lw=0.9, ls=ls)
@@ -199,11 +210,13 @@ def main(crop="rice", spec=RECOMMENDED, check=None, break_start=None):
         ax.spines[sp].set_visible(False)
     ax.tick_params(labelsize=8, colors=MUTED)
     ax.grid(axis="y", color=GRID, lw=0.5)
-    ax.legend(frameon=False, fontsize=8,
-              title="lines: national, dashed before 2000, dotted from 2000", title_fontsize=7)
+    ax.legend(frameon=False, fontsize=8, title_fontsize=7,
+              title=("lines: national, dashed before 2000, dotted from 2000" if spec.effect_break
+                     else "dashed line: national effect"))
+    changes = "El Niño / La Niña split, spline trends" + (", change from 2000" if spec.effect_break else "")
     ax.set_title(f"PROVISIONAL. {crop.capitalize()}, recommended specification, differs from v5 "
-                 "(El Niño / La Niña split, spline trends, change from 2000):\nEl Niño effect by region, "
-                 "dry-season harvest, Poisson, 95% Driscoll–Kraay", fontsize=10, color=INK, loc="left")
+                 f"({changes}):\nEl Niño effect by region, dry-season harvest, Poisson, 95% "
+                 "Driscoll–Kraay", fontsize=10, color=INK, loc="left")
     fig.savefig(FIG / f"direct_{crop}_effects.png", dpi=150, facecolor="white")
     plt.close(fig)
 
