@@ -215,17 +215,57 @@ def effects():
     return pd.DataFrame(rows)
 
 
-def episode_totals():
-    t = pd.read_csv(TAB / "shocks_rice_episode_totals.csv")
+def episode_totals(crop="rice", main="palay", parts=("irrigated", "rainfed")):
+    t = pd.read_csv(TAB / f"shocks_{crop}_episode_totals.csv")
     t["path"] = t.path.str.replace("unit RONI +1 (4 quarters from Q3)", "unit path: RONI +1 for 4 quarters", regex=False)
     w = t.pivot_table(index="path", columns="crop", values="total_loss_pct_of_annual")
-    r = t[t.crop == "palay"].set_index("path")
+    r = t[t.crop == main].set_index("path")
+    name = {"palay": "Palay", "corn": "Corn"}[main]
     out = pd.DataFrame({"Path (replayed under today's conditions)": w.index,
-                        "Palay": w["palay"].values,
-                        "90% range": [f"{r.loc[k, 'p05']:.1f} to {r.loc[k, 'p95']:.1f}" for k in w.index],
-                        "Irrigated": w["irrigated"].values, "Rainfed": w["rainfed"].values,
-                        "Draws with a loss (palay, %)": [r.loc[k, "share_of_draws_with_loss_pct"] for k in w.index]})
+                        name: w[main].values,
+                        "90% range": [f"{r.loc[k, 'p05']:.1f} to {r.loc[k, 'p95']:.1f}" for k in w.index]})
+    for c in parts:
+        out[c.replace("corn_", "").capitalize()] = w[c].values
+    out[f"Draws with a loss ({main}, %)"] = [r.loc[k, "share_of_draws_with_loss_pct"] for k in w.index]
     return out
+
+
+def corn_specs():
+    s = pd.read_csv(TAB / "direct_v5_corn_spec_comparison_summary.csv")
+    s = s[s.model == "ppml"].set_index("spec")
+    v = pd.read_csv(TAB / "direct_v5_corn_validation_summary.csv")
+    mae = v.groupby("spec").error_pts.apply(lambda x: x.abs().mean())
+    names = {"base": "v5 as written", "candidate": "split + spline + season (recommended)",
+             "step_2000": "+ step in 2000", "gradual_linear": "+ gradual change"}
+    rows = []
+    for k, lab in names.items():
+        eff = s.loc[k, "B_RP"] if "B_RP" in s and pd.notna(s.loc[k].get("B_RP")) else s.loc[k, "B_R"]
+        rows.append({"Specification": lab,
+                     "Fit gain vs v5": "reference" if k == "base" else f"{-s.loc[k, 'ic_minus_base']:,.0f}",
+                     "El Niño effect (log points)": eff,
+                     "Validation error (pts)": mae[k]})
+    return pd.DataFrame(rows)
+
+
+def corn_effects():
+    n = pd.read_csv(TAB / "direct_corn_national_effects.csv")
+    n = n[(n.model == "ppml") & n["index"].str.startswith("El")]
+    rows = []
+    for e, lab in (("corn", "total"), ("corn_white", "white"), ("corn_yellow", "yellow")):
+        x = n[n.ecosystem == e].set_index("harvest_season")
+        rows.append({"Corn": lab, "Dry-season harvest (Q1–Q2), %": x.loc["dry (Q1-Q2)", "pct_effect_of_+1"],
+                     "t (dry)": x.loc["dry (Q1-Q2)", "t"],
+                     "Wet-season harvest (Q3–Q4), %": x.loc["wet (Q3-Q4)", "pct_effect_of_+1"],
+                     "t (wet)": x.loc["wet (Q3-Q4)", "t"]})
+    return pd.DataFrame(rows)
+
+
+def corn_checks():
+    out = {}
+    for sfx, lab in (("", "main"), ("_check_kanlaon", "kanlaon"), ("_check_no_vi_corn_2023q3", "no_vi")):
+        n = pd.read_csv(TAB / f"direct_corn_national_effects{sfx}.csv")
+        out[lab] = n[(n.model == "ppml") & n["index"].str.startswith("El")].set_index(["ecosystem", "harvest_season"]).est
+    return max((out["kanlaon"] - out["main"]).abs().max(), (out["no_vi"] - out["main"]).abs().max())
 
 
 def quarterly_palay():
@@ -277,6 +317,10 @@ def key_numbers():
         "irr_before": -e.loc[("irrigated", dry), "Before 2000"], "rf_before": -e.loc[("rainfed", dry), "Before 2000"],
         "s97": tot.loc["1997-98", "Palay"], "s15": tot.loc["2015-16", "Palay"], "s23": tot.loc["2023-24", "Palay"],
         "mae_base_irr": val[("irrigated", "v5 as written")],
+        "corn_dry": -corn_effects().set_index("Corn").loc["total", "Dry-season harvest (Q1–Q2), %"],
+        "c97": episode_totals("corn", "corn", ()).set_index("Path (replayed under today's conditions)").loc["1997-98", "Corn"],
+        "c15": episode_totals("corn", "corn", ()).set_index("Path (replayed under today's conditions)").loc["2015-16", "Corn"],
+        "c23": episode_totals("corn", "corn", ()).set_index("Path (replayed under today's conditions)").loc["2023-24", "Corn"],
         "mae_rec_irr": val[("irrigated", "recommended (+ change from 2000)")],
         "peak_lo": peak[["1997-98", "2015-16"]].min(), "peak_hi": peak[["1997-98", "2015-16"]].max(),
     }
@@ -293,7 +337,7 @@ def main():
     doc.add_heading("Summary", level=1)
     status(doc, "draft, updated as each part is completed")
     para(doc, "This note reports the results of the direct approach for the agricultural shocks. "
-              "Rice is complete up to the shocks; corn, vegetables and root crops (VR), perennial "
+              "Rice and corn are complete up to the shocks; vegetables and root crops (VR), perennial "
               "fruits (PF) and the two-stage approach follow. All results are provisional.")
     bullets(doc, [
         ("Methodology v5 as written does not reproduce the past El Niño episodes for rice. ",
@@ -310,6 +354,11 @@ def main():
         ("Shocks: ", f"replayed under today's conditions, the 1997–98 and 2015–16 episodes cost about "
          f"{k['s97']:.1f}% and {k['s15']:.1f}% of a year's palay production and 2023–24 about "
          f"{k['s23']:.1f}%, with wide ranges, mainly because the effect on irrigated rice is uncertain."),
+        ("Corn: ", f"separate El Niño and La Niña effects and smooth trends matter even more than for "
+         f"rice, but the effect has not changed over time. A sustained +1 °C El Niño lowers "
+         f"dry-season corn harvests by about {k['corn_dry']:.0f}%; replayed today, the 1997–98, "
+         f"2015–16 and 2023–24 episodes cost about {k['c97']:.1f}%, {k['c15']:.1f}% and "
+         f"{k['c23']:.1f}% of a year's corn production, with wide ranges (section 3)."),
     ])
 
     doc.add_heading("1. Data", level=1)
@@ -471,13 +520,53 @@ def main():
     ])
 
     doc.add_heading("3. Corn", level=1)
-    status(doc, "to come")
-    para(doc, "Same approach as rice, on total, white and yellow corn, with typhoon and flood exposure "
-              "weighted by corn production. Negros Occidental corn falls sharply from 2023Q3 (area "
-              "harvested about 68,000–70,000 ha a year in 2018–2022, 27,000 ha in 2025), in a way not "
-              "seen in the rest of Region VI or the country; it is treated as a measurement break, "
-              "with a level dummy for Region VI corn whose start will be chosen by the data, and a "
-              "check without Region VI corn from 2023Q3.")
+    status(doc, "draft; the recommended specification awaits agreement")
+    cs = corn_specs()
+    para(doc, "The same approach is applied to total, white and yellow corn (16 regions, 1987–2025), "
+              "with typhoon and flood exposure weighted by corn production. Table 5 repeats the main "
+              "tests of section 2 on total corn.")
+    table(doc, cs, [6.4, 2.8, 3.4, 3.4],
+          note="Table 5. Total corn, Poisson. Fit gain against v5 as written (positive = better after "
+               "charging for extra parameters); El Niño effect = production-weighted national effect "
+               "of a sustained +1 °C RONI in dry-season harvests (before 2000 for the step); "
+               "validation error = mean absolute error of the leave-one-episode-out predictions.",
+          fmt={"El Niño effect (log points)": "{:.3f}", "Validation error (pts)": "{:.1f}"})
+    para(doc, "Separate El Niño and La Niña effects and smooth trends matter even more for corn than for "
+              "rice: methodology v5 as written finds almost no El Niño effect, because La Niña does not "
+              "raise corn production either, so a single linear RONI term cancels the El Niño loss. "
+              "Unlike rice, the corn effect has not changed over time: with a step in 2000 the change "
+              "itself is close to zero and not significant (t = 0.3), the gain in fit is negligible "
+              "(and reversed with least squares on logs), and neither the step nor a gradual change "
+              "improves the predictions; plausibly because corn is largely rainfed and did not benefit "
+              "from the expansion of irrigation. The recommended corn "
+              "specification therefore has no change over time.")
+    table(doc, corn_effects(), [2.0, 3.6, 1.8, 3.6, 1.8],
+          note="Table 6. Effect of a sustained +1 °C El Niño (RONI) on corn production, % (Poisson; "
+               "production-weighted national effect; recommended corn specification).",
+          fmt={"Dry-season harvest (Q1–Q2), %": "{:.1f}", "Wet-season harvest (Q3–Q4), %": "{:.1f}",
+               "t (dry)": "{:.1f}", "t (wet)": "{:.1f}"})
+    para(doc, "El Niño lowers dry-season corn harvests by about a quarter for each +1 °C; wet-season "
+              "harvests rise slightly, which most likely reflects harvests shifting from the first to "
+              "the second half of the year rather than a gain, and nets out in the shocks, which add up "
+              "the quarters. As for rainfed rice, the 1997–98 loss is not predicted when that episode is "
+              "left out, consistent with losses that rise faster than linearly in severe droughts.")
+    para(doc, "Negros Occidental: corn area harvested falls from 2023Q3 (about 68,000–70,000 ha a year "
+              "in 2018–2022, 27,000 ha in 2025), not seen in the rest of Region VI or the country. The "
+              "published data are kept and a level dummy for Region VI corn from 2023Q3 is included. "
+              "With the smooth trends of the recommended specification the dummy is small, because the "
+              "Region VI trend follows the fall, and its start date cannot be identified; the national "
+              "El Niño effect is the same whatever the start, and the same when Region VI corn is "
+              "dropped from 2023Q3, or when the 2024–26 Kanlaon eruption is added to the eruption "
+              f"marker (largest difference {corn_checks():.3f} log points).")
+    if (TAB / "shocks_corn_episode_totals.csv").exists():
+        table(doc, episode_totals("corn", "corn", ("corn_white", "corn_yellow")), [5.4, 1.6, 2.5, 1.8, 1.7, 2.6],
+              note="Table 7. Corn: total loss over the path and the four quarters after it, % of one "
+                   "year's neutral production (same paths and method as Table 4).",
+              fmt={"Corn": "{:.1f}", "White": "{:.1f}", "Yellow": "{:.1f}",
+                   "Draws with a loss (corn, %)": "{:.0f}"})
+        figure(doc, FIG / "shocks_corn.png", 16.4,
+               "Figure 3. Quarterly corn shock (share of the quarter's neutral production) with the 90% "
+               "bootstrap range; dashed: white and yellow corn; shaded: quarters of the path.")
 
     doc.add_heading("4. Vegetables and root crops (VR) and perennial fruits (PF)", level=1)
     status(doc, "to come")
