@@ -71,10 +71,16 @@ DECLINE = [Spec("step_2000", effect_break=2000, **_CAND),
            Spec("gradual_linear", effect_trend=True, **_CAND)]
 SUMMARY = [Spec("base"), Spec("candidate", **_CAND), Spec("step_2000", effect_break=2000, **_CAND),
            Spec("gradual_linear", effect_trend=True, **_CAND)]
-SETS = {"one_change": ONE_CHANGE, "candidate": CANDIDATE, "decline": DECLINE, "summary": SUMMARY}
+# with and without the DMI, on each crop's recommended specification
+DMI_SETS = {"rice": [Spec("recommended", effect_break=2000, **_CAND),
+                     Spec("recommended_no_dmi", effect_break=2000, dmi=False, **_CAND)],
+            "corn": [Spec("recommended_corn", **_CAND),
+                     Spec("recommended_corn_no_dmi", dmi=False, **_CAND)]}
+SETS = {"one_change": ONE_CHANGE, "candidate": CANDIDATE, "decline": DECLINE, "summary": SUMMARY,
+        "dmi": None}
 TEST_SERIES = {"rice": ["irrigated", "rainfed"], "corn": ["corn"]}
 T_1995 = (1995 - 2006) / 10  # t of 1995 in the panel's time variable
-SPEC_OF = {s.name: s for v in SETS.values() for s in v}
+SPEC_OF = {s.name: s for v in list(SETS.values()) + list(DMI_SETS.values()) if v for s in v}
 EPISODES = m.EPISODES
 WORKERS = 8
 
@@ -114,7 +120,7 @@ def run(job):
                    theta_R=r["theta_R"], theta_D=r["theta_D"], theta_on_grid_edge=r["on_grid_edge"])
         row["ic"] = (len(d) * np.log(r["loss"] / len(d)) if model == "ols" else r["loss"]) \
             + r["k"] * np.log(len(d))
-        for idx in (("RP", "RN") if spec.split else ("R",)) + ("D",):
+        for idx in (("RP", "RN") if spec.split else ("R",)) + (("D",) if spec.dmi else ()):
             est, se = national_effect(r["fit"], r["X"], w, idx, spec)
             row[f"B_{idx}"], row[f"t_{idx}"] = est, est / se
             if spec.season:
@@ -174,7 +180,7 @@ def main():
     ap.add_argument("--report-only", action="store_true",
                     help="rewrite the markdown report from the saved tables")
     args = ap.parse_args()
-    SPECS = SETS[args.set]
+    SPECS = SETS[args.set] or DMI_SETS[args.crop]
     suffix = "" if args.set == "one_change" else f"_{args.set}"
     crop = args.crop
     OUT = ROOT / f"outputs/direct_v5_{crop}_specs{suffix}.md"
@@ -240,6 +246,9 @@ def main():
             "+ spline trends), and the candidate with the effect changing in a step in 2000 or "
             "gradually (B_RP_today / B_RP_1995 compare them). "
             if args.set == "summary" else
+            "With and without the DMI, on the crop's recommended specification (the DMI moves "
+            "together with RONI when El Niño builds and its timing is poorly identified). "
+            if args.set == "dmi" else
             "Candidate = El Niño / La Niña split + season shift + spline trends + regional effects; "
             "the break variants let the El Niño and La Niña effects shift from 2000, 2005 or 2010 on "
             "(B_RP = El Niño effect in dry-season harvest quarters before the break; B_RP_post after; "

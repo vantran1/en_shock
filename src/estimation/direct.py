@@ -32,6 +32,9 @@ The choices v5 lists as still being tested are switches of `Spec` (defaults = Eq
 Not on v5's list, suggested by the episode validation (1997-98 large losses, 2015-16 none):
 - effect_break: the RONI effects (El Nino and La Nina) shift from this year on, by a
            common amount in all regions (test of whether the effect changed over time);
+- dmi:     False leaves the DMI out (RONI only). Tested because DMI and RONI move together
+           in the quarters when El Nino builds (correlation 0.46 in Q3, 0.62 in Q4, 1987-2025)
+           and the DMI timing is poorly identified.
 - effect_trend: the RONI effects change linearly over time instead (gradual decline), by
            a common rate in all regions; time is centred on today (t_today), so the total
            effects B are today's effects. t is the panel's time variable (decades from
@@ -76,6 +79,7 @@ class Spec:
     effect_break: int | None = None
     effect_trend: bool = False
     t_today: float = 1.9
+    dmi: bool = True
 
 
 def binomial_weights(theta: float, K: int) -> np.ndarray:
@@ -135,7 +139,8 @@ def climate_design(p: pd.DataFrame, lagsR: np.ndarray, lagsD: np.ndarray, tR: fl
                  "RN": blended(np.clip(lagsR, None, 0), tR)}
     else:
         terms = {"R": blended(lagsR, tR)}
-    terms["D"] = blended(lagsD, tD)
+    if spec.dmi:
+        terms["D"] = blended(lagsD, tD)
     g = pd.get_dummies(groups(p, spec.pooling), dtype=float)
     parts = [g.mul(z, axis=0).add_prefix(f"B{k}_") for k, z in terms.items()]
     if spec.season:
@@ -173,7 +178,7 @@ def profile(p, y, lagsR, lagsD, base, model, spec=Spec(), grid=THETA_GRID) -> pd
     yv = np.asarray(y, float)
     rows = []
     for tR in grid:
-        for tD in grid:
+        for tD in (grid if spec.dmi else grid[:1]):  # no DMI: theta_D irrelevant
             C = climate_design(p, lagsR, lagsD, tR, tD, spec).to_numpy(float)
             rows.append((tR, tD, _loss(yv, np.hstack([C, B]), model)))
     return pd.DataFrame(rows, columns=["theta_R", "theta_D", "loss"])
@@ -189,9 +194,10 @@ def estimate(p, y, lagsR, lagsD, base, model, spec=Spec(), grid=THETA_GRID) -> d
     X = pd.concat([climate_design(p, lagsR, lagsD, tR, tD, spec), base], axis=1)
     X = X.loc[:, X.abs().sum() > 0]
     res = fit(y, X, p["period"], model)
-    return {"fit": res, "X": X, "profile": prof, "theta_R": tR, "theta_D": tD,
-            "loss": float(best.loss), "k": X.shape[1],
-            "on_grid_edge": tR in (grid[0], grid[-1]) or tD in (grid[0], grid[-1])}
+    edge = tR in (grid[0], grid[-1]) or (spec.dmi and tD in (grid[0], grid[-1]))
+    return {"fit": res, "X": X, "profile": prof, "theta_R": tR,
+            "theta_D": tD if spec.dmi else float("nan"),
+            "loss": float(best.loss), "k": X.shape[1], "on_grid_edge": edge}
 
 
 def national_effect(res: dict, X: pd.DataFrame, weights: pd.Series, idx: str,
