@@ -379,12 +379,12 @@ def main():
               f"{dc[('rainfed', 'step_2000')]['mae']:.1f} against {dc[('rainfed', 'gradual_linear')]['mae']:.1f} "
               "for rainfed). Both agree on a large effect in the 1990s; they differ on today's: the "
               "data show a fall around 2000 and a roughly constant effect since, whereas a straight "
-              "line keeps falling and puts today's effect lower (irrigated "
+              "line keeps falling and puts today's effect closer to zero, that is a smaller loss (irrigated "
               f"{dc[('irrigated', 'gradual_linear')]['today']:+.2f} against "
               f"{dc[('irrigated', 'step_2000')]['today']:+.2f} log points; rainfed "
               f"{dc[('rainfed', 'gradual_linear')]['today']:+.2f} against "
               f"{dc[('rainfed', 'step_2000')]['today']:+.2f}). The step is kept; the gradual decline is "
-              "a sensitivity that gives a lower bound.")
+              "a sensitivity that gives a lower bound for the loss.")
     table(doc, effects(), [2.0, 3.0, 2.4, 2.1, 2.4, 2.4],
           note="Table 3. Effect of a sustained +1 °C El Niño (RONI) on palay production, % (Poisson; "
                "production-weighted national effect).",
@@ -421,8 +421,8 @@ def main():
     bullets(doc, [
         ("The change in 2000 rests on three strong episodes. ", "It is a clear pattern, not proof. A "
          "gradual (linear) decline of the effect, tested as an alternative, fits worse and predicts "
-         "the episodes less well (section 2.3); it would put today's effect lower, so it gives a "
-         "lower bound."),
+         "the episodes less well (section 2.3); it puts today's effect closer to zero, so it gives a "
+         "lower bound for the loss."),
         ("Rainfed 1997–98 is understated, ", "which supports the two-stage approach for severe droughts."),
         ("The effect on irrigated palay is uncertain: ", "its range includes zero, which widens the "
          "palay range."),
