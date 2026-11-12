@@ -31,11 +31,15 @@ The choices v5 lists as still being tested are switches of `Spec` (defaults = Eq
            Mindanao) or one 'national' effect.
 Not on v5's list, suggested by the episode validation (1997-98 large losses, 2015-16 none):
 - effect_break: the RONI effects (El Nino and La Nina) shift from this year on, by a
-           common amount in all regions (test of whether the effect changed over time).
+           common amount in all regions (test of whether the effect changed over time);
+- effect_trend: the RONI effects change linearly over time instead (gradual decline), by
+           a common rate in all regions; time is centred on today (t_today), so the total
+           effects B are today's effects. t is the panel's time variable (decades from
+           2006), so t_today = 1.9 is 2025.
 
 Climate columns are named B<idx>_<group> (total effects), S<idx>_wet (season shift) and
-S<idx>_post (shift after effect_break), with idx R (RONI), RP / RN (El Nino / La Nina) or
-D (DMI).
+S<idx>_post (shift after effect_break), S<idx>_trend (change per decade, effect_trend), with
+idx R (RONI), RP / RN (El Nino / La Nina) or D (DMI).
 
 Standard errors: Driscoll-Kraay (estimation.panel), conditional on the selected timing
 parameters; v5 computes the confidence intervals of the shocks by a block bootstrap over
@@ -70,6 +74,8 @@ class Spec:
     trend: str = "region"
     pooling: str = "region"
     effect_break: int | None = None
+    effect_trend: bool = False
+    t_today: float = 1.9
 
 
 def binomial_weights(theta: float, K: int) -> np.ndarray:
@@ -140,6 +146,10 @@ def climate_design(p: pd.DataFrame, lagsR: np.ndarray, lagsD: np.ndarray, tR: fl
                           >= spec.effect_break, dtype=float)
         parts.append(pd.DataFrame({f"S{k}_post": z * post for k, z in terms.items()
                                    if k.startswith("R")}, index=p.index))
+    if spec.effect_trend:
+        dt = p["t"].to_numpy(float) - spec.t_today
+        parts.append(pd.DataFrame({f"S{k}_trend": z * dt for k, z in terms.items()
+                                   if k.startswith("R")}, index=p.index))
     return pd.concat(parts, axis=1)
 
 
@@ -185,10 +195,12 @@ def estimate(p, y, lagsR, lagsD, base, model, spec=Spec(), grid=THETA_GRID) -> d
 
 
 def national_effect(res: dict, X: pd.DataFrame, weights: pd.Series, idx: str,
-                    spec: Spec = Spec(), wet: bool = False, post: bool = False):
+                    spec: Spec = Spec(), wet: bool = False, post: bool = False,
+                    dt: float | None = None):
     """Production-weighted national total effect of index idx ('R', 'RP', 'RN', 'D'),
     with its Driscoll-Kraay s.e.; wet=True adds the wet-season shift, post=True the shift
-    after effect_break."""
+    after effect_break; dt (decades from today) evaluates an effect_trend specification at
+    another date."""
     from estimation.panel import linear_combination
     g = weights.groupby(weights.index.map(lambda r: groups(
         pd.DataFrame({"region_code": [r]}), spec.pooling).iloc[0])).sum()
@@ -197,4 +209,6 @@ def national_effect(res: dict, X: pd.DataFrame, weights: pd.Series, idx: str,
         w[f"S{idx}_wet"] = 1.0
     if post and f"S{idx}_post" in X.columns:
         w[f"S{idx}_post"] = 1.0
+    if dt is not None and f"S{idx}_trend" in X.columns:
+        w[f"S{idx}_trend"] = dt
     return linear_combination(res, w)

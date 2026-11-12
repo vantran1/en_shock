@@ -59,6 +59,7 @@ def regional_shocks(params: pd.Series, spec: Spec, theta_R: float, theta_D: floa
                     path: pd.DataFrame, regions, K: int) -> pd.DataFrame:
     """Eq. (13): S by region and scenario quarter."""
     rows, LR, LD = scenario_frame(path, regions, K, spec.first_lag)
+    rows["t"] = spec.t_today  # today's effect when the effect changes over time
     C = climate_design(rows, LR, LD, theta_R, theta_D, spec)
     cols = [c for c in C.columns if c in params.index]
     rows["S"] = 1 - np.exp(C[cols].to_numpy(float) @ params[cols].to_numpy())

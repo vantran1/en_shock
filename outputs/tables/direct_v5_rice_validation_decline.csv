@@ -1,0 +1,13 @@
+ecosystem,model,spec,episode,theta_R,theta_D,observed_loss_pct,predicted_loss_pct,error_pts,status
+irrigated,ppml,step_2000,1997-98,0.85,0.95,13.82,10.574,-3.246,provisional
+irrigated,ppml,step_2000,2015-16,0.6,0.55,2.772,2.313,-0.459,provisional
+irrigated,ppml,step_2000,2023-24,0.7,0.5,-0.755,2.11,2.865,provisional
+irrigated,ppml,gradual_linear,1997-98,0.85,0.95,14.002,7.542,-6.46,provisional
+irrigated,ppml,gradual_linear,2015-16,0.6,0.55,3.508,2.954,-0.554,provisional
+irrigated,ppml,gradual_linear,2023-24,0.7,0.5,-2.38,0.586,2.965,provisional
+rainfed,ppml,step_2000,1997-98,0.7,0.05,27.336,11.506,-15.83,provisional
+rainfed,ppml,step_2000,2015-16,0.65,0.05,8.802,10.935,2.133,provisional
+rainfed,ppml,step_2000,2023-24,0.7,0.05,-6.114,1.123,7.237,provisional
+rainfed,ppml,gradual_linear,1997-98,0.7,0.05,28.289,12.224,-16.065,provisional
+rainfed,ppml,gradual_linear,2015-16,0.65,0.05,10.056,13.499,3.442,provisional
+rainfed,ppml,gradual_linear,2023-24,0.65,0.05,-12.307,-1.841,10.466,provisional

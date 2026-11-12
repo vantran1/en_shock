@@ -66,7 +66,10 @@ ONE_CHANGE = [Spec("base"), Spec("split", split=True), Spec("season", season=Tru
 _CAND = dict(split=True, season=True, trend="region_spline")
 CANDIDATE = [Spec("candidate", **_CAND)] + [Spec(f"candidate_break{y}", effect_break=y, **_CAND)
                                             for y in (2000, 2005, 2010)]
-SETS = {"one_change": ONE_CHANGE, "candidate": CANDIDATE}
+DECLINE = [Spec("step_2000", effect_break=2000, **_CAND),
+           Spec("gradual_linear", effect_trend=True, **_CAND)]
+SETS = {"one_change": ONE_CHANGE, "candidate": CANDIDATE, "decline": DECLINE}
+T_1995 = (1995 - 2006) / 10  # t of 1995 in the panel's time variable
 SPEC_OF = {s.name: s for v in SETS.values() for s in v}
 EPISODES = m.EPISODES
 WORKERS = 8
@@ -113,6 +116,20 @@ def run(job):
             if spec.season:
                 est, se = national_effect(r["fit"], r["X"], w, idx, spec, wet=True)
                 row[f"B_{idx}_wet"], row[f"t_{idx}_wet"] = est, est / se
+            if idx != "D" and (spec.effect_break is not None or spec.effect_trend):
+                base_est = row[f"B_{idx}"]  # dry-season effect (est is reused above for wet)
+                if spec.effect_trend:
+                    today = base_est
+                    e95, _ = national_effect(r["fit"], r["X"], w, idx, spec, dt=T_1995 - spec.t_today)
+                else:
+                    today, _ = national_effect(r["fit"], r["X"], w, idx, spec, post=True)
+                    e95 = base_est
+                row[f"B_{idx}_today"], row[f"B_{idx}_1995"] = today, e95
+                c = f"S{idx}_trend"
+                if c in r["X"].columns:
+                    sh = r["fit"]["params"][c]
+                    row[f"change_per_decade_{idx}"] = sh
+                    row[f"t_change_per_decade_{idx}"] = sh / r["fit"]["se"][r["X"].columns.get_loc(c)]
             if spec.effect_break is not None and idx != "D":
                 est, se = national_effect(r["fit"], r["X"], w, idx, spec, post=True)
                 row[f"B_{idx}_post"], row[f"t_{idx}_post"] = est, est / se
@@ -184,7 +201,10 @@ def main():
             "El Nino effect", "t"] + [c for c in ("B_RN", "t_RN", "B_R_wet", "t_R_wet", "B_RP_wet",
                                                   "t_RP_wet", "B_RP_post", "t_RP_post",
                                                   "shift_RP_post", "t_shift_RP_post",
-                                                  "shift_RN_post", "t_shift_RN_post") if c in eff]
+                                                  "shift_RN_post", "t_shift_RN_post",
+                                                  "B_RP_today", "B_RP_1995",
+                                                  "change_per_decade_RP", "t_change_per_decade_RP")
+                         if c in eff]
     tab = eff[cols].assign(spec=pd.Categorical(eff.spec, order)).sort_values(["ecosystem", "model", "spec"])
     vt = val.pivot_table(index=["ecosystem", "spec"], columns="episode",
                          values=["observed_loss_pct", "predicted_loss_pct"]).round(1)
@@ -201,6 +221,12 @@ def main():
          f"Built by `scripts/compare_direct_v5_rice.py --set {args.set}`. "
          + ("Each variant changes one choice of the base specification (v5 Eq. 4). "
             if args.set == "one_change" else
+            "Step versus gradual change of the El Niño effect, both on the candidate (El Niño / "
+            "La Niña split + season shift + spline trends + regional effects): step_2000 = "
+            "effects shift from 2000; gradual_linear = effects change linearly over time "
+            "(B_RP = today's effect, change_per_decade_RP its rate of change). B_RP_today and "
+            "B_RP_1995 compare the two (dry-season harvest). "
+            if args.set == "decline" else
             "Candidate = El Niño / La Niña split + season shift + spline trends + regional effects; "
             "the break variants let the El Niño and La Niña effects shift from 2000, 2005 or 2010 on "
             "(B_RP = El Niño effect in dry-season harvest quarters before the break; B_RP_post after; "

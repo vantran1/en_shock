@@ -237,6 +237,17 @@ def quarterly_palay():
 
 
 # ---------------------------------------------------------------- document
+def decline():
+    """Step (2000) versus gradual linear change of the El Nino effect, Poisson."""
+    s = pd.read_csv(TAB / "direct_v5_rice_spec_comparison_decline.csv")
+    s = s[s.model == "ppml"].set_index(["ecosystem", "spec"])
+    v = pd.read_csv(TAB / "direct_v5_rice_validation_decline.csv")
+    mae = v.groupby(["ecosystem", "spec"]).error_pts.apply(lambda x: x.abs().mean())
+    return {(e, sp): {"ic": s.loc[(e, sp), "ic_minus_base"], "today": s.loc[(e, sp), "B_RP_today"],
+                      "y1995": s.loc[(e, sp), "B_RP_1995"], "mae": mae[(e, sp)]}
+            for e in ("irrigated", "rainfed") for sp in ("step_2000", "gradual_linear")}
+
+
 def key_numbers():
     e = effects().set_index(["Palay", "Harvest season"])
     dry = "dry (Q1–Q2)"
@@ -358,6 +369,22 @@ def main():
               "Driscoll–Kraay standard errors are as in v5. The shocks use the effect from 2000, which "
               "reflects today's farming conditions, in the same way as v5 evaluates the trend at "
               "today's climate.")
+    dc = decline()
+    para(doc, "Step or gradual change? The step in 2000 was compared with an effect that declines "
+              "linearly over time (same number of parameters). The step fits better (information "
+              f"criterion lower by {dc[('irrigated', 'gradual_linear')]['ic']:.0f} for irrigated and "
+              f"{dc[('rainfed', 'gradual_linear')]['ic']:.0f} for rainfed palay) and predicts the "
+              f"episodes better (mean error {dc[('irrigated', 'step_2000')]['mae']:.1f} against "
+              f"{dc[('irrigated', 'gradual_linear')]['mae']:.1f} points for irrigated, "
+              f"{dc[('rainfed', 'step_2000')]['mae']:.1f} against {dc[('rainfed', 'gradual_linear')]['mae']:.1f} "
+              "for rainfed). Both agree on a large effect in the 1990s; they differ on today's: the "
+              "data show a fall around 2000 and a roughly constant effect since, whereas a straight "
+              "line keeps falling and puts today's effect lower (irrigated "
+              f"{dc[('irrigated', 'gradual_linear')]['today']:+.2f} against "
+              f"{dc[('irrigated', 'step_2000')]['today']:+.2f} log points; rainfed "
+              f"{dc[('rainfed', 'gradual_linear')]['today']:+.2f} against "
+              f"{dc[('rainfed', 'step_2000')]['today']:+.2f}). The step is kept; the gradual decline is "
+              "a sensitivity that gives a lower bound.")
     table(doc, effects(), [2.0, 3.0, 2.4, 2.1, 2.4, 2.4],
           note="Table 3. Effect of a sustained +1 °C El Niño (RONI) on palay production, % (Poisson; "
                "production-weighted national effect).",
@@ -392,8 +419,10 @@ def main():
 
     doc.add_heading("2.5 Limitations", level=2)
     bullets(doc, [
-        ("The change in 2000 rests on three strong episodes. ", "It is a clear pattern, not proof; a "
-         "gradual decline is an alternative still to be tested."),
+        ("The change in 2000 rests on three strong episodes. ", "It is a clear pattern, not proof. A "
+         "gradual (linear) decline of the effect, tested as an alternative, fits worse and predicts "
+         "the episodes less well (section 2.3); it would put today's effect lower, so it gives a "
+         "lower bound."),
         ("Rainfed 1997–98 is understated, ", "which supports the two-stage approach for severe droughts."),
         ("The effect on irrigated palay is uncertain: ", "its range includes zero, which widens the "
          "palay range."),
