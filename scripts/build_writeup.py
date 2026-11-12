@@ -20,7 +20,10 @@ from docx.oxml import OxmlElement
 from docx.oxml.ns import qn
 from docx.shared import Cm, Pt, RGBColor
 
+import sys
+
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "src"))
 TAB, FIG = ROOT / "outputs/tables", ROOT / "outputs/figures"
 OUT = ROOT / "outputs/writeup/agriculture_results.docx"
 INK, MUTED, ACCENT = RGBColor(0x0B, 0x0B, 0x0B), RGBColor(0x52, 0x51, 0x4E), RGBColor(0x18, 0x4F, 0x95)
@@ -277,6 +280,88 @@ def quarterly_palay():
                          "Scaled for DEFINE-PH (%)": s.SD})
 
 
+EPS = ("1997-98", "2015-16", "2023-24")
+VARIANT_LABEL = {"recommended (nested break)": "recommended",
+                 "recommended, no DMI (nested break)": "recommended, no DMI",
+                 "v5 as written": "v5 as written", "v5 as written, no DMI": "v5 as written, no DMI"}
+
+
+def strict(crop):
+    """Stricter validation: errors by episode, mean, mean leaving one episode out, breaks."""
+    t = pd.read_csv(TAB / f"validation_strict_{crop}.csv")
+    rows = []
+    for (series, variant), g in t.groupby(["series", "variant"], sort=False):
+        g = g.set_index("episode")
+        err = g.error_pts.reindex(EPS)
+        loo = [err.drop(ep).abs().mean() for ep in EPS]
+        r = {"Series": series.replace("corn", "total corn") if series == "corn" else series,
+             "Variant": VARIANT_LABEL[variant]}
+        for ep in EPS:
+            r[f"{ep}"] = err[ep]
+        r["Mean abs. error"] = err.abs().mean()
+        r["Leaving one out"] = f"{min(loo):.1f}–{max(loo):.1f}"
+        r["Break chosen"] = "/".join(g.chosen_break.reindex(EPS)) if variant.startswith("recommended") else "none"
+        rows.append(r)
+    return pd.DataFrame(rows)
+
+
+def strict_mae(crop, series, variant):
+    t = pd.read_csv(TAB / f"validation_strict_{crop}.csv")
+    return t[(t.series == series) & (t.variant == variant)].error_pts.abs().mean()
+
+
+def dmi_table():
+    """El Nino effect and validation errors with and without the DMI."""
+    rows = []
+    for crop, series_list in (("rice", ("irrigated", "rainfed")), ("corn", ("corn",))):
+        s = pd.read_csv(TAB / f"direct_v5_{crop}_spec_comparison_dmi.csv")
+        v = pd.read_csv(TAB / f"direct_v5_{crop}_validation_dmi.csv")
+        st = pd.read_csv(TAB / f"validation_strict_{crop}.csv")
+        for e in series_list:
+            x = s[(s.ecosystem == e)].set_index(["model", "spec"])
+            with_s, without_s = [k for k in x.loc["ppml"].index if not k.endswith("no_dmi")][0], \
+                [k for k in x.loc["ppml"].index if k.endswith("no_dmi")][0]
+            mae = v[v.ecosystem == e].groupby("spec").error_pts.apply(lambda z: z.abs().mean())
+            smae = st[st.series == e].groupby("variant").error_pts.apply(lambda z: z.abs().mean())
+            rows.append({"Series": "total corn" if e == "corn" else f"{e} palay",
+                         "El Niño effect, with / without": f"{x.loc[('ppml', with_s), 'B_RP']:.2f} / {x.loc[('ppml', without_s), 'B_RP']:.2f}",
+                         "Validation error, with / without": f"{mae[with_s]:.1f} / {mae[without_s]:.1f}",
+                         "Stricter validation, with / without": f"{smae['recommended (nested break)']:.1f} / {smae['recommended, no DMI (nested break)']:.1f}",
+                         "Fit gain without DMI, Poisson / log-LS": f"{-x.loc[('ppml', without_s), 'ic_minus_base']:,.0f} / {-x.loc[('ols', without_s), 'ic_minus_base']:,.0f}"})
+    return pd.DataFrame(rows)
+
+
+def roni_dmi_corr():
+    from climate.indices import quarterly
+    x = pd.DataFrame({"roni": quarterly("roni"), "dmi": quarterly("dmi")}).dropna()
+    x = x[x.index.year.isin(range(1987, 2026))]
+    q = x.groupby(x.index.quarter).apply(lambda g: g.roni.corr(g.dmi))
+    return q[3], q[4]
+
+
+def rice_checks():
+    a = pd.read_csv(TAB / "direct_rice_national_effects.csv")
+    b = pd.read_csv(TAB / "direct_rice_national_effects_check_kanlaon.csv")
+    k = ["ecosystem", "model", "index", "harvest_season", "period"]
+    m = a.merge(b, on=k, suffixes=("", "_k"))
+    m = m[(m.model == "ppml") & m["index"].str.startswith("El")]
+    kan = (m.est - m.est_k).abs().max()
+    c = pd.read_csv(TAB / "rice_direct_control_compare.csv")
+    c = c[(c.model == "ppml") & (c.term == "El Nino") & (c.season == "dry")]
+    w = c.pivot_table(index="ecosystem", columns="controls", values="est")
+    ctl = (w["category"] - w["none"]).abs().max()
+    return kan, ctl
+
+
+def quarterly_corn():
+    s = pd.read_csv(TAB / "shocks_corn.csv")
+    s = s[(s.crop == "corn") & ~s.path.str.startswith("unit")]
+    s = s.assign(S=s.S * 100, lo=s.S_p05 * 100, hi=s.S_p95 * 100, SD=s.S_D * 100)
+    return pd.DataFrame({"Path": s.path, "Quarter": s.scenario_q,
+                         "Shock (% of quarter)": s.S, "90% range": [f"{a:.1f} to {b:.1f}" for a, b in zip(s.lo, s.hi)],
+                         "Scaled for DEFINE-PH (%)": s.SD})
+
+
 # ---------------------------------------------------------------- document
 def decline():
     """Step (2000) versus gradual linear change of the El Nino effect, Poisson."""
@@ -347,7 +432,8 @@ def main():
          "separate effects for El Niño and La Niña, smooth regional trends, and an El Niño effect "
          "that is smaller from 2000 on. The specification with these changes is the one I "
          "recommend; it differs from methodology v5 and the changes are proposed for "
-         "discussion (section 2.6)."),
+         "discussion (section 2.7). A stricter validation, which also chooses the year of the "
+         "change inside each fold, confirms this for every episode separately (section 2.2)."),
         ("El Niño effect today: ", f"a sustained +1 °C RONI lowers dry-season rice harvests by about "
          f"{k['irr_now']:.0f}% (irrigated) and {k['rf_now']:.0f}% (rainfed); before 2000 the effects were "
          f"about {k['irr_before']:.0f}% and {k['rf_before']:.0f}%."),
@@ -359,6 +445,23 @@ def main():
          f"dry-season corn harvests by about {k['corn_dry']:.0f}%; replayed today, the 1997–98, "
          f"2015–16 and 2023–24 episodes cost about {k['c97']:.1f}%, {k['c15']:.1f}% and "
          f"{k['c23']:.1f}% of a year's corn production, with wide ranges (section 3)."),
+        ("Open question: the DMI. ", "The Indian Ocean Dipole index moves together with RONI when El "
+         "Niño builds and its timing cannot be identified; dropping it barely changes the El Niño "
+         "effect, improves the predictions for rice but not for corn (section 4)."),
+    ])
+    doc.add_heading("How reliable are the results?", level=2)
+    bullets(doc, [
+        ("Solid: ", "the data reconcile with the PSA national totals; the effects are clear and make "
+         "agronomic sense (dry-season harvests hit hardest, rainfed rice more than irrigated, corn "
+         "most); they do not depend on the typhoon and flood controls, the Negros corn break or the "
+         "Kanlaon eruption; and the recommended specification predicts each past episode better than "
+         "methodology v5 as written, also under the stricter validation."),
+        ("Weaker: ", "severe droughts are probably understated (the 1997–98 losses of rainfed rice and "
+         "corn are not predicted when that episode is left out), so for stress scenarios the direct "
+         "shocks are best read as a lower bound until the two-stage approach is in place; the "
+         "ranges are wide, and include no loss for irrigated rice and total corn; there are only "
+         "three strong episodes; and the specification was chosen on the same data, which the "
+         "validation guards against only partly."),
     ])
 
     doc.add_heading("1. Data", level=1)
@@ -380,8 +483,10 @@ def main():
               "issue is treated in the estimation (section 3).")
     para(doc, "Controls (by region and quarter): typhoon exposure by PAGASA category (IBTrACS), flood "
               "occurrence (EM-DAT), earthquakes (USGS, M ≥ 6.5) and eruptions (GVP, VEI ≥ 3, Pinatubo "
-              "1991 separately). They measure exposure, not damage, and are set to “no event” in the "
-              "shocks, so that the El Niño shock can be combined with the CAT damage ratios.")
+              "1991 separately). Typhoon and flood exposure is weighted by each crop's production across "
+              "the provinces of a region (rice by ecosystem, corn by type). The controls measure "
+              "exposure, not damage, and are set to “no event” in the shocks, so that the El Niño shock "
+              "can be combined with the CAT damage ratios.")
 
     doc.add_heading("2. Rice (palay)", level=1)
     status(doc, "draft; the recommended specification awaits agreement")
@@ -426,6 +531,27 @@ def main():
               "drought response. For rainfed palay the 1997–98 loss is still understated, consistent "
               "with losses that rise faster than linearly in severe droughts, the case that methodology "
               "v5 makes for the two-stage approach.")
+    st = strict("rice")
+    para(doc, "Stricter validation. The validation above re-estimates the timing in each fold, but the "
+              "year of the change (2000) and the other choices were made on the full sample, and the "
+              "quarters right after each episode, whose lags contain the episode, stayed in the "
+              "estimation. A stricter version therefore (i) also leaves out the four quarters after each "
+              "episode, (ii) chooses the year of the change inside each fold among 2000, 2005, 2010 and "
+              "no change, using only the estimation data, and (iii) sets the trends on those years only "
+              "(restricted cubic splines). Table 2a gives the error for each episode separately.")
+    table(doc, st, [1.9, 3.0, 1.5, 1.5, 1.5, 1.6, 1.8, 3.0],
+          note="Table 2a. Stricter validation, palay (Poisson): predicted − observed loss, percentage "
+               "points, for each left-out episode; mean absolute error over the three, and its range when "
+               "one episode is left out of the mean; year of the change chosen in each fold "
+               "(1997–98 / 2015–16 / 2023–24).",
+          fmt={"1997-98": "{:.1f}", "2015-16": "{:.1f}", "2023-24": "{:.1f}", "Mean abs. error": "{:.1f}"})
+    para(doc, "The recommended specification predicts every episode better than methodology v5 as "
+              "written, for irrigated and rainfed palay, and the result does not hinge on any single "
+              "episode (the mean error stays far lower whichever episode is left out of it). For "
+              f"irrigated palay the error falls from {strict_mae('rice', 'irrigated', 'v5 as written'):.1f} "
+              f"to {strict_mae('rice', 'irrigated', 'recommended (nested break)'):.1f} points and every fold "
+              "chooses 2000 by a wide margin. For rainfed palay the fold without 1997–98 chooses 2005, "
+              "so the change lies around 2000–2005; 1997–98 remains the large miss.")
 
     doc.add_heading("2.3 Recommended specification", level=2)
     para(doc, "Methodology v5 (Eqs. 4–6) with: separate El Niño and La Niña effects; smooth regional "
@@ -490,29 +616,43 @@ def main():
               "episodes. The quarterly values "
               "are in Annex Table A1.")
 
-    doc.add_heading("2.5 Limitations", level=2)
+    doc.add_heading("2.5 Checks", level=2)
+    kan, ctl = rice_checks()
+    para(doc, "The El Niño effects do not depend on choices outside the climate terms: adding the "
+              "2024–26 Kanlaon eruption (VEI 2 in the GVP file used, VEI 3 in the current database) to "
+              f"the eruption marker changes them by at most {kan:.3f} log points; in the first-look model, "
+              "dropping the typhoon and flood controls altogether changes the dry-season El Niño effect "
+              f"by at most {ctl:.3f} (typhoons are only slightly less frequent in El Niño years in these "
+              "data), which supports adding the El Niño shock to the CAT damage ratios without double "
+              "counting. With the controls set to “no event” in both runs, the shocks contain only the "
+              "drought and heat effect.")
+
+    doc.add_heading("2.6 Limitations", level=2)
     bullets(doc, [
-        ("The change in 2000 rests on three strong episodes. ", "It is a clear pattern, not proof. A "
-         "gradual (linear) decline of the effect, tested as an alternative, fits worse and predicts "
-         "the episodes less well (section 2.3); it puts today's effect closer to zero, so it gives a "
-         "lower bound for the loss."),
+        ("The change in 2000 rests on three strong episodes. ", "The stricter validation chooses it in "
+         "every irrigated fold (around 2000–2005 for rainfed), but with three episodes it is a clear "
+         "pattern, not proof. A gradual (linear) decline, tested as an alternative, fits worse and "
+         "predicts the episodes less well (section 2.3); it puts today's effect closer to zero, so it "
+         "gives a lower bound for the loss."),
         ("Rainfed 1997–98 is understated, ", "which supports the two-stage approach for severe droughts."),
         ("The effect on irrigated palay is uncertain: ", "its range includes zero, which widens the "
          "palay range."),
         ("The estimators differ on one choice: ", "least squares on logs does not prefer separate El "
          "Niño and La Niña effects, Poisson does."),
-        ("The DMI timing is poorly determined ", "(the timing parameter often lies at the edge of the grid)."),
+        ("The DMI ", "cannot be separated well from RONI (section 4)."),
     ])
 
-    doc.add_heading("2.6 Proposed changes to methodology v5", level=2)
+    doc.add_heading("2.7 Proposed changes to methodology v5", level=2)
     status(doc, "proposed, for discussion")
     bullets(doc, [
         ("Eq. 4: ", "separate total effects for El Niño (RONI+) and La Niña (RONI−), same timing."),
         ("Eq. 4: ", "smooth regional trends instead of one linear trend per region."),
-        ("New: ", "an El Niño effect that changes over time (a step in 2000), with the shocks computed "
-         "for today's conditions."),
+        ("New: ", "an El Niño effect that changes over time (a step in 2000) for rice, with the shocks "
+         "computed for today's conditions; not for corn (section 3)."),
         ("Section 3.6: ", "define the observed loss used in the validation (against the model's "
-         "neutral path, as in section 2.2)."),
+         "neutral path, as in section 2.2), leave out the quarters after each episode as well, and "
+         "make every specification choice inside each fold (Table 2a)."),
+        ("To discuss: ", "whether to keep the DMI in the direct approach (section 4)."),
         ("Section 3.5: ", "state that, with lags from one quarter, the first quarter of a path has "
          "no shock."),
         ("Additions: ", "the rule for the Eight Cluster Areas, the rule for PSA measurement breaks, "
@@ -540,6 +680,17 @@ def main():
               "improves the predictions; plausibly because corn is largely rainfed and did not benefit "
               "from the expansion of irrigation. The recommended corn "
               "specification therefore has no change over time.")
+    table(doc, strict("corn"), [1.9, 3.0, 1.5, 1.5, 1.5, 1.6, 1.8, 3.0],
+          note="Table 5a. Stricter validation, total corn (as Table 2a). Here “recommended” lets each "
+               "fold choose the year of a change (every fold picks 2005); the recommended corn "
+               "specification itself has no change over time, because the full-sample test below does "
+               "not confirm one.",
+          fmt={"1997-98": "{:.1f}", "2015-16": "{:.1f}", "2023-24": "{:.1f}", "Mean abs. error": "{:.1f}"})
+    para(doc, "Under the stricter validation the corn specification with separate El Niño and La Niña "
+              "effects and smooth trends also predicts every episode better than methodology v5 as "
+              "written (mean error "
+              f"{strict_mae('corn', 'corn', 'recommended (nested break)'):.1f} against "
+              f"{strict_mae('corn', 'corn', 'v5 as written'):.1f} points), again with 1997–98 the largest miss.")
     cb = pd.read_csv(TAB / "direct_v5_corn_spec_comparison_breaks.csv")
     cb = cb.set_index(["model", "spec"])
     para(doc, "A stricter validation, which chooses the break year inside each fold, picked 2005 for "
@@ -579,13 +730,39 @@ def main():
                "Figure 3. Quarterly corn shock (share of the quarter's neutral production) with the 90% "
                "bootstrap range; dashed: white and yellow corn; shaded: quarters of the path.")
 
-    doc.add_heading("4. Vegetables and root crops (VR) and perennial fruits (PF)", level=1)
+    doc.add_heading("4. Open question: the DMI", level=1)
+    status(doc, "to discuss with Van and Alper; the recommended specifications keep the DMI for now")
+    q3, q4 = roni_dmi_corr()
+    para(doc, "Methodology v5 includes the Dipole Mode Index (DMI) of the Indian Ocean Dipole with its "
+              "own lag profile. In the production equation it raises three concerns. Its timing cannot "
+              "be identified: the timing parameter ends at the edge of the grid in most fits. It moves "
+              f"together with RONI exactly when El Niño builds (correlation {q3:.2f} in Q3 and {q4:.2f} "
+              "in Q4, 1987–2025; all three strong episodes had a positive IOD), so the two effects are "
+              "hard to separate. And where it matters it raises production: a positive IOD goes with "
+              "higher dry-season harvests of rainfed rice and corn, which has not been checked against the "
+              "weather (does a positive IOD bring the Philippines more rain or soil moisture in "
+              "October–March?). Part of that positive effect may offset an El Niño effect estimated too "
+              "negative. Table 8 compares the recommended specifications with and without the DMI.")
+    table(doc, dmi_table(), [2.6, 3.1, 3.1, 3.3, 3.6],
+          note="Table 8. With and without the DMI (recommended specification otherwise; Poisson unless "
+               "stated). El Niño effect: dry-season harvest, before 2000 for rice. Validation errors: mean "
+               "absolute error over the three episodes (first and stricter validation). Fit gain without "
+               "the DMI: positive = better without it after charging for parameters.")
+    para(doc, "Without the DMI the El Niño effect barely changes, so the main results do not depend on "
+              "it. The evidence on keeping it is mixed: rice is predicted better without it, corn with "
+              "it, and the estimators disagree on the fit. Since the DMI may well matter for the weather "
+              "(stage 1) even if it cannot be separated from El Niño in the production equation, the "
+              "question is open for discussion with Van and Alper; the shocks would rise somewhat "
+              "without it, because the positive IOD of the episodes would no longer offset part of the "
+              "El Niño loss.")
+
+    doc.add_heading("5. Vegetables and root crops (VR) and perennial fruits (PF)", level=1)
     status(doc, "to come")
     para(doc, "Calorie-weighted indices from 2010 (FNRI factors; banana varieties updated 11 November "
               "2026). With only two strong episodes since 2010, pooled effects and up to six lags for "
               "PF will be tested.")
 
-    doc.add_heading("5. Two-stage approach", level=1)
+    doc.add_heading("6. Two-stage approach", level=1)
     status(doc, "to come")
     para(doc, "Regional monthly weather from ERA5 is prepared; cropland weights and the treatment of "
               "provinces without an ERA5 land cell are being agreed with Van.")
@@ -596,9 +773,15 @@ def main():
                "production lost (v5 Eq. 13a), 90% bootstrap range, and the value scaled for DEFINE-PH "
                "(Eq. 13b).",
           fmt={"Shock (% of quarter)": "{:.1f}", "Scaled for DEFINE-PH (%)": "{:.1f}"})
+    table(doc, quarterly_corn(), [2.0, 2.0, 3.0, 3.4, 3.6],
+          note="Table A2. Quarterly corn shock for the episode paths (as Table A1). Losses in the "
+               "dry-season harvest are partly offset by gains in the following quarter, as harvests "
+               "shift later in the year.",
+          fmt={"Shock (% of quarter)": "{:.1f}", "Scaled for DEFINE-PH (%)": "{:.1f}"})
     para(doc, "Code and results: GitHub repository en_shock, branch ginevra-agriculture "
               "(scripts/estimate_direct.py, scripts/compare_direct_v5_rice.py, "
-              "scripts/shocks_direct.py; tables in outputs/tables).", size=9, color=MUTED)
+              "scripts/validate_strict.py, scripts/shocks_direct.py; tables in outputs/tables).",
+         size=9, color=MUTED)
 
     OUT.parent.mkdir(parents=True, exist_ok=True)
     doc.save(OUT)
