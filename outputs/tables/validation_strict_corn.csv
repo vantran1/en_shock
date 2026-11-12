@@ -1,0 +1,13 @@
+crop,series,variant,episode,chosen_break,ic_by_break,theta_R,theta_D,n_train,observed_loss_pct,predicted_loss_pct,error_pts,status
+corn,corn,recommended (nested break),1997-98,2005,"{'2000': np.float64(81.5), '2005': np.float64(0.0), '2010': np.float64(88.3), 'none': np.float64(123.8)}",0.8,0.95,2320,12.112,3.922,-8.19,provisional
+corn,corn,recommended (nested break),2015-16,2005,"{'2000': np.float64(53.4), '2005': np.float64(0.0), '2010': np.float64(33.7), 'none': np.float64(60.1)}",0.65,0.95,2320,5.31,3.78,-1.529,provisional
+corn,corn,recommended (nested break),2023-24,2005,"{'2000': np.float64(66.8), '2005': np.float64(0.0), '2010': np.float64(76.6), 'none': np.float64(72.5)}",0.75,0.95,2320,-3.53,-1.693,1.837,provisional
+corn,corn,"recommended, no DMI (nested break)",1997-98,2010,"{'2000': np.float64(27.5), '2005': np.float64(23.4), '2010': np.float64(0.0), 'none': np.float64(93.9)}",0.6,,2320,4.713,-4.75,-9.463,provisional
+corn,corn,"recommended, no DMI (nested break)",2015-16,2010,"{'2000': np.float64(20.2), '2005': np.float64(39.1), '2010': np.float64(0.0), 'none': np.float64(64.5)}",0.55,,2320,11.93,13.601,1.671,provisional
+corn,corn,"recommended, no DMI (nested break)",2023-24,2005,"{'2000': np.float64(13.7), '2005': np.float64(0.0), '2010': np.float64(3.2), 'none': np.float64(31.9)}",0.6,,2320,-0.303,1.942,2.245,provisional
+corn,corn,v5 as written,1997-98,none,,0.35,0.15,2320,16.615,-0.571,-17.187,provisional
+corn,corn,v5 as written,2015-16,none,,0.45,0.7,2320,-0.857,1.825,2.682,provisional
+corn,corn,v5 as written,2023-24,none,,0.95,0.7,2320,10.618,-0.076,-10.694,provisional
+corn,corn,"v5 as written, no DMI",1997-98,none,,0.95,,2320,17.257,2.258,-14.999,provisional
+corn,corn,"v5 as written, no DMI",2015-16,none,,0.95,,2320,-1.492,3.655,5.147,provisional
+corn,corn,"v5 as written, no DMI",2023-24,none,,0.95,,2320,10.877,0.569,-10.308,provisional
