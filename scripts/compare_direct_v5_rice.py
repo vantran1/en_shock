@@ -23,8 +23,15 @@ PROVISIONAL. Diagnostics for choosing the specification, not the deliverable.
      observed loss  = 1 - sum(actual) / sum(neutral prediction)
      predicted loss = 1 - sum(prediction with the observed RONI and DMI) / sum(neutral).
 
+VR and PF (--crop vr|pf, calorie indices from 2010): only the 2015-16 and 2023-24 episodes
+are in the data. Set 'vrpf' compares, on top of v5 as written, the rice/corn candidate
+(split + season + spline) with the choices that matter most for a short sample: linear
+instead of spline trends, effects pooled by island group or nationally, lags 1-6 (v5: up
+to six for PF), and no season shift.
+
 Sets of specifications (--set):
   one_change  the list above (default; outputs without suffix)
+  vrpf, vrpf_national  VR and PF (see above)
   candidate   the combination suggested by the one-change tests: Poisson-relevant choices
               El Nino / La Nina split + season shift + spline trends + regional effects,
               and the same with the RONI effects shifting from 2000, 2005 or 2010 on
@@ -75,12 +82,31 @@ SUMMARY = [Spec("base"), Spec("candidate", **_CAND), Spec("step_2000", effect_br
 DMI_SETS = {"rice": [Spec("recommended", effect_break=2000, **_CAND),
                      Spec("recommended_no_dmi", effect_break=2000, dmi=False, **_CAND)],
             "corn": [Spec("recommended_corn", **_CAND),
-                     Spec("recommended_corn_no_dmi", dmi=False, **_CAND)]}
+                     Spec("recommended_corn_no_dmi", dmi=False, **_CAND)],
+            "vr": [Spec("recommended_vrpf", trend="region_spline", pooling="national"),
+                   Spec("recommended_vrpf_no_dmi", trend="region_spline", pooling="national", dmi=False)]}
+DMI_SETS["pf"] = DMI_SETS["vr"]
 BREAK_YEARS = [Spec("no_break", **_CAND)] + [Spec(f"step_{y}", effect_break=y, **_CAND)
                                               for y in (2000, 2005, 2010)]
+VRPF = [Spec("base"), Spec("candidate", **_CAND),
+        Spec("candidate_linear_trend", split=True, season=True),
+        Spec("candidate_no_season", split=True, trend="region_spline"),
+        Spec("candidate_island", pooling="island", **_CAND),
+        Spec("candidate_national", pooling="national", **_CAND),
+        Spec("candidate_lags_1_6", K=6, **_CAND),
+        Spec("candidate_island_lags_1_6", K=6, pooling="island", **_CAND)]
+# VR / PF, second round: smooth trends + one national effect (best in both rounds), with one
+# choice changed at a time
+_NAT = dict(trend="region_spline", pooling="national")
+VRPF_NATIONAL = [Spec("base"), Spec("spline_national", **_NAT),
+                 Spec("spline_national_split", split=True, **_NAT),
+                 Spec("spline_national_season", season=True, **_NAT),
+                 Spec("spline_national_lags_1_6", K=6, **_NAT),
+                 Spec("spline_island", trend="region_spline", pooling="island"),
+                 Spec("spline_region", trend="region_spline")]
 SETS = {"one_change": ONE_CHANGE, "candidate": CANDIDATE, "decline": DECLINE, "summary": SUMMARY,
-        "dmi": None, "breaks": BREAK_YEARS}
-TEST_SERIES = {"rice": ["irrigated", "rainfed"], "corn": ["corn"]}
+        "dmi": None, "breaks": BREAK_YEARS, "vrpf": VRPF, "vrpf_national": VRPF_NATIONAL}
+TEST_SERIES = {"rice": ["irrigated", "rainfed"], "corn": ["corn"], "vr": ["vr"], "pf": ["pf"]}
 T_1995 = (1995 - 2006) / 10  # t of 1995 in the panel's time variable
 SPEC_OF = {s.name: s for v in list(SETS.values()) + list(DMI_SETS.values()) if v for s in v}
 EPISODES = m.EPISODES
@@ -89,23 +115,23 @@ WORKERS = 8
 
 def prepare(eco, model, spec, break_start=None):
     p = m.build(eco)
-    d, y = m.sample(p, model)
+    d, y = m.sample(p, model, m.GROUP[eco])
     LR = m.index_lags("roni", d.period, spec.K, spec.first_lag)
     LD = m.index_lags("dmi", d.period, spec.K, spec.first_lag)
     base = base_design(d, m.CONTROLS, break_dummies(d, m.GROUP[eco], start=break_start), spec.trend)
     return d, y, LR, LD, base
 
 
-def episode_losses(d, X_full, b, holdout_mask=None):
+def episode_losses(d, X_full, b, episodes=EPISODES, scale=1000):
     """Observed and predicted losses per episode, against the model's neutral path."""
     Xv = X_full.reindex(columns=b.index, fill_value=0.0)
     eta = Xv.to_numpy(float) @ b.to_numpy()
     clim = [c for c in b.index if is_climate(c)]
     eta0 = eta - Xv[clim].to_numpy(float) @ b[clim].to_numpy()
     mu, mu0 = np.exp(eta), np.exp(eta0)
-    act = (d.production_t / 1000).to_numpy()
+    act = (d.production_t / scale).to_numpy()
     out = {}
-    for ep, (a, z) in EPISODES.items():
+    for ep, (a, z) in episodes.items():
         w = d.period.between(a, z).to_numpy()
         out[ep] = (1 - act[w].sum() / mu0[w].sum(), 1 - mu[w].sum() / mu0[w].sum())
     return out
@@ -151,7 +177,8 @@ def run(job):
                     row[f"shift_{idx}_post"] = sh
                     row[f"t_shift_{idx}_post"] = sh / r["fit"]["se"][r["X"].columns.get_loc(c)]
         if model == "ppml":
-            for ep, (obs, pred) in episode_losses(d, r["X"], r["fit"]["params"]).items():
+            for ep, (obs, pred) in episode_losses(d, r["X"], r["fit"]["params"], m.episodes_for(eco),
+                                                  m.PPML_SCALE[m.GROUP[eco]]).items():
                 row[f"in_sample_{ep}_observed"], row[f"in_sample_{ep}_predicted"] = obs, pred
         return "spec", row
     a, z = EPISODES[holdout]
@@ -160,7 +187,8 @@ def run(job):
     r = estimate(dt, y[tr].reset_index(drop=True), LR[tr], LD[tr], base[tr].reset_index(drop=True),
                  model, spec)
     X_full = pd.concat([climate_design(d, LR, LD, r["theta_R"], r["theta_D"], spec), base], axis=1)
-    obs, pred = episode_losses(d, X_full, r["fit"]["params"])[holdout]
+    obs, pred = episode_losses(d, X_full, r["fit"]["params"], EPISODES,
+                               m.PPML_SCALE[m.GROUP[eco]])[holdout]
     return "val", dict(ecosystem=eco, model=model, spec=name, episode=holdout,
                        theta_R=r["theta_R"], theta_D=r["theta_D"],
                        observed_loss_pct=obs * 100, predicted_loss_pct=pred * 100)
@@ -190,7 +218,7 @@ def main():
     series = TEST_SERIES[crop]
     bs = args.break_start
     jobs = [(e, mod, s.name, None, bs) for e in series for mod in ("ppml", "ols") for s in SPECS]
-    jobs += [(e, "ppml", s.name, ep, bs) for e in series for s in SPECS for ep in EPISODES]
+    jobs += [(e, "ppml", s.name, ep, bs) for e in series for s in SPECS for ep in m.episodes_for(e)]
     if not args.report_only:
         with ProcessPoolExecutor(WORKERS) as ex:
             results = list(ex.map(run, jobs))
@@ -224,7 +252,7 @@ def main():
     vt = val.pivot_table(index=["ecosystem", "spec"], columns="episode",
                          values=["observed_loss_pct", "predicted_loss_pct"]).round(1)
     vt.columns = [f"{'obs' if a.startswith('obs') else 'pred'} {b}" for a, b in vt.columns]
-    vt = vt[[f"{k} {ep}" for ep in EPISODES for k in ("obs", "pred")]]
+    vt = vt[[f"{k} {ep}" for ep in EPISODES if ep in set(val.episode) for k in ("obs", "pred")]]
     mae = val.groupby(["ecosystem", "spec"]).error_pts.apply(lambda s: s.abs().mean()).rename("mean abs error (pts)")
     vt = vt.join(mae.round(2)).reset_index()
     vt["spec"] = pd.Categorical(vt.spec, order)
@@ -255,6 +283,15 @@ def main():
             "2005 or 2010 (candidate specification otherwise; B_RP = effect before the break, "
             "B_RP_today = from the break on, shift_RP_post = the change). "
             if args.set == "breaks" else
+            "VR / PF set: v5 as written, the rice/corn candidate (El Niño / La Niña split + season "
+            "shift + spline trends + regional effects) and the candidate with one choice changed "
+            "(linear trends, no season shift, effects pooled by island group or nationally, lags "
+            "1-6). Calorie index from 2010; only the 2015-16 and 2023-24 episodes are in the data. "
+            if args.set == "vrpf" else
+            "VR / PF, second round: smooth regional trends with one national effect (best in the "
+            "first round), and with one choice changed (El Niño / La Niña split, season shift, "
+            "lags 1-6, effects by island group or by region). "
+            if args.set == "vrpf_national" else
             "Candidate = El Niño / La Niña split + season shift + spline trends + regional effects; "
             "the break variants let the El Niño and La Niña effects shift from 2000, 2005 or 2010 on "
             "(B_RP = El Niño effect in dry-season harvest quarters before the break; B_RP_post after; "

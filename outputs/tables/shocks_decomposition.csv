@@ -1,0 +1,109 @@
+group,crop,path,part,total_loss_pct_of_annual,status
+rice,irrigated,1997-98,RONI and DMI,4.79,provisional
+rice,palay,1997-98,RONI and DMI,6.29,provisional
+rice,rainfed,1997-98,RONI and DMI,11.46,provisional
+rice,irrigated,2015-16,RONI and DMI,3.83,provisional
+rice,palay,2015-16,RONI and DMI,5.92,provisional
+rice,rainfed,2015-16,RONI and DMI,13.15,provisional
+rice,irrigated,2023-24,RONI and DMI,3.41,provisional
+rice,palay,2023-24,RONI and DMI,3.16,provisional
+rice,rainfed,2023-24,RONI and DMI,2.32,provisional
+rice,irrigated,1997-98,RONI only (DMI = 0),3.36,provisional
+rice,palay,1997-98,RONI only (DMI = 0),6.09,provisional
+rice,rainfed,1997-98,RONI only (DMI = 0),15.48,provisional
+rice,irrigated,2015-16,RONI only (DMI = 0),3.15,provisional
+rice,palay,2015-16,RONI only (DMI = 0),5.76,provisional
+rice,rainfed,2015-16,RONI only (DMI = 0),14.77,provisional
+rice,irrigated,2023-24,RONI only (DMI = 0),1.82,provisional
+rice,palay,2023-24,RONI only (DMI = 0),3.08,provisional
+rice,rainfed,2023-24,RONI only (DMI = 0),7.42,provisional
+rice,irrigated,1997-98,DMI only (RONI = 0),1.39,provisional
+rice,palay,1997-98,DMI only (RONI = 0),0.11,provisional
+rice,rainfed,1997-98,DMI only (RONI = 0),-4.31,provisional
+rice,irrigated,2015-16,DMI only (RONI = 0),0.66,provisional
+rice,palay,2015-16,DMI only (RONI = 0),0.09,provisional
+rice,rainfed,2015-16,DMI only (RONI = 0),-1.87,provisional
+rice,irrigated,2023-24,DMI only (RONI = 0),1.56,provisional
+rice,palay,2023-24,DMI only (RONI = 0),0.03,provisional
+rice,rainfed,2023-24,DMI only (RONI = 0),-5.26,provisional
+corn,corn,1997-98,RONI and DMI,5.64,provisional
+corn,corn_white,1997-98,RONI and DMI,11.31,provisional
+corn,corn_yellow,1997-98,RONI and DMI,4.13,provisional
+corn,white + yellow,1997-98,RONI and DMI,5.86,provisional
+corn,corn,2015-16,RONI and DMI,8.34,provisional
+corn,corn_white,2015-16,RONI and DMI,10.68,provisional
+corn,corn_yellow,2015-16,RONI and DMI,7.78,provisional
+corn,white + yellow,2015-16,RONI and DMI,8.48,provisional
+corn,corn,2023-24,RONI and DMI,1.63,provisional
+corn,corn_white,2023-24,RONI and DMI,6.97,provisional
+corn,corn_yellow,2023-24,RONI and DMI,-0.32,provisional
+corn,white + yellow,2023-24,RONI and DMI,1.44,provisional
+corn,corn,1997-98,RONI only (DMI = 0),9.96,provisional
+corn,corn_white,1997-98,RONI only (DMI = 0),10.94,provisional
+corn,corn_yellow,1997-98,RONI only (DMI = 0),10.21,provisional
+corn,white + yellow,1997-98,RONI only (DMI = 0),10.39,provisional
+corn,corn,2015-16,RONI only (DMI = 0),9.27,provisional
+corn,corn_white,2015-16,RONI only (DMI = 0),10.25,provisional
+corn,corn_yellow,2015-16,RONI only (DMI = 0),9.49,provisional
+corn,white + yellow,2015-16,RONI only (DMI = 0),9.67,provisional
+corn,corn,2023-24,RONI only (DMI = 0),7.28,provisional
+corn,corn_white,2023-24,RONI only (DMI = 0),7.3,provisional
+corn,corn_yellow,2023-24,RONI only (DMI = 0),7.46,provisional
+corn,white + yellow,2023-24,RONI only (DMI = 0),7.42,provisional
+corn,corn,1997-98,DMI only (RONI = 0),-8.14,provisional
+corn,corn_white,1997-98,DMI only (RONI = 0),-1.86,provisional
+corn,corn_yellow,1997-98,DMI only (RONI = 0),-10.92,provisional
+corn,white + yellow,1997-98,DMI only (RONI = 0),-8.74,provisional
+corn,corn,2015-16,DMI only (RONI = 0),-2.16,provisional
+corn,corn_white,2015-16,DMI only (RONI = 0),-0.49,provisional
+corn,corn_yellow,2015-16,DMI only (RONI = 0),-3.23,provisional
+corn,white + yellow,2015-16,DMI only (RONI = 0),-2.57,provisional
+corn,corn,2023-24,DMI only (RONI = 0),-7.76,provisional
+corn,corn_white,2023-24,DMI only (RONI = 0),-1.59,provisional
+corn,corn_yellow,2023-24,DMI only (RONI = 0),-10.44,provisional
+corn,white + yellow,2023-24,DMI only (RONI = 0),-8.3,provisional
+vr,vr,1997-98,RONI and DMI,0.86,provisional
+vr,vr_noroot,1997-98,RONI and DMI,1.9,provisional
+vr,vr,2015-16,RONI and DMI,-0.47,provisional
+vr,vr_noroot,2015-16,RONI and DMI,-0.3,provisional
+vr,vr,2023-24,RONI and DMI,2.08,provisional
+vr,vr_noroot,2023-24,RONI and DMI,4.19,provisional
+vr,vr,1997-98,RONI only (DMI = 0),-1.95,provisional
+vr,vr_noroot,1997-98,RONI only (DMI = 0),-2.94,provisional
+vr,vr,2015-16,RONI only (DMI = 0),-1.87,provisional
+vr,vr_noroot,2015-16,RONI only (DMI = 0),-2.88,provisional
+vr,vr,2023-24,RONI only (DMI = 0),-0.86,provisional
+vr,vr_noroot,2023-24,RONI only (DMI = 0),-1.13,provisional
+vr,vr,1997-98,DMI only (RONI = 0),2.75,provisional
+vr,vr_noroot,1997-98,DMI only (RONI = 0),4.68,provisional
+vr,vr,2015-16,DMI only (RONI = 0),1.37,provisional
+vr,vr_noroot,2015-16,DMI only (RONI = 0),2.52,provisional
+vr,vr,2023-24,DMI only (RONI = 0),2.91,provisional
+vr,vr_noroot,2023-24,DMI only (RONI = 0),5.23,provisional
+pf,pf,1997-98,RONI and DMI,0.97,provisional
+pf,pf_nobanana,1997-98,RONI and DMI,-0.41,provisional
+pf,pf_nocavendish,1997-98,RONI and DMI,2.4,provisional
+pf,pf,2015-16,RONI and DMI,1.45,provisional
+pf,pf_nobanana,2015-16,RONI and DMI,-1.25,provisional
+pf,pf_nocavendish,2015-16,RONI and DMI,1.92,provisional
+pf,pf,2023-24,RONI and DMI,-0.3,provisional
+pf,pf_nobanana,2023-24,RONI and DMI,0.94,provisional
+pf,pf_nocavendish,2023-24,RONI and DMI,1.56,provisional
+pf,pf,1997-98,RONI only (DMI = 0),2.09,provisional
+pf,pf_nobanana,1997-98,RONI only (DMI = 0),-2.28,provisional
+pf,pf_nocavendish,1997-98,RONI only (DMI = 0),1.62,provisional
+pf,pf,2015-16,RONI only (DMI = 0),1.99,provisional
+pf,pf_nobanana,2015-16,RONI only (DMI = 0),-2.18,provisional
+pf,pf_nocavendish,2015-16,RONI only (DMI = 0),1.54,provisional
+pf,pf,2023-24,RONI only (DMI = 0),0.94,provisional
+pf,pf_nobanana,2023-24,RONI only (DMI = 0),-1.04,provisional
+pf,pf_nocavendish,2023-24,RONI only (DMI = 0),0.71,provisional
+pf,pf,1997-98,DMI only (RONI = 0),-1.14,provisional
+pf,pf_nobanana,1997-98,DMI only (RONI = 0),1.84,provisional
+pf,pf_nocavendish,1997-98,DMI only (RONI = 0),0.8,provisional
+pf,pf,2015-16,DMI only (RONI = 0),-0.55,provisional
+pf,pf_nobanana,2015-16,DMI only (RONI = 0),0.92,provisional
+pf,pf_nocavendish,2015-16,DMI only (RONI = 0),0.38,provisional
+pf,pf,2023-24,DMI only (RONI = 0),-1.24,provisional
+pf,pf_nobanana,2023-24,DMI only (RONI = 0),1.96,provisional
+pf,pf_nocavendish,2023-24,DMI only (RONI = 0),0.85,provisional

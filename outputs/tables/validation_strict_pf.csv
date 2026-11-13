@@ -1,0 +1,9 @@
+crop,series,variant,episode,chosen_break,ic_by_break,theta_R,theta_D,n_train,observed_loss_pct,predicted_loss_pct,error_pts,status
+pf,pf,recommended,2015-16,none,,0.55,0.95,848,0.137,1.681,1.544,provisional
+pf,pf,recommended,2023-24,none,,0.4,0.95,848,-1.529,-0.642,0.887,provisional
+pf,pf,"recommended, no DMI",2015-16,none,,0.25,,848,0.373,1.044,0.671,provisional
+pf,pf,"recommended, no DMI",2023-24,none,,0.25,,848,-2.024,-0.092,1.932,provisional
+pf,pf,v5 as written,2015-16,none,,0.6,0.95,848,-0.259,2.165,2.424,provisional
+pf,pf,v5 as written,2023-24,none,,0.65,0.95,848,1.357,-1.056,-2.413,provisional
+pf,pf,"v5 as written, no DMI",2015-16,none,,0.3,,848,0.373,1.345,0.972,provisional
+pf,pf,"v5 as written, no DMI",2023-24,none,,0.5,,848,1.542,0.024,-1.519,provisional

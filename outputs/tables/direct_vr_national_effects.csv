@@ -1,0 +1,9 @@
+ecosystem,model,index,harvest_season,period,est,se,t,pct_effect_of_+1,spec,spec_note,status
+vr,ppml,RONI,all,all,0.0117,0.0069,1.6835,1.1762,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect)",provisional
+vr,ppml,DMI,all,all,-0.0575,0.0202,-2.841,-5.5906,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect)",provisional
+vr,ols,RONI,all,all,0.0261,0.0074,3.5323,2.6491,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect)",provisional
+vr,ols,DMI,all,all,-0.1096,0.0276,-3.9703,-10.3794,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect)",provisional
+vr_noroot,ppml,RONI,all,all,0.0192,0.0174,1.1065,1.9383,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect)",provisional
+vr_noroot,ppml,DMI,all,all,-0.1371,0.0503,-2.7257,-12.8117,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect)",provisional
+vr_noroot,ols,RONI,all,all,0.0059,0.0106,0.5586,0.5965,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect)",provisional
+vr_noroot,ols,DMI,all,all,-0.0657,0.0336,-1.9553,-6.3606,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect)",provisional

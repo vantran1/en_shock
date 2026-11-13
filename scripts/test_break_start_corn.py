@@ -47,7 +47,7 @@ def run(job):
     p = m.build("corn")
     if start == "check":
         p = break_sample(p, "corn", "end_before_break").reset_index(drop=True)
-    d, y = m.sample(p, "ppml")
+    d, y = m.sample(p, "ppml", "corn")
     LR, LD = m.index_lags("roni", d.period), m.index_lags("dmi", d.period)
     extra = None if start == "check" else break_dummies(d, "corn", start=start)
     base = base_design(d, m.CONTROLS, extra, spec.trend)

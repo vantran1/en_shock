@@ -1,0 +1,13 @@
+ecosystem,model,index,harvest_season,period,est,se,t,pct_effect_of_+1,spec,spec_note,status
+pf,ppml,RONI,all,all,-0.0124,0.0038,-3.2706,-1.2361,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect)",provisional
+pf,ppml,DMI,all,all,0.0236,0.0104,2.2743,2.3842,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect)",provisional
+pf,ols,RONI,all,all,-0.0124,0.009,-1.3715,-1.2327,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect)",provisional
+pf,ols,DMI,all,all,0.0135,0.0257,0.5249,1.3559,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect)",provisional
+pf_nobanana,ppml,RONI,all,all,0.013,0.0054,2.398,1.3126,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect)",provisional
+pf_nobanana,ppml,DMI,all,all,-0.0368,0.0229,-1.6112,-3.6149,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect)",provisional
+pf_nobanana,ols,RONI,all,all,0.0158,0.0136,1.1561,1.5887,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect)",provisional
+pf_nobanana,ols,DMI,all,all,-0.0366,0.0417,-0.8781,-3.5935,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect)",provisional
+pf_nocavendish,ppml,RONI,all,all,-0.0099,0.0049,-1.9969,-0.9833,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect)",provisional
+pf_nocavendish,ppml,DMI,all,all,-0.0159,0.019,-0.8354,-1.5762,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect)",provisional
+pf_nocavendish,ols,RONI,all,all,-0.0104,0.0084,-1.2317,-1.0351,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect)",provisional
+pf_nocavendish,ols,DMI,all,all,-0.0123,0.0261,-0.4722,-1.2258,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect)",provisional

@@ -1,0 +1,5 @@
+ecosystem,model,spec,n,k,loss,theta_R,theta_D,theta_on_grid_edge,ic,B_R,t_R,B_D,t_D,in_sample_2015-16_observed,in_sample_2015-16_predicted,in_sample_2023-24_observed,in_sample_2023-24_predicted,ic_minus_base,status
+pf,ppml,recommended_vrpf,1024,124,567.6162,0.6,0.95,True,1427.1187,-0.0124,-3.2706,0.0236,2.2743,0.0062,0.0121,-0.0162,-0.0099,0.0,provisional
+pf,ppml,recommended_vrpf_no_dmi,1024,123,570.0149,0.25,,False,1422.5859,-0.0094,-2.6031,,,0.0059,0.0088,-0.0114,-0.0007,-4.5328,provisional
+pf,ols,recommended_vrpf,1024,124,15.3779,0.05,0.05,True,-3439.8028,-0.0124,-1.3715,0.0135,0.5249,,,,,0.0,provisional
+pf,ols,recommended_vrpf_no_dmi,1024,123,15.3862,0.05,,True,-3446.1809,-0.0096,-1.2551,,,,,,,-6.3781,provisional

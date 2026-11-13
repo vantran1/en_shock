@@ -53,8 +53,8 @@ import pandas as pd  # noqa: E402
 
 from agriculture.regions import REGIONS  # noqa: E402
 from climate.indices import quarterly  # noqa: E402
-from estimation.data import (CHECKS, CONTROLS, GROUP, build, index_lags,  # noqa: E402,F401
-                             sample, weights)
+from estimation.data import (CHECKS, CONTROLS, GROUP, PPML_SCALE, build,  # noqa: E402,F401
+                             index_lags, sample, weights)
 from estimation.direct import (Spec, base_design, binomial_weights, estimate,  # noqa: E402
                                is_climate, is_roni, national_effect)
 from estimation.setup import break_dummies  # noqa: E402
@@ -65,18 +65,37 @@ K = 4
 # differs from v5 (log B1-B3); recommended because the data support it
 RECOMMENDED = Spec("recommended", split=True, season=True, trend="region_spline", effect_break=2000)
 RECOMMENDED_CORN = Spec("recommended_corn", split=True, season=True, trend="region_spline")
-RECOMMENDED_BY_CROP = {"rice": RECOMMENDED, "corn": RECOMMENDED_CORN}
+# VR and PF (scripts/compare_direct_v5_rice.py --set vrpf, vrpf_national): v5 Eq. 4 (one
+# RONI effect, lags 1-4) with smooth regional trends and one national effect; no El Nino /
+# La Nina split, no season shift
+RECOMMENDED_VRPF = Spec("recommended_vrpf", trend="region_spline", pooling="national")
+RECOMMENDED_BY_CROP = {"rice": RECOMMENDED, "corn": RECOMMENDED_CORN, "vr": RECOMMENDED_VRPF,
+                       "pf": RECOMMENDED_VRPF}
 SPEC_NOTE = "recommended; differs from methodology v5 (change log B1-B3)"
 SPEC_NOTE_BY_CROP = {"rice": SPEC_NOTE,
                      "corn": "recommended; differs from methodology v5 (change log B1-B2; no change "
-                             "over time for corn)"}
+                             "over time for corn)",
+                     "vr": "recommended; differs from methodology v5 (spline trends, change log "
+                           "B2; one national effect)",
+                     "pf": "recommended; differs from methodology v5 (spline trends, change log "
+                           "B2; one national effect)"}
 EPISODES = {"1997-98": ("1997Q2", "1998Q4"), "2015-16": ("2015Q2", "2016Q4"),
             "2023-24": ("2023Q2", "2024Q4")}
+FIRST_QUARTER = {"vr": "2010Q1", "pf": "2010Q1"}  # by crop group; others from 1987Q1
+
+
+def episodes_for(series):
+    """The strong episodes inside a series' data (VR and PF start in 2010: no 1997-98)."""
+    start = FIRST_QUARTER.get(GROUP[series], "1987Q1")
+    return {k: v for k, v in EPISODES.items() if v[0] >= start}
+
 STATUS = "provisional"
 BLUE, ORANGE, INK, MUTED, GRID = "#2a78d6", "#eb6834", "#0b0b0b", "#52514e", "#d9d8d4"
-INDEX_NAME = {"RP": "El Nino (RONI+)", "RN": "La Nina (RONI-)", "D": "DMI"}
+INDEX_NAME = {"R": "RONI", "RP": "El Nino (RONI+)", "RN": "La Nina (RONI-)", "D": "DMI"}
 CROPS = {"rice": {"series": ["irrigated", "rainfed"], "label": "palay"},
-         "corn": {"series": ["corn", "corn_white", "corn_yellow"], "label": "corn"}}
+         "corn": {"series": ["corn", "corn_white", "corn_yellow"], "label": "corn"},
+         "vr": {"series": ["vr", "vr_noroot"], "label": "VR"},
+         "pf": {"series": ["pf", "pf_nobanana", "pf_nocavendish"], "label": "PF"}}
 SAMPLE_CHECKS = {"no_vi_corn_2023q3": "end_before_break"}
 COLORS = ["#2a78d6", "#eb6834", "#0d366b"]
 
@@ -105,8 +124,9 @@ def main(crop="rice", spec=None, check=None, break_start=None):
             p = break_sample(p, group, SAMPLE_CHECKS[check]).reset_index(drop=True)
         w = weights(eco)
         for model in ("ppml", "ols"):
-            d, y = sample(p, model)
-            lagsR, lagsD = index_lags("roni", d.period), index_lags("dmi", d.period)
+            d, y = sample(p, model, group)
+            lagsR = index_lags("roni", d.period, spec.K, spec.first_lag)
+            lagsD = index_lags("dmi", d.period, spec.K, spec.first_lag)
             extra = (break_dummies(d, group, start=break_start) if check not in SAMPLE_CHECKS
                      else None)
             base = base_design(d, CONTROLS, extra, spec.trend)
@@ -117,24 +137,25 @@ def main(crop="rice", spec=None, check=None, break_start=None):
             print(f"{eco:9s} {model}: n={len(d)}, theta_R={r['theta_R']:.2f}, "
                   f"theta_D={r['theta_D']:.2f}, edge={r['on_grid_edge']}, converged={res['converged']}")
             profiles.append(r["profile"].assign(**tag))
-            wR, wD = binomial_weights(r["theta_R"], K), binomial_weights(r["theta_D"], K)
+            wR, wD = binomial_weights(r["theta_R"], spec.K), binomial_weights(r["theta_D"], spec.K)
             timing_rows.append({**tag, "n": len(d), "k": r["k"], "theta_R": r["theta_R"],
                                 "theta_D": r["theta_D"], "loss": r["loss"],
                                 "theta_on_grid_edge": r["on_grid_edge"],
-                                **{f"wR_lag{j + 1}": wR[j] for j in range(K)},
-                                **{f"wD_lag{j + 1}": wD[j] for j in range(K)}})
+                                **{f"wR_lag{j + spec.first_lag}": wR[j] for j in range(spec.K)},
+                                **{f"wD_lag{j + spec.first_lag}": wD[j] for j in range(spec.K)}})
             for c in X.columns:
                 if is_climate(c) or c in CONTROLS:
                     kind = "climate" if is_climate(c) else "control"
                     coef_rows.append({**tag, "kind": kind, "term": c, "est": res["params"][c],
                                       "se": se[c]})
             yb = spec.effect_break
-            for idx in ("RP", "RN", "D"):
-                for wet in (False, True):
+            for idx in (("RP", "RN") if spec.split else ("R",)) + (("D",) if spec.dmi else ()):
+                for wet in ((False, True) if spec.season else (False,)):
                     for post in ((False, True) if idx != "D" and yb else (False,)):
                         est, s_ = national_effect(res, X, w, idx, spec, wet=wet, post=post)
                         nat_rows.append({**tag, "index": INDEX_NAME[idx],
-                                         "harvest_season": "wet (Q3-Q4)" if wet else "dry (Q1-Q2)",
+                                         "harvest_season": ("wet (Q3-Q4)" if wet else "dry (Q1-Q2)")
+                                         if spec.season else "all",
                                          "period": ((f"from {yb}" if post else f"before {yb}")
                                                     if idx != "D" and yb else "all"),
                                          "est": est, "se": s_})
@@ -179,19 +200,19 @@ def main(crop="rice", spec=None, check=None, break_start=None):
     print(coef[(coef.kind == "control") & (coef.model == "ppml")]
           .pivot_table(index="term", columns="ecosystem", values=["est", "t"]).round(3).to_string())
     print(f"\nImplied national loss, Poisson, {', '.join(CROPS[crop]['series'])} (% of neutral production):")
-    for ep, (a, b) in EPISODES.items():
+    for ep, (a, b) in episodes_for(CROPS[crop]["series"][0]).items():
         print(f"  {ep}: " + ", ".join(f"{q}: {v:.1f}%" for q, v in L.loc[a:b, "loss_roni_dmi_pct"].items()))
-    print("\nYears:\n", yr.loc[[1997, 1998, 2015, 2016, 2023, 2024],
+    print("\nYears:\n", yr.loc[[y for y in (1997, 1998, 2015, 2016, 2023, 2024) if y in yr.index],
                                ["implied_loss_roni_pct", "implied_loss_roni_dmi_pct",
                                 "actual_change_pct"]].round(1).to_string())
 
-    if check or break_start:
-        return
+    if check or break_start or spec.pooling != "region":
+        return  # the figure shows regional effects
     # figure: regional El Nino effect (dry-season harvest, from 2000 = regional B + shift)
     reg = coef[(coef.model == "ppml") & coef.term.str.startswith("BRP_")].copy()
     reg["region_code"] = reg.term.str[4:]
     fig, ax = plt.subplots(figsize=(10, 4.2), constrained_layout=True)
-    series = CROPS[crop]["series"][:2] if crop == "rice" else ["corn"]
+    series = CROPS[crop]["series"][:2] if crop == "rice" else CROPS[crop]["series"][:1]
     for j, (eco, col) in enumerate(zip(series, COLORS)):
         e = reg[reg.ecosystem == eco].set_index("region_code").reindex(list(REGIONS))
         x = np.arange(len(REGIONS)) + (j - (len(series) - 1) / 2) * 0.25

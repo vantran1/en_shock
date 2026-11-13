@@ -7,6 +7,9 @@ Crops: rice = irrigated and rainfed palay, combined into palay with neutral prod
 shares; corn = total corn (the corn shock), with white and yellow corn reported
 separately and combined (white + yellow) as a consistency check. Corn includes the
 Region VI measurement-break dummy (estimation.setup), which describes today's level.
+vr / pf = the calorie indices of vegetables and root crops and of perennial fruits (data
+from 2010), with the indices without root crops, without banana and without Cavendish
+reported as checks (methodology v5 Section 3.2).
 
 Shocks (src/estimation/shocks.py): share of production lost against the neutral path
 (RONI = DMI = 0), controls at "no event" in both runs, today's conditions (the effect
@@ -25,7 +28,7 @@ Central estimate: Poisson on the full sample (timing on the 0.05 grid). Range (v
 timing parameters on a 0.10 grid in each replication; 5th and 95th percentiles.
 Log-LS central shocks are reported as a check.
 
-Run:  python scripts/shocks_direct.py --crop rice|corn [--reps 200]
+Run:  python scripts/shocks_direct.py --crop rice|corn|vr|pf [--reps 200]
 Writes outputs/tables/shocks_<crop>.csv (national), shocks_<crop>_regional.csv (central,
 by region), shocks_<crop>_bootstrap.csv (draws), shocks_<crop>_episode_totals.csv (total
 loss over each scenario, % of a year's production), outputs/figures/shocks_<crop>.png
@@ -59,11 +62,19 @@ from estimation.shocks import (aggregate, combine, neutral_production,  # noqa: 
                                regional_shocks, seasonal_scaling)
 
 TAB, FIG = ROOT / "outputs/tables", ROOT / "outputs/figures"
-K = m.K
 CONF = {"rice": {"series": ["irrigated", "rainfed"], "main": "palay",
-                 "combine": ("palay", ["irrigated", "rainfed"])},
+                 "combine": ("palay", ["irrigated", "rainfed"]), "dashed": ["irrigated", "rainfed"]},
         "corn": {"series": ["corn", "corn_white", "corn_yellow"], "main": "corn",
-                 "combine": ("white + yellow", ["corn_white", "corn_yellow"])}}
+                 "combine": ("white + yellow", ["corn_white", "corn_yellow"]),
+                 "dashed": ["corn_white", "corn_yellow"]},
+        "vr": {"series": ["vr", "vr_noroot"], "main": "vr", "combine": None,
+               "dashed": ["vr_noroot"]},
+        "pf": {"series": ["pf", "pf_nobanana", "pf_nocavendish"], "main": "pf", "combine": None,
+               "dashed": ["pf_nobanana", "pf_nocavendish"]}}
+DASHED_LABEL = {"corn_white": "white", "corn_yellow": "yellow", "vr_noroot": "VR without root crops",
+                "pf_nobanana": "PF without banana", "pf_nocavendish": "PF without Cavendish"}
+LABEL = {"rice": "palay", "corn": "corn", "vr": "vegetables and root crops (VR)",
+         "pf": "perennial fruits (PF)"}
 BOOT_GRID = np.round(np.arange(0.05, 0.951, 0.10), 2)
 EPISODE_PATHS = {"1997-98": ("1997Q2", "1998Q1"), "2015-16": ("2015Q2", "2016Q1"),
                  "2023-24": ("2023Q3", "2024Q1")}
@@ -80,9 +91,9 @@ def paths():
 
 def prepare(eco, spec, model="ppml"):
     p = m.build(eco)
-    d, y = m.sample(p, model)
-    LR = m.index_lags("roni", d.period, K, spec.first_lag)
-    LD = m.index_lags("dmi", d.period, K, spec.first_lag)
+    d, y = m.sample(p, model, m.GROUP[eco])
+    LR = m.index_lags("roni", d.period, spec.K, spec.first_lag)
+    LD = m.index_lags("dmi", d.period, spec.K, spec.first_lag)
     base = base_design(d, m.CONTROLS, break_dummies(d, m.GROUP[eco]), spec.trend)
     return d, y.to_numpy(float), LR, LD, base
 
@@ -104,18 +115,18 @@ def fit_params(d, y, LR, LD, base, model, grid, spec):
     return pd.Series(res.params, index=X.columns), tR, tD
 
 
-def shocks(fits, data, crop, spec):
+def shocks(fits, data, crop, spec, path_set=None):
     """fits: series -> (params, tR, tD); data: series -> (d, y, LR, LD, base) on the full
-    sample. Returns national shocks by path, scenario quarter and series (plus the combined
-    series of CONF) and the central regional shocks."""
+    sample; path_set: name -> path (default paths()). Returns national shocks by path,
+    scenario quarter and series (plus the combined series of CONF) and the central regional
+    shocks."""
     rows, regs = [], []
-    cname, parts = CONF[crop]["combine"]
-    for name, path in paths().items():
+    for name, path in (path_set or paths()).items():
         nats, y0q = {}, {}
         for eco in CONF[crop]["series"]:
             params, tR, tD = fits[eco]
             d, y, LR, LD, base = data[eco]
-            reg = regional_shocks(params, spec, tR, tD, path, list(REGIONS), K)
+            reg = regional_shocks(params, spec, tR, tD, path, list(REGIONS), spec.K)
             X = pd.concat([climate_design(d, LR, LD, tR, tD, spec), base], axis=1)
             y0 = neutral_production(params, X, d, m.CONTROLS)
             nat = aggregate(reg, y0)
@@ -123,9 +134,12 @@ def shocks(fits, data, crop, spec):
             nat["S_D"] = seasonal_scaling(nat, y0q[eco])
             nats[eco] = nat
             regs.append(reg.assign(path=name, crop=eco))
-        comb = combine({k: nats[k] for k in parts})
-        comb["S_D"] = seasonal_scaling(comb, sum(y0q[k] for k in parts))
-        for series, nat in {**nats, cname: comb}.items():
+        if CONF[crop]["combine"]:
+            cname, parts = CONF[crop]["combine"]
+            comb = combine({k: nats[k] for k in parts})
+            comb["S_D"] = seasonal_scaling(comb, sum(y0q[k] for k in parts))
+            nats[cname] = comb
+        for series, nat in nats.items():
             rows.append(nat.assign(path=name, crop=series, path_start=path.index.min(),
                                    path_end=path.index.max()))
     out = pd.concat(rows, ignore_index=True)
@@ -153,7 +167,8 @@ def boot(job):
     spec = m.RECOMMENDED_BY_CROP[crop]
     rng = np.random.default_rng(1000 + rep)
     data = {eco: prepare(eco, spec) for eco in CONF[crop]["series"]}
-    years = np.arange(1987, 2026)
+    first = min(int(data[e][0].period.str[:4].min()) for e in CONF[crop]["series"])
+    years = np.arange(first, 2026)
     draw = rng.choice(years, size=len(years), replace=True)
     fits = {}
     for eco in CONF[crop]["series"]:
@@ -214,10 +229,11 @@ def main():
 
 def plot(out, crop):
     """Main shock (Eq. 13a) by path with the 90% bootstrap range, 2 x 2 panels; dashed: the
-    component series (irrigated and rainfed palay; white and yellow corn)."""
+    component series (irrigated and rainfed palay; white and yellow corn) or the checks
+    (VR without root crops; PF without banana, without Cavendish)."""
     main_series = CONF[crop]["main"]
-    parts = CONF[crop]["combine"][1]
-    label = "palay" if crop == "rice" else "corn"
+    parts = CONF[crop]["dashed"]
+    label = LABEL[crop]
     names = list(dict.fromkeys(out.path))
     fig, axes = plt.subplots(2, 2, figsize=(10, 7.2), sharey=True, constrained_layout=True)
     for ax, name in zip(axes.flat, names):
@@ -227,7 +243,7 @@ def plot(out, crop):
         ax.plot(e.step, e.S * 100, color="#2a78d6", lw=2, marker="o", ms=4, label=f"{label} (central)")
         for eco, col in zip(parts, ("#0d366b", "#eb6834")):
             f = out[(out.path == name) & (out.crop == eco)]
-            ax.plot(f.step, f.S * 100, color=col, lw=1, ls="--", label=eco.replace("corn_", "") )
+            ax.plot(f.step, f.S * 100, color=col, lw=1, ls="--", label=DASHED_LABEL.get(eco, eco))
         ax.axhline(0, color="#52514e", lw=0.8)
         last = e[e.in_path].step.max()
         ax.axvspan(-0.5, last + 0.5, color="#e6e5e1", lw=0, zorder=0)

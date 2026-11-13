@@ -53,6 +53,10 @@ PSA_TO_POLYGON = {
     "Davao de Oro (Compostela Valley)": "Compostela Valley",
     "Maguindanao del Norte": "Maguindanao", "Maguindanao del Sur": "Maguindanao",
     "Tawi-tawi": "Tawi-Tawi",
+    # spellings of the VR and PF tables
+    "City of Bacolod": "Negros Occidental", "City of Butuan": "Agusan del Norte",
+    "City of Puerto Princesa": "Palawan", "City of Zamboanga": "Zamboanga del Sur",
+    "Davao de Oro": "Compostela Valley",
 }
 # boundary units folded into a neighbour (no separate PSA rice row)
 POLYGON_MERGE = {"City of Isabela": "Basilan", "Cotabato City": "Maguindanao"}

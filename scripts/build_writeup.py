@@ -313,22 +313,47 @@ def strict_mae(crop, series, variant):
 def dmi_table():
     """El Nino effect and validation errors with and without the DMI."""
     rows = []
-    for crop, series_list in (("rice", ("irrigated", "rainfed")), ("corn", ("corn",))):
+    names = {"corn": "total corn", "vr": "VR index", "pf": "PF index"}
+    for crop, series_list in (("rice", ("irrigated", "rainfed")), ("corn", ("corn",)), ("vr", ("vr",)),
+                              ("pf", ("pf",))):
         s = pd.read_csv(TAB / f"direct_v5_{crop}_spec_comparison_dmi.csv")
         v = pd.read_csv(TAB / f"direct_v5_{crop}_validation_dmi.csv")
         st = pd.read_csv(TAB / f"validation_strict_{crop}.csv")
+        sfx = "" if crop in ("vr", "pf") else " (nested break)"
+        eff = "B_R" if crop in ("vr", "pf") else "B_RP"  # VR / PF: one RONI effect
         for e in series_list:
             x = s[(s.ecosystem == e)].set_index(["model", "spec"])
             with_s, without_s = [k for k in x.loc["ppml"].index if not k.endswith("no_dmi")][0], \
                 [k for k in x.loc["ppml"].index if k.endswith("no_dmi")][0]
             mae = v[v.ecosystem == e].groupby("spec").error_pts.apply(lambda z: z.abs().mean())
             smae = st[st.series == e].groupby("variant").error_pts.apply(lambda z: z.abs().mean())
-            rows.append({"Series": "total corn" if e == "corn" else f"{e} palay",
-                         "El Niño effect, with / without": f"{x.loc[('ppml', with_s), 'B_RP']:.2f} / {x.loc[('ppml', without_s), 'B_RP']:.2f}",
+            rows.append({"Series": names.get(e, f"{e} palay"),
+                         "El Niño effect, with / without": f"{x.loc[('ppml', with_s), eff]:.2f} / {x.loc[('ppml', without_s), eff]:.2f}",
                          "Validation error, with / without": f"{mae[with_s]:.1f} / {mae[without_s]:.1f}",
-                         "Stricter validation, with / without": f"{smae['recommended (nested break)']:.1f} / {smae['recommended, no DMI (nested break)']:.1f}",
+                         "Stricter validation, with / without": f"{smae['recommended' + sfx]:.1f} / {smae['recommended, no DMI' + sfx]:.1f}",
                          "Fit gain without DMI, Poisson / log-LS": f"{-x.loc[('ppml', without_s), 'ic_minus_base']:,.0f} / {-x.loc[('ols', without_s), 'ic_minus_base']:,.0f}"})
     return pd.DataFrame(rows)
+
+
+def decomposition():
+    """Table 8a: total loss over each episode path, with and without the DMI part."""
+    d = pd.read_csv(TAB / "shocks_decomposition.csv")
+    names = {"palay": "palay", "corn": "corn", "vr": "VR index", "pf": "PF index"}
+    d = d[d.crop.isin(names)]
+    w = d.pivot_table(index=["crop", "path"], columns="part", values="total_loss_pct_of_annual")
+    rows = []
+    for c in names:
+        for pth in ("1997-98", "2015-16", "2023-24"):
+            x = w.loc[(c, pth)]
+            rows.append({"Series": names[c], "Path": pth, "Shock (RONI and DMI)": x["RONI and DMI"],
+                         "RONI part (DMI = 0)": x["RONI only (DMI = 0)"],
+                         "DMI part (RONI = 0)": x["DMI only (RONI = 0)"]})
+    return pd.DataFrame(rows)
+
+
+def decomp(crop, path, part):
+    d = pd.read_csv(TAB / "shocks_decomposition.csv")
+    return d[(d.crop == crop) & (d.path == path) & (d.part == part)].total_loss_pct_of_annual.iloc[0]
 
 
 def roni_dmi_corr():
@@ -356,6 +381,99 @@ def rice_checks():
 def quarterly_corn():
     s = pd.read_csv(TAB / "shocks_corn.csv")
     s = s[(s.crop == "corn") & ~s.path.str.startswith("unit")]
+    s = s.assign(S=s.S * 100, lo=s.S_p05 * 100, hi=s.S_p95 * 100, SD=s.S_D * 100)
+    return pd.DataFrame({"Path": s.path, "Quarter": s.scenario_q,
+                         "Shock (% of quarter)": s.S, "90% range": [f"{a:.1f} to {b:.1f}" for a, b in zip(s.lo, s.hi)],
+                         "Scaled for DEFINE-PH (%)": s.SD})
+
+
+VRPF_SPECS = {"base": "v5 as written (Eq. 4)", "spline_region": "smooth regional trends",
+              "spline_national": "smooth trends + one national effect (recommended)",
+              "spline_national_split": "  + El Niño and La Niña separate",
+              "spline_national_season": "  + effect differs by harvest season",
+              "spline_national_lags_1_6": "  + lags 1–6",
+              "spline_island": "smooth trends + effects by island group"}
+VRPF_INDEX = {"vr": "VR", "vr_noroot": "VR without root crops", "pf": "PF",
+              "pf_nocavendish": "PF without Cavendish", "pf_nobanana": "PF without banana"}
+
+
+def vrpf_specs():
+    """Table 9: VR and PF specification tests (Poisson): fit gain against v5 as written,
+    El Nino effect (%), leave-one-episode-out error."""
+    out = pd.DataFrame({"Specification": list(VRPF_SPECS.values())})
+    for crop in ("vr", "pf"):
+        s = pd.read_csv(TAB / f"direct_v5_{crop}_spec_comparison_vrpf_national.csv")
+        s = s[s.model == "ppml"].set_index("spec")
+        v = pd.read_csv(TAB / f"direct_v5_{crop}_validation_vrpf_national.csv")
+        mae = v.groupby("spec").error_pts.apply(lambda x: x.abs().mean())
+        eff = s.B_RP.fillna(s.B_R) if "B_RP" in s else s.B_R
+        lab = crop.upper()
+        out[f"Fit gain, {lab}"] = ["reference" if k == "base" else f"{-s.loc[k, 'ic_minus_base']:,.0f}"
+                                   for k in VRPF_SPECS]
+        out[f"El Niño effect, {lab} (%)"] = [(np.exp(eff[k]) - 1) * 100 for k in VRPF_SPECS]
+        out[f"Validation error, {lab}"] = [mae[k] for k in VRPF_SPECS]
+    return out
+
+
+def vrpf_effects():
+    """Table 10: El Nino and DMI effects of the recommended VR / PF specification, by index."""
+    rows = []
+    for crop, series in (("vr", ("vr", "vr_noroot")), ("pf", ("pf", "pf_nocavendish", "pf_nobanana"))):
+        n = pd.read_csv(TAB / f"direct_{crop}_national_effects.csv")
+        n = n[n.model == "ppml"].set_index(["ecosystem", "index"])
+        for e in series:
+            rows.append({"Index": VRPF_INDEX[e],
+                         "El Niño (RONI +1), %": n.loc[(e, "RONI"), "pct_effect_of_+1"],
+                         "t (RONI)": n.loc[(e, "RONI"), "t"],
+                         "DMI +1, %": n.loc[(e, "DMI"), "pct_effect_of_+1"],
+                         "t (DMI)": n.loc[(e, "DMI"), "t"]})
+    return pd.DataFrame(rows)
+
+
+def vrpf_effect(crop, series, idx="RONI", col="pct_effect_of_+1"):
+    n = pd.read_csv(TAB / f"direct_{crop}_national_effects.csv")
+    return n[(n.model == "ppml") & (n.ecosystem == series) & (n["index"] == idx)][col].iloc[0]
+
+
+def vrpf_strict():
+    """Table 11: stricter validation for VR and PF (two episodes)."""
+    rows = []
+    for crop in ("vr", "pf"):
+        t = pd.read_csv(TAB / f"validation_strict_{crop}.csv")
+        for variant, g in t.groupby("variant", sort=False):
+            g = g.set_index("episode")
+            r = {"Index": crop.upper(), "Variant": variant}
+            for ep in ("2015-16", "2023-24"):
+                r[f"{ep} obs / pred"] = f"{g.loc[ep, 'observed_loss_pct']:.1f} / {g.loc[ep, 'predicted_loss_pct']:.1f}"
+            r["Mean abs. error"] = g.error_pts.abs().mean()
+            rows.append(r)
+    return pd.DataFrame(rows)
+
+
+def vrpf_totals():
+    """Table 12: total loss over each path, VR and PF indices with their checks."""
+    rows = []
+    for crop, series in (("vr", ("vr", "vr_noroot")), ("pf", ("pf", "pf_nocavendish", "pf_nobanana"))):
+        t = pd.read_csv(TAB / f"shocks_{crop}_episode_totals.csv")
+        t["path"] = t.path.str.replace("unit RONI +1 (4 quarters from Q3)", "unit path: RONI +1 for 4 quarters",
+                                       regex=False)
+        for e in series:
+            x = t[t.crop == e].set_index("path")
+            r = {"Index": VRPF_INDEX[e]}
+            for pth in x.index:
+                r[pth] = f"{x.loc[pth, 'total_loss_pct_of_annual']:.1f} ({x.loc[pth, 'p05']:.1f} to {x.loc[pth, 'p95']:.1f})"
+            rows.append(r)
+    return pd.DataFrame(rows)
+
+
+def vrpf_total(crop, series, path, col="total_loss_pct_of_annual"):
+    t = pd.read_csv(TAB / f"shocks_{crop}_episode_totals.csv")
+    return t[(t.crop == series) & (t.path == path)][col].iloc[0]
+
+
+def quarterly_vrpf(crop):
+    s = pd.read_csv(TAB / f"shocks_{crop}.csv")
+    s = s[(s.crop == crop) & ~s.path.str.startswith("unit")]
     s = s.assign(S=s.S * 100, lo=s.S_p05 * 100, hi=s.S_p95 * 100, SD=s.S_D * 100)
     return pd.DataFrame({"Path": s.path, "Quarter": s.scenario_q,
                          "Shock (% of quarter)": s.S, "90% range": [f"{a:.1f} to {b:.1f}" for a, b in zip(s.lo, s.hi)],
@@ -422,8 +540,8 @@ def main():
     doc.add_heading("Summary", level=1)
     status(doc, "draft, updated as each part is completed")
     para(doc, "This note reports the results of the direct approach for the agricultural shocks. "
-              "Rice and corn are complete up to the shocks; vegetables and root crops (VR), perennial "
-              "fruits (PF) and the two-stage approach follow. All results are provisional.")
+              "Rice, corn, vegetables and root crops (VR) and perennial fruits (PF) are complete up to "
+              "the shocks; the two-stage approach follows. All results are provisional.")
     bullets(doc, [
         ("Methodology v5 as written does not reproduce the past El Niño episodes for rice. ",
          "Estimated without each strong episode in turn, it predicts a small loss in 1997–98, "
@@ -445,9 +563,15 @@ def main():
          f"dry-season corn harvests by about {k['corn_dry']:.0f}%; replayed today, the 1997–98, "
          f"2015–16 and 2023–24 episodes cost about {k['c97']:.1f}%, {k['c15']:.1f}% and "
          f"{k['c23']:.1f}% of a year's corn production, with wide ranges (section 3)."),
+        ("Vegetables and fruits: ", f"a small loss for fruits and none for vegetables and root crops. "
+         f"A sustained +1 °C El Niño lowers PF by about {-vrpf_effect('pf', 'pf'):.1f}%, entirely through "
+         "bananas; for VR no loss can be detected. The data (from 2010) support a simpler model than "
+         "for rice and corn: v5's single RONI effect with smooth trends and one national effect "
+         "(section 5)."),
         ("Open question: the DMI. ", "The Indian Ocean Dipole index moves together with RONI when El "
          "Niño builds and its timing cannot be identified; dropping it barely changes the El Niño "
-         "effect, improves the predictions for rice but not for corn (section 4)."),
+         "effect, improves the predictions for rice but not for corn, and its sign differs across "
+         "crops (section 4)."),
     ])
     doc.add_heading("How reliable are the results?", level=2)
     bullets(doc, [
@@ -460,8 +584,8 @@ def main():
          "corn are not predicted when that episode is left out), so for stress scenarios the direct "
          "shocks are best read as a lower bound until the two-stage approach is in place; the "
          "ranges are wide, and include no loss for irrigated rice and total corn; there are only "
-         "three strong episodes; and the specification was chosen on the same data, which the "
-         "validation guards against only partly."),
+         "three strong episodes (two for VR and PF); and the specification was chosen on the same "
+         "data, which the validation guards against only partly."),
     ])
 
     doc.add_heading("1. Data", level=1)
@@ -484,7 +608,8 @@ def main():
     para(doc, "Controls (by region and quarter): typhoon exposure by PAGASA category (IBTrACS), flood "
               "occurrence (EM-DAT), earthquakes (USGS, M ≥ 6.5) and eruptions (GVP, VEI ≥ 3, Pinatubo "
               "1991 separately). Typhoon and flood exposure is weighted by each crop's production across "
-              "the provinces of a region (rice by ecosystem, corn by type). The controls measure "
+              "the provinces of a region (rice by ecosystem, corn by type, VR and PF by calorie "
+              "output). The controls measure "
               "exposure, not damage, and are set to “no event” in the shocks, so that the El Niño shock "
               "can be combined with the CAT damage ratios.")
 
@@ -649,6 +774,8 @@ def main():
         ("Eq. 4: ", "smooth regional trends instead of one linear trend per region."),
         ("New: ", "an El Niño effect that changes over time (a step in 2000) for rice, with the shocks "
          "computed for today's conditions; not for corn (section 3)."),
+        ("VR and PF: ", "one RONI effect as in Eq. 4, with smooth regional trends and one national "
+         "effect, since 16 years of data cannot separate regional effects (section 5)."),
         ("Section 3.6: ", "define the observed loss used in the validation (against the model's "
          "neutral path, as in section 2.2), leave out the quarters after each episode as well, and "
          "make every specification choice inside each fold (Table 2a)."),
@@ -745,22 +872,146 @@ def main():
               "negative. Table 8 compares the recommended specifications with and without the DMI.")
     table(doc, dmi_table(), [2.6, 3.1, 3.1, 3.3, 3.6],
           note="Table 8. With and without the DMI (recommended specification otherwise; Poisson unless "
-               "stated). El Niño effect: dry-season harvest, before 2000 for rice. Validation errors: mean "
-               "absolute error over the three episodes (first and stricter validation). Fit gain without "
-               "the DMI: positive = better without it after charging for parameters.")
+               "stated). El Niño effect (log points): dry-season harvest, before 2000 for rice; one RONI "
+               "effect for VR and PF. Validation errors: mean absolute error over the episodes (three; two "
+               "for VR and PF), first and stricter validation. Fit gain without the DMI: positive = better "
+               "without it after charging for parameters.")
+    table(doc, decomposition(), [2.4, 2.0, 3.6, 3.6, 3.6],
+          note="Table 8a. RONI and DMI parts of the episode shocks: total loss over the path and the "
+               "quarters after it, % of one year's neutral production (central values, recommended "
+               "specifications with the DMI). The parts are computed with the other index set to zero; "
+               "they add up to the shock only approximately.",
+          fmt={"Shock (RONI and DMI)": "{:.1f}", "RONI part (DMI = 0)": "{:.1f}",
+               "DMI part (RONI = 0)": "{:.1f}"})
+    para(doc, "The DMI matters much more for the shocks than for the El Niño effect. All three strong "
+              "episodes had a positive IOD, so the estimated DMI effect enters every episode path. For "
+              "corn it offsets about half of the 1997–98 loss and most of the 2023–24 loss "
+              f"({decomp('corn', '2023-24', 'RONI and DMI'):.1f}% with the DMI against "
+              f"{decomp('corn', '2023-24', 'RONI only (DMI = 0)'):.1f}% from RONI alone); for palay the "
+              "irrigated and rainfed DMI effects cancel; for VR the whole episode loss comes from the DMI. "
+              "Since the El Niño effect hardly changes when the DMI is dropped (Table 8), the RONI part is "
+              "close to the shock of a model without the DMI.")
     para(doc, "Without the DMI the El Niño effect barely changes, so the main results do not depend on "
-              "it. The evidence on keeping it is mixed: rice is predicted better without it, corn with "
-              "it, and the estimators disagree on the fit. Since the DMI may well matter for the weather "
+              "it. The evidence on keeping it is mixed: rice is predicted better without it, corn with it, "
+              "VR and PF give no clear answer, and the estimators disagree on the fit. Its sign also differs across crops: a "
+              "positive IOD goes with more rainfed rice, corn and fruit but less irrigated rice and fewer "
+              "vegetables and root crops, which is hard to explain physically. Since the DMI may well matter for the weather "
               "(stage 1) even if it cannot be separated from El Niño in the production equation, the "
               "question is open for discussion with Van and Alper; the shocks would rise somewhat "
               "without it, because the positive IOD of the episodes would no longer offset part of the "
-              "El Niño loss.")
+              "El Niño loss: for corn by up to about 6 points of a year's production (Table 8a).")
 
     doc.add_heading("5. Vegetables and root crops (VR) and perennial fruits (PF)", level=1)
-    status(doc, "to come")
-    para(doc, "Calorie-weighted indices from 2010 (FNRI factors; banana varieties updated 11 November "
-              "2026). With only two strong episodes since 2010, pooled effects and up to six lags for "
-              "PF will be tested.")
+    status(doc, "draft; the recommended specification awaits agreement")
+    para(doc, "VR and PF are the calorie-weighted production indices of methodology v5 (FNRI factors, "
+              "fixed 2021–2023 calorie shares; banana varieties updated 11 November 2026), rebuilt on "
+              "the 16 regions from 2010Q1 to 2025Q4. The estimated outcome is the calorie energy of "
+              "the index's crops, so the effects are proportional changes of the index. Both indices are "
+              "concentrated: root crops (cassava and sweet potato) dominate VR in kcal, with BARMM and "
+              "Region X producing half of it; bananas dominate PF, with Regions XI, X and XII producing "
+              "over 70%. Typhoon and flood exposure is weighted by each index's calorie output across "
+              "the provinces of a region. With quarterly data from 2010, only the 2015–16 and 2023–24 "
+              "episodes are in the sample.")
+    doc.add_heading("5.1 Specification", level=2)
+    table(doc, vrpf_specs(), [4.6, 1.5, 1.6, 1.5, 1.5, 1.6, 1.5],
+          note="Table 9. VR and PF, Poisson. Fit gain = fall in the information criterion against v5 as "
+               "written (positive = better after charging for extra parameters). El Niño effect = "
+               "production-weighted national effect of a sustained +1 °C RONI, % (El Niño part when El "
+               "Niño and La Niña are separate). Validation error = mean absolute error of the "
+               "leave-one-episode-out predictions, 2015–16 and 2023–24, points.",
+          fmt={"El Niño effect, VR (%)": "{:.1f}", "El Niño effect, PF (%)": "{:.1f}",
+               "Validation error, VR": "{:.1f}", "Validation error, PF": "{:.1f}"})
+    para(doc, "Two choices matter, and both point to a simpler model than for rice and corn. Smooth "
+              "regional trends are again essential, especially for VR: with v5's linear trends El Niño "
+              "appears to raise VR, an artefact of the expansion of cassava in Regions II, IX and XII "
+              "until about 2015 and of the fall of root crops in Region V from 2023, which a straight "
+              "line cannot follow. And with 16 years of data one national effect fits better than 16 "
+              "regional effects for both indices, under both estimators (least squares on logs agrees). "
+              "Unlike rice and corn, separate El Niño and La Niña effects are not needed: for PF, La "
+              "Niña raises production at least as much as El Niño lowers it, so one linear RONI term, "
+              "as in v5, fits better. Neither a season shift nor lags 1–6 (v5 allows up to six for PF) "
+              "improves the Poisson fit; least squares on logs prefers a season shift for PF, but then "
+              "the whole El Niño effect falls on wet-season quarters, which is hard to interpret for "
+              "perennial crops. The recommended specification for VR and PF is "
+              "therefore methodology v5 (Eq. 4) with smooth regional trends and one national effect.")
+    doc.add_heading("5.2 Effects", level=2)
+    table(doc, vrpf_effects(), [4.6, 2.6, 1.8, 2.4, 1.8],
+          note="Table 10. Effect of a sustained +1 °C El Niño (RONI) and of a sustained +1 DMI on the "
+               "calorie indices, % (Poisson; recommended VR / PF specification; one national effect). "
+               "The indices without root crops, without Cavendish and without banana are the checks of "
+               "methodology v5 Section 3.2.",
+          fmt={"El Niño (RONI +1), %": "{:.1f}", "t (RONI)": "{:.1f}", "DMI +1, %": "{:.1f}",
+               "t (DMI)": "{:.1f}"})
+    para(doc, f"PF: a sustained +1 °C El Niño lowers fruit production by about "
+              f"{-vrpf_effect('pf', 'pf'):.1f}% (t = {vrpf_effect('pf', 'pf', col='t'):.1f}), a small "
+              "but clear effect. It comes from bananas: without Cavendish it is about the same "
+              f"({vrpf_effect('pf', 'pf_nocavendish'):.1f}%), so it is not driven by the export "
+              "plantations alone, while without any banana the sign reverses "
+              f"({vrpf_effect('pf', 'pf_nobanana'):+.1f}%, t = {vrpf_effect('pf', 'pf_nobanana', col='t'):.1f}): "
+              "mango, pineapple and calamansi do not fall, consistent with dry spells helping mango "
+              "flowering.")
+    para(doc, f"VR: no El Niño loss can be detected. The effect is small and positive "
+              f"({vrpf_effect('vr', 'vr'):+.1f}%, t = {vrpf_effect('vr', 'vr', col='t'):.1f}), also "
+              f"without root crops ({vrpf_effect('vr', 'vr_noroot'):+.1f}%), and close to zero with "
+              "regional effects or without the DMI; plausibly because root crops, which dominate the "
+              "index, tolerate drought and can be left in the ground until needed. With two episodes a "
+              "small loss cannot be ruled out.")
+    doc.add_heading("5.3 Validation", level=2)
+    table(doc, vrpf_strict(), [1.4, 4.0, 2.8, 2.8, 2.4],
+          note="Table 11. Stricter validation (as Table 2a; no change over time is chosen, since the "
+               "data start in 2010): loss in % of the model's neutral path over the episode, observed / "
+               "predicted by the model estimated without the episode and the four quarters after it; "
+               "mean absolute error over the two episodes.",
+          fmt={"Mean abs. error": "{:.1f}"})
+    para(doc, "The recommended specification predicts both episodes better than methodology v5 as "
+              f"written (mean error {strict_mae('vr', 'vr', 'recommended'):.1f} against "
+              f"{strict_mae('vr', 'vr', 'v5 as written'):.1f} points for VR, "
+              f"{strict_mae('pf', 'pf', 'recommended'):.1f} against "
+              f"{strict_mae('pf', 'pf', 'v5 as written'):.1f} for PF), but two episodes are a weak test, "
+              "and the observed VR loss of 2023–24 depends on how the trend is extended to the end of "
+              "the sample (about zero with the full-sample spline, about 3% when the trend is set on the "
+              "years before the episode), probably because of the fall in Region V. Methodology v5 also asks "
+              "for a check of 1997–98 against FAOSTAT national annual production; it is not done yet.")
+    if (TAB / "shocks_pf_episode_totals.csv").exists() and (TAB / "shocks_vr_episode_totals.csv").exists():
+        doc.add_heading("5.4 Shocks", level=2)
+        para(doc, "Same paths and method as for rice and corn (section 2.4): the El Niño quarters of the "
+                  "three strong episodes, with their DMI, replayed under today's conditions, and a unit "
+                  "path; range from a block bootstrap over years (2010–2025), re-estimating the timing in "
+                  "each draw.")
+        table(doc, vrpf_totals(), [3.6, 3.2, 3.2, 3.2, 3.2],
+              note="Table 12. VR and PF: total loss over the path and the four quarters after it, % of "
+                   "one year's neutral production, central value (90% bootstrap range).")
+        para(doc, f"PF: replayed today, the 1997–98, 2015–16 and 2023–24 episodes cost about "
+                  f"{vrpf_total('pf', 'pf', '1997-98'):.1f}%, {vrpf_total('pf', 'pf', '2015-16'):.1f}% and "
+                  f"{vrpf_total('pf', 'pf', '2023-24'):.1f}% of a year's fruit production (in kcal), with "
+                  "ranges that include no loss; the unit path costs "
+                  f"{vrpf_total('pf', 'pf', 'unit RONI +1 (4 quarters from Q3)'):.1f}%. VR: "
+                  f"{vrpf_total('vr', 'vr', '1997-98'):.1f}%, {vrpf_total('vr', 'vr', '2015-16'):.1f}% and "
+                  f"{vrpf_total('vr', 'vr', '2023-24'):.1f}% (negative = a gain), but the unit path, "
+                  "with no DMI, gives a gain "
+                  f"({vrpf_total('vr', 'vr', 'unit RONI +1 (4 quarters from Q3)'):.1f}%): the VR episode "
+                  "losses come entirely from the estimated DMI effect (Table 8a), not from El Niño. The "
+                  "positive IOD of 2023 also turns the PF loss of 2023–24 into a small gain. For DEFINE-PH "
+                  "this means a small loss for fruits, coming from bananas, and no El Niño shock for VR "
+                  "unless the DMI is kept; the quarterly values are in Annex Tables A3 and A4.")
+        figure(doc, FIG / "shocks_pf.png", 16.4,
+               "Figure 4. Quarterly PF shock (share of the quarter's neutral production) with the 90% "
+               "bootstrap range; dashed: PF without banana and without Cavendish; shaded: quarters of "
+               "the path.")
+    doc.add_heading("5.5 Limitations", level=2)
+    bullets(doc, [
+        ("Two episodes. ", "With data from 2010 only 2015–16 and 2023–24 are in the sample; a drought "
+         "as severe as 1997–98 may cause losses beyond those seen in the sample (the FAOSTAT check of "
+         "methodology v5 is still to be done)."),
+        ("One national effect. ", "Regional differences are not estimated; the national shock is the "
+         "same in every region, which matters only if DEFINE-PH needs regional shocks."),
+        ("The DMI ", "has opposite signs for VR (negative) and PF (positive), with its timing at the edge "
+         "of the grid: more evidence that its effect in the production equation is not identified "
+         "(section 4)."),
+        ("Data. ", "Root crops in Region V fall by more than half between 2022 and 2025, and cassava "
+         "expands strongly in Regions II, IX and XII until about 2015; the smooth trends follow these "
+         "movements, but they make the observed losses at the end of the sample less certain."),
+    ])
 
     doc.add_heading("6. Two-stage approach", level=1)
     status(doc, "to come")
@@ -778,6 +1029,13 @@ def main():
                "dry-season harvest are partly offset by gains in the following quarter, as harvests "
                "shift later in the year.",
           fmt={"Shock (% of quarter)": "{:.1f}", "Scaled for DEFINE-PH (%)": "{:.1f}"})
+    if (TAB / "shocks_pf.csv").exists() and (TAB / "shocks_vr.csv").exists():
+        table(doc, quarterly_vrpf("pf"), [2.0, 2.0, 3.0, 3.4, 3.6],
+              note="Table A3. Quarterly PF shock for the episode paths (as Table A1).",
+              fmt={"Shock (% of quarter)": "{:.1f}", "Scaled for DEFINE-PH (%)": "{:.1f}"})
+        table(doc, quarterly_vrpf("vr"), [2.0, 2.0, 3.0, 3.4, 3.6],
+              note="Table A4. Quarterly VR shock for the episode paths (as Table A1; negative = a gain).",
+              fmt={"Shock (% of quarter)": "{:.1f}", "Scaled for DEFINE-PH (%)": "{:.1f}"})
     para(doc, "Code and results: GitHub repository en_shock, branch ginevra-agriculture "
               "(scripts/estimate_direct.py, scripts/compare_direct_v5_rice.py, "
               "scripts/validate_strict.py, scripts/shocks_direct.py; tables in outputs/tables).",

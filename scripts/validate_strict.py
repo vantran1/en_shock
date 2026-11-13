@@ -22,7 +22,10 @@ Loss definitions as before: observed = 1 - sum(actual) / sum(neutral prediction)
 predicted = 1 - sum(prediction with observed RONI and DMI) / sum(neutral prediction);
 neutral = RONI = DMI = 0, controls as observed, from the model estimated without the window.
 
-Run:  python scripts/validate_strict.py --crop rice|corn
+VR and PF (data from 2010): only 2015-16 and 2023-24 are in the data, and no break year is
+chosen (every candidate year is at or before the start of the data).
+
+Run:  python scripts/validate_strict.py --crop rice|corn|vr|pf
 Writes outputs/tables/validation_strict_<crop>.csv and outputs/validation_strict_<crop>.md
 """
 import os
@@ -54,11 +57,20 @@ EPISODES = {"1997-98": ("1997Q2", "1998Q4"), "2015-16": ("2015Q2", "2016Q4"),
             "2023-24": ("2023Q2", "2024Q4")}
 EXTRA_AFTER = 4
 BREAKS = [2000, 2005, 2010, None]
-SERIES = {"rice": ["irrigated", "rainfed"], "corn": ["corn"]}
+SERIES = {"rice": ["irrigated", "rainfed"], "corn": ["corn"], "vr": ["vr"], "pf": ["pf"]}
 REC = Spec("recommended", split=True, season=True, trend="rcs")
 V5 = Spec("v5", trend="region")
 VARIANTS = {"recommended (nested break)": REC, "recommended, no DMI (nested break)": replace(REC, dmi=False),
             "v5 as written": V5, "v5 as written, no DMI": replace(V5, dmi=False)}
+# VR and PF: their recommended specification (scripts/estimate_direct.py), no break
+REC_VRPF = Spec("recommended_vrpf", trend="rcs", pooling="national")
+VARIANTS_VRPF = {"recommended": REC_VRPF, "recommended, no DMI": replace(REC_VRPF, dmi=False),
+                 "v5 as written": V5, "v5 as written, no DMI": replace(V5, dmi=False)}
+VARIANTS_ALL = {**VARIANTS, **VARIANTS_VRPF}
+
+
+def variants(crop):
+    return VARIANTS_VRPF if crop in ("vr", "pf") else VARIANTS
 
 
 def rcs(t: np.ndarray, knots: np.ndarray) -> np.ndarray:
@@ -112,11 +124,12 @@ def fit_fold(d, y, LR, LD, base, train, spec):
 
 def run(job):
     crop, eco, variant, episode = job
-    spec0 = VARIANTS[variant]
+    spec0 = VARIANTS_ALL[variant]
     p = m.build(eco)
-    d, yser = m.sample(p, "ppml")
+    d, yser = m.sample(p, "ppml", m.GROUP[eco])
     y = yser.to_numpy(float)
-    LR, LD = m.index_lags("roni", d.period), m.index_lags("dmi", d.period)
+    LR = m.index_lags("roni", d.period, spec0.K, spec0.first_lag)
+    LD = m.index_lags("dmi", d.period, spec0.K, spec0.first_lag)
     per = pd.PeriodIndex(d.period, freq="Q")
     a, z = EPISODES[episode]
     held = (per >= pd.Period(a, "Q")) & (per <= pd.Period(z, "Q") + EXTRA_AFTER)
@@ -124,7 +137,8 @@ def run(job):
     train = ~np.asarray(held)
     extra = break_dummies(d, m.GROUP[eco])
     base = base_design(d, train, spec0, extra)
-    candidates = BREAKS if spec0.name == "recommended" else [None]
+    candidates = (BREAKS if spec0.name == "recommended" and m.GROUP[eco] not in ("vr", "pf")
+                  else [None])
     fits = {}
     for b in candidates:
         fits[b] = fit_fold(d, y, LR, LD, base, train, replace(spec0, effect_break=b))
@@ -169,12 +183,14 @@ def report(t, crop):
         s.append("")
         mae = e.groupby("variant").error_pts.apply(lambda x: x.abs().mean()).rename("mean abs error")
         drop = {ep: e[e.episode != ep].groupby("variant").error_pts.apply(lambda x: x.abs().mean())
-                for ep in EPISODES}
+                for ep in m.episodes_for(eco)}
         summ = pd.concat([mae] + [v.rename(f"without {k}") for k, v in drop.items()], axis=1).reset_index()
         s.append("Mean absolute error, all three episodes and leaving each one out (to see whether a "
                  "single episode drives the comparison):\n")
         s.append(md(summ))
         s.append("")
+        if crop in ("vr", "pf"):
+            continue  # no break year chosen
         picks = e[e.variant.str.startswith("recommended")][["variant", "episode", "chosen_break", "ic_by_break"]]
         s.append("Break year chosen in each fold (information criterion of each candidate relative "
                  "to the chosen one):\n")
@@ -187,7 +203,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--crop", choices=list(SERIES), default="rice")
     crop = ap.parse_args().crop
-    jobs = [(crop, e, v, ep) for e in SERIES[crop] for v in VARIANTS for ep in EPISODES]
+    jobs = [(crop, e, v, ep) for e in SERIES[crop] for v in variants(crop) for ep in m.episodes_for(e)]
     with ProcessPoolExecutor(8) as ex:
         t = pd.DataFrame(list(ex.map(run, jobs)))
     t.assign(ic_by_break=t.ic_by_break.astype(str), status="provisional").round(3).to_csv(

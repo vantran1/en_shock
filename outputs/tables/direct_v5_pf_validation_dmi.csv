@@ -1,0 +1,5 @@
+ecosystem,model,spec,episode,theta_R,theta_D,observed_loss_pct,predicted_loss_pct,error_pts,status
+pf,ppml,recommended_vrpf,2015-16,0.55,0.95,0.127,1.486,1.359,provisional
+pf,ppml,recommended_vrpf,2023-24,0.45,0.95,-2.122,-0.823,1.298,provisional
+pf,ppml,recommended_vrpf_no_dmi,2015-16,0.2,,0.428,0.898,0.469,provisional
+pf,ppml,recommended_vrpf_no_dmi,2023-24,0.25,,-2.117,-0.09,2.028,provisional

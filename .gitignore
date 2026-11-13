@@ -18,3 +18,5 @@ config/paths.toml
 data/agriculture/FNRI_calorie_factors_VR_PF_v35.xlsx
 # geoBoundaries source files cached by scripts/make_regions.py (re-downloaded on demand)
 data/boundaries/source/
+# run logs of detached estimation jobs
+outputs/logs/
