@@ -1,0 +1,13 @@
+path,crop,total_loss_pct_of_annual,p05,p95,share_of_draws_with_loss_pct,spec_note
+1997-98,pf,1.57,0.65,2.69,97.5,"recommended spec, differs from methodology v5; provisional; without the DMI"
+1997-98,pf_nobanana,-1.39,-3.22,2.15,29.0,"recommended spec, differs from methodology v5; provisional; without the DMI"
+1997-98,pf_nocavendish,1.95,0.53,3.88,97.5,"recommended spec, differs from methodology v5; provisional; without the DMI"
+2015-16,pf,1.49,0.62,2.57,97.5,"recommended spec, differs from methodology v5; provisional; without the DMI"
+2015-16,pf_nobanana,-1.33,-3.09,2.05,29.0,"recommended spec, differs from methodology v5; provisional; without the DMI"
+2015-16,pf_nocavendish,1.85,0.51,3.7,97.5,"recommended spec, differs from methodology v5; provisional; without the DMI"
+2023-24,pf,0.7,0.29,1.2,97.5,"recommended spec, differs from methodology v5; provisional; without the DMI"
+2023-24,pf_nobanana,-0.61,-1.43,0.91,29.0,"recommended spec, differs from methodology v5; provisional; without the DMI"
+2023-24,pf_nocavendish,0.85,0.24,1.73,97.5,"recommended spec, differs from methodology v5; provisional; without the DMI"
+unit RONI +1 (4 quarters from Q3),pf,0.93,0.39,1.63,97.5,"recommended spec, differs from methodology v5; provisional; without the DMI"
+unit RONI +1 (4 quarters from Q3),pf_nobanana,-0.81,-1.87,1.31,29.0,"recommended spec, differs from methodology v5; provisional; without the DMI"
+unit RONI +1 (4 quarters from Q3),pf_nocavendish,1.18,0.31,2.31,97.5,"recommended spec, differs from methodology v5; provisional; without the DMI"

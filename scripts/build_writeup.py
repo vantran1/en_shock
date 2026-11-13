@@ -356,6 +356,39 @@ def decomp(crop, path, part):
     return d[(d.crop == crop) & (d.path == path) & (d.part == part)].total_loss_pct_of_annual.iloc[0]
 
 
+def dmi_blocked():
+    """Table 8b: blocked nested cross-validation with and without the DMI."""
+    t = pd.read_csv(TAB / "dmi_blocked_cv_summary.csv")
+    names = {"irrigated": "irrigated palay", "rainfed": "rainfed palay", "corn": "total corn",
+             "vr": "VR index", "pf": "PF index"}
+    return pd.DataFrame({"Series": t.series.map(names),
+                         "Blocks": t.blocks,
+                         "Error change with the DMI, %": t.mse_reduction_with_dmi_pct,
+                         "90% range": [f"{a:.1f} to {b:.1f}" for a, b in zip(t.p05, t.p95)],
+                         "Deviance change with the DMI, %": t.deviance_reduction_with_dmi_pct,
+                         "Blocks better with the DMI": [f"{k} of {n}" for k, n in zip(t.blocks_better_with_dmi, t.blocks)]})
+
+
+def dmi_controls(series, controls):
+    t = pd.read_csv(TAB / "dmi_controls.csv")
+    return t[(t.series == series) & (t.controls == controls)].dmi_effect.iloc[0]
+
+
+def no_dmi_totals():
+    """Table 8c: episode shocks of the recommended specifications with and without the DMI."""
+    rows = []
+    for crop, main, lab in (("rice", "palay", "palay"), ("corn", "corn", "corn"), ("vr", "vr", "VR index"),
+                            ("pf", "pf", "PF index")):
+        a = pd.read_csv(TAB / f"shocks_{crop}_episode_totals.csv").set_index(["path", "crop"])
+        b = pd.read_csv(TAB / f"shocks_{crop}_episode_totals_no_dmi.csv").set_index(["path", "crop"])
+        for pth in ("1997-98", "2015-16", "2023-24"):
+            x, y = a.loc[(pth, main)], b.loc[(pth, main)]
+            rows.append({"Series": lab, "Path": pth,
+                         "With the DMI": f"{x.total_loss_pct_of_annual:.1f} ({x.p05:.1f} to {x.p95:.1f})",
+                         "Without the DMI (RONI only)": f"{y.total_loss_pct_of_annual:.1f} ({y.p05:.1f} to {y.p95:.1f})"})
+    return pd.DataFrame(rows)
+
+
 def roni_dmi_corr():
     from climate.indices import quarterly
     x = pd.DataFrame({"roni": quarterly("roni"), "dmi": quarterly("dmi")}).dropna()
@@ -568,10 +601,11 @@ def main():
          "bananas; for VR no loss can be detected. The data (from 2010) support a simpler model than "
          "for rice and corn: v5's single RONI effect with smooth trends and one national effect "
          "(section 5)."),
-        ("Open question: the DMI. ", "The Indian Ocean Dipole index moves together with RONI when El "
-         "Niño builds and its timing cannot be identified; dropping it barely changes the El Niño "
-         "effect, improves the predictions for rice but not for corn, and its sign differs across "
-         "crops (section 4)."),
+        ("Proposal on the DMI: ", "use RONI alone as the main driver. Adding the Indian Ocean Dipole "
+         "index improves the out-of-sample predictions neither of production (direct approach, all "
+         "crops) nor of the weather (stage 1, Van's test); its estimated effect on production has a "
+         "sign the weather does not support, and it offsets a large part of the corn shocks. The DMI "
+         "would stay as a sensitivity and for stress scenarios (section 4)."),
     ])
     doc.add_heading("How reliable are the results?", level=2)
     bullets(doc, [
@@ -779,7 +813,8 @@ def main():
         ("Section 3.6: ", "define the observed loss used in the validation (against the model's "
          "neutral path, as in section 2.2), leave out the quarters after each episode as well, and "
          "make every specification choice inside each fold (Table 2a)."),
-        ("To discuss: ", "whether to keep the DMI in the direct approach (section 4)."),
+        ("To discuss: ", "RONI alone as the main driver, in the direct approach and in stage 1, with "
+         "the DMI as a sensitivity and a stress-scenario option (section 4)."),
         ("Section 3.5: ", "state that, with lags from one quarter, the first quarter of a path has "
          "no shock."),
         ("Additions: ", "the rule for the Eight Cluster Areas, the rule for PSA measurement breaks, "
@@ -857,8 +892,9 @@ def main():
                "Figure 3. Quarterly corn shock (share of the quarter's neutral production) with the 90% "
                "bootstrap range; dashed: white and yellow corn; shaded: quarters of the path.")
 
-    doc.add_heading("4. Open question: the DMI", level=1)
-    status(doc, "to discuss with Van and Alper; the recommended specifications keep the DMI for now")
+    doc.add_heading("4. The DMI", level=1)
+    status(doc, "proposal for Alper: RONI alone as the main driver; the recommended specifications "
+                "keep the DMI until it is agreed")
     q3, q4 = roni_dmi_corr()
     para(doc, "Methodology v5 includes the Dipole Mode Index (DMI) of the Indian Ocean Dipole with its "
               "own lag profile. In the production equation it raises three concerns. Its timing cannot "
@@ -895,11 +931,55 @@ def main():
               "it. The evidence on keeping it is mixed: rice is predicted better without it, corn with it, "
               "VR and PF give no clear answer, and the estimators disagree on the fit. Its sign also differs across crops: a "
               "positive IOD goes with more rainfed rice, corn and fruit but less irrigated rice and fewer "
-              "vegetables and root crops, which is hard to explain physically. Since the DMI may well matter for the weather "
-              "(stage 1) even if it cannot be separated from El Niño in the production equation, the "
-              "question is open for discussion with Van and Alper; the shocks would rise somewhat "
+              "vegetables and root crops, which is hard to explain physically. The shocks would rise "
               "without it, because the positive IOD of the episodes would no longer offset part of the "
               "El Niño loss: for corn by up to about 6 points of a year's production (Table 8a).")
+    doc.add_heading("4.1 The same test for both models", level=2)
+    para(doc, "Van tested the DMI in stage 1 by nested cross-validation: 5-year blocks of years are held "
+              "out in turn, with the lags and modes chosen without them. Adding the DMI to RONI does not "
+              "improve the predictions of any weather variable (changes within about 2%, rainfall "
+              "significantly worse in January–March and July–September). Holding RONI fixed, a positive "
+              "IOD makes the Philippines drier, not wetter: about 4–5% less October–December rainfall per "
+              "standard deviation of the DMI, in all regions and most in Mindanao, against about 16% for "
+              "a comparable El Niño anomaly; there is no effect in January–June. The two indices move "
+              "together only in the second half of the year (correlation about 0.4 in July–September, "
+              "0.45–0.6 in October–December).")
+    para(doc, "The same rule is applied to the direct approach: a driver is kept only if it improves "
+              "out-of-sample prediction. The 5-year blocks are those of stage 1 (1985–89, …, 2020–25), "
+              "each held out with the four quarters after it; the timing and the trends are set on the "
+              "remaining years, and every held-out quarter is predicted.")
+    table(doc, dmi_blocked(), [2.8, 1.4, 2.6, 2.6, 2.6, 2.4],
+          note="Table 8b. Blocked nested cross-validation of the direct approach (Poisson, recommended "
+               "specifications): change in the mean squared error of log production when the DMI is "
+               "added, % (positive = better with the DMI), with a 90% bootstrap range over blocks "
+               "(uninformative with three blocks for VR and PF); the same for the Poisson deviance; and "
+               "the number of blocks predicted better with the DMI.",
+          fmt={"Error change with the DMI, %": "{:+.1f}", "Deviance change with the DMI, %": "{:+.1f}"})
+    para(doc, "As in stage 1, adding the DMI improves the predictions for no series: the changes are "
+              "within about 1.5% either way, and the only ranges that exclude zero (irrigated palay, PF) show it "
+              "making them worse. The positive effect on production cannot come from typhoons, the one "
+              "channel a rainfall-based stage 1 would miss: the DMI effect is estimated with the typhoon "
+              "and flood controls, and it is the same without them (corn "
+              f"{dmi_controls('corn', 'all controls (recommended)'):.2f} with, "
+              f"{dmi_controls('corn', 'no typhoon controls'):.2f} without; rainfed palay "
+              f"{dmi_controls('rainfed', 'all controls (recommended)'):.2f} and "
+              f"{dmi_controls('rainfed', 'no typhoon controls'):.2f}); nor does a positive IOD go with "
+              "less typhoon exposure in the rice and corn areas.")
+    if all((TAB / f"shocks_{c}_episode_totals_no_dmi.csv").exists() for c in ("rice", "corn", "vr", "pf")):
+        table(doc, no_dmi_totals(), [2.4, 2.0, 5.0, 5.0],
+              note="Table 8c. Episode shocks of the recommended specifications estimated with and without "
+                   "the DMI: total loss over the path and the quarters after it, % of one year's neutral "
+                   "production, central value (90% bootstrap range).")
+        para(doc, "Without the DMI the corn shocks are larger, about 9% of a year's production for 1997–98 "
+                  "and 5% for 2023–24 instead of 6% and 2%, and the ranges are narrower: the 2023–24 corn "
+                  "and palay ranges and all PF ranges no longer include zero. Palay changes little (the "
+                  "irrigated and rainfed DMI effects offset each other), and VR stays close to zero.")
+    doc.add_heading("4.2 Proposal", level=2)
+    para(doc, "Use RONI alone as the main driver, in the direct approach and in stage 1, by the same rule "
+              "for both models. Keep the DMI as a documented sensitivity (the shocks with the DMI, Table "
+              "8c) and as an option for stress scenarios with a strong El Niño and a strong positive IOD, "
+              "built through the weather with the October–December drying that stage 1 does find. This "
+              "changes the agreed scope (RONI and DMI as drivers) and needs Alper's agreement.")
 
     doc.add_heading("5. Vegetables and root crops (VR) and perennial fruits (PF)", level=1)
     status(doc, "draft; the recommended specification awaits agreement")

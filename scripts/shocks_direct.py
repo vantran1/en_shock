@@ -28,7 +28,10 @@ Central estimate: Poisson on the full sample (timing on the 0.05 grid). Range (v
 timing parameters on a 0.10 grid in each replication; 5th and 95th percentiles.
 Log-LS central shocks are reported as a check.
 
-Run:  python scripts/shocks_direct.py --crop rice|corn|vr|pf [--reps 200]
+--no-dmi: the same with the crop's specification estimated without the DMI (RONI only; the
+sensitivity proposed in write-up section 4); outputs end in _no_dmi.
+
+Run:  python scripts/shocks_direct.py --crop rice|corn|vr|pf [--reps 200] [--no-dmi]
 Writes outputs/tables/shocks_<crop>.csv (national), shocks_<crop>_regional.csv (central,
 by region), shocks_<crop>_bootstrap.csv (draws), shocks_<crop>_episode_totals.csv (total
 loss over each scenario, % of a year's production), outputs/figures/shocks_<crop>.png
@@ -40,6 +43,7 @@ os.environ.setdefault("OPENBLAS_NUM_THREADS", "1")
 os.environ.setdefault("VECLIB_MAXIMUM_THREADS", "1")
 
 import argparse  # noqa: E402
+from dataclasses import replace  # noqa: E402
 import sys  # noqa: E402
 from concurrent.futures import ProcessPoolExecutor  # noqa: E402
 from pathlib import Path  # noqa: E402
@@ -162,9 +166,14 @@ def episode_totals(out, draws):
     return t.reset_index()
 
 
-def boot(job):
-    rep, crop = job
+def spec_of(crop, dmi=True):
     spec = m.RECOMMENDED_BY_CROP[crop]
+    return spec if dmi else replace(spec, name=f"{spec.name}_no_dmi", dmi=False)
+
+
+def boot(job):
+    rep, crop, dmi = job
+    spec = spec_of(crop, dmi)
     rng = np.random.default_rng(1000 + rep)
     data = {eco: prepare(eco, spec) for eco in CONF[crop]["series"]}
     first = min(int(data[e][0].period.str[:4].min()) for e in CONF[crop]["series"])
@@ -186,9 +195,12 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--crop", choices=list(CONF), default="rice")
     ap.add_argument("--reps", type=int, default=200)
+    ap.add_argument("--no-dmi", action="store_true")
     args = ap.parse_args()
     crop = args.crop
-    spec = m.RECOMMENDED_BY_CROP[crop]
+    dmi = not args.no_dmi
+    spec = spec_of(crop, dmi)
+    sfx = "" if dmi else "_no_dmi"
     series = CONF[crop]["series"]
     data = {eco: prepare(eco, spec) for eco in series}
     central = {eco: fit_params(*data[eco], "ppml", THETA_GRID, spec) for eco in series}
@@ -199,8 +211,8 @@ def main():
     print("central thetas (Poisson):", {e: central[e][1:] for e in series})
 
     with ProcessPoolExecutor(WORKERS) as ex:
-        draws = pd.concat(list(ex.map(boot, [(r, crop) for r in range(args.reps)])), ignore_index=True)
-    draws.round(6).to_csv(TAB / f"shocks_{crop}_bootstrap.csv", index=False)
+        draws = pd.concat(list(ex.map(boot, [(r, crop, dmi) for r in range(args.reps)])), ignore_index=True)
+    draws.round(6).to_csv(TAB / f"shocks_{crop}_bootstrap{sfx}.csv", index=False)
     key = ["path", "crop", "scenario_q"]
     q = draws.groupby(key).agg(S_p05=("S", lambda s: s.quantile(0.05)),
                                S_p95=("S", lambda s: s.quantile(0.95)),
@@ -211,11 +223,11 @@ def main():
                                                                   "S_D": "S_D_logLS_check"}), on=key))
     out = out[["path", "crop", "scenario_q", "q", "step", "in_path", "S", "S_p05", "S_p95",
                "S_D", "S_D_p05", "S_D_p95", "S_logLS_check", "S_D_logLS_check"]]
-    note = "recommended spec, differs from methodology v5; provisional"
-    out.assign(reps=args.reps, spec_note=note).round(5).to_csv(TAB / f"shocks_{crop}.csv", index=False)
-    reg.assign(spec_note=note).round(5).to_csv(TAB / f"shocks_{crop}_regional.csv", index=False)
+    note = "recommended spec, differs from methodology v5; provisional" + ("" if dmi else "; without the DMI")
+    out.assign(reps=args.reps, spec_note=note).round(5).to_csv(TAB / f"shocks_{crop}{sfx}.csv", index=False)
+    reg.assign(spec_note=note).round(5).to_csv(TAB / f"shocks_{crop}_regional{sfx}.csv", index=False)
     episode_totals(out, draws).assign(spec_note=note).round(2).to_csv(
-        TAB / f"shocks_{crop}_episode_totals.csv", index=False)
+        TAB / f"shocks_{crop}_episode_totals{sfx}.csv", index=False)
 
     pd.set_option("display.width", 220, "display.max_rows", 200)
     main_series = CONF[crop]["main"]
@@ -225,7 +237,8 @@ def main():
     print(f"\n{main_series} shock, % of neutral production (S, Eq. 13a) and scaled for DEFINE-PH (S_D, Eq. 13b):")
     print(show.drop(columns=["crop", "S_D_logLS_check"]).to_string(index=False))
 
-    plot(out, crop)
+    if dmi:
+        plot(out, crop)
 
 def plot(out, crop):
     """Main shock (Eq. 13a) by path with the 90% bootstrap range, 2 x 2 panels; dashed: the
