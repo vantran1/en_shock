@@ -1,0 +1,16 @@
+series,exposure,mean,dmi_coef,t_dmi,roni_coef,t_roni,status
+irrigated,ty_share_ts,0.1252,-0.007,-0.2174,-0.004,-0.3362,provisional
+irrigated,ty_share_ty,0.0237,-0.0028,-0.2943,-0.0017,-0.5865,provisional
+irrigated,flood_share,0.1763,0.0979,1.7437,-0.0867,-3.6851,provisional
+rainfed,ty_share_ts,0.1268,0.0468,1.2878,-0.0074,-0.6627,provisional
+rainfed,ty_share_ty,0.0239,0.0225,1.7274,-0.0018,-0.5737,provisional
+rainfed,flood_share,0.1737,0.0962,1.6451,-0.0817,-3.5977,provisional
+corn,ty_share_ts,0.1255,-0.0354,-1.0655,-0.0034,-0.2738,provisional
+corn,ty_share_ty,0.024,-0.0127,-1.1074,-0.0008,-0.2143,provisional
+corn,flood_share,0.1763,0.0769,1.4315,-0.085,-3.6123,provisional
+vr,ty_share_ts,0.1333,0.0122,0.2569,0.0121,0.9342,provisional
+vr,ty_share_ty,0.0302,0.0075,0.5864,0.0113,2.2847,provisional
+vr,flood_share,0.2465,-0.0392,-0.4503,-0.0289,-0.8339,provisional
+pf,ty_share_ts,0.1339,-0.11,-2.1895,0.0043,0.3065,provisional
+pf,ty_share_ty,0.025,-0.0309,-2.115,0.0043,1.2283,provisional
+pf,flood_share,0.2554,-0.1649,-1.6807,-0.0745,-2.2458,provisional
