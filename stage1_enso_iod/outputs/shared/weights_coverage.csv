@@ -1,0 +1,100 @@
+region_set,weights,code,source,fallback,share_captured_by_land_cells,share_reassigned_to_nearest_cell
+r16,area,CAR,polygon overlap area,False,1,0
+r16,area,R01,polygon overlap area,False,0.781055,0.218945
+r16,area,R02,polygon overlap area,False,0.885775,0.114225
+r16,area,R03,polygon overlap area,False,0.92279,0.0772103
+r16,area,R04A,polygon overlap area,False,0.697818,0.302182
+r16,area,MIMAROPA,polygon overlap area,False,0.474085,0.525901
+r16,area,R05,polygon overlap area,False,0.596754,0.403246
+r16,area,R06,polygon overlap area,False,0.833566,0.166434
+r16,area,R07,polygon overlap area,False,0.624827,0.375173
+r16,area,R08,polygon overlap area,False,0.783976,0.216024
+r16,area,R09,polygon overlap area,False,0.676082,0.323918
+r16,area,R10,polygon overlap area,False,0.887312,0.112688
+r16,area,R11,polygon overlap area,False,0.886803,0.113197
+r16,area,R12,polygon overlap area,False,0.943601,0.0563987
+r16,area,R13,polygon overlap area,False,0.846021,0.153979
+r16,area,BARMM,polygon overlap area,False,0.666434,0.333566
+r16,cropland,CAR,cropland km² (esa_cci_lc_2022_phl.nc),False,1,0
+r16,cropland,R01,cropland km² (esa_cci_lc_2022_phl.nc),False,0.754471,0.245529
+r16,cropland,R02,cropland km² (esa_cci_lc_2022_phl.nc),False,0.965162,0.0348385
+r16,cropland,R03,cropland km² (esa_cci_lc_2022_phl.nc),False,0.952626,0.0473741
+r16,cropland,R04A,cropland km² (esa_cci_lc_2022_phl.nc),False,0.742415,0.257585
+r16,cropland,MIMAROPA,cropland km² (esa_cci_lc_2022_phl.nc),False,0.538314,0.461686
+r16,cropland,R05,cropland km² (esa_cci_lc_2022_phl.nc),False,0.61179,0.38821
+r16,cropland,R06,cropland km² (esa_cci_lc_2022_phl.nc),False,0.856121,0.143879
+r16,cropland,R07,cropland km² (esa_cci_lc_2022_phl.nc),False,0.65692,0.34308
+r16,cropland,R08,cropland km² (esa_cci_lc_2022_phl.nc),False,0.794234,0.205766
+r16,cropland,R09,cropland km² (esa_cci_lc_2022_phl.nc),False,0.727719,0.272281
+r16,cropland,R10,cropland km² (esa_cci_lc_2022_phl.nc),False,0.891553,0.108447
+r16,cropland,R11,cropland km² (esa_cci_lc_2022_phl.nc),False,0.930791,0.0692091
+r16,cropland,R12,cropland km² (esa_cci_lc_2022_phl.nc),False,0.970104,0.0298962
+r16,cropland,R13,cropland km² (esa_cci_lc_2022_phl.nc),False,0.845073,0.154927
+r16,cropland,BARMM,cropland km² (esa_cci_lc_2022_phl.nc),False,0.88031,0.11969
+r16,population,CAR,population (phl_ppp_2020_1km_Aggregated_UNadj.tif),False,1,0
+r16,population,R01,population (phl_ppp_2020_1km_Aggregated_UNadj.tif),False,0.803792,0.196208
+r16,population,R02,population (phl_ppp_2020_1km_Aggregated_UNadj.tif),False,0.96126,0.0387398
+r16,population,R03,population (phl_ppp_2020_1km_Aggregated_UNadj.tif),False,0.920601,0.0793992
+r16,population,R04A,population (phl_ppp_2020_1km_Aggregated_UNadj.tif),False,0.781977,0.218023
+r16,population,MIMAROPA,population (phl_ppp_2020_1km_Aggregated_UNadj.tif),False,0.439545,0.560455
+r16,population,R05,population (phl_ppp_2020_1km_Aggregated_UNadj.tif),False,0.724456,0.275544
+r16,population,R06,population (phl_ppp_2020_1km_Aggregated_UNadj.tif),False,0.824006,0.175994
+r16,population,R07,population (phl_ppp_2020_1km_Aggregated_UNadj.tif),False,0.402738,0.597262
+r16,population,R08,population (phl_ppp_2020_1km_Aggregated_UNadj.tif),False,0.645767,0.354233
+r16,population,R09,population (phl_ppp_2020_1km_Aggregated_UNadj.tif),False,0.448764,0.551236
+r16,population,R10,population (phl_ppp_2020_1km_Aggregated_UNadj.tif),False,0.84047,0.15953
+r16,population,R11,population (phl_ppp_2020_1km_Aggregated_UNadj.tif),False,0.905753,0.094247
+r16,population,R12,population (phl_ppp_2020_1km_Aggregated_UNadj.tif),False,0.950508,0.0494916
+r16,population,R13,population (phl_ppp_2020_1km_Aggregated_UNadj.tif),False,0.797039,0.202961
+r16,population,BARMM,population (phl_ppp_2020_1km_Aggregated_UNadj.tif),False,0.720824,0.279176
+r17,area,NCR,polygon overlap area,False,1,0
+r17,area,CAR,polygon overlap area,False,1,0
+r17,area,R01,polygon overlap area,False,0.781055,0.218945
+r17,area,R02,polygon overlap area,False,0.885775,0.114225
+r17,area,R03,polygon overlap area,False,0.92279,0.0772103
+r17,area,R04A,polygon overlap area,False,0.697818,0.302182
+r17,area,MIMAROPA,polygon overlap area,False,0.474085,0.525901
+r17,area,R05,polygon overlap area,False,0.596754,0.403246
+r17,area,R06,polygon overlap area,False,0.833566,0.166434
+r17,area,R07,polygon overlap area,False,0.624827,0.375173
+r17,area,R08,polygon overlap area,False,0.783976,0.216024
+r17,area,R09,polygon overlap area,False,0.676082,0.323918
+r17,area,R10,polygon overlap area,False,0.887312,0.112688
+r17,area,R11,polygon overlap area,False,0.886803,0.113197
+r17,area,R12,polygon overlap area,False,0.943601,0.0563987
+r17,area,R13,polygon overlap area,False,0.846021,0.153979
+r17,area,BARMM,polygon overlap area,False,0.666434,0.333566
+r17,cropland,NCR,cropland km² (esa_cci_lc_2022_phl.nc),False,1,0
+r17,cropland,CAR,cropland km² (esa_cci_lc_2022_phl.nc),False,1,0
+r17,cropland,R01,cropland km² (esa_cci_lc_2022_phl.nc),False,0.754471,0.245529
+r17,cropland,R02,cropland km² (esa_cci_lc_2022_phl.nc),False,0.965162,0.0348385
+r17,cropland,R03,cropland km² (esa_cci_lc_2022_phl.nc),False,0.952626,0.0473741
+r17,cropland,R04A,cropland km² (esa_cci_lc_2022_phl.nc),False,0.742415,0.257585
+r17,cropland,MIMAROPA,cropland km² (esa_cci_lc_2022_phl.nc),False,0.538314,0.461686
+r17,cropland,R05,cropland km² (esa_cci_lc_2022_phl.nc),False,0.61179,0.38821
+r17,cropland,R06,cropland km² (esa_cci_lc_2022_phl.nc),False,0.856121,0.143879
+r17,cropland,R07,cropland km² (esa_cci_lc_2022_phl.nc),False,0.65692,0.34308
+r17,cropland,R08,cropland km² (esa_cci_lc_2022_phl.nc),False,0.794234,0.205766
+r17,cropland,R09,cropland km² (esa_cci_lc_2022_phl.nc),False,0.727719,0.272281
+r17,cropland,R10,cropland km² (esa_cci_lc_2022_phl.nc),False,0.891553,0.108447
+r17,cropland,R11,cropland km² (esa_cci_lc_2022_phl.nc),False,0.930791,0.0692091
+r17,cropland,R12,cropland km² (esa_cci_lc_2022_phl.nc),False,0.970104,0.0298962
+r17,cropland,R13,cropland km² (esa_cci_lc_2022_phl.nc),False,0.845073,0.154927
+r17,cropland,BARMM,cropland km² (esa_cci_lc_2022_phl.nc),False,0.88031,0.11969
+r17,population,NCR,population (phl_ppp_2020_1km_Aggregated_UNadj.tif),False,1,0
+r17,population,CAR,population (phl_ppp_2020_1km_Aggregated_UNadj.tif),False,1,0
+r17,population,R01,population (phl_ppp_2020_1km_Aggregated_UNadj.tif),False,0.803792,0.196208
+r17,population,R02,population (phl_ppp_2020_1km_Aggregated_UNadj.tif),False,0.96126,0.0387398
+r17,population,R03,population (phl_ppp_2020_1km_Aggregated_UNadj.tif),False,0.920601,0.0793992
+r17,population,R04A,population (phl_ppp_2020_1km_Aggregated_UNadj.tif),False,0.781977,0.218023
+r17,population,MIMAROPA,population (phl_ppp_2020_1km_Aggregated_UNadj.tif),False,0.439545,0.560455
+r17,population,R05,population (phl_ppp_2020_1km_Aggregated_UNadj.tif),False,0.724456,0.275544
+r17,population,R06,population (phl_ppp_2020_1km_Aggregated_UNadj.tif),False,0.824006,0.175994
+r17,population,R07,population (phl_ppp_2020_1km_Aggregated_UNadj.tif),False,0.402738,0.597262
+r17,population,R08,population (phl_ppp_2020_1km_Aggregated_UNadj.tif),False,0.645767,0.354233
+r17,population,R09,population (phl_ppp_2020_1km_Aggregated_UNadj.tif),False,0.448764,0.551236
+r17,population,R10,population (phl_ppp_2020_1km_Aggregated_UNadj.tif),False,0.84047,0.15953
+r17,population,R11,population (phl_ppp_2020_1km_Aggregated_UNadj.tif),False,0.905753,0.094247
+r17,population,R12,population (phl_ppp_2020_1km_Aggregated_UNadj.tif),False,0.950508,0.0494916
+r17,population,R13,population (phl_ppp_2020_1km_Aggregated_UNadj.tif),False,0.797039,0.202961
+r17,population,BARMM,population (phl_ppp_2020_1km_Aggregated_UNadj.tif),False,0.720824,0.279176

@@ -1,0 +1,20 @@
+# Table 2a of the labour note. DRAFT ASSUMPTIONS, to be reviewed: outdoor_share is the share of the group's workers
+# who work outdoors (in the sun); aircon_share is the share of its INDOOR workers in air-conditioned workplaces
+# (no heat loss); intensity is the Hothaps curve (heavy, moderate, light). outdoor_share_low/high are used in the
+# sensitivity cases. Made by analysis/draft_services_table.py; the pipeline reads only this file, so edit it freely.
+group,psic_major_group,employment_thousand,outdoor_share,outdoor_share_low,outdoor_share_high,aircon_share,intensity,basis
+trade,Wholesale and retail trade,9725.2,0.252,0.126,0.378,0.0,moderate,ASSUMPTION from PSA Table 11.8 (2021): service_sales 58% (outdoors 25%); elementary 16% (outdoors 50%); managers 16% (outdoors 0%)
+transport,Transportation and storage,2938.9,0.806,0.403,1.0,0.0,moderate,ASSUMPTION from PSA Table 11.8 (2021): operators 68% (outdoors 100%); elementary 17% (outdoors 75%); managers 7% (outdoors 0%)
+accommodation,Accommodation and food service,1416.1,0.118,0.118,0.118,0.0,moderate,ASSUMPTION from PSA Table 11.8 (2021): service_sales 57% (outdoors 10%); elementary 20% (outdoors 25%); managers 16% (outdoors 0%)
+information,Information and communication,444.6,0.066,0.066,0.066,1.0,light,ASSUMPTION from PSA Table 11.8 (2021): professionals 34% (outdoors 0%); technicians 18% (outdoors 0%); clerical 18% (outdoors 0%)
+finance,Financial and insurance activities,619.7,0.016,0.016,0.016,1.0,light,ASSUMPTION from PSA Table 11.8 (2021): clerical 52% (outdoors 0%); technicians 19% (outdoors 0%); managers 11% (outdoors 0%)
+real_estate,Real estate activities,204.0,0.039,0.039,0.039,0.0,light,ASSUMPTION from PSA Table 11.8 (2021): technicians 39% (outdoors 0%); managers 29% (outdoors 0%); clerical 11% (outdoors 0%)
+professional,"Professional, scientific and technical activities",296.3,0.016,0.016,0.016,0.0,light,ASSUMPTION from PSA Table 11.8 (2021): professionals 36% (outdoors 0%); clerical 30% (outdoors 0%); technicians 21% (outdoors 0%)
+admin_support,Administrative and support service activities,1831.0,0.22,0.22,0.22,0.0,moderate,ASSUMPTION from PSA Table 11.8 (2021): clerical 44% (outdoors 0%); service_sales 40% (outdoors 50%); elementary 6% (outdoors 25%)
+public_admin,Public administration and defence,2729.3,0.205,0.205,0.205,0.0,light,ASSUMPTION from PSA Table 11.8 (2021): service_sales 25% (outdoors 50%); clerical 20% (outdoors 0%); managers 18% (outdoors 0%)
+education,Education,1425.7,0.011,0.011,0.011,0.0,light,ASSUMPTION from PSA Table 11.8 (2021): professionals 85% (outdoors 0%); service_sales 5% (outdoors 10%); clerical 4% (outdoors 0%)
+health,Human health and social work,658.2,0.031,0.031,0.031,0.0,moderate,ASSUMPTION from PSA Table 11.8 (2021): professionals 40% (outdoors 0%); technicians 28% (outdoors 0%); service_sales 16% (outdoors 10%)
+arts,"Arts, entertainment and recreation",336.5,0.057,0.057,0.057,0.0,moderate,ASSUMPTION from PSA Table 11.8 (2021): clerical 48% (outdoors 0%); service_sales 16% (outdoors 10%); elementary 12% (outdoors 25%)
+other_services,Other service activities,2613.0,0.202,0.202,0.202,0.0,moderate,ASSUMPTION from PSA Table 11.8 (2021): elementary 57% (outdoors 25%); service_sales 26% (outdoors 10%); operators 5% (outdoors 50%)
+households,Activities of households as employers,0.0,0.0,0.0,0.0,0.0,moderate,ASSUMPTION; no employment recorded
+extraterritorial,Extraterritorial organizations,0.9,0.1,0.1,0.1,0.0,light,ASSUMPTION from PSA Table 11.8 (2021): managers 17% (outdoors 0%); professionals 17% (outdoors 0%); technicians 17% (outdoors 0%)

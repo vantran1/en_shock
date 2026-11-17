@@ -1,0 +1,43 @@
+# Stage 1 in the en_shock repository: code, docs, the small inputs and the hand-off outputs are tracked;
+# everything that the scripts rebuild or download stays on your computer (README, "In the repository").
+
+# rebuilt by steps 1-3 (saved models, fields, weights) and by the hourly steps
+work/
+
+# downloaded inputs: seasonal forecasts (scripts/00_download_inputs.py --c3s) and hourly ERA5 (Azure)
+data/inputs/c3s/
+data/inputs/era5_hourly/
+
+# outputs: only the hand-off files below are tracked; the rest is rebuilt by the scripts
+outputs/**
+!outputs/**/
+!outputs/agriculture/hist_fitted_16regions.csv
+!outputs/agriculture/cell_weights_16regions.csv
+!outputs/agriculture/island_reassignment_16regions.csv
+!outputs/agriculture/effects_16regions.csv
+!outputs/electricity/hist_fitted_17regions.csv
+!outputs/electricity/cell_weights_17regions.csv
+!outputs/electricity/region_grid_map.csv
+!outputs/electricity/cells_hist_fitted.csv.gz
+!outputs/labour/hist_fitted_17regions.csv
+!outputs/labour/T_coefficients_monthly_17regions.csv
+!outputs/labour/T_coefficients_quarterly_17regions.csv
+!outputs/labour/cell_weights_17regions.csv
+!outputs/labour/shocks_quarterly.csv
+!outputs/shared/cells.csv
+!outputs/shared/island_reassignment_17regions.csv
+!outputs/shared/model_configs.csv
+!outputs/shared/variables.csv
+!outputs/shared/weights_coverage.csv
+!outputs/skill/skill_summary.csv
+!outputs/analysis/dmi/summary.txt
+!outputs/analysis/dmi/dmi_summary.png
+!outputs/analysis/lags/*.png
+!outputs/variants/roni_dmi/agriculture/hist_fitted_16regions.csv
+!outputs/variants/roni_dmi/skill/skill_summary.csv
+
+# exports and system files
+notebooks/*.html
+__pycache__/
+.ipynb_checkpoints/
+.DS_Store

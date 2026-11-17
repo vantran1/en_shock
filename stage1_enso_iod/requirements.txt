@@ -1,0 +1,19 @@
+numpy>=1.24
+pandas>=2.0
+scipy>=1.10
+xarray>=2023.1
+h5netcdf>=1.1
+h5py>=3.8
+netCDF4>=1.6
+geopandas>=0.14
+shapely>=2.0
+pyogrio>=0.7
+rasterio>=1.3
+pyyaml>=6.0
+matplotlib>=3.7
+cdsapi>=0.7
+jupyter
+openpyxl>=3.1
+# labour steps 6-8 only (pywbgt compiles C code: see 'Labour' in the README)
+pywbgt>=3.0.7
+pythermalcomfort>=4.0

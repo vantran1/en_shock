@@ -25,6 +25,10 @@ El Niño-Southern Oscillation (ENSO) is one of the strongest drivers of year-to-
 - **Labor:** TBD
 - **Hydropower:** TBD
 
+## Stage 1: ENSO and IOD to monthly weather
+
+`stage1_enso_iod/` is Stage 1 of the DEFINE-PH methodology: an EOF–CCA model per variable and month from the RONI (and the DMI, in the `roni_dmi` variant) to the Table 2 weather variables on the ERA5 cells, its hindcast skill, and the region × month inputs of the agriculture, electricity and labour sections. It uses the repository's region boundaries (`data/boundaries/`), ERA5 land-sea mask (`data/era5/`) and land cover (`data/agriculture/cropland_weights/`). See [`stage1_enso_iod/README.md`](stage1_enso_iod/README.md) for set-up, running and outputs. The files handed to the sections are in `stage1_enso_iod/outputs/` (for example `outputs/agriculture/hist_fitted_16regions.csv`).
+
 ## Getting Started
  
 ```bash

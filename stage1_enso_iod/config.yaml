@@ -1,0 +1,153 @@
+# Stage 1 (ENSO and IOD -> weather) configuration.
+# Relative paths are relative to this folder. Run the scripts from this folder.
+
+paths:
+  # Monthly ERA5 files (era5_mean_<variable>_<years>.nc), as downloaded for en_shock. Not in the repository:
+  # set this to where they are on your computer.
+  era5_monthly_dir: /Users/vantran/Documents/career/undrr/projects/catfisc/en_shock/data/era5_monthly
+  # Hourly ERA5 files, one per month. Steps 2 needs t2m, d2m, tp; the labour steps (6-8) need t2m, d2m, sp,
+  # u10, v10, ssrd. Leave null until they are downloaded.
+  era5_hourly_dir: null
+  hourly_pattern: "era5_{year}_{month:02d}.nc"
+  # Shared with the rest of en_shock (one copy in the repository, used by its scripts too). Relative paths
+  # are relative to this file, so ../ is the en_shock repository.
+  regions16: ../data/boundaries/phl_16_regions.gpkg                   # 16 regions, pre-2024, no NCR
+  adm1: ../data/boundaries/source/geoBoundaries-PHL-ADM1_simplified.geojson   # NCR is taken from here
+  land_sea_mask: ../data/era5/era5_land_sea_mask_0.25deg_phl.nc        # ERA5 land fraction (required, step 1)
+  cropland: ../data/agriculture/cropland_weights/esa_cci_lc_2022_phl.nc
+  # Stage 1 only. scripts/00_download_inputs.py writes the inputs above and below when they are missing.
+  population: data/inputs/phl_ppp_2020_1km_Aggregated_UNadj.tif
+  c3s_dir: data/inputs/c3s
+  indices_dir: data/indices
+  work_dir: work
+  outputs_dir: outputs
+  labour_dir: data/labour       # PSA employment tables and the services assumptions (Table 2a)
+
+indices:
+  roni_url: https://www.cpc.ncep.noaa.gov/data/indices/RONI.ascii.txt
+  dmi_url: https://psl.noaa.gov/data/timeseries/month/data/dmi.had.long.data
+  refresh: true          # download fresh copies on each run; the cached copies are used if that fails
+  smooth_dmi: true       # centred 3-month mean, like the RONI
+
+period:
+  train: [1950, 2025]    # estimation years
+  clim: [1991, 2020]     # climatology of the SPEI-3 standardisation
+  t_star: 2026           # "today's climate": the trend is evaluated in this year in every simulation
+
+model:
+  # Climate-mode indices the models use. RONI alone is the main specification: adding the DMI does not improve
+  # the out-of-sample hindcasts (analysis/dmi_analysis.py). The RONI + DMI fit is kept as the variant roni_dmi
+  # below, for the sensitivity and for stress scenarios that combine El Nino with a positive IOD.
+  predictors: [roni]
+  variables: [T, VPD, P, SM_RZ, SM_DEEP, PET, E, SPEI3, RS, RO]   # monthly Table 2 predictands
+  hourly_variables: [TMAX, TMIN, EDD, NHOT, NDRY, LDRY, N50, VPDMAX]  # used only when the hourly metrics exist
+  cv_window: 5           # leave-5-years-out cross-validation
+  my_grid: [1, 2, 3, 4, 5, 6]
+  mc_grid: [1, 2]
+  # Lag sets the selection chooses from, in months before the target month (0 = the target month). Lags 3 and 6
+  # are the two previous non-overlapping 3-month seasons; adding them raised the nested-CV skill by about 0.03,
+  # mostly from March to August (analysis/lag_analysis.py). The path needs max(lag) observed lead-in months.
+  lag_sets:
+    sync: [0]
+    sync+lag1: [0, 1]
+    sync+lag3: [0, 3]
+    sync+lag6: [0, 6]
+  detrend_predictors: false
+  nested_cv: true        # selection-honest skill (adds about 5 minutes)
+  # Outer blocks of the nested CV: 5 seasonal years from July to June (Jul 1950-Jun 1955, ...), so every month of
+  # an ENSO season is held out together.
+  nested_block_years: 5
+  nested_block_start_month: 7
+  joint_check: true      # one joint EOF-CCA of all variables, as a check on the per-variable models
+  n_boot_coef: 200       # bootstrap replicates for the temperature coefficients given to labour
+  fdr_q: 0.10
+  seed: 42
+
+# Variants: other versions of the model, each a set of overrides of the settings above. A variant is run with
+# --variant <name> (scripts 03, 04, 05, 07, 08 and run_all.py) and writes to outputs/variants/<name>/ and
+# work/variants/<name>/; it reads the shared inputs of the main run (fields, weights, cells, and the path unless
+# it builds its own with step 4).
+variants:
+  roni_dmi:                       # RONI + DMI: the sensitivity, and the model of the stress scenarios
+    model: {predictors: [roni, dmi]}
+  # A stress scenario: a strong El Nino with a strong positive IOD, on the RONI + DMI models. Write the monthly
+  # path (date, roni, dmi) to the csv, then: python scripts/04_make_path.py --variant stress_nino_piod
+  #                                          python scripts/05_simulate.py --variant stress_nino_piod
+  # stress_nino_piod:
+  #   models_from: roni_dmi
+  #   path: {source: csv, csv: data/paths/stress_nino_piod.csv}
+
+land:
+  lsm_threshold: 0.5         # ERA5 land fraction (paths.land_sea_mask); cells below are dropped
+  allow_fallback: false      # true: without the mask file, approximate it from the region polygons (below);
+                             # false: step 1 stops and asks for the mask
+  soil_water_proxy: 0.01     # the fallback keeps cells at least half inside the land polygons whose root-zone
+                             # soil water exceeds this in some month (ERA5 sea points have ~0)
+
+weights:
+  # ESA CCI / C3S land cover (LCCS) classes counted as cropland, with the share of each pixel that is cropland
+  cropland_classes: {10: 1.0, 11: 1.0, 12: 1.0, 20: 1.0, 30: 0.75, 40: 0.25}
+  fallback: area
+  far_km: 100            # island pieces moved farther than this are flagged in island_reassignment_*.csv
+
+hourly:
+  t_star: 35.0           # threshold of EDD and hot days (rice at flowering)
+  dry_mm: 1.0            # dry day: daily rain below this
+  heavy_mm: 50.0         # heavy-rain day: daily rain at least this
+  utc_offset_hours: 8    # Philippine Time
+  allow_partial_months: false   # true: months with missing hours use their complete days
+
+wbgt:                    # labour steps 6-8
+  working_hours: [7, 17] # Philippine Time: the hourly intervals 7-8, ..., 16-17 (labour note, Section 7)
+  method: liljegren      # pywbgt model
+  percentiles: [50, 90]  # of hourly WBGT in the working hours of a month; the shift of the hourly distribution is
+                         # linear in the percentile between and beyond these two (Section 11.1)
+  allow_partial_months: false
+
+labour:
+  regional_employment_table: 2022_T11_9.xlsx   # PSA Statistical Yearbook Table 11.9: region x industry
+  occupation_table: 2022_T11_8.xlsx            # Table 11.8: industry x occupation (basis of the outdoor shares)
+  employment_year: latest                      # column of Table 11.9 (latest = 2021)
+  services_table: services_assumptions.csv     # Table 2a: outdoor share, air-conditioned share, intensity
+  quantiles: [0.05, 0.5, 0.9, 0.95]            # of the shock across draws (the mean is always reported)
+
+sections:
+  agriculture:
+    regions: r16
+    weights: cropland
+    sensitivity_weights: area
+  electricity:
+    regions: r17
+    weights: population
+    variables: [T, TMAX, TMIN]    # TMAX and TMIN are added once the hourly metrics exist
+    cell_level: true
+    mimaropa_in_luzon_grid: false # Mindoro, Palawan, Marinduque and Romblon are not on the Luzon grid (see README)
+  labour:
+    regions: r17
+    weights: population
+    sensitivity_weights: area
+    variables: [T]
+
+grids:
+  Luzon: [NCR, CAR, R01, R02, R03, R04A, R05, MIMAROPA]
+  Visayas: [R06, R07, R08]
+  Mindanao: [R09, R10, R11, R12, R13, BARMM]
+
+path:
+  source: c3s            # c3s: the latest C3S multi-system forecast; csv: a hand-made path (path.csv below)
+  csv: null              # columns date (YYYY-MM-01), roni, dmi, in the model's units (centred 3-month means)
+  forecast_start: auto   # YYYY-MM, or auto: this month from the 11th, otherwise last month
+  start: auto            # first month of the path; auto = January of the forecast-start year
+  per_system: 10         # members taken from each C3S system, so that every system has the same weight
+  central: median        # central path across members
+  systems:
+    - {centre: ecmwf, system: "51", label: ECMWF SEAS5}
+    - {centre: ukmo, system: "610", label: Met Office GloSea6}
+    - {centre: meteo_france, system: "9", label: Météo-France System 9}
+    - {centre: dwd, system: "22", label: DWD GCFS2.2}
+    - {centre: cmcc, system: "4", label: CMCC SPS4}
+    - {centre: ncep, system: "2", label: NCEP CFSv2}
+    - {centre: jma, system: "4", label: JMA CPS4}
+    - {centre: eccc, system: "4", label: ECCC CanESM5.1}
+    - {centre: eccc, system: "5", label: ECCC GEM5.2-NEMO}
+    - {centre: bom, system: "2", label: BoM ACCESS-S2}
