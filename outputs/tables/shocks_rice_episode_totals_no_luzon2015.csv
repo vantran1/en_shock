@@ -1,0 +1,13 @@
+path,crop,total_loss_pct_of_annual,p05,p95,share_of_draws_with_loss_pct,spec_note
+1997-98,irrigated,8.96,-1.51,16.0,90.5,"recommended spec, differs from methodology v5; provisional; RONI only; sensitivity: without luzon2015"
+1997-98,palay,10.72,0.24,17.57,95.0,"recommended spec, differs from methodology v5; provisional; RONI only; sensitivity: without luzon2015"
+1997-98,rainfed,16.67,0.92,28.58,97.5,"recommended spec, differs from methodology v5; provisional; RONI only; sensitivity: without luzon2015"
+2015-16,irrigated,8.46,-1.74,15.17,90.5,"recommended spec, differs from methodology v5; provisional; RONI only; sensitivity: without luzon2015"
+2015-16,palay,10.16,0.29,16.74,95.0,"recommended spec, differs from methodology v5; provisional; RONI only; sensitivity: without luzon2015"
+2015-16,rainfed,15.91,0.93,27.29,97.5,"recommended spec, differs from methodology v5; provisional; RONI only; sensitivity: without luzon2015"
+2023-24,irrigated,4.39,-0.64,7.13,93.5,"recommended spec, differs from methodology v5; provisional; RONI only; sensitivity: without luzon2015"
+2023-24,palay,5.25,0.92,8.07,96.5,"recommended spec, differs from methodology v5; provisional; RONI only; sensitivity: without luzon2015"
+2023-24,rainfed,8.12,1.78,13.04,98.0,"recommended spec, differs from methodology v5; provisional; RONI only; sensitivity: without luzon2015"
+unit RONI +1 (4 quarters from Q3),irrigated,5.37,-1.51,10.47,91.0,"recommended spec, differs from methodology v5; provisional; RONI only; sensitivity: without luzon2015"
+unit RONI +1 (4 quarters from Q3),palay,6.61,0.63,11.58,95.5,"recommended spec, differs from methodology v5; provisional; RONI only; sensitivity: without luzon2015"
+unit RONI +1 (4 quarters from Q3),rainfed,10.79,1.34,19.27,96.5,"recommended spec, differs from methodology v5; provisional; RONI only; sensitivity: without luzon2015"

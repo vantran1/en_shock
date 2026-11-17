@@ -1,0 +1,13 @@
+fao_item,psa_series,ratio_min,ratio_max,flags,status
+"Beans, dry",mongo_mungbean,1.0,1.0,A,provisional
+"Other citrus fruit, n.e.c.",calamansi,1.0,1.0,A,provisional
+"Mangoes, guavas and mangosteens",mango,1.0148,1.0217,A,provisional
+Pineapples,pineapple,1.0,1.0,A,provisional
+"Cassava, fresh",cassava_fresh_tubers,0.9987,1.0004,A,provisional
+Sweet potatoes,camote_sweet_potato,1.0,1.0,A,provisional
+Potatoes,potato,1.0,1.0,A,provisional
+Cabbages,cabbage,0.9995,1.0,A,provisional
+Eggplants (aubergines),eggplant,1.0,1.0,A,provisional
+Tomatoes,tomato,0.9991,1.0,A,provisional
+"Onions and shallots, dry (excluding dehydrated)",onion_mature_bulb,1.0,1.0,A,provisional
+Bananas + plantains and cooking bananas,banana_all,1.0,1.0,A,provisional

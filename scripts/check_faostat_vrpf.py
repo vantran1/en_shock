@@ -24,8 +24,14 @@ scaled for DEFINE-PH (Eq. 13b), from outputs/tables/shocks_{vr,pf}.csv (RONI onl
 the 5-95% range of the bootstrap draws. The model replays the path under today's conditions
 (today's crop mix and regions), so the comparison is about orders of magnitude, not a test.
 
+Source check: in 2010-2024, the years both cover, FAOSTAT is compared item by item with PSA's
+national production (data/processed/crop_region_quarter.csv): every item, the two proxies
+included, equals PSA (ratio 1.000; mango 1.02, since the item includes guavas and
+mangosteens), and all figures are flagged official. FAOSTAT passes on PSA's figures.
+
 Run:  python scripts/check_faostat_vrpf.py
-Writes outputs/tables/faostat_check_vrpf.csv, outputs/tables/faostat_vrpf_annual.csv
+Writes outputs/tables/faostat_check_vrpf.csv, outputs/tables/faostat_vrpf_annual.csv,
+outputs/tables/faostat_vs_psa_2010_2024.csv
 """
 import sys
 import zipfile
@@ -77,6 +83,42 @@ def fao_annual():
     return long
 
 
+# FAOSTAT item -> PSA series of data/processed/crop_region_quarter.csv (summed), for the
+# comparison in the years both cover; bananas: FAOSTAT splits off "Plantains and cooking
+# bananas" (489) from 2015, so 486 + 489 is compared with all PSA varieties
+PSA_MATCH = {176: ["mongo_mungbean"], 512: ["calamansi"], 571: ["mango"], 574: ["pineapple"],
+             125: ["cassava_fresh_tubers"], 122: ["camote_sweet_potato"], 116: ["potato"],
+             358: ["cabbage"], 399: ["eggplant"], 388: ["tomato"], 403: ["onion_mature_bulb"],
+             486: "banana_all"}
+OVERLAP = range(2010, 2025)
+
+
+def fao_vs_psa():
+    """FAOSTAT / PSA national production by item and year, 2010-2024: does FAOSTAT pass on
+    PSA's figures, and are the two proxies (mung bean, calamansi) the same series?"""
+    z = zipfile.ZipFile(FAO)
+    d = pd.read_csv(z.open("Production_Crops_Livestock_E_Asia.csv"), encoding="latin-1")
+    d = d[(d.Area == "Philippines") & (d.Element == "Production")]
+    c = pd.read_csv(PROC / "crop_region_quarter.csv")
+    c = c[(c.variable == "production_t") & (c.period.str[:4].astype(int).isin(OVERLAP))]
+    psa = c.groupby(["series", c.period.str[:4].astype(int)]).value.sum().unstack(0)
+    psa["banana_all"] = psa[[x for x in psa if x.startswith("banana_")]].sum(axis=1)
+    rows = []
+    for code, ps in PSA_MATCH.items():
+        r = d[d["Item Code"] == code]
+        fao = pd.Series({y: r[f"Y{y}"].iloc[0] for y in OVERLAP})
+        if code == 486:  # add cooking bananas, reported separately from 2015
+            pl = d[d["Item Code"] == 489]
+            fao = fao + pd.Series({y: pl[f"Y{y}"].iloc[0] for y in OVERLAP}).fillna(0)
+        p = psa[ps] if isinstance(ps, str) else psa[ps].sum(axis=1)
+        ratio = fao / p.reindex(OVERLAP)
+        flags = sorted(set(r[[f"Y{y}F" for y in OVERLAP]].iloc[0].astype(str)))
+        rows.append({"fao_item": r.Item.iloc[0] + (" + plantains and cooking bananas" if code == 486 else ""),
+                     "psa_series": ps if isinstance(ps, str) else "+".join(ps),
+                     "ratio_min": ratio.min(), "ratio_max": ratio.max(), "flags": "".join(flags)})
+    return pd.DataFrame(rows)
+
+
 def model_year(crop, year):
     """Shock of the replayed 1997-98 path in a calendar year: mean of S_D over its quarters
     (central and bootstrap 5-95%), % of the year's production."""
@@ -124,6 +166,10 @@ def main():
           "a loss is a negative deviation.\nModel: loss in the calendar year from the replayed "
           "1997-98 path, % (RONI only).")
     print(t.round(1).to_string(index=False))
+    cmp = fao_vs_psa()
+    cmp.assign(status="provisional").round(4).to_csv(TAB / "faostat_vs_psa_2010_2024.csv", index=False)
+    print("\nFAOSTAT / PSA national production, 2010-2024 (1 = identical):\n",
+          cmp.round(3).to_string(index=False))
     crops = a[a.year.isin([1996, 1997, 1998, 1999])].pivot_table(index="Item", columns="year", values="t")
     crops["1998 vs 1996-97, %"] = (crops[1998] / crops[[1996, 1997]].mean(axis=1) - 1) * 100
     print("\nCrops (t):\n", crops.round(1).to_string())

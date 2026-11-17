@@ -32,7 +32,12 @@ RONI only since 16 Nov 2026 (estimate_direct.RECOMMENDED_BY_CROP); the paths' DM
 not used. --with-dmi: the variant with the DMI (v5 Eq. 4 as written); outputs end in
 _with_dmi.
 
-Run:  python scripts/shocks_direct.py --crop rice|corn|vr|pf [--reps 200] [--with-dmi]
+--drop luzon2015 (rice sensitivity): the Luzon regions in 2015Q4-2016Q2 are left out of the
+estimation (typhoon rain before the 2016 dry-season harvest, scripts/check_luzon_2015.py);
+outputs end in _no_luzon2015. One-sided (only favourable weather is removed), so an upper
+bound for today's rice effect, not a replacement for the main estimate.
+
+Run:  python scripts/shocks_direct.py --crop rice|corn|vr|pf [--reps 200] [--with-dmi] [--drop luzon2015]
 Writes outputs/tables/shocks_<crop>.csv (national), shocks_<crop>_regional.csv (central,
 by region), shocks_<crop>_bootstrap.csv (draws), shocks_<crop>_episode_totals.csv (total
 loss over each scenario, % of a year's production), outputs/figures/shocks_<crop>.png
@@ -61,7 +66,7 @@ import statsmodels.api as sm  # noqa: E402
 import estimate_direct as m  # noqa: E402
 from agriculture.regions import REGIONS  # noqa: E402
 from climate.indices import quarterly  # noqa: E402
-from estimation.direct import THETA_GRID, base_design, climate_design, profile  # noqa: E402
+from estimation.direct import ISLAND, THETA_GRID, base_design, climate_design, profile  # noqa: E402
 from estimation.setup import break_dummies  # noqa: E402
 from estimation.shocks import (aggregate, combine, neutral_production,  # noqa: E402
                                regional_shocks, seasonal_scaling)
@@ -94,8 +99,15 @@ def paths():
     return out
 
 
-def prepare(eco, spec, model="ppml"):
+LUZON = [r for r, g in ISLAND.items() if g == "Luzon"]
+DROPS = {"luzon2015": (LUZON, "2015Q4", "2016Q2")}
+
+
+def prepare(eco, spec, model="ppml", drop=None):
     p = m.build(eco)
+    if drop:
+        regions, a, b = DROPS[drop]
+        p = p[~(p.region_code.isin(regions) & p.period.between(a, b))].reset_index(drop=True)
     d, y = m.sample(p, model, m.GROUP[eco])
     LR = m.index_lags("roni", d.period, spec.K, spec.first_lag)
     LD = m.index_lags("dmi", d.period, spec.K, spec.first_lag)
@@ -173,10 +185,10 @@ def spec_of(crop, dmi=False):
 
 
 def boot(job):
-    rep, crop, dmi = job
+    rep, crop, dmi, drop = job
     spec = spec_of(crop, dmi)
     rng = np.random.default_rng(1000 + rep)
-    data = {eco: prepare(eco, spec) for eco in CONF[crop]["series"]}
+    data = {eco: prepare(eco, spec, drop=drop) for eco in CONF[crop]["series"]}
     first = min(int(data[e][0].period.str[:4].min()) for e in CONF[crop]["series"])
     years = np.arange(first, 2026)
     draw = rng.choice(years, size=len(years), replace=True)
@@ -197,22 +209,23 @@ def main():
     ap.add_argument("--crop", choices=list(CONF), default="rice")
     ap.add_argument("--reps", type=int, default=200)
     ap.add_argument("--with-dmi", action="store_true")
+    ap.add_argument("--drop", choices=list(DROPS))
     args = ap.parse_args()
     crop = args.crop
     dmi = args.with_dmi
     spec = spec_of(crop, dmi)
-    sfx = "_with_dmi" if dmi else ""
+    sfx = ("_with_dmi" if dmi else "") + (f"_no_{args.drop}" if args.drop else "")
     series = CONF[crop]["series"]
-    data = {eco: prepare(eco, spec) for eco in series}
+    data = {eco: prepare(eco, spec, drop=args.drop) for eco in series}
     central = {eco: fit_params(*data[eco], "ppml", THETA_GRID, spec) for eco in series}
     nat, reg = shocks(central, data, crop, spec)
-    ols_data = {eco: prepare(eco, spec, "ols") for eco in series}
+    ols_data = {eco: prepare(eco, spec, "ols", drop=args.drop) for eco in series}
     ols = {eco: fit_params(*ols_data[eco], "ols", THETA_GRID, spec) for eco in series}
     nat_ols, _ = shocks(ols, ols_data, crop, spec)
     print("central thetas (Poisson):", {e: central[e][1:] for e in series})
 
     with ProcessPoolExecutor(WORKERS) as ex:
-        draws = pd.concat(list(ex.map(boot, [(r, crop, dmi) for r in range(args.reps)])), ignore_index=True)
+        draws = pd.concat(list(ex.map(boot, [(r, crop, dmi, args.drop) for r in range(args.reps)])), ignore_index=True)
     draws.round(6).to_csv(TAB / f"shocks_{crop}_bootstrap{sfx}.csv", index=False)
     key = ["path", "crop", "scenario_q"]
     q = draws.groupby(key).agg(S_p05=("S", lambda s: s.quantile(0.05)),
@@ -224,7 +237,8 @@ def main():
                                                                   "S_D": "S_D_logLS_check"}), on=key))
     out = out[["path", "crop", "scenario_q", "q", "step", "in_path", "S", "S_p05", "S_p95",
                "S_D", "S_D_p05", "S_D_p95", "S_logLS_check", "S_D_logLS_check"]]
-    note = "recommended spec, differs from methodology v5; provisional" + ("; with the DMI (variant)" if dmi else "; RONI only")
+    note = ("recommended spec, differs from methodology v5; provisional" + ("; with the DMI (variant)" if dmi else "; RONI only")
+            + (f"; sensitivity: without {args.drop}" if args.drop else ""))
     out.assign(reps=args.reps, spec_note=note).round(5).to_csv(TAB / f"shocks_{crop}{sfx}.csv", index=False)
     reg.assign(spec_note=note).round(5).to_csv(TAB / f"shocks_{crop}_regional{sfx}.csv", index=False)
     episode_totals(out, draws).assign(spec_note=note).round(2).to_csv(
@@ -238,7 +252,7 @@ def main():
     print(f"\n{main_series} shock, % of neutral production (S, Eq. 13a) and scaled for DEFINE-PH (S_D, Eq. 13b):")
     print(show.drop(columns=["crop", "S_D_logLS_check"]).to_string(index=False))
 
-    if not dmi:
+    if not dmi and not args.drop:
         plot(out, crop)
 
 def plot(out, crop):

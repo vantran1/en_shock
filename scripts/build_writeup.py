@@ -503,6 +503,21 @@ def vrpf_totals():
     return pd.DataFrame(rows)
 
 
+def luzon_shocks():
+    """Table 4a: rice shocks, main and without the Luzon quarters of 2015Q4-2016Q2."""
+    a = pd.read_csv(TAB / "shocks_rice_episode_totals.csv").set_index(["path", "crop"])
+    b = pd.read_csv(TAB / "shocks_rice_episode_totals_no_luzon2015.csv").set_index(["path", "crop"])
+    rows = []
+    for pth in ("1997-98", "2015-16", "2023-24", "unit RONI +1 (4 quarters from Q3)"):
+        for crop in ("palay", "irrigated", "rainfed"):
+            x, y = a.loc[(pth, crop)], b.loc[(pth, crop)]
+            rows.append({"Path": pth.replace("unit RONI +1 (4 quarters from Q3)", "unit path"),
+                         "Series": crop,
+                         "Main": f"{x.total_loss_pct_of_annual:.1f} ({x.p05:.1f} to {x.p95:.1f})",
+                         "Without Luzon 2015Q4–2016Q2": f"{y.total_loss_pct_of_annual:.1f} ({y.p05:.1f} to {y.p95:.1f})"})
+    return pd.DataFrame(rows)
+
+
 def luzon(series, sample, col):
     t = pd.read_csv(TAB / "check_luzon_2015.csv")
     return t[(t.series == series) & (t["sample"] == sample)][col].iloc[0]
@@ -620,7 +635,9 @@ def main():
          f"about {k['irr_before']:.0f}% and {k['rf_before']:.0f}%."),
         ("Shocks: ", f"replayed under today's conditions, the 1997–98 and 2015–16 episodes cost about "
          f"{k['s97']:.1f}% and {k['s15']:.1f}% of a year's palay production and 2023–24 about "
-         f"{k['s23']:.1f}%, with wide ranges, mainly because the effect on irrigated rice is uncertain."),
+         f"{k['s23']:.1f}%, with wide ranges, mainly because the effect on irrigated rice is uncertain. "
+         "These are probably too low: without the typhoon rain over Luzon in late 2015 they are about "
+         "twice as large (Table 4a, an upper bound); stage 2 will settle it."),
         ("Corn: ", f"separate El Niño and La Niña effects and smooth trends matter even more than for "
          f"rice, but the effect has not changed over time. A sustained +1 °C El Niño lowers "
          f"dry-season corn harvests by about {k['corn_dry']:.0f}%; replayed today, the 1997–98, "
@@ -849,8 +866,10 @@ def main():
          "The change in 2000 remains (t = "
          f"{luzon('irrigated', 'without Luzon 2015Q4-2016Q2', 't_change'):.1f} for irrigated palay), but "
          "a large part of it comes from these quarters, so today's effect and the rice shocks are "
-         "probably understated. Stage 2, which uses the observed weather including typhoon rain, "
-         "should settle how much (outputs/tables/check_luzon_2015.csv)."),
+         "probably understated. Table 4a gives the shocks of this sensitivity. Removing only "
+         "favourable weather is one-sided, so they are an upper bound rather than a better estimate; "
+         "stage 2, which uses the observed weather of every year including typhoon rain, should "
+         "settle where between the two the effect lies (outputs/tables/check_luzon_2015.csv)."),
         ("The effect on irrigated palay is uncertain: ", "its range includes zero, which widens the "
          "palay range."),
         ("The estimators differ on one choice: ", "least squares on logs does not prefer separate El "
@@ -858,6 +877,12 @@ def main():
         ("The DMI ", "cannot be separated well from RONI (section 4)."),
     ])
 
+    if (TAB / "shocks_rice_episode_totals_no_luzon2015.csv").exists():
+        table(doc, luzon_shocks(), [3.0, 2.2, 5.0, 5.4],
+              note="Table 4a. Rice shocks with and without the Luzon regions in 2015Q4–2016Q2 in the "
+                   "estimation (sensitivity, an upper bound): total loss over the path and the four "
+                   "quarters after it, % of one year's neutral production, central value (90% bootstrap "
+                   "range).")
     doc.add_heading("2.7 Proposed changes to methodology v5", level=2)
     status(doc, "proposed, for discussion")
     bullets(doc, [
@@ -1120,7 +1145,10 @@ def main():
     para(doc, "1997–98 against FAOSTAT. Methodology v5 asks to check, for 1997–98, outside the quarterly "
               "data, that the shocks add up to sensible annual losses, against FAOSTAT national annual "
               "production (official figures; calorie indices built with the same FNRI factors; "
-              "calamansi and mung bean through the closest FAOSTAT items, bitter gourd left out).")
+              "calamansi and mung bean through the closest FAOSTAT items, bitter gourd left out). "
+              "In 2010–2024, where both exist, FAOSTAT equals PSA's national production for every crop, "
+              "mung bean and calamansi included (mango about 2% higher, as the item also covers guavas "
+              "and mangosteens): FAOSTAT passes on PSA's figures (outputs/tables/faostat_vs_psa_2010_2024.csv).")
     table(doc, faostat_table(), [3.8, 2.4, 2.4, 2.4, 4.0],
           note="Table 11a. 1998 in FAOSTAT: deviation of the calorie index from its 1990–2005 log-linear "
                "trend (fitted without 1997–99) and change against the 1996–97 average, % (negative = a "
