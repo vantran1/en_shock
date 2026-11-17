@@ -6,20 +6,24 @@ Inputs
 - ERA5 .nc files OUTSIDE the repo: folder from config/paths.toml (era5_monthly_dir) or
   --era5-dir; read by climate.era5 (units converted there).
 - data/era5/era5_land_sea_mask_0.25deg_phl.nc; data/boundaries/phl_16_regions.gpkg (Van).
+- data/reference/van/cropland_weights/ (Van, dev_Van commit f879f0f): cropland weights.
 
-Method: land cells (land fraction > 0.5) assigned to Van's 16 regions; area-weighted
-regional means (cropland weights of v5 Eq. 7 to come). Derived per cell before averaging:
+Method (v5 Section 3.3.2, Eq. 7): ERA5 cells with land fraction >= 0.5 (349 cells), weighted
+within each region by its cropland (ESA CCI 2022), Van's cropland weights; the cropland of
+small islands without such a cell is moved to the nearest kept cell (Sulu and Tawi-Tawi to a
+Zamboanga cell 350-410 km away, about 4% of BARMM's cropland; Van's
+island_reassignment_16regions.csv). Until 17 Nov 2026 the cells were land fraction > 0.5
+and area-weighted. Derived per cell before averaging:
 relative humidity, VPD (from monthly-mean t2m and d2m, which slightly understates the
 mean of daily VPD) and root-zone soil moisture (swvl1-3, thickness-weighted).
 
 Run:  python scripts/build_weather_monthly.py [--era5-dir PATH]
 Writes
 - data/processed/weather_region_month.csv  one row per region x month, one column per variable
-  (PROVISIONAL: area weights until Van's cropland weights, v5 Eq. 7, are available)
-- data/processed/era5_region_cells.csv     the cells used and their weights
+- data/processed/era5_region_cells.csv     the cells used and their cropland weights
 - outputs/tables/weather_cells_per_region.csv
 - outputs/tables/weather_provinces_without_cells.csv  provinces (geoBoundaries ADM2) with no
-  land cell centre, i.e. not represented in their region's weather
+  kept cell centre; their cropland is represented through the island fix
 - outputs/figures/era5_land_sea_mask.png   land fraction, region outlines, cells used
 """
 import argparse
@@ -35,8 +39,8 @@ import numpy as np  # noqa: E402
 import pandas as pd  # noqa: E402
 from matplotlib.colors import LinearSegmentedColormap  # noqa: E402
 
-from climate.era5 import (LAND_MIN, REGIONS_FILE, era5_dir, land_sea_mask, load,  # noqa: E402
-                          region_weights, regional_mean, rh_pct, root_zone, vpd_kpa)
+from climate.era5 import (LAND_MIN, REGIONS_FILE, cropland_weights, era5_dir,  # noqa: E402
+                          land_sea_mask, load, regional_mean, rh_pct, root_zone, vpd_kpa)
 
 PROC, TAB, FIG = ROOT / "data/processed", ROOT / "outputs/tables", ROOT / "outputs/figures"
 # output column -> (ERA5 variable, unit after conversion)
@@ -69,11 +73,9 @@ def plot_mask(w):
                    extent=[float(lsm.longitude.min()) - step, float(lsm.longitude.max()) + step,
                            float(lsm.latitude.min()) - step, float(lsm.latitude.max()) + step])
     reg.boundary.plot(ax=ax, color=INK, lw=0.5)
-    for kind, mk in (("inside", "o"), ("nearest", "x")):
-        c = w[w.assigned == kind]
-        ax.scatter(c.longitude, c.latitude, s=9, marker=mk, color="#eb6834", lw=0.8,
-                   label=f"cell used ({kind} a region polygon)" if kind == "inside"
-                   else "cell used (nearest region, centre off the outline)")
+    c = w.drop_duplicates(["latitude", "longitude"])
+    ax.scatter(c.longitude, c.latitude, s=9, marker="o", color="#eb6834", lw=0.8,
+               label="kept cell (land fraction ≥ 0.5), cropland-weighted")
     for lab, (x, y) in {"Luzon": (121.2, 17.8), "Visayas": (123.4, 11.1),
                         "Mindanao": (125.0, 7.6)}.items():
         ax.text(x, y, lab, fontsize=10, color=INK, ha="center", weight="bold")
@@ -81,7 +83,7 @@ def plot_mask(w):
     cb.set_label("ERA5 land fraction (lsm)", fontsize=8, color=MUTED)
     cb.outline.set_visible(False)
     ax.legend(loc="upper right", fontsize=7, frameon=False)
-    ax.set_title(f"ERA5 land-sea mask, 0.25°, and the {len(w)} land cells (lsm > {LAND_MIN}) "
+    ax.set_title(f"ERA5 land-sea mask, 0.25°, and the {len(c)} cells (lsm ≥ {LAND_MIN}) "
                  "used for the 16 regions", fontsize=9, color=INK, loc="left")
     ax.tick_params(labelsize=7, colors=MUTED)
     fig.savefig(FIG / "era5_land_sea_mask.png", dpi=150, facecolor="white")
@@ -96,12 +98,16 @@ def main():
     for p in (PROC, TAB, FIG):
         p.mkdir(parents=True, exist_ok=True)
 
-    w = region_weights()
+    w = cropland_weights()
     w.round(6).to_csv(PROC / "era5_region_cells.csv", index=False)
-    cells = (w.groupby("region_code").agg(cells=("lsm", "size"),
-                                          nearest=("assigned", lambda s: (s == "nearest").sum()),
-                                          max_distance_km=("distance_km", "max"))
+    re = pd.read_csv(ROOT / "data/reference/van/cropland_weights/island_reassignment_16regions.csv")
+    far = re[re.farther_than_threshold].groupby("code").share_of_region_cropland.sum()
+    cells = (w.assign(rw=w.weight * w.reassigned_share)
+             .groupby("region_code").agg(cells=("lsm", "size"),
+                                         island_only_cells=("assigned", lambda s: (s == "island").sum()),
+                                         cropland_share_from_islands=("rw", "sum"))
              .reset_index())
+    cells["cropland_share_moved_over_100km"] = cells.region_code.map(far).fillna(0.0)
     cells.to_csv(TAB / "weather_cells_per_region.csv", index=False)
     pts = gpd.GeoDataFrame(w, geometry=gpd.points_from_xy(w.longitude, w.latitude), crs=4326)
     prov = gpd.read_file(ROOT / "data/hazards/boundaries/geoBoundaries-PHL-ADM2_simplified.geojson")
@@ -129,8 +135,8 @@ def main():
     out.to_csv(PROC / "weather_region_month.csv", index=False, float_format="%.5g")
 
     pd.set_option("display.width", 200)
-    print(f"{len(w)} land cells; {(w.assigned == 'nearest').sum()} assigned to the nearest "
-          f"region (max {w.distance_km.max():.1f} km)")
+    print(f"{w.drop_duplicates(['latitude', 'longitude']).shape[0]} kept cells, {len(w)} region-cell "
+          "weights (cropland, v5 Eq. 7)")
     print(cells.to_string(index=False))
     print(f"\nweather: {len(out)} rows ({out.region_code.nunique()} regions x "
           f"{out.month.nunique()} months), "

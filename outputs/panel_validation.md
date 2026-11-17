@@ -272,47 +272,47 @@ Replication check against sheet 'Quarterly indices' of FNRI_calorie_factors_VR_P
 
 ## 8. Weather (ERA5 monthly)
 
-`weather_region_month.csv`: 16 regions x 912 months (1950-01 to 2025-12). 349 ERA5 cells with land fraction > 0.5; 27 of them have their centre just outside the simplified coastline and go to the nearest region (at most 11 km). See `outputs/figures/era5_land_sea_mask.png`.
+`weather_region_month.csv`: 16 regions x 912 months (1950-01 to 2025-12). ERA5 cells with land fraction ≥ 0.5 (349 cells), weighted within each region by its cropland (v5 Eq. 7; Van's cropland weights, dev_Van commit f879f0f). The cropland of small islands without such a cell is moved to the nearest kept cell (island fix); the table gives the cells per region, the cells that hold only island cropland, the share of the region's cropland that comes from islands and the share moved more than 100 km. See `outputs/figures/era5_land_sea_mask.png`.
 
-| region_code | cells | nearest | max_distance_km |
-|---|---|---|---|
-| BARMM | 13 | 1 | 2.7 |
-| CAR | 25 | 0 | 0.0 |
-| MIMAROPA | 22 | 2 | 6.6 |
-| R01 | 15 | 1 | 11.1 |
-| R02 | 34 | 0 | 0.0 |
-| R03 | 28 | 3 | 1.5 |
-| R04A | 18 | 3 | 4.3 |
-| R05 | 18 | 3 | 3.0 |
-| R06 | 28 | 4 | 6.4 |
-| R07 | 14 | 2 | 2.4 |
-| R08 | 27 | 3 | 3.8 |
-| R09 | 15 | 1 | 0.1 |
-| R10 | 20 | 1 | 1.8 |
-| R11 | 27 | 1 | 6.1 |
-| R12 | 21 | 1 | 4.1 |
-| R13 | 24 | 1 | 1.0 |
+| region_code | cells | island_only_cells | cropland_share_from_islands | cropland_share_moved_over_100km |
+|---|---|---|---|---|
+| BARMM | 25 | 2 | 0.1 | 0.0 |
+| CAR | 39 | 0 | 0.0 | 0.0 |
+| MIMAROPA | 29 | 7 | 0.5 | 0.0 |
+| R01 | 27 | 0 | 0.2 | 0.0 |
+| R02 | 47 | 0 | 0.0 | 0.0 |
+| R03 | 38 | 0 | 0.0 | 0.0 |
+| R04A | 25 | 2 | 0.3 | 0.0 |
+| R05 | 21 | 1 | 0.4 | 0.0 |
+| R06 | 32 | 1 | 0.1 | 0.0 |
+| R07 | 25 | 7 | 0.3 | 0.0 |
+| R08 | 28 | 1 | 0.2 | 0.0 |
+| R09 | 17 | 1 | 0.3 | 0.0 |
+| R10 | 37 | 2 | 0.1 | 0.0 |
+| R11 | 33 | 0 | 0.1 | 0.0 |
+| R12 | 36 | 0 | 0.0 | 0.0 |
+| R13 | 29 | 2 | 0.2 | 0.0 |
 
 Caveats:
-- Provinces with no ERA5 cell (land fraction > 0.5) at 0.25°, so not represented in their region's weather: Basilan, Batanes, Biliran, Camiguin, Catanduanes, City of Isabela, Cotabato City, Dinagat Islands, Guimaras, Marinduque, Romblon, Siquijor, Sulu, Tawi-Tawi. BARMM's weather comes from mainland Mindanao (Lanao del Sur, Maguindanao) only. Their share of their region's production, 2021–2023 (%; VR and PF in kcal), from `scripts/check_island_coverage.py`; nothing is changed yet:
+- Provinces with no ERA5 cell centre (land fraction ≥ 0.5) at 0.25°: Basilan, Batanes, Biliran, Camiguin, Catanduanes, City of Isabela, Cotabato City, Dinagat Islands, Guimaras, Marinduque, Romblon, Siquijor, Sulu, Tawi-Tawi. Their cropland enters their region's weather through the island fix, at the weather of the nearest kept cell; Sulu and Tawi-Tawi go to a Zamboanga cell 350–410 km away (about 4% of BARMM's cropland). Their share of their region's production, 2021–2023 (%; VR and PF in kcal), from `scripts/check_island_coverage.py`:
 
 | province | region_code | note | palay_share_pct | corn_share_pct | vr_share_pct | pf_share_pct |
 |---|---|---|---|---|---|---|
-| Basilan | BARMM |  | 0.1 | 0.0 | 28.2 | 3.5 |
+| Basilan | BARMM |  | 0.1 | 0.0 | 28.2 | 3.4 |
 | Cotabato City | BARMM | no PSA row |  |  |  |  |
-| Sulu | BARMM |  | 0.1 | 0.1 | 15.2 | 2.8 |
-| Tawi-Tawi | BARMM |  | 0.1 | 0.1 | 8.6 | 1.5 |
+| Sulu | BARMM |  | 0.1 | 0.1 | 15.2 | 2.7 |
+| Tawi-Tawi | BARMM |  | 0.1 | 0.1 | 8.6 | 1.4 |
 | Marinduque | MIMAROPA |  | 1.5 | 0.9 | 2.7 | 0.6 |
-| Romblon | MIMAROPA |  | 3.1 | 1.3 | 5.3 | 5.2 |
+| Romblon | MIMAROPA |  | 3.1 | 1.3 | 5.3 | 5.1 |
 | Batanes | R02 |  | 0.0 | 0.0 | 0.4 | 0.0 |
 | Catanduanes | R05 |  | 1.7 | 0.1 | 3.5 | 0.3 |
-| Guimaras | R06 |  | 2.6 | 0.5 | 3.1 | 6.0 |
-| Siquijor | R07 |  | 1.0 | 3.1 | 3.1 | 5.9 |
+| Guimaras | R06 |  | 2.6 | 0.5 | 3.1 | 5.9 |
+| Siquijor | R07 |  | 1.0 | 3.1 | 3.1 | 5.8 |
 | Biliran | R08 |  | 6.2 | 0.9 | 3.1 | 3.4 |
 | City of Isabela | R09 | no PSA row; Region IX, on Basilan island |  |  |  |  |
 | Camiguin | R10 |  | 0.3 | 0.0 | 0.4 | 0.2 |
 | Dinagat Islands | R13 |  | 1.3 | 0.2 | 1.6 | 0.1 |
-- **Provisional**: cells are weighted by area; they will be weighted by cropland area (v5 Eq. 7) once Van's cropland weights are available.
+- The regional weather equals the observed weather of Van's stage 1 (same cells and weights; checked 17 Nov 2026).
 - RH and VPD are computed from the monthly means of t2m and d2m (v5 Table 2). Because saturation vapour pressure is convex, this slightly understates the monthly mean of daily VPD; the hourly-based variables of Table 2 will correct this.
 - ERA5 potential evaporation is known to be unreliable over land; for the climatic water balance an FAO-56 estimate from t2m, d2m and ssrd is preferable.
 

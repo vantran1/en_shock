@@ -207,6 +207,35 @@ def region_weights(regions_file=REGIONS_FILE) -> pd.DataFrame:
     return pd.DataFrame(out.drop(columns=["geometry", "area_w"]))
 
 
+CROPLAND_WEIGHTS = ROOT / "data" / "reference" / "van" / "cropland_weights" / "cropland_weights_16regions.csv"
+
+
+def cropland_weights(path=CROPLAND_WEIGHTS) -> pd.DataFrame:
+    """v5 Eq. 7: Van's cropland weights (ESA CCI 2022 cropland share of each kept ERA5 cell in
+    the region; kept cells = land fraction >= 0.5; the cropland of islands without a kept
+    cell moved to the nearest kept cell, which may lie in another region). Same columns as
+    region_weights: latitude, longitude, lsm, region_code, assigned ('own': the cell holds
+    cropland of its own area in the region; 'island': only cropland moved there from
+    islands), reassigned_share (part of the cell's weight that came from islands), weight."""
+    w = pd.read_csv(path)
+    w = w[w["w_cropland"] > 0]
+    lsm = land_sea_mask().to_dataframe(name="lsm").reset_index()
+    w = w.merge(lsm, left_on=["lat", "lon"], right_on=["latitude", "longitude"], how="left",
+                validate="m:1")
+    if w["lsm"].isna().any() or (w["lsm"] < LAND_MIN).any():
+        raise ValueError("a weighted cell is not an ERA5 land cell")
+    own = w["cropland_km2"] - w["cropland_reassigned_km2"]
+    out = pd.DataFrame({"latitude": w["lat"], "longitude": w["lon"], "lsm": w["lsm"],
+                        "region_code": w["code"],
+                        "assigned": np.where(own > 1e-9, "own", "island"),
+                        "reassigned_share": w["cropland_reassigned_km2"] / w["cropland_km2"],
+                        "weight": w["w_cropland"]})
+    s = out.groupby("region_code")["weight"].sum()
+    if not np.allclose(s, 1):
+        raise ValueError(f"cropland weights do not sum to 1: {s[~np.isclose(s, 1)]}")
+    return out.reset_index(drop=True)
+
+
 def regional_mean(da: xr.DataArray, w: pd.DataFrame) -> pd.DataFrame:
     """Weighted regional mean of a (time, latitude, longitude) field -> region x month."""
     vals = da.sel(latitude=xr.DataArray(w["latitude"].values, dims="cell"),

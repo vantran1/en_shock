@@ -164,21 +164,23 @@ def main():
     w("## 8. Weather (ERA5 monthly)\n")
     w(f"`weather_region_month.csv`: {weather.region_code.nunique()} regions x "
       f"{weather.month.nunique()} months ({weather.month.min()} to {weather.month.max()}). "
-      f"{cells.cells.sum()} ERA5 cells with land fraction > 0.5; "
-      f"{cells.nearest.sum()} of them have their centre just outside the simplified "
-      f"coastline and go to the nearest region (at most {cells.max_distance_km.max():.0f} km). "
+      "ERA5 cells with land fraction ≥ 0.5 (349 cells), weighted within each region by its "
+      "cropland (v5 Eq. 7; Van's cropland weights, dev_Van commit f879f0f). The cropland of small "
+      "islands without such a cell is moved to the nearest kept cell (island fix); the table gives "
+      "the cells per region, the cells that hold only island cropland, the share of the region's "
+      "cropland that comes from islands and the share moved more than 100 km. "
       "See `outputs/figures/era5_land_sea_mask.png`.\n")
     w(md(cells, "{:.1f}"))
     noc = pd.read_csv(TAB / "weather_provinces_without_cells.csv").province
     w("\nCaveats:\n"
-      "- Provinces with no ERA5 cell (land fraction > 0.5) at 0.25°, so not represented in "
-      f"their region's weather: {', '.join(noc)}. BARMM's weather comes from mainland "
-      "Mindanao (Lanao del Sur, Maguindanao) only. Their share of their region's "
-      "production, 2021–2023 (%; VR and PF in kcal), from `scripts/check_island_coverage.py`; "
-      "nothing is changed yet:\n\n" + md(pd.read_csv(TAB / "weather_uncovered_province_shares.csv"),
+      "- Provinces with no ERA5 cell centre (land fraction ≥ 0.5) at 0.25°: "
+      f"{', '.join(noc)}. Their cropland enters their region's weather through the island fix, "
+      "at the weather of the nearest kept cell; Sulu and Tawi-Tawi go to a Zamboanga cell "
+      "350–410 km away (about 4% of BARMM's cropland). Their share of their region's "
+      "production, 2021–2023 (%; VR and PF in kcal), from `scripts/check_island_coverage.py`:\n\n" + md(pd.read_csv(TAB / "weather_uncovered_province_shares.csv"),
                                          "{:.1f}") + "\n"
-      "- **Provisional**: cells are weighted by area; they will be weighted by cropland "
-      "area (v5 Eq. 7) once Van's cropland weights are available.\n"
+      "- The regional weather equals the observed weather of Van's stage 1 (same cells and "
+      "weights; checked 17 Nov 2026).\n"
       "- RH and VPD are computed from the monthly means of t2m and d2m (v5 Table 2). Because "
       "saturation vapour pressure is convex, this slightly understates the monthly mean of "
       "daily VPD; the hourly-based variables of Table 2 will correct this.\n"
