@@ -1,0 +1,15 @@
+ecosystem,model,spec,episode,theta_R,theta_D,observed_loss_pct,predicted_loss_pct,error_pts,status
+vr,ppml,base,2015-16,0.5,,-9.497,1.831,11.328,provisional
+vr,ppml,base,2023-24,0.3,,7.822,-0.068,-7.89,provisional
+vr,ppml,spline_national,2015-16,0.55,,-2.513,0.855,3.368,provisional
+vr,ppml,spline_national,2023-24,0.05,,-0.924,0.042,0.966,provisional
+vr,ppml,spline_national_split,2015-16,0.05,,-3.177,-1.812,1.366,provisional
+vr,ppml,spline_national_split,2023-24,0.95,,-2.378,-1.003,1.375,provisional
+vr,ppml,spline_national_season,2015-16,0.05,,-2.53,0.275,2.805,provisional
+vr,ppml,spline_national_season,2023-24,0.95,,-1.363,-0.085,1.277,provisional
+vr,ppml,spline_national_lags_1_6,2015-16,0.75,,-2.494,0.813,3.307,provisional
+vr,ppml,spline_national_lags_1_6,2023-24,0.2,,-0.96,0.227,1.186,provisional
+vr,ppml,spline_island,2015-16,0.45,,-2.519,0.778,3.297,provisional
+vr,ppml,spline_island,2023-24,0.05,,-1.0,0.108,1.108,provisional
+vr,ppml,spline_region,2015-16,0.05,,-2.299,0.158,2.457,provisional
+vr,ppml,spline_region,2023-24,0.05,,-1.174,0.018,1.193,provisional

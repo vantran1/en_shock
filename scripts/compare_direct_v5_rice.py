@@ -37,7 +37,10 @@ Sets of specifications (--set):
               and the same with the RONI effects shifting from 2000, 2005 or 2010 on
               (effect_break: has the El Nino effect changed over time?)
 
-Run:  python scripts/compare_direct_v5_rice.py [--crop rice|corn] [--set SET] [--break-start YYYYQn]
+--no-dmi runs every specification of the set without the DMI (RONI only; the main
+specification from 16 Nov 2026); "base" is then v5 Eq. 4 with RONI only.
+
+Run:  python scripts/compare_direct_v5_rice.py [--crop rice|corn|vr|pf] [--set SET] [--break-start YYYYQn] [--no-dmi]
       (corn: total corn; --break-start sets the Region VI break dummy, estimation.setup)
       (about 10 minutes on 8 cores per set)
 Writes outputs/tables/direct_v5_<crop>_spec_comparison[_<set>].csv,
@@ -51,6 +54,7 @@ os.environ.setdefault("OPENBLAS_NUM_THREADS", "1")
 os.environ.setdefault("VECLIB_MAXIMUM_THREADS", "1")
 
 import sys  # noqa: E402
+from dataclasses import replace  # noqa: E402
 from concurrent.futures import ProcessPoolExecutor  # noqa: E402
 from pathlib import Path  # noqa: E402
 
@@ -138,8 +142,8 @@ def episode_losses(d, X_full, b, episodes=EPISODES, scale=1000):
 
 
 def run(job):
-    eco, model, name, holdout, break_start = job
-    spec = SPEC_OF[name]
+    eco, model, name, holdout, break_start, dmi = job
+    spec = SPEC_OF[name] if dmi else replace(SPEC_OF[name], dmi=False)
     d, y, LR, LD, base = prepare(eco, model, spec, break_start)
     if holdout is None:
         r = estimate(d, y, LR, LD, base, model, spec)
@@ -207,18 +211,22 @@ def main():
     ap.add_argument("--set", default="one_change", choices=list(SETS))
     ap.add_argument("--crop", default="rice", choices=list(TEST_SERIES))
     ap.add_argument("--break-start", help="start of the measurement-break dummy (corn), e.g. 2023Q3")
+    ap.add_argument("--no-dmi", action="store_true",
+                    help="every specification of the set without the DMI (RONI only, the main "
+                         "specification from 16 Nov 2026); outputs end in _no_dmi")
     ap.add_argument("--report-only", action="store_true",
                     help="rewrite the markdown report from the saved tables")
     args = ap.parse_args()
     SPECS = SETS[args.set] or DMI_SETS[args.crop]
-    suffix = "" if args.set == "one_change" else f"_{args.set}"
+    suffix = ("" if args.set == "one_change" else f"_{args.set}") + ("_no_dmi" if args.no_dmi else "")
+    dmi = not args.no_dmi
     crop = args.crop
     OUT = ROOT / f"outputs/direct_v5_{crop}_specs{suffix}.md"
     first = SPECS[0].name
     series = TEST_SERIES[crop]
     bs = args.break_start
-    jobs = [(e, mod, s.name, None, bs) for e in series for mod in ("ppml", "ols") for s in SPECS]
-    jobs += [(e, "ppml", s.name, ep, bs) for e in series for s in SPECS for ep in m.episodes_for(e)]
+    jobs = [(e, mod, s.name, None, bs, dmi) for e in series for mod in ("ppml", "ols") for s in SPECS]
+    jobs += [(e, "ppml", s.name, ep, bs, dmi) for e in series for s in SPECS for ep in m.episodes_for(e)]
     if not args.report_only:
         with ProcessPoolExecutor(WORKERS) as ex:
             results = list(ex.map(run, jobs))

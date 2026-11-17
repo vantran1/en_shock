@@ -164,11 +164,11 @@ def figure(doc, path, width_cm, caption):
 
 # ---------------------------------------------------------------- numbers from outputs
 def spec_tests():
-    s = pd.read_csv(TAB / "direct_v5_rice_spec_comparison.csv")
+    s = pd.read_csv(TAB / "direct_v5_rice_spec_comparison_no_dmi.csv")
     s = s[s.model == "ppml"].copy()
     s["effect"] = s.get("B_RP").fillna(s.get("B_R"))
     s["t_eff"] = s.get("t_RP").fillna(s.get("t_R"))
-    labels = {"base": "v5 as written (Eq. 4)", "split": "El Niño and La Niña separate",
+    labels = {"base": "v5 Eq. 4 (RONI only)", "split": "El Niño and La Niña separate",
               "season": "effect differs by harvest season", "trend_rq": "trends by region and quarter",
               "trend_spline": "smooth regional trends (spline)", "lags_0_4": "lags 0–4 (current quarter)",
               "lags_1_6": "lags 1–6", "pool_island": "effects pooled by island group",
@@ -186,10 +186,10 @@ def spec_tests():
 
 
 def validation():
-    a = pd.read_csv(TAB / "direct_v5_rice_validation.csv")
-    b = pd.read_csv(TAB / "direct_v5_rice_validation_candidate.csv")
+    a = pd.read_csv(TAB / "direct_v5_rice_validation_no_dmi.csv")
+    b = pd.read_csv(TAB / "direct_v5_rice_validation_candidate_no_dmi.csv")
     v = pd.concat([a[a.spec == "base"], b[b.spec.isin(["candidate", "candidate_break2000"])]])
-    names = {"base": "v5 as written", "candidate": "split + spline + season",
+    names = {"base": "v5 (RONI only)", "candidate": "split + spline + season",
              "candidate_break2000": "recommended (+ change from 2000)"}
     rows = []
     for eco in ("irrigated", "rainfed"):
@@ -234,11 +234,11 @@ def episode_totals(crop="rice", main="palay", parts=("irrigated", "rainfed")):
 
 
 def corn_specs():
-    s = pd.read_csv(TAB / "direct_v5_corn_spec_comparison_summary.csv")
+    s = pd.read_csv(TAB / "direct_v5_corn_spec_comparison_summary_no_dmi.csv")
     s = s[s.model == "ppml"].set_index("spec")
-    v = pd.read_csv(TAB / "direct_v5_corn_validation_summary.csv")
+    v = pd.read_csv(TAB / "direct_v5_corn_validation_summary_no_dmi.csv")
     mae = v.groupby("spec").error_pts.apply(lambda x: x.abs().mean())
-    names = {"base": "v5 as written", "candidate": "split + spline + season (recommended)",
+    names = {"base": "v5 (RONI only)", "candidate": "split + spline + season (recommended)",
              "step_2000": "+ step in 2000", "gradual_linear": "+ gradual change"}
     rows = []
     for k, lab in names.items():
@@ -420,7 +420,7 @@ def quarterly_corn():
                          "Scaled for DEFINE-PH (%)": s.SD})
 
 
-VRPF_SPECS = {"base": "v5 as written (Eq. 4)", "spline_region": "smooth regional trends",
+VRPF_SPECS = {"base": "v5 Eq. 4 (RONI only)", "spline_region": "smooth regional trends",
               "spline_national": "smooth trends + one national effect (recommended)",
               "spline_national_split": "  + El Niño and La Niña separate",
               "spline_national_season": "  + effect differs by harvest season",
@@ -435,9 +435,9 @@ def vrpf_specs():
     El Nino effect (%), leave-one-episode-out error."""
     out = pd.DataFrame({"Specification": list(VRPF_SPECS.values())})
     for crop in ("vr", "pf"):
-        s = pd.read_csv(TAB / f"direct_v5_{crop}_spec_comparison_vrpf_national.csv")
+        s = pd.read_csv(TAB / f"direct_v5_{crop}_spec_comparison_vrpf_national_no_dmi.csv")
         s = s[s.model == "ppml"].set_index("spec")
-        v = pd.read_csv(TAB / f"direct_v5_{crop}_validation_vrpf_national.csv")
+        v = pd.read_csv(TAB / f"direct_v5_{crop}_validation_vrpf_national_no_dmi.csv")
         mae = v.groupby("spec").error_pts.apply(lambda x: x.abs().mean())
         eff = s.B_RP.fillna(s.B_R) if "B_RP" in s else s.B_R
         lab = crop.upper()
@@ -520,9 +520,9 @@ def quarterly_vrpf(crop):
 # ---------------------------------------------------------------- document
 def decline():
     """Step (2000) versus gradual linear change of the El Nino effect, Poisson."""
-    s = pd.read_csv(TAB / "direct_v5_rice_spec_comparison_decline.csv")
+    s = pd.read_csv(TAB / "direct_v5_rice_spec_comparison_decline_no_dmi.csv")
     s = s[s.model == "ppml"].set_index(["ecosystem", "spec"])
-    v = pd.read_csv(TAB / "direct_v5_rice_validation_decline.csv")
+    v = pd.read_csv(TAB / "direct_v5_rice_validation_decline_no_dmi.csv")
     mae = v.groupby(["ecosystem", "spec"]).error_pts.apply(lambda x: x.abs().mean())
     return {(e, sp): {"ic": s.loc[(e, sp), "ic_minus_base"], "today": s.loc[(e, sp), "B_RP_today"],
                       "y1995": s.loc[(e, sp), "B_RP_1995"], "mae": mae[(e, sp)]}
@@ -556,7 +556,7 @@ def key_numbers():
         "irr_now": -e.loc[("irrigated", dry), "From 2000"], "rf_now": -e.loc[("rainfed", dry), "From 2000"],
         "irr_before": -e.loc[("irrigated", dry), "Before 2000"], "rf_before": -e.loc[("rainfed", dry), "Before 2000"],
         "s97": tot.loc["1997-98", "Palay"], "s15": tot.loc["2015-16", "Palay"], "s23": tot.loc["2023-24", "Palay"],
-        "mae_base_irr": val[("irrigated", "v5 as written")],
+        "mae_base_irr": val[("irrigated", "v5 (RONI only)")],
         "corn_dry": -corn_effects().set_index("Corn").loc["total", "Dry-season harvest (Q1–Q2), %"],
         "c97": episode_totals("corn", "corn", ()).set_index("Path (replayed under today's conditions)").loc["1997-98", "Corn"],
         "c15": episode_totals("corn", "corn", ()).set_index("Path (replayed under today's conditions)").loc["2015-16", "Corn"],
@@ -664,8 +664,9 @@ def main():
               "and rainfed palay separately (Poisson pseudo-maximum likelihood, 16 regions, "
               "1987–2025).")
     table(doc, spec_tests(), [5.6, 2.4, 2.6, 2.4, 2.6],
-          note="Table 1. Fit gain = fall in the information criterion against v5 as written "
-               "(deviance + k ln n; positive = better after charging for extra parameters). El Niño "
+          note="Table 1. Fit gain = fall in the information criterion against v5 Eq. 4 with RONI only "
+               "(as written but without the DMI, section 4; with the DMI the tests point to the same "
+               "choices) (deviance + k ln n; positive = better after charging for extra parameters). El Niño "
                "effect = production-weighted national total effect of a sustained +1 °C RONI, log "
                "points (El Niño part when El Niño and La Niña are separate; dry-season harvest when "
                "effects differ by season).",
@@ -673,7 +674,7 @@ def main():
                "El Niño effect, irrigated": "{:.3f}", "El Niño effect, rainfed": "{:.3f}"})
     para(doc, "Two choices matter. Smooth regional trends give by far the largest improvement in fit, "
               "without changing the El Niño effect much. Separate El Niño and La Niña effects "
-              "roughly double the El Niño effect: in these data La Niña does not raise rice "
+              "double or triple the El Niño effect: in these data La Niña does not raise rice "
               "production, so a single linear RONI term understates the El Niño loss. The lags of "
               "v5 (1–4) are confirmed: adding the current quarter worsens the fit and two more lags "
               "add nothing.")
@@ -713,8 +714,9 @@ def main():
     para(doc, "The recommended specification predicts every episode better than methodology v5 as "
               "written, for irrigated and rainfed palay, and the result does not hinge on any single "
               "episode (the mean error stays far lower whichever episode is left out of it). For "
-              f"irrigated palay the error falls from {strict_mae('rice', 'irrigated', 'v5 as written'):.1f} "
-              f"to {strict_mae('rice', 'irrigated', 'recommended (nested break)'):.1f} points and every fold "
+              f"irrigated palay the error falls from {strict_mae('rice', 'irrigated', 'v5 as written, no DMI'):.1f} "
+              f"to {strict_mae('rice', 'irrigated', 'recommended, no DMI (nested break)'):.1f} points (RONI "
+              "only; with the DMI the errors are similar, Table 2a) and every fold "
               "chooses 2000 by a wide margin. For rainfed palay the fold without 1997–98 chooses 2005, "
               "so the change lies around 2000–2005; 1997–98 remains the large miss.")
 
@@ -801,6 +803,13 @@ def main():
          "predicts the episodes less well (section 2.3); it puts today's effect closer to zero, so it "
          "gives a lower bound for the loss."),
         ("Rainfed 1997–98 is understated, ", "which supports the two-stage approach for severe droughts."),
+        ("The change in 2000 may partly reflect the weather of 2015–16. ", "Stage 1 (Van) shows that "
+         "2015–16 was much less dry than its RONI implies, because typhoons Lando and Nona brought "
+         "heavy rain to Luzon in October–December 2015, just before the 2016 dry-season harvest. The "
+         "typhoon controls measure wind exposure, not rain, so the direct approach may read this as a "
+         "smaller El Niño effect after 2000. If so, today's effect, and the rice shocks for an El Niño "
+         "without such typhoons, are understated. Stage 2, which uses the observed weather including "
+         "typhoon rain, and a check without the Luzon quarters of late 2015 will test this."),
         ("The effect on irrigated palay is uncertain: ", "its range includes zero, which widens the "
          "palay range."),
         ("The estimators differ on one choice: ", "least squares on logs does not prefer separate El "
@@ -831,11 +840,12 @@ def main():
     doc.add_heading("3. Corn", level=1)
     status(doc, "draft; the recommended specification awaits agreement")
     cs = corn_specs()
+    cb = pd.read_csv(TAB / "direct_v5_corn_spec_comparison_breaks_no_dmi.csv").set_index(["model", "spec"])
     para(doc, "The same approach is applied to total, white and yellow corn (16 regions, 1987–2025), "
               "with typhoon and flood exposure weighted by corn production. Table 5 repeats the main "
               "tests of section 2 on total corn.")
     table(doc, cs, [6.4, 2.8, 3.4, 3.4],
-          note="Table 5. Total corn, Poisson. Fit gain against v5 as written (positive = better after "
+          note="Table 5. Total corn, Poisson, RONI only. Fit gain against v5 Eq. 4 with RONI only (positive = better after "
                "charging for extra parameters); El Niño effect = production-weighted national effect "
                "of a sustained +1 °C RONI in dry-season harvests (before 2000 for the step); "
                "validation error = mean absolute error of the leave-one-episode-out predictions.",
@@ -843,34 +853,37 @@ def main():
     para(doc, "Separate El Niño and La Niña effects and smooth trends matter even more for corn than for "
               "rice: methodology v5 as written finds almost no El Niño effect, because La Niña does not "
               "raise corn production either, so a single linear RONI term cancels the El Niño loss. "
-              "Unlike rice, the corn effect has not changed over time: with a step in 2000 the change "
-              "itself is close to zero and not significant (t = 0.3), the gain in fit is negligible "
-              "(and reversed with least squares on logs), and neither the step nor a gradual change "
-              "improves the predictions; plausibly because corn is largely rainfed and did not benefit "
-              "from the expansion of irrigation. The recommended corn "
-              "specification therefore has no change over time.")
+              "Unlike rice, the corn effect has not fallen over time: with a step in 2000 the El Niño "
+              "effect becomes, if anything, slightly larger, not smaller "
+              f"(t = {cb.loc[('ppml', 'step_2000'), 't_shift_RP_post']:.1f}); least squares on logs "
+              "prefers no change; and neither the step nor a gradual change clearly improves the "
+              "predictions. Plausibly corn, largely rainfed, did not benefit from the expansion of "
+              "irrigation. The recommended corn specification therefore has no change over time.")
     table(doc, strict("corn"), [1.9, 3.0, 1.5, 1.5, 1.5, 1.6, 1.8, 3.0],
           note="Table 5a. Stricter validation, total corn (as Table 2a). Here “recommended” lets each "
-               "fold choose the year of a change (every fold picks 2005); the recommended corn "
+               "fold choose the year of a change (with the DMI every fold picks 2005, without it 2010, "
+               "2010 and 2005); the recommended corn "
                "specification itself has no change over time, because the full-sample test below does "
                "not confirm one.",
           fmt={"1997-98": "{:.1f}", "2015-16": "{:.1f}", "2023-24": "{:.1f}", "Mean abs. error": "{:.1f}"})
     para(doc, "Under the stricter validation the corn specification with separate El Niño and La Niña "
               "effects and smooth trends also predicts every episode better than methodology v5 as "
               "written (mean error "
-              f"{strict_mae('corn', 'corn', 'recommended (nested break)'):.1f} against "
-              f"{strict_mae('corn', 'corn', 'v5 as written'):.1f} points), again with 1997–98 the largest miss.")
-    cb = pd.read_csv(TAB / "direct_v5_corn_spec_comparison_breaks.csv")
-    cb = cb.set_index(["model", "spec"])
-    para(doc, "A stricter validation, which chooses the break year inside each fold, picked 2005 for "
-              "corn, so the break year was also tested on the full sample (2000, 2005, 2010). With "
-              f"Poisson a step in 2005 fits better ({-cb.loc[('ppml', 'step_2005'), 'ic_minus_base']:.0f} "
-              "points), but much of the gain comes from La Niña's effect, and El Niño's changes only "
-              f"from {cb.loc[('ppml', 'step_2005'), 'B_RP']:.2f} to {cb.loc[('ppml', 'step_2005'), 'B_RP_today']:.2f} "
-              f"(t = {cb.loc[('ppml', 'step_2005'), 't_shift_RP_post']:.1f}); least squares on logs prefers "
-              "no break for every year, and the predictions do not improve. The recommended corn "
-              "specification is kept without a break; the 2005 step is a sensitivity that puts today's "
-              "effect, and so the loss, somewhat lower.")
+              f"{strict_mae('corn', 'corn', 'recommended, no DMI (nested break)'):.1f} against "
+              f"{strict_mae('corn', 'corn', 'v5 as written, no DMI'):.1f} points, RONI only), again with "
+              "1997–98 the largest miss.")
+    para(doc, "Since the stricter validation picks a break year inside each fold (2005 or 2010), the break "
+              "year was also tested on the full sample (2000, 2005, 2010). With Poisson a step fits "
+              f"somewhat better ({-cb.loc[('ppml', 'step_2005'), 'ic_minus_base']:.0f} points for 2005, "
+              f"{-cb.loc[('ppml', 'step_2010'), 'ic_minus_base']:.0f} for 2010), but El Niño's effect does not "
+              f"change consistently: from {cb.loc[('ppml', 'step_2005'), 'B_RP']:.2f} to "
+              f"{cb.loc[('ppml', 'step_2005'), 'B_RP_today']:.2f} with a step in 2005 "
+              f"(t = {cb.loc[('ppml', 'step_2005'), 't_shift_RP_post']:.1f}), and from "
+              f"{cb.loc[('ppml', 'step_2010'), 'B_RP']:.2f} to {cb.loc[('ppml', 'step_2010'), 'B_RP_today']:.2f} "
+              f"with a step in 2010 (t = {cb.loc[('ppml', 'step_2010'), 't_shift_RP_post']:.1f}), a larger "
+              "effect today; least squares on logs prefers no break for every year. The recommended corn "
+              "specification is kept without a break; a step in 2010 is a sensitivity that would make "
+              "today's effect, and so the loss, somewhat larger.")
     table(doc, corn_effects(), [2.0, 3.6, 1.8, 3.6, 1.8],
           note="Table 6. Effect of a sustained +1 °C El Niño (RONI) on corn production, % (Poisson; "
                "production-weighted national effect; recommended corn specification).",
@@ -1006,7 +1019,7 @@ def main():
               "episodes are in the sample.")
     doc.add_heading("5.1 Specification", level=2)
     table(doc, vrpf_specs(), [4.6, 1.5, 1.6, 1.5, 1.5, 1.6, 1.5],
-          note="Table 9. VR and PF, Poisson. Fit gain = fall in the information criterion against v5 as "
+          note="Table 9. VR and PF, Poisson, RONI only. Fit gain = fall in the information criterion against v5 as "
                "written (positive = better after charging for extra parameters). El Niño effect = "
                "production-weighted national effect of a sustained +1 °C RONI, % (El Niño part when El "
                "Niño and La Niña are separate). Validation error = mean absolute error of the "
@@ -1019,12 +1032,11 @@ def main():
               "until about 2015 and of the fall of root crops in Region V from 2023, which a straight "
               "line cannot follow. And with 16 years of data one national effect fits better than 16 "
               "regional effects for both indices, under both estimators (least squares on logs agrees). "
-              "Unlike rice and corn, separate El Niño and La Niña effects are not needed: for PF, La "
-              "Niña raises production at least as much as El Niño lowers it, so one linear RONI term, "
-              "as in v5, fits better. Neither a season shift nor lags 1–6 (v5 allows up to six for PF) "
-              "improves the Poisson fit; least squares on logs prefers a season shift for PF, but then "
-              "the whole El Niño effect falls on wet-season quarters, which is hard to interpret for "
-              "perennial crops. The recommended specification for VR and PF is "
+              "Unlike rice and corn, separate El Niño and La Niña effects are not needed: they worsen "
+              "the fit for both indices and both estimators, so one linear RONI term, as in v5, fits "
+              "better. A season shift worsens the fit too, and lags 1–6 (v5 allows up to six for PF) "
+              "change it by one or two points and leave the effect about the same. The recommended "
+              "specification for VR and PF is "
               "therefore methodology v5 (Eq. 4) with smooth regional trends and one national effect.")
     doc.add_heading("5.2 Effects", level=2)
     table(doc, vrpf_effects(), [4.6, 2.6, 1.8, 2.4, 1.8],
@@ -1057,10 +1069,10 @@ def main():
                "mean absolute error over the two episodes.",
           fmt={"Mean abs. error": "{:.1f}"})
     para(doc, "The recommended specification predicts both episodes better than methodology v5 as "
-              f"written (mean error {strict_mae('vr', 'vr', 'recommended'):.1f} against "
-              f"{strict_mae('vr', 'vr', 'v5 as written'):.1f} points for VR, "
-              f"{strict_mae('pf', 'pf', 'recommended'):.1f} against "
-              f"{strict_mae('pf', 'pf', 'v5 as written'):.1f} for PF), but two episodes are a weak test, "
+              f"written (RONI only: mean error {strict_mae('vr', 'vr', 'recommended, no DMI'):.1f} against "
+              f"{strict_mae('vr', 'vr', 'v5 as written, no DMI'):.1f} points for VR, "
+              f"{strict_mae('pf', 'pf', 'recommended, no DMI'):.1f} against "
+              f"{strict_mae('pf', 'pf', 'v5 as written, no DMI'):.1f} for PF), but two episodes are a weak test, "
               "and the observed VR loss of 2023–24 depends on how the trend is extended to the end of "
               "the sample (about zero with the full-sample spline, about 3% when the trend is set on the "
               "years before the episode), probably because of the fall in Region V. Methodology v5 also asks "
@@ -1105,9 +1117,17 @@ def main():
     ])
 
     doc.add_heading("6. Two-stage approach", level=1)
-    status(doc, "to come")
-    para(doc, "Regional monthly weather from ERA5 is prepared; cropland weights and the treatment of "
-              "provinces without an ERA5 land cell are being agreed with Van.")
+    status(doc, "stage 1 ready (Van); stage 2 to come")
+    para(doc, "Stage 1 (Van) is ready: regional monthly ERA5 weather predicted from RONI alone (16 "
+              "November 2026), with out-of-sample predictions for every year from nested "
+              "cross-validation (5-year July–June blocks held out, lags and modes chosen without them), "
+              "and a RONI + DMI variant for stress scenarios. Out of sample it reproduces the 1997–98 "
+              "drought (October–April rainfall about −84 mm/month predicted against −94 observed) and "
+              "2023–24 (−45 against −45), and over-predicts the drying of 2015–16 (−71 against −40), "
+              "because of the typhoon rain over Luzon described in section 2.6 (national "
+              "cropland-weighted means, Van's figures). Stage 2 (weather → production) "
+              "is next. The cropland weights, in particular which ERA5 cells count as land, are still "
+              "being agreed with Van; the anomalies barely depend on it.")
 
     doc.add_heading("Annex", level=1)
     table(doc, quarterly_palay(), [2.0, 2.0, 3.0, 3.4, 3.6],

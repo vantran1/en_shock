@@ -1,0 +1,13 @@
+ecosystem,model,spec,episode,theta_R,theta_D,observed_loss_pct,predicted_loss_pct,error_pts,status
+corn,ppml,base,1997-98,0.4,,16.268,-1.076,-17.344,provisional
+corn,ppml,base,2015-16,0.95,,-1.28,3.77,5.05,provisional
+corn,ppml,base,2023-24,0.95,,6.644,0.49,-6.154,provisional
+corn,ppml,candidate,1997-98,0.6,,8.354,2.745,-5.609,provisional
+corn,ppml,candidate,2015-16,0.6,,9.265,3.306,-5.959,provisional
+corn,ppml,candidate,2023-24,0.6,,-0.327,2.74,3.067,provisional
+corn,ppml,step_2000,1997-98,0.55,,7.677,-4.405,-12.082,provisional
+corn,ppml,step_2000,2015-16,0.55,,10.737,9.423,-1.313,provisional
+corn,ppml,step_2000,2023-24,0.6,,-0.585,3.588,4.173,provisional
+corn,ppml,gradual_linear,1997-98,0.55,,7.871,0.966,-6.905,provisional
+corn,ppml,gradual_linear,2015-16,0.55,,10.394,7.84,-2.554,provisional
+corn,ppml,gradual_linear,2023-24,0.6,,-1.7,3.103,4.803,provisional
