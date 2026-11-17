@@ -1,0 +1,2 @@
+2026-11-09  era5_land_sea_mask_0.25deg_phl.nc  <-  Copernicus Climate Data Store, ERA5 monthly averaged data on single levels (reanalysis-era5-single-levels-monthly-means), variable land-sea mask (lsm), 2020-01, area 22N/116E/4N/127.5E, 0.25 deg grid, NetCDF; downloaded by hand (Ginevra); original file name 9355c6b847c5a538ebfeb9a65a1c3165.nc
+            Note: this is the ERA5 grid (0.25 deg), not ERA5-Land (0.1 deg); use it only with ERA5 data on the same grid.

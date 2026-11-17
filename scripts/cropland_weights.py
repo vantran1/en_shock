@@ -5,6 +5,11 @@ For every ERA5 cell kept by the model and every region it overlaps, the weight i
 cropland (km2) that lies in that cell. Cropland comes from the ESA CCI land cover (LCCS classes below); a
 land-cover pixel belongs to the cell and the region that hold its centre.
 
+Kept cells (v5, Section 3.3.2). The cells with an ERA5 land fraction of at least 0.5 (the ERA5 land-sea mask,
+data/era5/era5_land_sea_mask_0.25deg_phl.nc) that overlap the 16 regions. They are written to kept_cells.csv.
+This is the rule of Stage 1 (stage1_enso_iod, step 1), so the two give the same weights. Stage 1 also drops a
+cell without ERA5 soil water; with this mask no cell is dropped that way.
+
 Island fix. Land in ERA5 cells that the model drops (cells below the land-fraction threshold: small islands
 and coastal slivers) is not lost. Each such piece is moved to the NEAREST KEPT CELL, measured between cell
 centres, and still counts for its own region. Only kept cells are candidates, and the kept cells are the
@@ -17,10 +22,12 @@ Outputs (default: data/agriculture/cropland_weights/):
   cropland_weights_16regions.csv       one row per (region, kept cell): cropland and area, how much came from
                                        dropped cells, and the weights w_cropland (rows of a region sum to 1) and w_area
   island_reassignment_16regions.csv    one row per piece moved: from-cell, to-cell, distance_km, cropland, flags
+  kept_cells.csv                       the kept cells: cell (row * n_longitudes + column), lat, lon, land_fraction
 
   python scripts/make_regions.py                           # once: writes data/boundaries/phl_16_regions.gpkg
   python scripts/cropland_weights.py                       # from the repository root
   python scripts/cropland_weights.py --far-km 100          # flag moves longer than 100 km
+  python scripts/cropland_weights.py --lsm-threshold 0.5   # the land fraction a cell needs to be kept
 
 Needs: numpy pandas geopandas shapely rasterio xarray netCDF4
 """
@@ -50,6 +57,19 @@ def era5_grid(era5_dir: pathlib.Path | None):
         return np.arange(22, 3.99, -0.25), np.arange(116, 127.51, 0.25)
     ds = xr.open_dataset(sorted(era5_dir.glob("*.nc"))[0])
     return ds["latitude"].values.astype(float), ds["longitude"].values.astype(float)
+
+
+def land_fraction(path: pathlib.Path, lat, lon) -> np.ndarray:
+    """ERA5 land fraction (the land-sea mask) of every cell of the grid, flattened (row * n_longitudes + column)."""
+    if not path.exists():
+        raise SystemExit(f"no land-sea mask at {path} (the ERA5 'land_sea_mask', one time step, on the project grid)")
+    ds = xr.open_dataset(path)
+    da = ds["lsm"] if "lsm" in ds else ds[[v for v in ds.data_vars if ds[v].ndim >= 2][0]]
+    for d in list(da.dims):
+        if d not in ("latitude", "longitude"):
+            da = da.isel({d: 0}, drop=True)
+    da = da.sel(latitude=np.asarray(lat), longitude=np.asarray(lon), method="nearest", tolerance=1e-3)
+    return np.asarray(da.values, float).reshape(len(lat), len(lon)).ravel()
 
 
 def cell_polygons(lat, lon) -> gpd.GeoDataFrame:
@@ -168,23 +188,22 @@ def main():
     ap.add_argument("--cropland", type=pathlib.Path, default=ROOT / "data/agriculture/cropland_weights/esa_cci_lc_2022_phl.nc")
     ap.add_argument("--era5-dir", type=pathlib.Path, default=None,
                     help="optional: take the grid from a file in this folder (default: the project grid, 73 x 47 cells)")
-    ap.add_argument("--kept-cells", type=pathlib.Path, default=ROOT / "data/agriculture/cropland_weights/kept_cells.csv",
-                    help="the ERA5 cells kept by the model (column 'cell' = row * n_longitudes + column)")
+    ap.add_argument("--lsm", type=pathlib.Path, default=ROOT / "data/era5/era5_land_sea_mask_0.25deg_phl.nc",
+                    help="the ERA5 land-sea mask (land fraction) on the project grid")
+    ap.add_argument("--lsm-threshold", type=float, default=0.5, help="cells with a land fraction below this are dropped")
     ap.add_argument("--out", type=pathlib.Path, default=ROOT / "data/agriculture/cropland_weights")
     ap.add_argument("--far-km", type=float, default=100.0, help="flag moves longer than this")
     a = ap.parse_args()
 
     lat, lon = era5_grid(a.era5_dir)
-    kept = pd.read_csv(a.kept_cells)
-    cells = np.sort(kept["cell"].to_numpy())
-    chk = kept.set_index("cell")
-    if not (np.allclose(lat[cells // len(lon)], chk.loc[cells, "lat"]) and np.allclose(lon[cells % len(lon)], chk.loc[cells, "lon"])):
-        raise SystemExit("kept_cells.csv does not match the ERA5 grid")
     g = gpd.read_file(a.regions)[["region", "code", "geometry"]].to_crs(4326).reset_index(drop=True)
-    print(f"{len(cells)} kept cells, {len(g)} regions, ERA5 grid {len(lat)} x {len(lon)}")
-
     ov = overlap_table(cell_polygons(lat, lon), g)
     ov = ov[ov["area"] > 1e-6]
+    frac = land_fraction(a.lsm, lat, lon)
+    near = np.unique(ov["cell"].to_numpy())                                              # cells overlapping a region
+    cells = near[frac[near] >= a.lsm_threshold]
+    print(f"{len(cells)} kept cells (ERA5 land fraction >= {a.lsm_threshold:g} among the {len(near)} cells overlapping "
+          f"the regions), {len(g)} regions, ERA5 grid {len(lat)} x {len(lon)}")
     P = ov.groupby(["ridx", "cell"], as_index=False)["area"].sum()                       # area of each piece, km2
     pr = raster_pieces(read_cropland(a.cropland), g, lat, lon)                           # cropland of each piece, km2
     P = P.merge(pr, on=["ridx", "cell"], how="outer").fillna(0.0)
@@ -221,9 +240,12 @@ def main():
 
     a.out.mkdir(parents=True, exist_ok=True)
     out.to_csv(a.out / "cropland_weights_16regions.csv", index=False, float_format="%.9g")
+    pd.DataFrame({"cell": cells, "lat": lat[cells // len(lon)], "lon": lon[cells % len(lon)],
+                  "land_fraction": frac[cells]}).to_csv(a.out / "kept_cells.csv", index=False, float_format="%.6g")
     moves.to_csv(a.out / "island_reassignment_16regions.csv", index=False, float_format="%.9g")
     sums = out.groupby("code")["w_cropland"].sum()
     far = moves[moves["farther_than_threshold"] & (moves["cropland_km2"] > 0)]
+    print(f"wrote {a.out}/kept_cells.csv ({len(cells)} cells)")
     print(f"wrote {a.out}/cropland_weights_16regions.csv ({len(out)} rows; weights sum to {sums.min():.6f}-{sums.max():.6f} per region)")
     print(f"wrote {a.out}/island_reassignment_16regions.csv ({len(moves)} pieces moved, "
           f"{(moves['cropland_km2'] > 0).sum()} with cropland; {len(far)} of those farther than {a.far_km:g} km, "
