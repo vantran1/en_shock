@@ -1,0 +1,7 @@
+series,sample,fit_gain_from_change,effect_before_2000,effect_from_2000,t_change,effect_without_change,n,status
+irrigated,all quarters,141.7926,-0.1592,-0.0458,2.9234,-0.087,2496,provisional
+irrigated,without Luzon 2015Q4-2016Q2,65.7778,-0.1837,-0.097,2.0175,-0.1444,2475,provisional
+irrigated,without Luzon 2015Q2-2016Q4,86.1062,-0.1863,-0.0851,2.4303,-0.1424,2447,provisional
+rainfed,all quarters,50.6619,-0.2598,-0.1434,1.6275,-0.2061,2496,provisional
+rainfed,without Luzon 2015Q4-2016Q2,39.0939,-0.2815,-0.1849,1.1721,-0.2323,2475,provisional
+rainfed,without Luzon 2015Q2-2016Q4,41.371,-0.2719,-0.1643,1.3223,-0.2336,2447,provisional

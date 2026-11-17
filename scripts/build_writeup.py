@@ -503,6 +503,32 @@ def vrpf_totals():
     return pd.DataFrame(rows)
 
 
+def luzon(series, sample, col):
+    t = pd.read_csv(TAB / "check_luzon_2015.csv")
+    return t[(t.series == series) & (t["sample"] == sample)][col].iloc[0]
+
+
+def faostat(series, col):
+    t = pd.read_csv(TAB / "faostat_check_vrpf.csv")
+    return t[t.series == series][col].iloc[0]
+
+
+def faostat_table():
+    """Table 11a: 1998 in FAOSTAT against the model's 1998 loss from the 1997-98 path."""
+    t = pd.read_csv(TAB / "faostat_check_vrpf.csv").set_index("series")
+    rows = []
+    for k, lab in (("vr", "VR"), ("vr_noroot", "VR without root crops"), ("pf", "PF"),
+                   ("pf_nobanana", "PF without banana")):
+        x = t.loc[k]
+        rows.append({"Index": lab,
+                     "1998 vs trend, %": x.obs_dev_1998_pct,
+                     "1998 vs 1996–97, %": x.obs_1998_vs_1996_97_pct,
+                     "Trend residual SD, %": x.trend_resid_sd_pct,
+                     "Model loss in 1998, %": (f"{x.model_loss_1998_pct:.1f} ({x.model_1998_p05:.1f} to "
+                                               f"{x.model_1998_p95:.1f})" if pd.notna(x.model_loss_1998_pct) else "")})
+    return pd.DataFrame(rows)
+
+
 def vrpf_total(crop, series, path, col="total_loss_pct_of_annual"):
     t = pd.read_csv(TAB / f"shocks_{crop}_episode_totals.csv")
     return t[(t.crop == series) & (t.path == path)][col].iloc[0]
@@ -620,7 +646,10 @@ def main():
          "Kanlaon eruption; and the recommended specification predicts each past episode better than "
          "methodology v5 as written, also under the stricter validation."),
         ("Weaker: ", "severe droughts are probably understated (the 1997–98 losses of rainfed rice and "
-         "corn are not predicted when that episode is left out), so for stress scenarios the direct "
+         "corn are not predicted when that episode is left out, and FAOSTAT shows larger 1998 losses "
+         "of vegetables, root crops and bananas than the model gives); part of the smaller rice effect "
+         "after 2000 comes from typhoon rain over Luzon in late 2015, so today's rice effect is "
+         "probably understated (section 2.6); for stress scenarios the direct "
          "shocks are best read as a lower bound until the two-stage approach is in place; the "
          "ranges are wide, and include no loss for irrigated rice and, in 1997–98 and 2015–16, for "
          "palay and total corn; there are only "
@@ -807,9 +836,21 @@ def main():
          "2015–16 was much less dry than its RONI implies, because typhoons Lando and Nona brought "
          "heavy rain to Luzon in October–December 2015, just before the 2016 dry-season harvest. The "
          "typhoon controls measure wind exposure, not rain, so the direct approach may read this as a "
-         "smaller El Niño effect after 2000. If so, today's effect, and the rice shocks for an El Niño "
-         "without such typhoons, are understated. Stage 2, which uses the observed weather including "
-         "typhoon rain, and a check without the Luzon quarters of late 2015 will test this."),
+         "smaller El Niño effect after 2000. A check confirms that this matters: without the Luzon "
+         "regions in 2015Q4–2016Q2 (21 of 2,496 region-quarters), the gain in fit from the change in "
+         f"2000 falls from {luzon('irrigated', 'all quarters', 'fit_gain_from_change'):.0f} to "
+         f"{luzon('irrigated', 'without Luzon 2015Q4-2016Q2', 'fit_gain_from_change'):.0f} for irrigated "
+         "palay, and today's dry-season effect roughly doubles, from "
+         f"{(np.exp(luzon('irrigated', 'all quarters', 'effect_from_2000')) - 1) * 100:.1f}% to "
+         f"{(np.exp(luzon('irrigated', 'without Luzon 2015Q4-2016Q2', 'effect_from_2000')) - 1) * 100:.1f}% "
+         "per +1 °C (rainfed: "
+         f"{(np.exp(luzon('rainfed', 'all quarters', 'effect_from_2000')) - 1) * 100:.1f}% to "
+         f"{(np.exp(luzon('rainfed', 'without Luzon 2015Q4-2016Q2', 'effect_from_2000')) - 1) * 100:.1f}%). "
+         "The change in 2000 remains (t = "
+         f"{luzon('irrigated', 'without Luzon 2015Q4-2016Q2', 't_change'):.1f} for irrigated palay), but "
+         "a large part of it comes from these quarters, so today's effect and the rice shocks are "
+         "probably understated. Stage 2, which uses the observed weather including typhoon rain, "
+         "should settle how much (outputs/tables/check_luzon_2015.csv)."),
         ("The effect on irrigated palay is uncertain: ", "its range includes zero, which widens the "
          "palay range."),
         ("The estimators differ on one choice: ", "least squares on logs does not prefer separate El "
@@ -1075,8 +1116,30 @@ def main():
               f"{strict_mae('pf', 'pf', 'v5 as written, no DMI'):.1f} for PF), but two episodes are a weak test, "
               "and the observed VR loss of 2023–24 depends on how the trend is extended to the end of "
               "the sample (about zero with the full-sample spline, about 3% when the trend is set on the "
-              "years before the episode), probably because of the fall in Region V. Methodology v5 also asks "
-              "for a check of 1997–98 against FAOSTAT national annual production; it is not done yet.")
+              "years before the episode), probably because of the fall in Region V.")
+    para(doc, "1997–98 against FAOSTAT. Methodology v5 asks to check, for 1997–98, outside the quarterly "
+              "data, that the shocks add up to sensible annual losses, against FAOSTAT national annual "
+              "production (official figures; calorie indices built with the same FNRI factors; "
+              "calamansi and mung bean through the closest FAOSTAT items, bitter gourd left out).")
+    table(doc, faostat_table(), [3.8, 2.4, 2.4, 2.4, 4.0],
+          note="Table 11a. 1998 in FAOSTAT: deviation of the calorie index from its 1990–2005 log-linear "
+               "trend (fitted without 1997–99) and change against the 1996–97 average, % (negative = a "
+               "loss), with the standard deviation of the trend residuals; and the model's loss in 1998 "
+               "from the replayed 1997–98 path, % of the year's production (RONI only; 90% bootstrap "
+               "range). The model replays the path under today's crop mix, so the comparison is about "
+               "orders of magnitude.",
+          fmt={"1998 vs trend, %": "{:.1f}", "1998 vs 1996–97, %": "{:.1f}", "Trend residual SD, %": "{:.1f}"})
+    para(doc, "The signs agree but the model understates 1998, as for rainfed rice and corn. Fruit "
+              f"production fell about {-faostat('pf', 'obs_dev_1998_pct'):.0f}% below trend, three times "
+              "the usual deviation, against a model loss of "
+              f"{faostat('pf', 'model_loss_1998_pct'):.1f}%; as in the quarterly data the loss is bananas, "
+              f"while fruit without banana was {faostat('pf_nobanana', 'obs_dev_1998_pct'):.0f}% above trend "
+              "(a large mango harvest). For VR, the model finds no El Niño effect in 2010–2025, but in "
+              f"1998 the index fell {-faostat('vr', 'obs_1998_vs_1996_97_pct'):.0f}% against 1996–97 "
+              f"({-faostat('vr', 'obs_dev_1998_pct'):.0f}% below trend, within normal variation because 1997 "
+              "was high), with cassava, sweet potato, potato and tomato all well down. So in a severe "
+              "drought vegetables and root crops do lose, and the direct VR and PF shocks are best read "
+              "as lower bounds for stress scenarios.")
     if (TAB / "shocks_pf_episode_totals.csv").exists() and (TAB / "shocks_vr_episode_totals.csv").exists():
         doc.add_heading("5.4 Shocks", level=2)
         para(doc, "Same paths and method as for rice and corn (section 2.4): the El Niño quarters of the "
@@ -1104,8 +1167,8 @@ def main():
     doc.add_heading("5.5 Limitations", level=2)
     bullets(doc, [
         ("Two episodes. ", "With data from 2010 only 2015–16 and 2023–24 are in the sample; a drought "
-         "as severe as 1997–98 may cause losses beyond those seen in the sample (the FAOSTAT check of "
-         "methodology v5 is still to be done)."),
+         "as severe as 1997–98 caused losses well beyond those the model gives (FAOSTAT, Table 11a), "
+         "so for severe droughts the shocks are lower bounds."),
         ("One national effect. ", "Regional differences are not estimated; the national shock is the "
          "same in every region, which matters only if DEFINE-PH needs regional shocks."),
         ("The DMI ", "has opposite signs for VR (negative) and PF (positive), with its timing at the edge "

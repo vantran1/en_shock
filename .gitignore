@@ -20,3 +20,5 @@ data/agriculture/FNRI_calorie_factors_VR_PF_v35.xlsx
 data/boundaries/source/
 # run logs of detached estimation jobs
 outputs/logs/
+# FAOSTAT bulk download (re-download: see scripts/check_faostat_vrpf.py)
+data/faostat/*.zip
