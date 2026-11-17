@@ -138,7 +138,7 @@ def part_controls():
                 "no typhoon controls": [c for c in m.CONTROLS if not c.startswith("ty_")],
                 "no hazard controls": ["eq", "eruption", "pinatubo_1991"]}
     for eco, crop in SERIES.items():
-        spec = m.RECOMMENDED_BY_CROP[crop]
+        spec = m.with_dmi(m.RECOMMENDED_BY_CROP[crop])
         p = m.build(eco)
         d, y = m.sample(p, "ppml", m.GROUP[eco])
         LR = m.index_lags("roni", d.period, spec.K, spec.first_lag)

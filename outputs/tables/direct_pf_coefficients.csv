@@ -1,73 +1,67 @@
 ecosystem,model,kind,term,est,se,t,spec,spec_note,status
-pf,ppml,climate,BR_all,-0.0124,0.0038,-3.2706,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect)",provisional
-pf,ppml,climate,BD_all,0.0236,0.0104,2.2743,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect)",provisional
-pf,ppml,control,ty_share_ts,-0.0118,0.02,-0.5909,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect)",provisional
-pf,ppml,control,ty_share_ty,-0.0991,0.0503,-1.9707,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect)",provisional
-pf,ppml,control,ty_share_sty,-0.0043,0.6931,-0.0062,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect)",provisional
-pf,ppml,control,ty_share_ts_lag1,-0.009,0.0217,-0.4161,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect)",provisional
-pf,ppml,control,ty_share_ty_lag1,-0.107,0.0353,-3.0274,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect)",provisional
-pf,ppml,control,ty_share_sty_lag1,-1.0929,0.4957,-2.2047,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect)",provisional
-pf,ppml,control,flood_share,-0.0081,0.0095,-0.8515,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect)",provisional
-pf,ppml,control,flood_share_lag1,-0.0021,0.0049,-0.4272,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect)",provisional
-pf,ppml,control,eq,0.0064,0.0121,0.527,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect)",provisional
-pf,ppml,control,eruption,0.0103,0.0222,0.4617,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect)",provisional
-pf,ols,climate,BR_all,-0.0124,0.009,-1.3715,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect)",provisional
-pf,ols,climate,BD_all,0.0135,0.0257,0.5249,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect)",provisional
-pf,ols,control,ty_share_ts,-0.0055,0.0269,-0.2062,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect)",provisional
-pf,ols,control,ty_share_ty,-0.1231,0.08,-1.5388,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect)",provisional
-pf,ols,control,ty_share_sty,0.1694,0.8827,0.1919,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect)",provisional
-pf,ols,control,ty_share_ts_lag1,-0.0425,0.0294,-1.4468,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect)",provisional
-pf,ols,control,ty_share_ty_lag1,-0.097,0.0585,-1.6585,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect)",provisional
-pf,ols,control,ty_share_sty_lag1,-1.0582,0.4259,-2.4848,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect)",provisional
-pf,ols,control,flood_share,-0.0188,0.0176,-1.0707,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect)",provisional
-pf,ols,control,flood_share_lag1,-0.0024,0.0139,-0.1708,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect)",provisional
-pf,ols,control,eq,0.0359,0.0281,1.2783,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect)",provisional
-pf,ols,control,eruption,-0.0366,0.03,-1.2184,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect)",provisional
-pf_nobanana,ppml,climate,BR_all,0.013,0.0054,2.398,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect)",provisional
-pf_nobanana,ppml,climate,BD_all,-0.0368,0.0229,-1.6112,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect)",provisional
-pf_nobanana,ppml,control,ty_share_ts,0.0244,0.0188,1.297,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect)",provisional
-pf_nobanana,ppml,control,ty_share_ty,0.0073,0.033,0.2225,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect)",provisional
-pf_nobanana,ppml,control,ty_share_sty,-0.0663,0.342,-0.1939,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect)",provisional
-pf_nobanana,ppml,control,ty_share_ts_lag1,-0.0014,0.0271,-0.0519,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect)",provisional
-pf_nobanana,ppml,control,ty_share_ty_lag1,-0.0181,0.0472,-0.3839,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect)",provisional
-pf_nobanana,ppml,control,ty_share_sty_lag1,-0.0391,0.5853,-0.0668,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect)",provisional
-pf_nobanana,ppml,control,flood_share,0.0011,0.0085,0.1322,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect)",provisional
-pf_nobanana,ppml,control,flood_share_lag1,0.0221,0.0077,2.8621,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect)",provisional
-pf_nobanana,ppml,control,eq,-0.0275,0.0242,-1.1402,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect)",provisional
-pf_nobanana,ppml,control,eruption,-0.0058,0.0329,-0.1751,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect)",provisional
-pf_nobanana,ols,climate,BR_all,0.0158,0.0136,1.1561,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect)",provisional
-pf_nobanana,ols,climate,BD_all,-0.0366,0.0417,-0.8781,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect)",provisional
-pf_nobanana,ols,control,ty_share_ts,0.036,0.0391,0.921,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect)",provisional
-pf_nobanana,ols,control,ty_share_ty,-0.2842,0.0987,-2.8791,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect)",provisional
-pf_nobanana,ols,control,ty_share_sty,0.4684,0.6114,0.7662,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect)",provisional
-pf_nobanana,ols,control,ty_share_ts_lag1,-0.0353,0.037,-0.954,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect)",provisional
-pf_nobanana,ols,control,ty_share_ty_lag1,0.1165,0.0857,1.3601,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect)",provisional
-pf_nobanana,ols,control,ty_share_sty_lag1,-0.9806,0.379,-2.5874,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect)",provisional
-pf_nobanana,ols,control,flood_share,-0.0484,0.0182,-2.6512,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect)",provisional
-pf_nobanana,ols,control,flood_share_lag1,0.0164,0.0224,0.7326,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect)",provisional
-pf_nobanana,ols,control,eq,0.046,0.0222,2.0759,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect)",provisional
-pf_nobanana,ols,control,eruption,-0.0563,0.0501,-1.1236,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect)",provisional
-pf_nocavendish,ppml,climate,BR_all,-0.0099,0.0049,-1.9969,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect)",provisional
-pf_nocavendish,ppml,climate,BD_all,-0.0159,0.019,-0.8354,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect)",provisional
-pf_nocavendish,ppml,control,ty_share_ts,-0.0152,0.0237,-0.6415,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect)",provisional
-pf_nocavendish,ppml,control,ty_share_ty,-0.0987,0.0729,-1.3524,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect)",provisional
-pf_nocavendish,ppml,control,ty_share_sty,0.1358,0.709,0.1915,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect)",provisional
-pf_nocavendish,ppml,control,ty_share_ts_lag1,-0.0222,0.0226,-0.9834,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect)",provisional
-pf_nocavendish,ppml,control,ty_share_ty_lag1,-0.0856,0.052,-1.6447,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect)",provisional
-pf_nocavendish,ppml,control,ty_share_sty_lag1,-1.1118,0.559,-1.9888,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect)",provisional
-pf_nocavendish,ppml,control,flood_share,-0.0107,0.0105,-1.0218,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect)",provisional
-pf_nocavendish,ppml,control,flood_share_lag1,-0.0018,0.0075,-0.2427,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect)",provisional
-pf_nocavendish,ppml,control,eq,0.0129,0.0195,0.6632,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect)",provisional
-pf_nocavendish,ppml,control,eruption,0.0108,0.022,0.4907,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect)",provisional
-pf_nocavendish,ols,climate,BR_all,-0.0104,0.0084,-1.2317,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect)",provisional
-pf_nocavendish,ols,climate,BD_all,-0.0123,0.0261,-0.4722,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect)",provisional
-pf_nocavendish,ols,control,ty_share_ts,-0.0048,0.0271,-0.1785,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect)",provisional
-pf_nocavendish,ols,control,ty_share_ty,-0.1235,0.0822,-1.5017,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect)",provisional
-pf_nocavendish,ols,control,ty_share_sty,0.1685,0.8725,0.1932,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect)",provisional
-pf_nocavendish,ols,control,ty_share_ts_lag1,-0.0374,0.0299,-1.2494,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect)",provisional
-pf_nocavendish,ols,control,ty_share_ty_lag1,-0.1008,0.0618,-1.6303,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect)",provisional
-pf_nocavendish,ols,control,ty_share_sty_lag1,-1.1221,0.4481,-2.504,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect)",provisional
-pf_nocavendish,ols,control,flood_share,-0.0196,0.0189,-1.0351,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect)",provisional
-pf_nocavendish,ols,control,flood_share_lag1,-0.0003,0.0142,-0.0178,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect)",provisional
-pf_nocavendish,ols,control,eq,0.0373,0.028,1.3317,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect)",provisional
-pf_nocavendish,ols,control,eruption,-0.0333,0.0306,-1.0889,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect)",provisional
+pf,ppml,climate,BR_all,-0.0094,0.0036,-2.6031,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect); RONI only",provisional
+pf,ppml,control,ty_share_ts,-0.0122,0.0198,-0.6164,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect); RONI only",provisional
+pf,ppml,control,ty_share_ty,-0.0903,0.0524,-1.7227,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect); RONI only",provisional
+pf,ppml,control,ty_share_sty,-0.0301,0.6996,-0.043,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect); RONI only",provisional
+pf,ppml,control,ty_share_ts_lag1,-0.0089,0.0224,-0.3989,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect); RONI only",provisional
+pf,ppml,control,ty_share_ty_lag1,-0.1063,0.0363,-2.9292,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect); RONI only",provisional
+pf,ppml,control,ty_share_sty_lag1,-1.0963,0.5022,-2.1832,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect); RONI only",provisional
+pf,ppml,control,flood_share,-0.0079,0.0104,-0.7602,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect); RONI only",provisional
+pf,ppml,control,flood_share_lag1,-0.0011,0.0048,-0.234,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect); RONI only",provisional
+pf,ppml,control,eq,0.0093,0.0119,0.7775,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect); RONI only",provisional
+pf,ppml,control,eruption,0.0123,0.0217,0.5676,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect); RONI only",provisional
+pf,ols,climate,BR_all,-0.0096,0.0077,-1.2551,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect); RONI only",provisional
+pf,ols,control,ty_share_ts,-0.005,0.0266,-0.1883,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect); RONI only",provisional
+pf,ols,control,ty_share_ty,-0.1224,0.0799,-1.5323,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect); RONI only",provisional
+pf,ols,control,ty_share_sty,0.1826,0.8798,0.2076,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect); RONI only",provisional
+pf,ols,control,ty_share_ts_lag1,-0.0424,0.0298,-1.4237,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect); RONI only",provisional
+pf,ols,control,ty_share_ty_lag1,-0.0983,0.0589,-1.67,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect); RONI only",provisional
+pf,ols,control,ty_share_sty_lag1,-1.0393,0.428,-2.428,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect); RONI only",provisional
+pf,ols,control,flood_share,-0.0185,0.0175,-1.0584,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect); RONI only",provisional
+pf,ols,control,flood_share_lag1,-0.0026,0.0139,-0.1859,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect); RONI only",provisional
+pf,ols,control,eq,0.0356,0.0284,1.2526,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect); RONI only",provisional
+pf,ols,control,eruption,-0.0341,0.0301,-1.1303,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect); RONI only",provisional
+pf_nobanana,ppml,climate,BR_all,0.008,0.0044,1.8471,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect); RONI only",provisional
+pf_nobanana,ppml,control,ty_share_ts,0.0204,0.0177,1.1553,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect); RONI only",provisional
+pf_nobanana,ppml,control,ty_share_ty,0.0096,0.0326,0.2937,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect); RONI only",provisional
+pf_nobanana,ppml,control,ty_share_sty,-0.033,0.3207,-0.1028,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect); RONI only",provisional
+pf_nobanana,ppml,control,ty_share_ts_lag1,-0.0044,0.0276,-0.1598,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect); RONI only",provisional
+pf_nobanana,ppml,control,ty_share_ty_lag1,-0.0128,0.0486,-0.2627,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect); RONI only",provisional
+pf_nobanana,ppml,control,ty_share_sty_lag1,0.0122,0.5698,0.0215,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect); RONI only",provisional
+pf_nobanana,ppml,control,flood_share,0.0018,0.0088,0.2097,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect); RONI only",provisional
+pf_nobanana,ppml,control,flood_share_lag1,0.0238,0.0083,2.8838,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect); RONI only",provisional
+pf_nobanana,ppml,control,eq,-0.0246,0.0222,-1.1077,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect); RONI only",provisional
+pf_nobanana,ppml,control,eruption,-0.0141,0.033,-0.4274,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect); RONI only",provisional
+pf_nobanana,ols,climate,BR_all,0.0117,0.0105,1.1126,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect); RONI only",provisional
+pf_nobanana,ols,control,ty_share_ts,0.0367,0.0395,0.9286,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect); RONI only",provisional
+pf_nobanana,ols,control,ty_share_ty,-0.2866,0.0993,-2.8858,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect); RONI only",provisional
+pf_nobanana,ols,control,ty_share_sty,0.4776,0.6023,0.793,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect); RONI only",provisional
+pf_nobanana,ols,control,ty_share_ts_lag1,-0.0335,0.0373,-0.8973,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect); RONI only",provisional
+pf_nobanana,ols,control,ty_share_ty_lag1,0.1148,0.0856,1.3415,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect); RONI only",provisional
+pf_nobanana,ols,control,ty_share_sty_lag1,-0.9468,0.3774,-2.5086,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect); RONI only",provisional
+pf_nobanana,ols,control,flood_share,-0.0467,0.0185,-2.5279,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect); RONI only",provisional
+pf_nobanana,ols,control,flood_share_lag1,0.0187,0.0227,0.8249,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect); RONI only",provisional
+pf_nobanana,ols,control,eq,0.0463,0.0215,2.1562,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect); RONI only",provisional
+pf_nobanana,ols,control,eruption,-0.0623,0.0488,-1.2773,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect); RONI only",provisional
+pf_nocavendish,ppml,climate,BR_all,-0.0119,0.0045,-2.6585,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect); RONI only",provisional
+pf_nocavendish,ppml,control,ty_share_ts,-0.0167,0.0235,-0.7101,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect); RONI only",provisional
+pf_nocavendish,ppml,control,ty_share_ty,-0.0978,0.0726,-1.3469,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect); RONI only",provisional
+pf_nocavendish,ppml,control,ty_share_sty,0.14,0.7082,0.1976,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect); RONI only",provisional
+pf_nocavendish,ppml,control,ty_share_ts_lag1,-0.0234,0.0228,-1.0281,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect); RONI only",provisional
+pf_nocavendish,ppml,control,ty_share_ty_lag1,-0.084,0.0515,-1.6309,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect); RONI only",provisional
+pf_nocavendish,ppml,control,ty_share_sty_lag1,-1.1002,0.5588,-1.9689,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect); RONI only",provisional
+pf_nocavendish,ppml,control,flood_share,-0.0096,0.0101,-0.9471,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect); RONI only",provisional
+pf_nocavendish,ppml,control,flood_share_lag1,-0.0006,0.0078,-0.0778,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect); RONI only",provisional
+pf_nocavendish,ppml,control,eq,0.0127,0.0185,0.6871,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect); RONI only",provisional
+pf_nocavendish,ppml,control,eruption,0.006,0.0219,0.2757,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect); RONI only",provisional
+pf_nocavendish,ols,climate,BR_all,-0.0113,0.008,-1.4159,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect); RONI only",provisional
+pf_nocavendish,ols,control,ty_share_ts,-0.0044,0.0273,-0.161,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect); RONI only",provisional
+pf_nocavendish,ols,control,ty_share_ty,-0.1231,0.0825,-1.4918,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect); RONI only",provisional
+pf_nocavendish,ols,control,ty_share_sty,0.1702,0.8734,0.1948,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect); RONI only",provisional
+pf_nocavendish,ols,control,ty_share_ts_lag1,-0.0365,0.0298,-1.2259,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect); RONI only",provisional
+pf_nocavendish,ols,control,ty_share_ty_lag1,-0.1004,0.0617,-1.6264,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect); RONI only",provisional
+pf_nocavendish,ols,control,ty_share_sty_lag1,-1.1205,0.4485,-2.4983,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect); RONI only",provisional
+pf_nocavendish,ols,control,flood_share,-0.0185,0.0183,-1.0075,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect); RONI only",provisional
+pf_nocavendish,ols,control,flood_share_lag1,0.0005,0.0142,0.0333,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect); RONI only",provisional
+pf_nocavendish,ols,control,eq,0.037,0.0275,1.3469,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect); RONI only",provisional
+pf_nocavendish,ols,control,eruption,-0.0358,0.0311,-1.1522,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect); RONI only",provisional

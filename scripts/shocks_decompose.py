@@ -2,7 +2,7 @@
 the episode paths of scripts/shocks_direct.py. PROVISIONAL; a diagnostic for the DMI
 question (write-up section 4), not a deliverable.
 
-For each crop's recommended specification (Poisson, full sample), the shock of each path is
+For each crop's recommended specification with the DMI (the variant; Poisson, full sample), the shock of each path is
 computed three times: with the path's RONI and DMI (the shock of shocks_direct.py), with the
 DMI set to zero (RONI part) and with RONI set to zero (DMI part). The shock is 1 - exp(sum
 of the climate terms), so the two parts add up to the total only approximately.
@@ -36,7 +36,7 @@ def main():
              "RONI only (DMI = 0)": {k: v.assign(dmi=0.0) for k, v in base.items()},
              "DMI only (RONI = 0)": {k: v.assign(roni=0.0) for k, v in base.items()}}
     for crop, conf in sd.CONF.items():
-        spec = sd.m.RECOMMENDED_BY_CROP[crop]
+        spec = sd.m.with_dmi(sd.m.RECOMMENDED_BY_CROP[crop])  # the variant with the DMI
         data = {e: sd.prepare(e, spec) for e in conf["series"]}
         fits = {e: sd.fit_params(*data[e], "ppml", THETA_GRID, spec) for e in conf["series"]}
         for part, ps in parts.items():

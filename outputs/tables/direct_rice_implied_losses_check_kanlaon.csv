@@ -1,157 +1,157 @@
 period,actual,neutral_roni,neutral_roni_dmi,loss_roni_pct,loss_roni_dmi_pct,spec,spec_note,status
-1987Q1,2168648.0,2456328.11,2491064.75,11.71,12.94,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-1987Q2,1367237.0,1678359.76,1693203.9,18.54,19.25,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-1987Q3,690926.0,830427.64,834664.97,16.8,17.22,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-1987Q4,4313041.0,5059110.99,5069767.19,14.75,14.93,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-1988Q1,2325418.0,2914801.73,2922809.48,20.22,20.44,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-1988Q2,1358501.0,1594830.71,1589012.68,14.82,14.51,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-1988Q3,1236198.0,1322382.89,1313024.2,6.52,5.85,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-1988Q4,4050913.0,4397826.24,4370792.9,7.89,7.32,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-1989Q1,2402351.0,2514147.44,2529941.08,4.45,5.04,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-1989Q2,1553953.0,1696467.74,1709328.21,8.4,9.09,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-1989Q3,1373107.0,1443610.87,1439601.84,4.88,4.62,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-1989Q4,4129361.0,4395334.8,4313778.79,6.05,4.28,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-1990Q1,2145991.0,2174732.95,2210060.82,1.32,2.9,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-1990Q2,1336802.0,1368943.56,1381156.15,2.35,3.21,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-1990Q3,1260444.0,1298361.14,1296220.78,2.92,2.76,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-1990Q4,4576039.0,4742507.12,4667025.05,3.51,1.95,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-1991Q1,2532503.0,2681140.05,2720062.63,5.54,6.9,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-1991Q2,1515010.0,1618328.67,1628254.35,6.38,6.95,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-1991Q3,1184818.0,1274154.52,1281021.43,7.01,7.51,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-1991Q4,4440931.0,4834278.51,4859500.37,8.14,8.61,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-1992Q1,2364765.0,2842130.94,2837175.98,16.8,16.65,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-1992Q2,1141219.0,1484378.07,1480007.98,23.12,22.89,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-1992Q3,841340.0,1108613.39,1091511.84,24.11,22.92,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-1992Q4,4781616.0,5687506.73,5551282.44,15.93,13.86,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-1993Q1,2315246.0,2596286.81,2689741.05,10.82,13.92,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-1993Q2,1574903.0,1685031.75,1699424.95,6.54,7.33,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-1993Q3,929670.0,1025830.45,1029701.86,9.37,9.71,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-1993Q4,4614389.0,5124090.14,5085455.73,9.95,9.26,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-1994Q1,2288317.0,2593606.89,2625998.2,11.77,12.86,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-1994Q2,2090216.0,2249637.34,2253577.3,7.09,7.25,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-1994Q3,1876635.0,1972290.74,1984054.61,4.85,5.41,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-1994Q4,4282886.0,4536914.14,4584050.83,5.6,6.57,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-1995Q1,2272045.0,2620284.49,2598473.68,13.29,12.56,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-1995Q2,2045286.0,2422902.49,2399515.74,15.59,14.76,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-1995Q3,1785510.0,1985617.12,1967420.72,10.08,9.25,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-1995Q4,4437808.0,4670798.0,4669254.07,4.99,4.96,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-1996Q1,2523794.0,2581794.36,2576966.14,2.25,2.06,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-1996Q2,2427116.0,2514757.88,2526470.22,3.49,3.93,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-1996Q3,2116498.0,2164799.96,2160083.4,2.23,2.02,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-1996Q4,4216160.0,4332309.71,4278195.55,2.68,1.45,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-1997Q1,2563757.0,2582602.71,2605640.86,0.73,1.61,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-1997Q2,2282704.0,2303438.65,2327169.1,0.9,1.91,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-1997Q3,1788141.0,1850963.92,1845470.83,3.39,3.11,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-1997Q4,4634361.0,5224521.76,5226698.02,11.3,11.33,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-1998Q1,2220968.0,2980730.63,2971295.73,25.49,25.25,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-1998Q2,1338008.0,1887501.27,1870394.8,29.11,28.46,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-1998Q3,1284443.0,1567466.48,1586374.53,18.06,19.03,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-1998Q4,3711405.0,4077363.28,4101773.45,8.98,9.52,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-1999Q1,2996188.0,3119354.0,3077780.26,3.95,2.65,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-1999Q2,2275865.0,2401610.39,2405187.9,5.24,5.38,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-1999Q3,2248702.0,2335469.67,2328695.15,3.72,3.44,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-1999Q4,4265870.0,4554735.2,4521365.24,6.34,5.65,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2000Q1,2856356.0,2749300.35,2755139.56,-3.89,-3.67,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2000Q2,2586140.0,2529728.26,2535467.57,-2.23,-2.0,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2000Q3,2412610.0,2297413.98,2292338.15,-5.01,-5.25,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2000Q4,4534306.0,4505047.0,4507963.87,-0.65,-0.58,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2001Q1,2813930.0,2750083.15,2747799.81,-2.32,-2.41,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2001Q2,2753901.0,2725709.22,2722794.83,-1.03,-1.14,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2001Q3,2405187.0,2348110.16,2334302.83,-2.43,-3.04,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2001Q4,4981852.0,4971550.4,4956452.73,-0.21,-0.51,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2002Q1,3058094.0,3036672.44,3057683.12,-0.71,-0.01,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2002Q2,2614275.0,2608419.68,2605267.27,-0.22,-0.35,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2002Q3,2020796.0,2019188.96,2012842.28,-0.08,-0.4,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2002Q4,5577488.0,5604107.66,5561835.66,0.48,-0.28,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2003Q1,3035561.0,3217518.91,3237774.89,5.66,6.25,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2003Q2,2345717.0,2498035.75,2513474.53,6.1,6.67,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2003Q3,2434696.0,2461895.0,2463922.53,1.1,1.19,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2003Q4,5683910.0,5689712.29,5680672.12,0.1,-0.06,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2004Q1,3434383.0,3457572.76,3471192.55,0.67,1.06,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2004Q2,2604199.0,2635274.38,2637134.76,1.18,1.25,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2004Q3,2871678.0,2882012.34,2874167.87,0.36,0.09,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2004Q4,5586524.0,5614642.2,5579048.74,0.5,-0.13,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2005Q1,3381885.0,3520945.3,3521744.54,3.95,3.97,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2005Q2,2651140.0,2762842.25,2785236.73,4.04,4.81,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2005Q3,2669137.0,2695986.57,2681059.1,1.0,0.44,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2005Q4,5900843.0,5915472.22,5852705.05,0.25,-0.82,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2006Q1,3615607.0,3607986.53,3675803.87,-0.21,1.64,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2006Q2,2923824.0,2910155.29,2924844.89,-0.47,0.03,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2006Q3,3006200.0,2935382.8,2920981.56,-2.41,-2.92,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2006Q4,5781075.0,5776144.18,5743808.89,-0.09,-0.65,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2007Q1,3676704.0,3788453.51,3827031.89,2.95,3.93,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2007Q2,3051176.0,3165491.27,3163384.74,3.61,3.55,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2007Q3,3146959.0,3155118.41,3178734.71,0.26,1.0,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2007Q4,6365355.0,6348188.01,6399272.53,-0.27,0.53,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2008Q1,3748852.0,3634673.66,3601385.11,-3.14,-4.09,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2008Q2,3371867.0,3320502.57,3308619.73,-1.55,-1.91,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2008Q3,3467460.0,3299070.8,3294441.95,-5.1,-5.25,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2008Q4,6227369.0,6176589.82,6195726.17,-0.82,-0.51,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2009Q1,3941177.0,3868295.72,3854928.02,-1.88,-2.24,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2009Q2,3435019.0,3405501.06,3396769.3,-0.87,-1.13,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2009Q3,3519417.0,3435823.84,3435305.63,-2.43,-2.45,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2009Q4,5370803.5,5365728.32,5386228.52,-0.09,0.29,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2010Q1,3491640.0,3642041.15,3621372.13,4.13,3.58,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2010Q2,3129151.0,3333433.13,3324971.7,6.13,5.89,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2010Q3,2646110.0,2673596.84,2693482.99,1.03,1.76,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2010Q4,6505418.0,6469751.95,6504946.69,-0.55,-0.01,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2011Q1,4037331.0,3872853.1,3827684.8,-4.25,-5.48,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2011Q2,3539878.0,3484947.61,3483348.08,-1.58,-1.62,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2011Q3,3168478.0,3014841.71,3018993.74,-5.1,-4.95,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2011Q4,5938375.0,5870620.08,5905064.12,-1.15,-0.56,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2012Q1,3992198.0,3899802.27,3845891.06,-2.37,-3.8,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2012Q2,3899738.17,3865381.89,3855375.84,-0.89,-1.15,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2012Q3,3596801.08,3506232.24,3497384.84,-2.58,-2.84,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2012Q4,6543788.22,6526484.91,6524949.12,-0.27,-0.29,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2013Q1,4169943.0,4218456.11,4221478.88,1.15,1.22,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2013Q2,3827689.01,3850561.75,3856757.79,0.59,0.75,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2013Q3,3362655.72,3312420.62,3285979.99,-1.52,-2.33,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2013Q4,7079132.0,7035498.68,6979930.09,-0.62,-1.42,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2014Q1,4306890.95,4251518.27,4256111.98,-1.3,-1.19,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2014Q2,4073011.0,4064116.35,4103134.25,-0.22,0.73,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2014Q3,3027058.87,3000897.41,3004363.17,-0.87,-0.76,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2014Q4,7560865.35,7555531.01,7516912.08,-0.07,-0.58,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2015Q1,4367715.4,4421642.45,4449089.61,1.22,1.83,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2015Q2,3955836.55,4053888.77,4063612.05,2.42,2.65,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2015Q3,2551545.83,2579279.69,2584852.63,1.08,1.29,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2015Q4,7274740.0,7373726.41,7384446.45,1.34,1.49,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2016Q1,3932292.4,4423443.8,4459655.79,11.1,11.83,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2016Q2,3714589.18,4166601.5,4148948.35,10.85,10.47,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2016Q3,2968770.0,3046217.94,3045975.95,2.54,2.53,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2016Q4,7011593.24,7030667.64,6992979.66,0.27,-0.27,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2017Q1,4419267.0,4353996.12,4356433.14,-1.5,-1.44,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2017Q2,4149917.48,4117452.92,4139380.63,-0.79,-0.25,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2017Q3,3389508.95,3326954.1,3354067.06,-1.88,-1.06,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2017Q4,7317653.2,7286343.53,7386082.4,-0.43,0.93,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2018Q1,4622978.84,4541213.29,4492138.66,-1.8,-2.91,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2018Q2,4090237.42,4060709.35,4016735.24,-0.73,-1.83,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2018Q3,3196416.68,3099749.99,3092183.08,-3.12,-3.37,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2018Q4,7156461.01,7116315.73,7133909.12,-0.56,-0.32,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2019Q1,4416850.21,4498206.33,4498139.24,1.81,1.81,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2019Q2,3852526.47,4001524.47,3989165.95,3.72,3.43,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2019Q3,3051471.16,3081944.82,3130151.08,0.99,2.51,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2019Q4,7493979.45,7515857.63,7665610.14,0.29,2.24,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2020Q1,4261442.7,4317107.71,4214540.8,1.29,-1.11,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2020Q2,4125233.42,4169603.38,4112102.77,1.06,-0.32,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2020Q3,3516346.2,3504699.89,3529606.5,-0.33,0.38,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2020Q4,7391833.21,7320648.95,7365549.41,-0.97,-0.36,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2021Q1,4626919.5,4474895.57,4445319.31,-3.4,-4.09,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2021Q2,4172939.93,4115572.22,4094890.19,-1.39,-1.91,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2021Q3,3752734.24,3607988.5,3626229.31,-4.01,-3.49,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2021Q4,7407576.57,7282188.77,7315810.07,-1.72,-1.25,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2022Q1,4541255.29,4397468.98,4356764.04,-3.27,-4.23,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2022Q2,4202415.12,4151211.14,4145997.93,-1.23,-1.36,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2022Q3,3789721.44,3632494.99,3626198.58,-4.33,-4.51,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2022Q4,7223121.57,7046141.02,6999473.75,-2.51,-3.2,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2023Q1,4778787.85,4612058.01,4639604.88,-3.62,-3.0,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2023Q2,4247396.64,4196790.34,4219719.66,-1.21,-0.66,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2023Q3,3797857.27,3718054.4,3736543.21,-2.15,-1.64,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2023Q4,7235520.24,7209756.52,7364460.62,-0.36,1.75,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2024Q1,4685040.1,4968023.54,4870918.32,5.7,3.82,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2024Q2,3845323.06,4150157.92,4078067.2,7.35,5.71,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2024Q3,3329178.56,3366806.15,3440201.28,1.12,3.23,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2024Q4,7227593.75,7200161.95,7296300.51,-0.38,0.94,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2025Q1,4698724.31,4621112.72,4506951.92,-1.68,-4.26,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2025Q2,4378382.11,4334265.09,4302896.8,-1.02,-1.75,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2025Q3,3748511.44,3658167.06,3634226.83,-2.47,-3.14,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-2025Q4,6848772.13,6755635.65,6747465.0,-1.38,-1.5,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+1987Q1,2168648.0,2468687.45,2468687.45,12.15,12.15,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+1987Q2,1367237.0,1675854.48,1675854.48,18.42,18.42,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+1987Q3,690926.0,821819.44,821819.44,15.93,15.93,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+1987Q4,4313041.0,5019219.86,5019219.86,14.07,14.07,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+1988Q1,2325418.0,2870445.35,2870445.35,18.99,18.99,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+1988Q2,1358501.0,1568799.38,1568799.38,13.41,13.41,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+1988Q3,1236198.0,1308635.78,1308635.78,5.54,5.54,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+1988Q4,4050913.0,4391811.91,4391811.91,7.76,7.76,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+1989Q1,2402351.0,2477893.34,2477893.34,3.05,3.05,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+1989Q2,1553953.0,1684641.79,1684641.79,7.76,7.76,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+1989Q3,1373107.0,1425060.58,1425060.58,3.65,3.65,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+1989Q4,4129361.0,4333808.77,4333808.77,4.72,4.72,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+1990Q1,2145991.0,2168231.93,2168231.93,1.03,1.03,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+1990Q2,1336802.0,1369010.21,1369010.21,2.35,2.35,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+1990Q3,1260444.0,1298401.99,1298401.99,2.92,2.92,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+1990Q4,4576039.0,4738180.2,4738180.2,3.42,3.42,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+1991Q1,2532503.0,2673700.14,2673700.14,5.28,5.28,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+1991Q2,1515010.0,1618196.39,1618196.39,6.38,6.38,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+1991Q3,1184818.0,1272631.41,1272631.41,6.9,6.9,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+1991Q4,4440931.0,4828743.01,4828743.01,8.03,8.03,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+1992Q1,2364765.0,2837633.92,2837633.92,16.66,16.66,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+1992Q2,1141219.0,1486450.63,1486450.63,23.23,23.23,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+1992Q3,841340.0,1094299.57,1094299.57,23.12,23.12,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+1992Q4,4781616.0,5559717.16,5559717.16,14.0,14.0,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+1993Q1,2315246.0,2549686.49,2549686.49,9.19,9.19,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+1993Q2,1574903.0,1684979.16,1684979.16,6.53,6.53,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+1993Q3,929670.0,1030269.6,1030269.6,9.76,9.76,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+1993Q4,4614389.0,5085750.12,5085750.12,9.27,9.27,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+1994Q1,2288317.0,2556368.43,2556368.43,10.49,10.49,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+1994Q2,2090216.0,2243343.41,2243343.41,6.83,6.83,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+1994Q3,1876635.0,1968847.28,1968847.28,4.68,4.68,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+1994Q4,4282886.0,4534732.02,4534732.02,5.55,5.55,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+1995Q1,2272045.0,2617890.89,2617890.89,13.21,13.21,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+1995Q2,2045286.0,2414074.95,2414074.95,15.28,15.28,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+1995Q3,1785510.0,1957577.16,1957577.16,8.79,8.79,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+1995Q4,4437808.0,4635596.22,4635596.22,4.27,4.27,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+1996Q1,2523794.0,2565248.69,2565248.69,1.62,1.62,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+1996Q2,2427116.0,2507903.91,2507903.91,3.22,3.22,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+1996Q3,2116498.0,2151038.86,2151038.86,1.61,1.61,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+1996Q4,4216160.0,4304279.91,4304279.91,2.05,2.05,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+1997Q1,2563757.0,2577063.43,2577063.43,0.52,0.52,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+1997Q2,2282704.0,2301346.26,2301346.26,0.81,0.81,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+1997Q3,1788141.0,1858544.5,1858544.5,3.79,3.79,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+1997Q4,4634361.0,5270042.46,5270042.46,12.06,12.06,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+1998Q1,2220968.0,2968648.55,2968648.55,25.19,25.19,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+1998Q2,1338008.0,1868911.37,1868911.37,28.41,28.41,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+1998Q3,1284443.0,1537231.75,1537231.75,16.44,16.44,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+1998Q4,3711405.0,4025670.99,4025670.99,7.81,7.81,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+1999Q1,2996188.0,3087363.55,3087363.55,2.95,2.95,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+1999Q2,2275865.0,2390208.23,2390208.23,4.78,4.78,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+1999Q3,2248702.0,2314548.53,2314548.53,2.84,2.84,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+1999Q4,4265870.0,4511117.7,4511117.7,5.44,5.44,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2000Q1,2856356.0,2728799.78,2728799.78,-4.67,-4.67,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2000Q2,2586140.0,2516436.98,2516436.98,-2.77,-2.77,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2000Q3,2412610.0,2287603.9,2287603.9,-5.46,-5.46,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2000Q4,4534306.0,4482346.7,4482346.7,-1.16,-1.16,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2001Q1,2813930.0,2740032.96,2740032.96,-2.7,-2.7,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2001Q2,2753901.0,2718397.44,2718397.44,-1.31,-1.31,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2001Q3,2405187.0,2344049.31,2344049.31,-2.61,-2.61,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2001Q4,4981852.0,4960707.22,4960707.22,-0.43,-0.43,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2002Q1,3058094.0,3033586.87,3033586.87,-0.81,-0.81,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2002Q2,2614275.0,2607179.57,2607179.57,-0.27,-0.27,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2002Q3,2020796.0,2020649.4,2020649.4,-0.01,-0.01,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2002Q4,5577488.0,5609879.8,5609879.8,0.58,0.58,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2003Q1,3035561.0,3210737.77,3210737.77,5.46,5.46,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2003Q2,2345717.0,2482776.06,2482776.06,5.52,5.52,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2003Q3,2434696.0,2451483.05,2451483.05,0.68,0.68,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2003Q4,5683910.0,5675989.6,5675989.6,-0.14,-0.14,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2004Q1,3434383.0,3456839.55,3456839.55,0.65,0.65,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2004Q2,2604199.0,2632729.06,2632729.06,1.08,1.08,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2004Q3,2871678.0,2882235.11,2882235.11,0.37,0.37,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2004Q4,5586524.0,5617581.14,5617581.14,0.55,0.55,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2005Q1,3381885.0,3511864.54,3511864.54,3.7,3.7,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2005Q2,2651140.0,2752102.28,2752102.28,3.67,3.67,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2005Q3,2669137.0,2692807.34,2692807.34,0.88,0.88,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2005Q4,5900843.0,5906254.41,5906254.41,0.09,0.09,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2006Q1,3615607.0,3592828.66,3592828.66,-0.63,-0.63,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2006Q2,2923824.0,2901825.53,2901825.53,-0.76,-0.76,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2006Q3,3006200.0,2929179.19,2929179.19,-2.63,-2.63,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2006Q4,5781075.0,5767463.54,5767463.54,-0.24,-0.24,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2007Q1,3676704.0,3791270.72,3791270.72,3.02,3.02,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2007Q2,3051176.0,3152184.16,3152184.16,3.2,3.2,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2007Q3,3146959.0,3145721.8,3145721.8,-0.04,-0.04,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2007Q4,6365355.0,6330504.42,6330504.42,-0.55,-0.55,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2008Q1,3748852.0,3600424.52,3600424.52,-4.12,-4.12,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2008Q2,3371867.0,3300663.82,3300663.82,-2.16,-2.16,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2008Q3,3467460.0,3281566.08,3281566.08,-5.66,-5.66,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2008Q4,6227369.0,6144274.87,6144274.87,-1.35,-1.35,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2009Q1,3941177.0,3858435.19,3858435.19,-2.14,-2.14,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2009Q2,3435019.0,3393859.18,3393859.18,-1.21,-1.21,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2009Q3,3519417.0,3432388.09,3432388.09,-2.54,-2.54,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2009Q4,5370803.5,5362208.24,5362208.24,-0.16,-0.16,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2010Q1,3491640.0,3647171.11,3647171.11,4.26,4.26,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2010Q2,3129151.0,3321395.57,3321395.57,5.79,5.79,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2010Q3,2646110.0,2660492.42,2660492.42,0.54,0.54,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2010Q4,6505418.0,6428114.96,6428114.96,-1.2,-1.2,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2011Q1,4037331.0,3824198.0,3824198.0,-5.57,-5.57,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2011Q2,3539878.0,3461765.51,3461765.51,-2.26,-2.26,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2011Q3,3168478.0,3009583.49,3009583.49,-5.28,-5.28,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2011Q4,5938375.0,5849606.99,5849606.99,-1.52,-1.52,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2012Q1,3992198.0,3876657.14,3876657.14,-2.98,-2.98,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2012Q2,3899738.17,3852274.26,3852274.26,-1.23,-1.23,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2012Q3,3596801.08,3502896.99,3502896.99,-2.68,-2.68,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2012Q4,6543788.22,6522495.7,6522495.7,-0.33,-0.33,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2013Q1,4169943.0,4210890.65,4210890.65,0.97,0.97,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2013Q2,3827689.01,3839023.63,3839023.63,0.3,0.3,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2013Q3,3362655.72,3301701.42,3301701.42,-1.85,-1.85,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2013Q4,7079132.0,7019264.72,7019264.72,-0.85,-0.85,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2014Q1,4306890.95,4243645.45,4243645.45,-1.49,-1.49,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2014Q2,4073011.0,4058454.05,4058454.05,-0.36,-0.36,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2014Q3,3027058.87,2999906.76,2999906.76,-0.91,-0.91,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2014Q4,7560865.35,7549118.7,7549118.7,-0.16,-0.16,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2015Q1,4367715.4,4423117.41,4423117.41,1.25,1.25,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2015Q2,3955836.55,4049508.15,4049508.15,2.31,2.31,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2015Q3,2551545.83,2580793.75,2580793.75,1.13,1.13,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2015Q4,7274740.0,7377592.89,7377592.89,1.39,1.39,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2016Q1,3932292.4,4387260.48,4387260.48,10.37,10.37,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2016Q2,3714589.18,4130119.17,4130119.17,10.06,10.06,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2016Q3,2968770.0,3029277.0,3029277.0,2.0,2.0,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2016Q4,7011593.24,6983446.22,6983446.22,-0.4,-0.4,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2017Q1,4419267.0,4312287.96,4312287.96,-2.48,-2.48,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2017Q2,4149917.48,4104592.9,4104592.9,-1.1,-1.1,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2017Q3,3389508.95,3326818.1,3326818.1,-1.88,-1.88,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2017Q4,7317653.2,7275250.37,7275250.37,-0.58,-0.58,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2018Q1,4622978.84,4514566.83,4514566.83,-2.4,-2.4,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2018Q2,4090237.42,4043896.31,4043896.31,-1.15,-1.15,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2018Q3,3196416.68,3091924.23,3091924.23,-3.38,-3.38,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2018Q4,7156461.01,7104045.08,7104045.08,-0.74,-0.74,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2019Q1,4416850.21,4505306.92,4505306.92,1.96,1.96,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2019Q2,3852526.47,3993717.01,3993717.01,3.54,3.54,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2019Q3,3051471.16,3079576.72,3079576.72,0.91,0.91,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2019Q4,7493979.45,7499209.6,7499209.6,0.07,0.07,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2020Q1,4261442.7,4306521.38,4306521.38,1.05,1.05,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2020Q2,4125233.42,4164836.36,4164836.36,0.95,0.95,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2020Q3,3516346.2,3495825.0,3495825.0,-0.59,-0.59,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2020Q4,7391833.21,7293132.24,7293132.24,-1.35,-1.35,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2021Q1,4626919.5,4429206.4,4429206.4,-4.46,-4.46,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2021Q2,4172939.93,4092150.9,4092150.9,-1.97,-1.97,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2021Q3,3752734.24,3592076.03,3592076.03,-4.47,-4.47,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2021Q4,7407576.57,7249699.89,7249699.89,-2.18,-2.18,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2022Q1,4541255.29,4363681.77,4363681.77,-4.07,-4.07,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2022Q2,4202415.12,4129465.55,4129465.55,-1.77,-1.77,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2022Q3,3789721.44,3610826.03,3610826.03,-4.95,-4.95,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2022Q4,7223121.57,7005264.32,7005264.32,-3.11,-3.11,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2023Q1,4778787.85,4579732.01,4579732.01,-4.35,-4.35,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2023Q2,4247396.64,4179694.77,4179694.77,-1.62,-1.62,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2023Q3,3797857.27,3713540.86,3713540.86,-2.27,-2.27,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2023Q4,7235520.24,7219809.98,7219809.98,-0.22,-0.22,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2024Q1,4685040.1,4969596.78,4969596.78,5.73,5.73,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2024Q2,3845323.06,4120218.95,4120218.95,6.67,6.67,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2024Q3,3329178.56,3350946.82,3350946.82,0.65,0.65,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2024Q4,7227593.75,7165069.12,7165069.12,-0.87,-0.87,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2025Q1,4698724.31,4589939.42,4589939.42,-2.37,-2.37,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2025Q2,4378382.11,4316963.0,4316963.0,-1.42,-1.42,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2025Q3,3748511.44,3646091.1,3646091.1,-2.81,-2.81,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+2025Q4,6848772.13,6733595.29,6733595.29,-1.71,-1.71,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional

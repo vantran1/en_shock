@@ -1,9 +1,0 @@
-path,crop,total_loss_pct_of_annual,p05,p95,share_of_draws_with_loss_pct,spec_note
-1997-98,vr,0.44,-2.33,2.96,52.0,"recommended spec, differs from methodology v5; provisional; without the DMI"
-1997-98,vr_noroot,3.36,-6.08,8.03,73.0,"recommended spec, differs from methodology v5; provisional; without the DMI"
-2015-16,vr,0.42,-2.21,2.82,52.0,"recommended spec, differs from methodology v5; provisional; without the DMI"
-2015-16,vr_noroot,3.17,-5.85,7.64,73.0,"recommended spec, differs from methodology v5; provisional; without the DMI"
-2023-24,vr,0.2,-1.03,1.33,52.0,"recommended spec, differs from methodology v5; provisional; without the DMI"
-2023-24,vr_noroot,1.52,-2.39,3.5,73.0,"recommended spec, differs from methodology v5; provisional; without the DMI"
-unit RONI +1 (4 quarters from Q3),vr,0.26,-1.36,1.76,52.0,"recommended spec, differs from methodology v5; provisional; without the DMI"
-unit RONI +1 (4 quarters from Q3),vr_noroot,1.99,-3.89,5.06,73.0,"recommended spec, differs from methodology v5; provisional; without the DMI"

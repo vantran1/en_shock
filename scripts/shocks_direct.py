@@ -28,10 +28,11 @@ Central estimate: Poisson on the full sample (timing on the 0.05 grid). Range (v
 timing parameters on a 0.10 grid in each replication; 5th and 95th percentiles.
 Log-LS central shocks are reported as a check.
 
---no-dmi: the same with the crop's specification estimated without the DMI (RONI only; the
-sensitivity proposed in write-up section 4); outputs end in _no_dmi.
+RONI only since 16 Nov 2026 (estimate_direct.RECOMMENDED_BY_CROP); the paths' DMI is then
+not used. --with-dmi: the variant with the DMI (v5 Eq. 4 as written); outputs end in
+_with_dmi.
 
-Run:  python scripts/shocks_direct.py --crop rice|corn|vr|pf [--reps 200] [--no-dmi]
+Run:  python scripts/shocks_direct.py --crop rice|corn|vr|pf [--reps 200] [--with-dmi]
 Writes outputs/tables/shocks_<crop>.csv (national), shocks_<crop>_regional.csv (central,
 by region), shocks_<crop>_bootstrap.csv (draws), shocks_<crop>_episode_totals.csv (total
 loss over each scenario, % of a year's production), outputs/figures/shocks_<crop>.png
@@ -166,9 +167,9 @@ def episode_totals(out, draws):
     return t.reset_index()
 
 
-def spec_of(crop, dmi=True):
+def spec_of(crop, dmi=False):
     spec = m.RECOMMENDED_BY_CROP[crop]
-    return spec if dmi else replace(spec, name=f"{spec.name}_no_dmi", dmi=False)
+    return m.with_dmi(spec) if dmi else spec
 
 
 def boot(job):
@@ -195,12 +196,12 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--crop", choices=list(CONF), default="rice")
     ap.add_argument("--reps", type=int, default=200)
-    ap.add_argument("--no-dmi", action="store_true")
+    ap.add_argument("--with-dmi", action="store_true")
     args = ap.parse_args()
     crop = args.crop
-    dmi = not args.no_dmi
+    dmi = args.with_dmi
     spec = spec_of(crop, dmi)
-    sfx = "" if dmi else "_no_dmi"
+    sfx = "_with_dmi" if dmi else ""
     series = CONF[crop]["series"]
     data = {eco: prepare(eco, spec) for eco in series}
     central = {eco: fit_params(*data[eco], "ppml", THETA_GRID, spec) for eco in series}
@@ -223,7 +224,7 @@ def main():
                                                                   "S_D": "S_D_logLS_check"}), on=key))
     out = out[["path", "crop", "scenario_q", "q", "step", "in_path", "S", "S_p05", "S_p95",
                "S_D", "S_D_p05", "S_D_p95", "S_logLS_check", "S_D_logLS_check"]]
-    note = "recommended spec, differs from methodology v5; provisional" + ("" if dmi else "; without the DMI")
+    note = "recommended spec, differs from methodology v5; provisional" + ("; with the DMI (variant)" if dmi else "; RONI only")
     out.assign(reps=args.reps, spec_note=note).round(5).to_csv(TAB / f"shocks_{crop}{sfx}.csv", index=False)
     reg.assign(spec_note=note).round(5).to_csv(TAB / f"shocks_{crop}_regional{sfx}.csv", index=False)
     episode_totals(out, draws).assign(spec_note=note).round(2).to_csv(
@@ -237,7 +238,7 @@ def main():
     print(f"\n{main_series} shock, % of neutral production (S, Eq. 13a) and scaled for DEFINE-PH (S_D, Eq. 13b):")
     print(show.drop(columns=["crop", "S_D_logLS_check"]).to_string(index=False))
 
-    if dmi:
+    if not dmi:
         plot(out, crop)
 
 def plot(out, crop):

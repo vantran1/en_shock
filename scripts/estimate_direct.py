@@ -33,7 +33,11 @@ rainfed, without rice's irrigation expansion). Corn has the Region VI
 measurement break (Negros Occidental, estimation.setup): a level dummy whose start can be
 set with --break-start (default: estimation.setup.BREAKS).
 
-Run:  python scripts/estimate_direct.py --crop rice|corn [--check CHECK] [--break-start YYYYQn]
+RONI only since 16 Nov 2026 (the DMI is dropped from the main specification: it improves
+out-of-sample prediction neither here nor in stage 1); --with-dmi runs the variant with the
+DMI, outputs ending in _with_dmi.
+
+Run:  python scripts/estimate_direct.py --crop rice|corn|vr|pf [--check CHECK] [--break-start YYYYQn] [--with-dmi]
 Writes outputs/tables/direct_<crop>_{coefficients,national_effects,timing,profile,
 implied_losses}.csv and outputs/figures/direct_<crop>_effects.png. Checks (tables end in
 _check_<name>, no figure):
@@ -42,6 +46,7 @@ _check_<name>, no figure):
 """
 import argparse
 import sys
+from dataclasses import replace
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -62,15 +67,24 @@ from estimation.setup import sample as break_sample  # noqa: E402
 
 PROC, TAB, FIG = ROOT / "data/processed", ROOT / "outputs/tables", ROOT / "outputs/figures"
 K = 4
-# differs from v5 (log B1-B3); recommended because the data support it
-RECOMMENDED = Spec("recommended", split=True, season=True, trend="region_spline", effect_break=2000)
-RECOMMENDED_CORN = Spec("recommended_corn", split=True, season=True, trend="region_spline")
+# differs from v5 (log B1-B3); recommended because the data support it. RONI only (dmi=False)
+# since 16 Nov 2026: the DMI improves out-of-sample prediction neither of production
+# (scripts/test_dmi.py) nor of the weather (Van's stage 1, which also uses RONI alone); the
+# specification with the DMI (with_dmi) is kept as a variant, --with-dmi
+RECOMMENDED = Spec("recommended", split=True, season=True, trend="region_spline", effect_break=2000,
+                   dmi=False)
+RECOMMENDED_CORN = Spec("recommended_corn", split=True, season=True, trend="region_spline", dmi=False)
 # VR and PF (scripts/compare_direct_v5_rice.py --set vrpf, vrpf_national): v5 Eq. 4 (one
 # RONI effect, lags 1-4) with smooth regional trends and one national effect; no El Nino /
 # La Nina split, no season shift
-RECOMMENDED_VRPF = Spec("recommended_vrpf", trend="region_spline", pooling="national")
+RECOMMENDED_VRPF = Spec("recommended_vrpf", trend="region_spline", pooling="national", dmi=False)
 RECOMMENDED_BY_CROP = {"rice": RECOMMENDED, "corn": RECOMMENDED_CORN, "vr": RECOMMENDED_VRPF,
                        "pf": RECOMMENDED_VRPF}
+
+
+def with_dmi(spec):
+    """The variant of a recommended specification with the DMI (v5 Eq. 4 as written)."""
+    return replace(spec, name=f"{spec.name}_with_dmi", dmi=True)
 SPEC_NOTE = "recommended; differs from methodology v5 (change log B1-B3)"
 SPEC_NOTE_BY_CROP = {"rice": SPEC_NOTE,
                      "corn": "recommended; differs from methodology v5 (change log B1-B2; no change "
@@ -111,11 +125,12 @@ def implied_losses(d, X, b):
     return out.groupby("period").sum()
 
 
-def main(crop="rice", spec=None, check=None, break_start=None):
-    spec = spec or RECOMMENDED_BY_CROP[crop]
-    note = SPEC_NOTE_BY_CROP[crop]
+def main(crop="rice", spec=None, check=None, break_start=None, dmi=False):
+    spec = spec or (with_dmi(RECOMMENDED_BY_CROP[crop]) if dmi else RECOMMENDED_BY_CROP[crop])
+    note = SPEC_NOTE_BY_CROP[crop] + ("; with the DMI (variant)" if dmi else "; RONI only")
     replace = CHECKS.get(check) if check else None
-    sfx = f"_check_{check}" if check else (f"_break{break_start}" if break_start else "")
+    sfx = (f"_check_{check}" if check else (f"_break{break_start}" if break_start else "")) \
+        + ("_with_dmi" if dmi else "")
     coef_rows, nat_rows, timing_rows, losses, profiles = [], [], [], [], []
     for eco in CROPS[crop]["series"]:
         group = GROUP[eco]
@@ -206,7 +221,7 @@ def main(crop="rice", spec=None, check=None, break_start=None):
                                ["implied_loss_roni_pct", "implied_loss_roni_dmi_pct",
                                 "actual_change_pct"]].round(1).to_string())
 
-    if check or break_start or spec.pooling != "region":
+    if check or break_start or dmi or spec.pooling != "region":
         return  # the figure shows regional effects
     # figure: regional El Nino effect (dry-season harvest, from 2000 = regional B + shift)
     reg = coef[(coef.model == "ppml") & coef.term.str.startswith("BRP_")].copy()
@@ -247,5 +262,6 @@ if __name__ == "__main__":
     ap.add_argument("--crop", choices=list(CROPS), default="rice")
     ap.add_argument("--check", choices=list(CHECKS) + list(SAMPLE_CHECKS))
     ap.add_argument("--break-start", help="start of the measurement-break dummy, e.g. 2023Q3")
+    ap.add_argument("--with-dmi", action="store_true", help="the variant with the DMI")
     a = ap.parse_args()
-    main(crop=a.crop, check=a.check, break_start=a.break_start)
+    main(crop=a.crop, check=a.check, break_start=a.break_start, dmi=a.with_dmi)

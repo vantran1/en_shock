@@ -1,5 +1,5 @@
 ecosystem,model,n,k,theta_R,theta_D,loss,theta_on_grid_edge,wR_lag1,wR_lag2,wR_lag3,wR_lag4,wD_lag1,wD_lag2,wD_lag3,wD_lag4,spec,spec_note,status
-vr,ppml,1024,124,0.05,0.1,894.3296,True,0.0001,0.0071,0.1354,0.8574,0.001,0.027,0.243,0.729,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect)",provisional
-vr,ols,1024,124,0.5,0.45,28.469,False,0.125,0.375,0.375,0.125,0.0911,0.3341,0.4084,0.1664,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect)",provisional
-vr_noroot,ppml,1024,124,0.05,0.05,286.5657,True,0.0001,0.0071,0.1354,0.8574,0.0001,0.0071,0.1354,0.8574,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect)",provisional
-vr_noroot,ols,1024,124,0.3,0.2,32.3199,False,0.027,0.189,0.441,0.343,0.008,0.096,0.384,0.512,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect)",provisional
+vr,ppml,1024,123,0.5,,901.8115,False,0.125,0.375,0.375,0.125,,,,,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect); RONI only",provisional
+vr,ols,1024,123,0.4,,28.8159,False,0.064,0.288,0.432,0.216,,,,,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect); RONI only",provisional
+vr_noroot,ppml,1024,123,0.55,,290.1028,False,0.1664,0.4084,0.3341,0.0911,,,,,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect); RONI only",provisional
+vr_noroot,ols,1024,123,0.2,,32.466,False,0.008,0.096,0.384,0.512,,,,,recommended_vrpf,"recommended; differs from methodology v5 (spline trends, change log B2; one national effect); RONI only",provisional

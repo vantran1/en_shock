@@ -1,5 +1,5 @@
 ecosystem,model,n,k,theta_R,theta_D,loss,theta_on_grid_edge,wR_lag1,wR_lag2,wR_lag3,wR_lag4,wD_lag1,wD_lag2,wD_lag3,wD_lag4,spec,spec_note,status
-irrigated,ppml,2496,176,0.65,0.5,16147.8687,False,0.2746,0.4436,0.2389,0.0429,0.125,0.375,0.375,0.125,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-irrigated,ols,2496,176,0.75,0.95,195.1098,True,0.4219,0.4219,0.1406,0.0156,0.8574,0.1354,0.0071,0.0001,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-rainfed,ppml,2496,176,0.65,0.05,11721.0375,True,0.2746,0.4436,0.2389,0.0429,0.0001,0.0071,0.1354,0.8574,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
-rainfed,ols,2450,176,0.7,0.95,758.954,True,0.343,0.441,0.189,0.027,0.8574,0.1354,0.0071,0.0001,recommended,recommended; differs from methodology v5 (change log B1-B3),provisional
+irrigated,ppml,2496,159,0.65,,16231.4629,False,0.2746,0.4436,0.2389,0.0429,,,,,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+irrigated,ols,2496,159,0.7,,197.3829,False,0.343,0.441,0.189,0.027,,,,,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+rainfed,ppml,2496,159,0.75,,11884.2942,False,0.4219,0.4219,0.1406,0.0156,,,,,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
+rainfed,ols,2450,159,0.7,,772.2221,False,0.343,0.441,0.189,0.027,,,,,recommended,recommended; differs from methodology v5 (change log B1-B3); RONI only,provisional
