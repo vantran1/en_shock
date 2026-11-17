@@ -1,5 +1,8 @@
 """Regional monthly weather from ERA5 monthly single levels (methodology v5 Table 2, the
-monthly-reanalysis rows). Kept monthly: region x month, 1950-01 to 2025-12; no quarterly
+monthly-reanalysis rows). CROSS-CHECK ONLY since 17 Nov 2026: the reference regional weather,
+observed and predicted, is Van's stage 1 (dev_Van, stage1_enso_iod/outputs/agriculture/
+hist_fitted_16regions.csv), which stage 2 uses. This independent build from the same cells and
+weights equals its _obs columns; it is frozen and not extended (new variables go into stage 1). Kept monthly: region x month, 1950-01 to 2025-12; no quarterly
 aggregation here.
 
 Inputs
