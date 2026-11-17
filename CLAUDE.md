@@ -61,8 +61,16 @@ grid) -> monthly consumption and peak demand (paper eq. 5) -> price on reserve m
 (available capacity), oil as control -> quarterly values.
 Fallback if El Niño -> CDD is too weak: scenario assumptions based on 2024.
 
+## Residual food price shock (in scope: confirmed by Alper, Nov 2026)
+Ours, delivered with the other shocks. Price note in v5, Section 3: Equation (3) = food CPI
+relative to overall CPI on lagged RONI (food and rice separately), controls oil, exchange rate,
+Rice Tariffication Law dummy, typhoon/flood exposure; total response E_q (Eq. 4). Steps 1
+(E_q) and 3 (residual R_q = E_q - M_q, Eq. 5, adjusted until the model matches E_q) are ours;
+step 2 (M_q from a DEFINE-PH run with all other shocks) is SOAS's, so the final step follows
+their run. Compare the quarterly profiles of E_q and M_q before using R_q (timing).
+
 ## Not in current scope (to be confirmed with Alper)
-World rice price response, food price pass-through and timing, residual food price shock,
+World rice price response, food price pass-through and timing,
 El Niño public spending.
 
 ## Data
