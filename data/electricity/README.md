@@ -60,3 +60,23 @@ original Excel is on the team drive as pesodollar_2026-11.xlsx.
 **Use:** converts the Pink Sheet fuel prices (pinksheet_crude_coal_monthly.csv, same months) to pesos
 for the fuel controls in the electricity price equation (methodology v5, Eq. 5). Also used in the food
 price equation (price note, Eqs. 1–3).
+
+## `ph_holidays_2013_2026.csv`
+
+**Content:** Philippine national public holidays, 1 January 2013 – 31 December 2026: regular holidays and
+special (non-working) days declared throughout the country (special working days and local holidays
+excluded). One row per date, sorted, no duplicates.
+
+**Columns:** `date` (YYYY-MM-DD), `name`, `type` (`regular` or `special_non_working`).
+
+**Source:** Python `holidays` package, version 0.109, country "PH", category "public" (the package
+has no separate category for special non-working days; `type` is set from the holiday names, with
+the regular holidays fixed by law). Built by `scripts/build_ph_holidays.py`.
+- **Checked against the Official Gazette proclamations** (base proclamation for each year plus the
+  later ones: election days, Eid'l Fitr, Eid'l Adha, added special days) for **2013–2020 and 2024**.
+  9 corrections (2013, 2016, 2017), listed with their proclamation numbers as `OVERRIDES` in the
+  script; 0 unverified dates.
+- **Not checked:** 2021–2023 and 2025–2026 (package as is).
+
+**Use:** public-holiday indicator in the day-of-week effect o(g, dow) of the electricity price and
+demand equations (methodology v5, Eqs. 5 and 7).
