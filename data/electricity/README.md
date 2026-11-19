@@ -46,3 +46,17 @@ food price equation (price note, Eq. 3).
 
 **Caveat:** the World Bank revises recent months, so if the file is updated later, the last few values
 may change slightly.
+
+## `php_per_usd_monthly.csv`
+
+**Content:** monthly average exchange rate, pesos per US dollar, January 2013 – October 2026.
+
+**Columns:** `month` (YYYY-MM), `php_per_usd_avg` (monthly average, PHP per USD).
+
+**Source:** Bangko Sentral ng Pilipinas, “Daily, Monthly (Average and End-of-Period) and Annual Peso
+per US Dollar” (pesodollar.xlsx), sheet “monthly”, column “Average”, downloaded 19 Nov 2026. The
+original Excel is on the team drive as pesodollar_2026-11.xlsx.
+
+**Use:** converts the Pink Sheet fuel prices (pinksheet_crude_coal_monthly.csv, same months) to pesos
+for the fuel controls in the electricity price equation (methodology v5, Eq. 5). Also used in the food
+price equation (price note, Eqs. 1–3).
