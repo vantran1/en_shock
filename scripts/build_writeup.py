@@ -1277,6 +1277,19 @@ def main():
             ("Rice carries a sensitivity. ", "The file also contains the rice shock estimated without "
              "the Luzon typhoon quarters of late 2015 (section 2.6), an upper bound, labelled as such."),
         ])
+        para(doc, "Two points for the DEFINE-PH runs, as v5 asks (Section 3.5), are stated in the note "
+                  "accompanying the shocks:")
+        bullets(doc, [
+            ("Today's climate. ", "The shocks are the El Niño effect under today's climate: the trends "
+             "in the estimation keep the slow warming since the 1950s out of the El Niño effect, and the "
+             "shocks include no future warming. SOAS adds climate change to DEFINE-PH separately, so the "
+             "two can be combined without double counting."),
+            ("Check after the first run. ", "DEFINE-PH raises planned production after a shortfall "
+             "(Eq. D76), while the shocks, estimated from data, already include the recovery seen after "
+             "past El Niños, so realised production in the model may fall by less than the shock in later "
+             "quarters. After the first model run, realised production is compared with the shock and "
+             "any gap is reported to SOAS."),
+        ])
 
     doc.add_heading("7. Two-stage approach", level=1)
     status(doc, "stage 1 ready (Van); stage 2 to come")

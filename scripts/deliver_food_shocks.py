@@ -197,6 +197,18 @@ kcal a year): corn {kcal['corn']:,.0f}, VR {kcal['vr']:,.0f}, PF {kcal['pf']:,.0
 Sensitivity: `rice_sensitivity_no_luzon2015`, rice without the Luzon typhoon quarters of late 2015,
 an upper bound.
 
+## For the DEFINE-PH runs (v5 Section 3.5)
+- **Today's climate.** The shocks are the El Niño effect under today's climate: the trends in the
+  estimation keep the slow warming since the 1950s out of the El Niño effect, and the shocks do not
+  include any future warming. Climate change is added to DEFINE-PH separately, by SOAS, so it can be
+  combined with these shocks without double counting.
+- **Check after the first run.** DEFINE-PH raises planned production after a shortfall (Eq. D76),
+  while the shocks, estimated from data, already include the recovery seen after past El Niños. Realised
+  production in the model may therefore fall by less than the shock in later quarters. After the first
+  model run, compare the path of realised production with the shock and report any gap to SOAS.
+- The shocks enter as the El Niño food shock in Eqs. D77 and D105 (`S_D`), for every quarter of the path
+  and the four quarters after it.
+
 ## Caveats
 - Corn calorie factor provisional (FNRI A001, corn grits, white, 357 kcal/100 g), to confirm.
 - The rice shocks are probably too low (typhoon rain over Luzon in late 2015; write-up section 2.6);
