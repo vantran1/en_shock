@@ -59,7 +59,8 @@ All results are provisional.
 - Regional weather: Van's stage 1 is the single source (observed and predicted; 349 ERA5-mask cells,
   cropland weights, agreed 17 Nov). `data/processed/weather_region_month.csv` is a frozen cross-check.
 - Residual food price shock: ours (Alper, 17 Nov); its last step follows a DEFINE-PH run by SOAS.
-- World rice price: proposed to Van; scope to be confirmed by Alper.
+- World rice price: Van (agreed 19 Nov, while he waits for the ERA5 hourly data); scope to be confirmed by Alper.
+- Work split (19 Nov): Ginevra does the electricity data, stage 2 and the residual food price step 1; Van the world rice price now, then CDD and labour once the ERA5 hourly data arrive.
 
 **Open points:**
 - Rice shocks are probably too low: part of the smaller effect after 2000 is typhoon rain over Luzon in
