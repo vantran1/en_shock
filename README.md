@@ -45,7 +45,7 @@ All results are provisional.
 | G5 | Direct model, vegetables and root crops (VR), perennial fruits (PF) | Done | `outputs/tables/direct_{vr,pf}_*`, `shocks_{vr,pf}*` | same |
 | G6 | Validation (episodes; 1997–98 vs FAOSTAT) and food categories for DEFINE-PH | Done | `outputs/delivery/` (see its README), `validation_strict_*`, `faostat_*` | `scripts/validate_strict.py`, `check_faostat_vrpf.py`, `deliver_food_shocks.py` |
 | G7, G8 | Stage 2 (weather → production) and two-stage shocks | Next | — | — |
-| G12 | Residual food price shock, step 1 (total food price response, price note Eqs. 3–4) | To do | — | — |
+| G12 | Residual food price shock, step 1 (total food price response, price note Eqs. 3–4) | To do: Van after the rice price if time allows, otherwise Ginevra | — | — |
 | G3, G9 | Electricity: inputs; demand and price equations | G3 started: public IEMOP downloader (latest ~3 months only; full history requested through the BSP) | `~/data_tmp/electricity/raw/iemop/` (outside the repo) | `scripts/download_iemop.py` |
 | G10 | Report sections | Agriculture drafted | `outputs/writeup/agriculture_results.docx` | `scripts/build_writeup.py` |
 
@@ -60,7 +60,7 @@ All results are provisional.
   cropland weights, agreed 17 Nov). `data/processed/weather_region_month.csv` is a frozen cross-check.
 - Residual food price shock: ours (Alper, 17 Nov); its last step follows a DEFINE-PH run by SOAS.
 - World rice price: Van (agreed 19 Nov, while he waits for the ERA5 hourly data); scope to be confirmed by Alper.
-- Work split (19 Nov): Ginevra does the electricity data, stage 2 and the residual food price step 1; Van the world rice price now, then CDD and labour once the ERA5 hourly data arrive.
+- Work split (19 Nov): Ginevra does the electricity data and stage 2. Van does the world rice price now, then the residual food price step 1 if he has time (otherwise Ginevra), and CDD and labour once the ERA5 hourly data arrive.
 
 **Open points:**
 - Rice shocks are probably too low: part of the smaller effect after 2000 is typhoon rain over Luzon in
