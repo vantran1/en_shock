@@ -19,7 +19,12 @@ which no proclamation could be found would be kept at the package's date and fla
 verified=False (none so far).
 
 Run:  python scripts/build_ph_holidays.py
-Writes data/electricity/ph_holidays_2013_2026.csv (date, name, type)
+Writes data/electricity/ph_holidays_2013_2026.csv (date, name, type, scope)
+
+Scope: 'national' for the holidays above; 'ncr' for the special (non-working) days declared for
+Metro Manila (National Capital Region) as a whole, listed in NCR_DAYS with their proclamations
+(LawPhil yearly indexes 2013-2026, checked 19 Nov 2026; the 2026 index runs to 24 Sep 2026).
+Days for single cities or provinces are left out. ncr days are holidays for the Luzon grid only.
 """
 from pathlib import Path
 
@@ -62,6 +67,27 @@ OVERRIDES = [
 ]
 
 
+# ---------------------------------------------------------------------------------------------
+# NCR_DAYS: special (non-working) days for Metro Manila as a whole (scope 'ncr').
+# ---------------------------------------------------------------------------------------------
+NCR_DAYS = [
+    dict(date=d, name="Papal visit special (non-working) day (NCR)", source="Proc. 936 s.2014")
+    for d in ("2015-01-15", "2015-01-16", "2015-01-19")
+] + [
+    dict(date=d, name="APEC special (non-working) day (NCR)", source="Proc. 1072 s.2015")
+    for d in ("2015-11-18", "2015-11-19")
+] + [
+    dict(date="2017-04-28", name="ASEAN Summit special (non-working) day (NCR)", source="Proc. 197 s.2017"),
+] + [
+    dict(date=d, name="ASEAN Summit special (non-working) day (NCR, Bulacan, Pampanga)",
+         source="Proc. 332 s.2017 (NCR, Bulacan and Pampanga; all on the Luzon grid)")
+    for d in ("2017-11-13", "2017-11-14", "2017-11-15")
+] + [
+    dict(date=d, name="Special (non-working) day (NCR)", source="Proc. 1447 s.2026")
+    for d in ("2026-11-16", "2026-11-17", "2026-11-18")
+]
+
+
 def apply_overrides(d):
     for o in OVERRIDES:
         if o["action"] in ("drop", "move"):
@@ -86,13 +112,17 @@ def main():
     d = pd.DataFrame(sorted(h.items()), columns=["date", "name"])
     d["type"] = d["name"].map(kind)
     d["date"] = pd.to_datetime(d["date"]).dt.strftime("%Y-%m-%d")
-    d = apply_overrides(d)
+    d = apply_overrides(d).assign(scope="national")
+    ncr = pd.DataFrame([{k: o[k] for k in ("date", "name")} for o in NCR_DAYS])
+    d = pd.concat([d, ncr.assign(type="special_non_working", scope="ncr")])
+    d = d.sort_values("date").reset_index(drop=True)[["date", "name", "type", "scope"]]
     if d.date.duplicated().any():
         raise ValueError("duplicated dates")
     d.to_csv(OUT, index=False)
     print(f"holidays {holidays.__version__}: {len(d)} dates, "
           f"{(d.type == 'regular').sum()} regular, {(d.type != 'regular').sum()} special non-working -> {OUT}")
-    print(f"overrides applied: {len(OVERRIDES)}; unverified: {sum(not o['verified'] for o in OVERRIDES)}")
+    print(f"overrides applied: {len(OVERRIDES)}; unverified: {sum(not o['verified'] for o in OVERRIDES)}; "
+          f"ncr days: {len(NCR_DAYS)}")
 
 
 if __name__ == "__main__":
