@@ -33,6 +33,45 @@ git clone https://github.com/<your-username>/<repo-name>.git
 cd <repo-name>
 ```
 
+## Status (agriculture and electricity, Ginevra) — updated 19 Nov 2026
+
+Delivery of all shocks: **7 Dec 2026**. IDs follow the milestone tracker (G = Ginevra, V = Van).
+All results are provisional.
+
+| ID | Task | Status | Outputs | Code |
+|---|---|---|---|---|
+| G1, G2 | Inputs; crop panels on the 16 regions; typhoon, flood and geophysical controls | Done (crop calendars still to collect, for G7) | `data/processed/` | `scripts/build_*.py` |
+| G4 | Direct model, rice (irrigated, rainfed) and corn | Done | `outputs/tables/direct_{rice,corn}_*`, `shocks_{rice,corn}*` | `scripts/estimate_direct.py`, `shocks_direct.py` |
+| G5 | Direct model, vegetables and root crops (VR), perennial fruits (PF) | Done | `outputs/tables/direct_{vr,pf}_*`, `shocks_{vr,pf}*` | same |
+| G6 | Validation (episodes; 1997–98 vs FAOSTAT) and food categories for DEFINE-PH | Done | `outputs/delivery/` (see its README), `validation_strict_*`, `faostat_*` | `scripts/validate_strict.py`, `check_faostat_vrpf.py`, `deliver_food_shocks.py` |
+| G7, G8 | Stage 2 (weather → production) and two-stage shocks | Next | — | — |
+| G12 | Residual food price shock, step 1 (total food price response, price note Eqs. 3–4) | To do | — | — |
+| G3, G9 | Electricity: inputs; demand and price equations | To do; data still to find (main risk) | — | — |
+| G10 | Report sections | Agriculture drafted | `outputs/writeup/agriculture_results.docx` | `scripts/build_writeup.py` |
+
+**Decisions** (recorded in the write-up; to be agreed with Alper where marked):
+- RONI alone is the main driver (16 Nov 2026), in the direct approach and in stage 1: the DMI improves
+  out-of-sample prediction neither of production (`scripts/test_dmi.py`) nor of the weather (Van). The
+  specification with the DMI is a variant (`--with-dmi`, outputs `*_with_dmi`). *To agree with Alper.*
+- Recommended specifications (differ from v5; *to agree with Alper*): rice: El Niño / La Niña separate,
+  smooth regional trends, effect changing from 2000, wet-season shift; corn: the same without the change
+  over time; VR and PF: v5's single RONI effect with smooth trends and one national effect.
+- Regional weather: Van's stage 1 is the single source (observed and predicted; 349 ERA5-mask cells,
+  cropland weights, agreed 17 Nov). `data/processed/weather_region_month.csv` is a frozen cross-check.
+- Residual food price shock: ours (Alper, 17 Nov); its last step follows a DEFINE-PH run by SOAS.
+- World rice price: proposed to Van; scope to be confirmed by Alper.
+
+**Open points:**
+- Rice shocks are probably too low: part of the smaller effect after 2000 is typhoon rain over Luzon in
+  late 2015 (`scripts/check_luzon_2015.py`; sensitivity in the delivery file). Stage 2 to settle.
+- Severe droughts are understated (1997–98 validation and FAOSTAT): direct shocks are lower bounds for
+  stress scenarios.
+- Corn calorie factor provisional (FNRI A001, 357 kcal/100 g): ask Alper for the FNRI record of dried corn.
+- Lower bound of "other food": needs the calorie share of corn, VR and PF in DEFINE-PH's other food (SOAS),
+  unless DEFINE-PH has the four food categories by the delivery.
+- Stage 2, VR: Basilan, Sulu and Tawi-Tawi are about half of BARMM's VR calories but about 7% of its
+  cropland weight; consider crop-weighted weather.
+
 ## Data
 
 Raw inputs sit in `data/`, one folder per source (there is no `data/raw/`); they are
@@ -101,24 +140,28 @@ Validation report: `outputs/panel_validation.md` (`scripts/report_panel.py`).
 
 ### Direct model (agriculture)
 
-**Recommended specification — differs from the current methodology (v5).** It is v5,
-Eqs. (4)-(6), with the changes the palay data support: El Niño and La Niña with separate
-effects, smooth regional trends, effects that shift from 2000 on, and a wet-season shift
-(Poisson main, log-LS check). It fits and predicts the past El Niño episodes better than
-the v5 specification, so we suggest going forward with it; the changes are proposed to
-Alper and are not in the v5 text yet.
-Code: `src/estimation/direct.py`; palay: `scripts/estimate_direct.py --crop rice` (results in
-`outputs/tables/direct_rice_*`, provisional, column `spec_note`). Specification tests and
-leave-one-episode-out validation: `scripts/compare_direct_v5_rice.py`, which also runs the
-current-methodology (v5 base) version. The free-lag first look
-(`scripts/estimate_rice_direct.py`) is kept for comparison.
+**Recommended specifications — differ from the current methodology (v5).** v5 Eqs. (4)-(6)
+with the changes the data support, RONI only (the DMI is a variant). Rice: El Niño and La Niña
+separate, smooth regional trends, effects that shift from 2000 on, wet-season shift. Corn: the
+same without the shift over time. VR and PF: one RONI effect, smooth trends, one national effect.
+Poisson main, log-LS check. They fit and predict the past episodes better than v5 as written;
+the changes are proposed to Alper and are not in the v5 text yet.
+Code: `src/estimation/direct.py` (`Spec`), `RECOMMENDED_BY_CROP` in `scripts/estimate_direct.py`.
+- Estimates: `scripts/estimate_direct.py --crop rice|corn|vr|pf [--with-dmi]` → `outputs/tables/direct_<crop>_*`.
+- Specification tests and leave-one-episode-out validation: `scripts/compare_direct_v5_rice.py --crop … --set … [--no-dmi]`.
+- Stricter validation (episode + 4 quarters held out, choices made inside each fold): `scripts/validate_strict.py`.
+- DMI tests (blocked nested CV, typhoon channel): `scripts/test_dmi.py`; RONI/DMI parts of the shocks: `scripts/shocks_decompose.py`.
+- Checks: `scripts/check_faostat_vrpf.py` (1997–98 vs FAOSTAT, and FAOSTAT = PSA in 2010–2024),
+  `scripts/check_luzon_2015.py` (rice change in 2000 vs the Luzon typhoon rain of late 2015).
 
-Shocks (v5 §3.5, Eqs. 12–13b; `src/estimation/shocks.py`): `scripts/shocks_direct.py --crop rice|corn` gives
-the quarterly share of palay production lost against the neutral path, under today's
-conditions, by region, national, and scaled for DEFINE-PH, with a 90% range from a block
-bootstrap over years (`outputs/tables/shocks_rice*.csv`, `outputs/figures/shocks_rice.png`;
-provisional, recommended specification). Paths: the 1997–98, 2015–16 and 2023–24 El Niño
-quarters, and a unit path.
+Shocks (v5 §3.5, Eqs. 12–13b; `src/estimation/shocks.py`): `scripts/shocks_direct.py --crop rice|corn|vr|pf
+[--with-dmi] [--drop luzon2015]` gives the quarterly share of production lost against the neutral
+path, under today's conditions, by region, national, and scaled for DEFINE-PH, with a 90% range from
+a block bootstrap over years (`outputs/tables/shocks_<crop>*.csv`, `outputs/figures/shocks_<crop>.png`).
+Paths: the 1997–98, 2015–16 and 2023–24 El Niño quarters, and a unit path.
+**Delivery to DEFINE-PH**: `scripts/deliver_food_shocks.py` → `outputs/delivery/` (food categories
+rice, corn, VR, PF, vegetables and fruits, other food; see `outputs/delivery/README_food_shocks.md`).
+Write-up: `scripts/build_writeup.py` → `outputs/writeup/agriculture_results.docx`.
 
 ### Rebuilding from scratch
 
