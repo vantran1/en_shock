@@ -1,0 +1,45 @@
+# El Niño production shocks for DEFINE-PH, by food category (PROVISIONAL)
+
+Built by `scripts/deliver_food_shocks.py` (methodology v5 Section 3.5). Direct approach, RONI only
+(the recommended specification, which differs from v5; see the write-up). All shocks are national,
+quarterly, against the neutral path (RONI = 0), on today's conditions.
+
+## Files
+- `food_shocks_define_ph.csv`: one row per category, El Niño path and quarter.
+  - `S`: share of the quarter's production lost (v5 Eq. 13a; negative = production above the neutral path).
+  - `S_D`: the same, scaled for DEFINE-PH's quarters (Eq. 13b): loss as a share of a quarter-average of
+    annual production. This is the input to DEFINE-PH (food shock, Eqs. D77, D105).
+  - `_p05`, `_p95`: 90% range from the block bootstrap (200 draws).
+  - `step`: quarters since the start of the path; `in_path`: quarter inside the El Niño path (the shocks
+    continue for the 4 quarters after it, through the lags).
+- `food_shocks_episode_totals.csv`: total loss over each path and the quarters after it, % of one year's
+  production, with the 90% range.
+
+## Paths
+The El Niño quarters (RONI ≥ 0.5) of 1997–98, 2015–16 and 2023–24, replayed under today's conditions,
+and a unit path (RONI +1 for four quarters from Q3).
+
+## Categories
+| category | content |
+|---|---|
+| rice | palay (irrigated + rainfed) |
+| corn | total corn, including feed corn |
+| vr, pf | vegetables and root crops; perennial fruits (calorie indices) |
+| veg_fruit | VR + PF with calorie shares (if DEFINE-PH keeps one vegetables-and-fruits category) |
+| other_food | corn + VR + PF with calorie shares, applied to all other food if DEFINE-PH keeps two food types |
+| rice_sensitivity_no_luzon2015 | rice without the Luzon typhoon quarters of late 2015: an upper bound |
+
+**Lower bound for other_food** (v5 Section 3.5): other_food applies to all other food, assuming the
+items not estimated (coconut, fisheries, ...) lose as much. The lower bound with no effect on them is
+`other_food × s`, with s the calorie share of corn, VR and PF in DEFINE-PH's other food. Calories of
+the estimated items, 2021–2023 average (billion kcal a year): corn 29,688, VR 3,856,
+PF 7,356; total 40,900.
+
+## Caveats
+- Corn calorie factor provisional (FNRI A001, corn grits, white, 357 kcal/100 g), to confirm.
+- The rice shocks are probably too low (typhoon rain over Luzon in late 2015; write-up section 2.6);
+  `rice_sensitivity_no_luzon2015` gives an upper bound. Stage 2 is to settle this.
+- Severe droughts are understated (1997–98 against FAOSTAT and in the validation); for stress scenarios
+  read the shocks as lower bounds.
+- Ranges of combined categories combine the draws of each crop by their index (independent
+  re-estimations).
