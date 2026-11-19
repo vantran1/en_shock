@@ -46,7 +46,7 @@ All results are provisional.
 | G6 | Validation (episodes; 1997–98 vs FAOSTAT) and food categories for DEFINE-PH | Done | `outputs/delivery/` (see its README), `validation_strict_*`, `faostat_*` | `scripts/validate_strict.py`, `check_faostat_vrpf.py`, `deliver_food_shocks.py` |
 | G7, G8 | Stage 2 (weather → production) and two-stage shocks | Next | — | — |
 | G12 | Residual food price shock, step 1 (total food price response, price note Eqs. 3–4) | To do | — | — |
-| G3, G9 | Electricity: inputs; demand and price equations | To do; data still to find (main risk) | — | — |
+| G3, G9 | Electricity: inputs; demand and price equations | G3 started: public IEMOP downloader (latest ~3 months only; full history requested through the BSP) | `~/data_tmp/electricity/raw/iemop/` (outside the repo) | `scripts/download_iemop.py` |
 | G10 | Report sections | Agriculture drafted | `outputs/writeup/agriculture_results.docx` | `scripts/build_writeup.py` |
 
 **Decisions** (recorded in the write-up; to be agreed with Alper where marked):
