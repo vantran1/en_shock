@@ -20,20 +20,30 @@ The El Niño quarters (RONI ≥ 0.5) of 1997–98, 2015–16 and 2023–24, repl
 and a unit path (RONI +1 for four quarters from Q3).
 
 ## Categories
+Main delivery: the four food categories agreed by the BSP and SOAS (v5 Section 3.2).
+
 | category | content |
 |---|---|
 | rice | palay (irrigated + rainfed) |
 | corn | total corn, including feed corn |
-| vr, pf | vegetables and root crops; perennial fruits (calorie indices) |
-| veg_fruit | VR + PF with calorie shares (if DEFINE-PH keeps one vegetables-and-fruits category) |
-| other_food | corn + VR + PF with calorie shares, applied to all other food if DEFINE-PH keeps two food types |
-| rice_sensitivity_no_luzon2015 | rice without the Luzon typhoon quarters of late 2015: an upper bound |
+| veg_fruit | vegetables and root crops (VR) and perennial fruits (PF), combined with calorie shares |
+| other_food | **no El Niño production shock (zero)**, as in v5 |
+| vr, pf | VR and PF separately (also delivered, v5 Section 3.5) |
 
-**Lower bound for other_food** (v5 Section 3.5): other_food applies to all other food, assuming the
-items not estimated (coconut, fisheries, ...) lose as much. The lower bound with no effect on them is
-`other_food × s`, with s the calorie share of corn, VR and PF in DEFINE-PH's other food. Calories of
-the estimated items, 2021–2023 average (billion kcal a year): corn 29,688, VR 3,856,
-PF 7,356; total 40,900.
+Fallback, only if DEFINE-PH still has two food types (rice and other food, Eq. D74) at the delivery
+(v5 Section 3.5):
+
+| category | content |
+|---|---|
+| nonrice_fallback | corn + VR + PF with calorie shares, applied to all food except rice |
+
+The fallback assumes that the items not estimated (coconut, fisheries, ...) lose as much as corn, VR
+and PF. Its lower bound, with no effect on them, is `nonrice_fallback × s`, with s the calorie share of
+corn, VR and PF in DEFINE-PH's other food. Calories of the estimated items, 2021–2023 average (billion
+kcal a year): corn 29,688, VR 3,856, PF 7,356; total 40,900.
+
+Sensitivity: `rice_sensitivity_no_luzon2015`, rice without the Luzon typhoon quarters of late 2015,
+an upper bound.
 
 ## Caveats
 - Corn calorie factor provisional (FNRI A001, corn grits, white, 357 kcal/100 g), to confirm.

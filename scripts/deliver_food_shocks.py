@@ -5,18 +5,22 @@ Inputs: the shocks of the direct approach, RONI only (scripts/shocks_direct.py:
 outputs/tables/shocks_{rice,corn,vr,pf}.csv and the bootstrap draws *_bootstrap.csv), and the
 rice sensitivity without the Luzon typhoon quarters of late 2015 (*_no_luzon2015).
 
-Categories (v5 Section 3.5):
+Categories (v5 Section 3.2 and 3.5). Main delivery, the four food categories agreed by the BSP
+and SOAS:
 - rice            palay shock (irrigated and rainfed combined with neutral production shares)
 - corn            total corn (white and yellow, including feed corn)
-- vr, pf          vegetables and root crops; perennial fruits (calorie indices)
-- veg_fruit       VR and PF combined with calorie shares (if DEFINE-PH keeps one category for
-                  vegetables and fruits)
-- other_food      corn, VR and PF combined with calorie shares, to be applied to all other
-                  food if DEFINE-PH still has two food types (rice and other food, Eq. D74).
-                  This assumes the items not estimated (e.g. coconut, fisheries) are hit
-                  equally; the lower bound with no effect on them is other_food x s, with s the
-                  calorie share of corn, VR and PF in DEFINE-PH's other food (not known here;
+- veg_fruit       VR and PF combined with calorie shares (one category for vegetables and
+                  fruits); vr and pf are also delivered separately
+- other_food      NO El Nino production shock (v5: "A fourth category, other food, takes no El
+                  Nino production shock"): zero in every quarter
+Fallback, only if DEFINE-PH still has two food types (rice and other food, Eq. D74) at the
+delivery (v5 Section 3.5):
+- nonrice_fallback   corn, VR and PF combined with calorie shares, applied to all food except
+                  rice. This assumes the items not estimated (e.g. coconut, fisheries) are hit
+                  equally; the lower bound with no effect on them is nonrice_fallback x s, with s
+                  the calorie share of corn, VR and PF in DEFINE-PH's other food (not known here;
                   the calorie totals used are written to the notes file for that purpose)
+Sensitivity:
 - rice_sensitivity_no_luzon2015   rice estimated without the Luzon regions in 2015Q4-2016Q2
                   (an upper bound; write-up section 2.6, Table 4a)
 
@@ -57,7 +61,8 @@ BASE = (2021, 2023)
 SINGLE = {"rice": ("rice", "", "palay"), "corn": ("corn", "", "corn"),
           "vr": ("vr", "", "vr"), "pf": ("pf", "", "pf"),
           "rice_sensitivity_no_luzon2015": ("rice", "_no_luzon2015", "palay")}
-COMBINED = {"veg_fruit": ["vr", "pf"], "other_food": ["corn", "vr", "pf"]}
+COMBINED = {"veg_fruit": ["vr", "pf"], "nonrice_fallback": ["corn", "vr", "pf"]}
+ZERO = "other_food"  # the fourth category: no El Nino production shock (v5)
 KEY = ["path", "scenario_q"]
 
 
@@ -119,7 +124,12 @@ def main():
         central[cat], draws[cat] = single(crop, sfx, series)
     for cat, parts in COMBINED.items():
         central[cat], draws[cat] = combine(parts, e, central, draws)
-    for cat in list(SINGLE) + list(COMBINED):
+    zc = central["rice"].copy()
+    zc[["S", "S_D"]] = 0.0
+    zd = draws["rice"].copy()
+    zd[["S", "S_D"]] = 0.0
+    central[ZERO], draws[ZERO] = zc, zd
+    for cat in list(SINGLE) + list(COMBINED) + [ZERO]:
         c = central[cat].set_index(KEY)[["q", "step", "in_path", "S", "S_D"]]
         r = c.join(pct(draws[cat], "S")).join(pct(draws[cat], "S_D")).reset_index()
         rows.append(r.assign(category=cat))
@@ -131,8 +141,8 @@ def main():
     out = pd.concat(rows, ignore_index=True)
     out = out[["category", "path", "scenario_q", "q", "step", "in_path", "S", "S_p05", "S_p95",
                "S_D", "S_D_p05", "S_D_p95"]]
-    order = {k: i for i, k in enumerate(["rice", "corn", "vr", "pf", "veg_fruit", "other_food",
-                                         "rice_sensitivity_no_luzon2015"])}
+    order = {k: i for i, k in enumerate(["rice", "corn", "veg_fruit", "other_food", "vr", "pf",
+                                         "nonrice_fallback", "rice_sensitivity_no_luzon2015"])}
     out = out.sort_values(["category", "path", "scenario_q"], key=lambda s: s.map(order) if s.name == "category" else s)
     note = "provisional; direct approach, RONI only (recommended specification, differs from v5)"
     out.assign(status=note).round(6).to_csv(OUT / "food_shocks_define_ph.csv", index=False)
@@ -162,20 +172,30 @@ The El Niño quarters (RONI ≥ 0.5) of 1997–98, 2015–16 and 2023–24, repl
 and a unit path (RONI +1 for four quarters from Q3).
 
 ## Categories
+Main delivery: the four food categories agreed by the BSP and SOAS (v5 Section 3.2).
+
 | category | content |
 |---|---|
 | rice | palay (irrigated + rainfed) |
 | corn | total corn, including feed corn |
-| vr, pf | vegetables and root crops; perennial fruits (calorie indices) |
-| veg_fruit | VR + PF with calorie shares (if DEFINE-PH keeps one vegetables-and-fruits category) |
-| other_food | corn + VR + PF with calorie shares, applied to all other food if DEFINE-PH keeps two food types |
-| rice_sensitivity_no_luzon2015 | rice without the Luzon typhoon quarters of late 2015: an upper bound |
+| veg_fruit | vegetables and root crops (VR) and perennial fruits (PF), combined with calorie shares |
+| other_food | **no El Niño production shock (zero)**, as in v5 |
+| vr, pf | VR and PF separately (also delivered, v5 Section 3.5) |
 
-**Lower bound for other_food** (v5 Section 3.5): other_food applies to all other food, assuming the
-items not estimated (coconut, fisheries, ...) lose as much. The lower bound with no effect on them is
-`other_food × s`, with s the calorie share of corn, VR and PF in DEFINE-PH's other food. Calories of
-the estimated items, 2021–2023 average (billion kcal a year): corn {kcal['corn']:,.0f}, VR {kcal['vr']:,.0f},
-PF {kcal['pf']:,.0f}; total {kcal.sum():,.0f}.
+Fallback, only if DEFINE-PH still has two food types (rice and other food, Eq. D74) at the delivery
+(v5 Section 3.5):
+
+| category | content |
+|---|---|
+| nonrice_fallback | corn + VR + PF with calorie shares, applied to all food except rice |
+
+The fallback assumes that the items not estimated (coconut, fisheries, ...) lose as much as corn, VR
+and PF. Its lower bound, with no effect on them, is `nonrice_fallback × s`, with s the calorie share of
+corn, VR and PF in DEFINE-PH's other food. Calories of the estimated items, 2021–2023 average (billion
+kcal a year): corn {kcal['corn']:,.0f}, VR {kcal['vr']:,.0f}, PF {kcal['pf']:,.0f}; total {kcal.sum():,.0f}.
+
+Sensitivity: `rice_sensitivity_no_luzon2015`, rice without the Luzon typhoon quarters of late 2015,
+an upper bound.
 
 ## Caveats
 - Corn calorie factor provisional (FNRI A001, corn grits, white, 357 kcal/100 g), to confirm.

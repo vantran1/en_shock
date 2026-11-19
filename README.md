@@ -66,9 +66,11 @@ All results are provisional.
   late 2015 (`scripts/check_luzon_2015.py`; sensitivity in the delivery file). Stage 2 to settle.
 - Severe droughts are understated (1997–98 validation and FAOSTAT): direct shocks are lower bounds for
   stress scenarios.
-- Corn calorie factor provisional (FNRI A001, 357 kcal/100 g): ask Alper for the FNRI record of dried corn.
-- Lower bound of "other food": needs the calorie share of corn, VR and PF in DEFINE-PH's other food (SOAS),
-  unless DEFINE-PH has the four food categories by the delivery.
+- Corn calorie factor provisional (FNRI A001, 357 kcal/100 g; used only in the fallback): ask Alper for the FNRI record of dried corn.
+- Food categories follow v5: rice, corn, vegetables and fruits, and other food with **no** El Niño shock.
+  Only if DEFINE-PH still has two food types at the delivery: the labelled fallback (corn + VR + PF for all
+  food except rice), whose lower bound needs the calorie share of corn, VR and PF in DEFINE-PH's other
+  food (SOAS).
 - Stage 2, VR: Basilan, Sulu and Tawi-Tawi are about half of BARMM's VR calories but about 7% of its
   cropland weight; consider crop-weighted weather.
 
