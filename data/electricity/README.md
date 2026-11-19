@@ -28,3 +28,21 @@ y−1, y−2 and y−3.
   than RM suggests.
 
 **Check done:** all values verified against both PDFs (19 Nov 2026).
+
+## `pinksheet_crude_coal_monthly.csv`
+
+**Content:** monthly world fuel prices, January 2013 – October 2026. One row per month.
+
+**Columns:** `month` (YYYY-MM), `crude_avg_usd_bbl` (crude oil, average of Brent, Dubai and WTI,
+US$/bbl), `coal_aus_usd_mt` (coal, Australian, US$/metric ton). Nominal US dollars.
+
+**Source:** World Bank Commodity Price Data (Pink Sheet), “CMO-Historical-Data-Monthly.xlsx”, sheet
+“Monthly Prices”, updated 3 November 2026; columns “Crude oil, average” and “Coal, Australian”. The
+original Excel is on the team drive as CMO-Historical-Data-Monthly_2026-11.xlsx.
+
+**Use:** fuel price controls F_m in the electricity price equation (methodology v5, Eq. 5), converted
+to pesos with the monthly PHP/USD rate (to be added). The same crude oil series is also used in the
+food price equation (price note, Eq. 3).
+
+**Caveat:** the World Bank revises recent months, so if the file is updated later, the last few values
+may change slightly.
