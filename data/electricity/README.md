@@ -88,3 +88,36 @@ the regular holidays fixed by law). Built by `scripts/build_ph_holidays.py`.
 **Use:** public-holiday indicator in the day-of-week effect o(g, dow) of the electricity price and
 demand equations (methodology v5, Eqs. 5 and 7). `national` days are holidays for all three grids; `ncr`
 days are used as holidays for the Luzon grid only.
+
+## `wesm_price_caps.csv`
+
+**Content:** WESM price mitigation measures, 2006–2026: the offer price cap and floor on generator offers,
+and the secondary price cap (SPC), which pegs the market price at the cap once the rolling average of
+the generator weighted average price (GWAP) breaches the cumulative price threshold (CPT). One row per
+regime.
+
+**Columns:** `measure` (`offer_cap`, `offer_floor`, `secondary_price_cap`), `start_date`, `end_date`
+(empty = still in force), `cap_php_mwh` (cap or floor, PHP/MWh), `cpt_php_mwh` (SPC trigger: average GWAP
+over the window, PHP/MWh), `window_hours` (rolling window of the trigger), `scope`, `instrument`,
+`signed_date`, `effectivity_clause` (as written in the resolution), `start_basis`, `source`, `note`.
+
+**Dates:** each resolution takes effect relative to its publication in a newspaper, which it does not
+date. `start_date` is therefore the signed (or approved) date plus the stated lag, i.e. the **earliest
+possible** effective date; the true date is a few days to weeks later. Res. No. 8 s.2014 was in force by
+15 May 2014 (first breach). Between the end of the interim SPC (~7 Dec 2014) and the permanent one (Res.
+No. 20 s.2014, from ~30 Dec 2014 at the earliest) there may have been a few weeks without an SPC.
+
+**Sources:** ERC Resolutions No. 8, 14 and 20 s.2014, No. 4 s.2017, No. 7 s.2021 and No. 26 s.2025 (PDFs
+from erc.gov.ph, downloaded 20 Nov 2026; to be filed on the team drive with the raw electricity data:
+`ResolutionNo8seriesof2014.pdf`, `ResolutionNo.14Seriesof20140001.pdf`, `ERCResolutionNo.20,Seriesof2014.pdf`,
+`ResolutionNo04Seriesof2017.pdf`, `For Posting 746 -Resolution No. 07, Series of 2021 (HVB sgd).pdf`,
+`For Posting 2440-2025. Resolution No. 26, Series of 2025 with Annex A.pdf`). The offer cap and floor
+(WESM Tripartite Committee Joint Resolutions No. 2 of 17 Dec 2013 and No. 3 of 17 Dec 2015) are from a
+secondary source, IES (2024), *Assessment of WESM Price Analysis* (Energy Transition Partnership), pp.
+18–20, as the joint resolutions could not be found. The IES report gives the first SPC as a 7-day window
+with a 9,000 trigger; the resolutions show it was 72 hours and 8,186 (Res. No. 8 s.2014), and 7 days and
+9,000 only from Res. No. 20 s.2014.
+
+**Use:** censoring of the daily price in the electricity price equation (methodology v5, Eq. 5): prices at
+the offer cap, and intervals under the SPC, are treated as censored. For the 2026 public IEMOP months the
+SPC is 7,423 PHP/MWh with a 12,413 trigger over 72 hours.
