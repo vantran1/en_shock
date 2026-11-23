@@ -1,0 +1,4 @@
+series,test,wald,df,p_value,deviance_no_break,deviance_break,status
+irrigated,weather effects (linear + hinge) shift from 2000,25.22859,4,5e-05,16451.88305,15767.27504,"provisional; diagnostic (stage 2 model choice), monthly weather only"
+rainfed,weather effects (linear + hinge) shift from 2000,29.32195,4,1e-05,11783.37188,11357.22763,"provisional; diagnostic (stage 2 model choice), monthly weather only"
+corn,weather effects (linear + hinge) shift from 2000,32.80135,4,0.0,20606.26312,20088.71484,"provisional; diagnostic (stage 2 model choice), monthly weather only"
