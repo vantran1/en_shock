@@ -638,6 +638,36 @@ def rice_calendar_table():
     return pd.DataFrame(rows)
 
 
+def corn_calendar_table():
+    """National corn growing window by harvest quarter (GGCMI rainfed, cropland and PSA weights)."""
+    w = pd.read_csv(PROC / "corn_growing_window.csv")
+    w = w[w.calendar == "rainfed"]
+    cov = pd.read_csv(TAB / "corn_calendar_coverage.csv")
+    cov = cov[cov.calendar == "rainfed"].set_index("quarter")
+    d = read_csv_prod_corn()
+    w = w.merge(d, on=["region_code", "quarter"])
+    nat = (w.assign(x=w.weight * w.p).groupby(["quarter", "lag", "calendar_month"]).x.sum()
+           / w.groupby(["quarter", "lag", "calendar_month"]).p.sum()).rename("weight").reset_index()
+    names = "Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec".split()
+    rows = []
+    for q in range(1, 5):
+        m = nat[(nat.quarter == q) & (nat.weight >= 0.5)].sort_values("lag", ascending=False)
+        rows.append({"Harvest quarter": f"Q{q}",
+                     "Share of annual production (%)": 100 * cov.loc[q, "share_of_annual_production"],
+                     "Months in the field (weight ≥ 0.5)": f"{names[m.calendar_month.iloc[0] - 1]}–"
+                                                          f"{names[m.calendar_month.iloc[-1] - 1]}",
+                     "Window from GGCMI (%)": 100 * cov.loc[q, "share_from_ggcmi"]})
+    return pd.DataFrame(rows)
+
+
+def read_csv_prod_corn():
+    """PSA corn production by region and quarter of the year (2016-2025 total), from the crop panel."""
+    c = pd.read_csv(PROC / "crop_region_quarter.csv")
+    c = c[(c.series == "corn") & (c.variable == "production_t") & c.period.str[:4].astype(int).between(2016, 2025)]
+    c = c.assign(quarter=c.period.str[-1].astype(int))
+    return c.groupby(["region_code", "quarter"]).value.sum().rename("p").reset_index()
+
+
 def key_numbers():
     e = effects().set_index(["Palay", "Harvest season"])
     dry = "dry (Q1–Q2)"
@@ -1328,8 +1358,8 @@ def main():
               "is next. The cropland weights and the ERA5 cells counted as land were agreed with Van "
               "on 17 November 2026 (349 cells).")
 
-    doc.add_heading("7.1 Rice crop calendar (growing windows for stage 2)", level=2)
-    status(doc, "done (rice); corn calendar to come")
+    doc.add_heading("7.1 Crop calendars (growing windows for stage 2)", level=2)
+    status(doc, "done (rice and corn)")
     para(doc, "Stage 2 relates production in a quarter to the weather in the months the crop harvested "
               "in that quarter was in the field. Those months come from RiceAtlas (Laborte et al. 2017, "
               "Harvard Dataverse), which gives planting and harvest dates for each rice season in 81 "
@@ -1355,7 +1385,28 @@ def main():
         "a single date instead of a planting or harvest range. These are matched to the nearest season.",
         "Batanes and Tawi-Tawi have no calendar (less than 0.1% of production); Davao Occidental "
         "takes the calendar of Davao del Sur, from which it was created in 2013.",
+        "GGCMI's rice calendar for the Philippines (Jägermeyr et al. 2021) is taken from RiceAtlas, so it "
+        "cannot serve as an independent check.",
     ])
+    para(doc, "Corn. No subnational corn calendar comparable to RiceAtlas was found. The windows come from "
+              "the GGCMI Phase 3 maize calendar (Jägermeyr et al. 2021, Zenodo), a 0.5° grid built for the "
+              "Philippines from Dimou et al. (2018), MIRCA2000, SAGE and Iizumi et al. (2019). Each ERA5 "
+              "cell takes the nearest GGCMI cell, and cells are combined with the cropland weights of "
+              "stage 1 (scripts/build_corn_calendar.py, data/processed/corn_growing_window.csv). GGCMI has "
+              "one season per cell, mostly the wet-season crop planted around May and harvested in "
+              "July–September. Quarters with no GGCMI harvest take a standard cycle of the same length, "
+              "harvested in the middle month of the quarter. The rainfed calendar is used; PSA does not "
+              "split corn by water supply.")
+    table(doc, corn_calendar_table(), [2.6, 3.4, 4.6, 3.6],
+          note="Table 15. Corn growing windows, all regions (rainfed calendar): months in which at least "
+               "half of the quarter's harvest was in the field, and the share of the quarter's PSA "
+               "production whose window comes from GGCMI rather than the standard cycle.",
+          fmt={"Share of annual production (%)": "{:.0f}", "Window from GGCMI (%)": "{:.0f}"})
+    para(doc, "The corn windows are rougher than the rice windows: GGCMI covers about a third of annual "
+              "production (mostly the Q3 harvest), and the dry-season crop harvested in Q1 and Q2 and the "
+              "late crop of Q4 rely on the standard cycle. Like RiceAtlas, the calendar is fixed and does "
+              "not distinguish white and yellow corn. v5 sets the windows from PSA and Department of "
+              "Agriculture calendars; none was found in machine-readable form, so this is a change to note.")
 
     doc.add_heading("Annex", level=1)
     table(doc, quarterly_palay(), [2.0, 2.0, 3.0, 3.4, 3.6],

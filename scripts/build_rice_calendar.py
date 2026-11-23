@@ -35,16 +35,14 @@ Writes
 import sys
 import struct
 import zipfile
-from datetime import date, timedelta
-from io import BytesIO
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-import numpy as np  # noqa: E402
 import pandas as pd  # noqa: E402
 
+from agriculture.calendar import month_of, window  # noqa: E402
 from agriculture.psa_openstat import read_palay_corn  # noqa: E402
 from agriculture.regions import REGION_OF_PROVINCE  # noqa: E402
 
@@ -85,11 +83,6 @@ def read_dbf(raw: bytes) -> pd.DataFrame:
     return pd.DataFrame(rows, columns=[f for f, _ in fields])
 
 
-def month_of(doy) -> int:
-    """Calendar month (1-12) of a day of year (non-leap year)."""
-    return (date(2001, 1, 1) + timedelta(days=int(doy) - 1)).month
-
-
 def province_calendar() -> pd.DataFrame:
     with zipfile.ZipFile(ATLAS) as z:
         atlas = read_dbf(z.read("RiceCalendar_v1.dbf"))
@@ -116,18 +109,6 @@ def province_calendar() -> pd.DataFrame:
 def harvest_months(s) -> set:
     """Calendar months from harvest start to harvest end (wrapping over the year)."""
     return {(s.harv_st_month - 1 + i) % 12 + 1 for i in range((s.harv_end_month - s.harv_st_month) % 12 + 1)}
-
-
-def window(s, q: int) -> list:
-    """Months (as offsets from the last month of quarter q, 0 = last month) of the growing window
-    of season s for the crop harvested in quarter q."""
-    q_end = 3 * q
-    length = (s.harv_pk_month - s.plant_pk_month) % 12
-    harvest = q_end - ((q_end - s.harv_pk_month) % 12)  # harvest peak at or before the quarter end
-    if harvest - q_end <= -6:  # nearer to the next cycle
-        harvest += 12
-    harvest = min(max(harvest, q_end - 2), q_end)  # moved into the harvest quarter
-    return [q_end - m for m in range(harvest - length, harvest + 1)]
 
 
 def main():
@@ -157,7 +138,7 @@ def main():
         else:
             dist = c.harv_pk_month.map(lambda m: min((m - 3 * r.quarter + 1) % 12, (3 * r.quarter - 1 - m) % 12))
             s, how = c.loc[dist.idxmin()], "nearest"
-        lags = window(s, r.quarter)
+        lags = window(s.plant_pk_month, s.harv_pk_month, r.quarter)
         seasons.append({**r, "season": s.season, "season_name": s.season_name, "matched_by": how,
                         "plant_pk_month": s.plant_pk_month, "harv_pk_month": s.harv_pk_month,
                         "lag_first": max(lags), "lag_last": min(lags), "lags": lags})

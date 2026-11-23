@@ -1,0 +1,699 @@
+cell,ggcmi_lat,ggcmi_lon,distance_deg,plant_month,maturity_month,source,calendar
+2498.0,8.75,117.75,0.0,5,7,Dimou et al. 2018,rainfed
+2619.0,8.25,124.25,0.247,5,7,Dimou et al. 2018,rainfed
+2664.0,8.25,123.75,0.352,5,7,Dimou et al. 2018,rainfed
+2665.0,8.25,124.25,0.25,5,7,Dimou et al. 2018,rainfed
+2666.0,8.25,124.25,0.352,5,7,Dimou et al. 2018,rainfed
+2711.0,7.75,123.75,0.248,5,7,Dimou et al. 2018,rainfed
+2712.0,7.75,124.25,0.0,4,7,Dimou et al. 2018,rainfed
+2713.0,7.75,124.25,0.248,4,7,Dimou et al. 2018,rainfed
+2714.0,7.75,124.75,0.0,5,7,Dimou et al. 2018,rainfed
+2759.0,7.75,124.25,0.25,4,7,Dimou et al. 2018,rainfed
+2760.0,7.75,124.25,0.352,4,7,Dimou et al. 2018,rainfed
+2761.0,7.75,124.75,0.25,5,7,Dimou et al. 2018,rainfed
+2797.0,7.25,121.75,0.248,5,9,MIRCA2000,rainfed
+2806.0,7.25,124.25,0.0,4,7,Dimou et al. 2018,rainfed
+2807.0,7.25,124.25,0.248,4,7,Dimou et al. 2018,rainfed
+2808.0,7.25,124.75,0.0,5,7,Dimou et al. 2018,rainfed
+2853.0,7.25,124.25,0.25,4,7,Dimou et al. 2018,rainfed
+2854.0,7.25,124.25,0.352,4,7,Dimou et al. 2018,rainfed
+2855.0,7.25,124.75,0.25,5,7,Dimou et al. 2018,rainfed
+2899.0,6.75,124.25,0.248,4,7,Dimou et al. 2018,rainfed
+2900.0,6.75,124.25,0.0,4,7,Dimou et al. 2018,rainfed
+2901.0,6.75,124.25,0.248,4,7,Dimou et al. 2018,rainfed
+2902.0,6.75,124.75,0.0,5,7,Dimou et al. 2018,rainfed
+2903.0,6.75,124.75,0.248,5,7,Dimou et al. 2018,rainfed
+2949.0,6.75,124.75,0.25,5,7,Dimou et al. 2018,rainfed
+678.0,18.75,121.25,0.345,5,8,SAGE,rainfed
+679.0,18.75,121.25,0.25,5,8,SAGE,rainfed
+725.0,18.25,120.75,0.237,5,6,Dimou et al. 2018,rainfed
+726.0,18.25,121.25,0.0,4,6,Dimou et al. 2018,rainfed
+727.0,18.25,121.25,0.237,4,6,Dimou et al. 2018,rainfed
+771.0,18.25,120.75,0.25,5,6,Dimou et al. 2018,rainfed
+772.0,18.25,120.75,0.345,5,6,Dimou et al. 2018,rainfed
+773.0,18.25,121.25,0.25,4,6,Dimou et al. 2018,rainfed
+774.0,18.25,121.25,0.345,4,6,Dimou et al. 2018,rainfed
+817.0,17.75,120.25,0.238,5,9,MIRCA2000,rainfed
+818.0,17.75,120.75,0.0,4,6,Dimou et al. 2018,rainfed
+819.0,17.75,120.75,0.238,4,6,Dimou et al. 2018,rainfed
+820.0,17.75,121.25,0.0,4,6,Dimou et al. 2018,rainfed
+821.0,17.75,121.25,0.238,4,6,Dimou et al. 2018,rainfed
+864.0,17.75,120.25,0.345,5,9,MIRCA2000,rainfed
+865.0,17.75,120.75,0.25,4,6,Dimou et al. 2018,rainfed
+866.0,17.75,120.75,0.345,4,6,Dimou et al. 2018,rainfed
+867.0,17.75,121.25,0.25,4,6,Dimou et al. 2018,rainfed
+868.0,17.75,121.25,0.345,4,6,Dimou et al. 2018,rainfed
+869.0,17.75,121.75,0.25,12,2,Dimou et al. 2018,rainfed
+911.0,17.25,120.25,0.239,5,8,SAGE,rainfed
+912.0,17.25,120.75,0.0,4,6,Dimou et al. 2018,rainfed
+913.0,17.25,120.75,0.239,4,6,Dimou et al. 2018,rainfed
+914.0,17.25,121.25,0.0,4,6,Dimou et al. 2018,rainfed
+915.0,17.25,121.25,0.239,4,6,Dimou et al. 2018,rainfed
+959.0,17.25,120.75,0.25,4,6,Dimou et al. 2018,rainfed
+960.0,17.25,120.75,0.346,4,6,Dimou et al. 2018,rainfed
+961.0,17.25,121.25,0.25,4,6,Dimou et al. 2018,rainfed
+962.0,17.25,121.25,0.346,4,6,Dimou et al. 2018,rainfed
+1005.0,16.75,120.25,0.239,5,9,MIRCA2000,rainfed
+1006.0,16.75,120.75,0.0,4,6,Dimou et al. 2018,rainfed
+1007.0,16.75,120.75,0.239,4,6,Dimou et al. 2018,rainfed
+1008.0,16.75,121.25,0.0,4,6,Dimou et al. 2018,rainfed
+1009.0,16.75,121.25,0.239,4,6,Dimou et al. 2018,rainfed
+1052.0,16.75,120.25,0.346,5,9,MIRCA2000,rainfed
+1053.0,16.75,120.75,0.25,4,6,Dimou et al. 2018,rainfed
+1054.0,16.75,120.75,0.346,4,6,Dimou et al. 2018,rainfed
+1099.0,16.25,120.25,0.24,5,9,MIRCA2000,rainfed
+1100.0,16.25,120.75,0.0,12,2,Dimou et al. 2018,rainfed
+1523.0,14.25,120.75,0.25,5,7,Dimou et al. 2018,rainfed
+1576.0,13.75,122.25,0.0,5,7,Dimou et al. 2018,rainfed
+1619.0,13.75,121.25,0.25,5,7,Dimou et al. 2018,rainfed
+1664.0,13.25,120.75,0.0,5,7,Dimou et al. 2018,rainfed
+1665.0,13.25,120.75,0.243,5,7,Dimou et al. 2018,rainfed
+1666.0,13.25,121.25,0.0,5,7,Dimou et al. 2018,rainfed
+1712.0,13.25,120.75,0.349,5,7,Dimou et al. 2018,rainfed
+1713.0,13.25,121.25,0.25,5,7,Dimou et al. 2018,rainfed
+1714.0,13.25,121.25,0.349,5,7,Dimou et al. 2018,rainfed
+1759.0,12.75,120.75,0.244,5,9,MIRCA2000,rainfed
+1760.0,12.75,121.25,0.0,5,7,Dimou et al. 2018,rainfed
+1806.0,12.75,120.75,0.349,5,9,MIRCA2000,rainfed
+1807.0,12.75,121.25,0.25,5,7,Dimou et al. 2018,rainfed
+1863.0,12.25,123.25,0.244,5,7,Dimou et al. 2018,rainfed
+1952.0,11.75,122.25,0.0,5,7,Dimou et al. 2018,rainfed
+2082.0,11.25,119.25,0.35,5,9,MIRCA2000,rainfed
+2092.0,11.25,122.25,0.35,5,7,Dimou et al. 2018,rainfed
+2129.0,10.75,119.25,0.246,5,8,Iizumi et al. 2019,rainfed
+2139.0,10.75,122.25,0.246,5,7,Dimou et al. 2018,rainfed
+2176.0,10.75,119.25,0.351,5,8,Iizumi et al. 2019,rainfed
+2221.0,10.25,118.75,0.246,5,9,MIRCA2000,rainfed
+2222.0,10.25,119.25,0.0,5,7,Dimou et al. 2018,rainfed
+2314.0,9.75,118.75,0.0,5,7,Dimou et al. 2018,rainfed
+2329.0,9.75,122.25,0.246,5,9,MIRCA2000,rainfed
+2359.0,9.75,118.25,0.25,5,8,SAGE,rainfed
+2360.0,9.75,118.25,0.351,5,8,SAGE,rainfed
+2406.0,9.25,118.25,0.0,5,7,Dimou et al. 2018,rainfed
+2452.0,9.25,117.75,0.351,5,9,MIRCA2000,rainfed
+677.0,18.25,120.75,0.25,5,6,Dimou et al. 2018,rainfed
+724.0,18.25,120.75,0.0,5,6,Dimou et al. 2018,rainfed
+958.0,17.25,120.25,0.346,5,8,SAGE,rainfed
+1098.0,16.25,120.25,0.0,5,9,MIRCA2000,rainfed
+1145.0,16.25,120.25,0.25,5,9,MIRCA2000,rainfed
+1146.0,16.25,120.25,0.347,5,9,MIRCA2000,rainfed
+1147.0,16.25,120.75,0.25,12,2,Dimou et al. 2018,rainfed
+1148.0,16.25,120.75,0.347,12,2,Dimou et al. 2018,rainfed
+1191.0,15.75,119.75,0.241,5,9,MIRCA2000,rainfed
+1192.0,15.75,120.25,0.0,5,6,Dimou et al. 2018,rainfed
+1193.0,15.75,120.25,0.241,5,6,Dimou et al. 2018,rainfed
+1194.0,15.75,120.75,0.0,5,7,Dimou et al. 2018,rainfed
+1239.0,15.75,120.25,0.25,5,6,Dimou et al. 2018,rainfed
+728.0,18.25,121.75,0.0,12,2,Dimou et al. 2018,rainfed
+729.0,18.25,121.75,0.237,12,2,Dimou et al. 2018,rainfed
+775.0,18.25,121.75,0.25,12,2,Dimou et al. 2018,rainfed
+776.0,18.25,121.75,0.345,12,2,Dimou et al. 2018,rainfed
+822.0,17.75,121.75,0.0,12,2,Dimou et al. 2018,rainfed
+823.0,17.75,121.75,0.238,12,2,Dimou et al. 2018,rainfed
+870.0,17.75,121.75,0.345,12,2,Dimou et al. 2018,rainfed
+916.0,17.25,121.75,0.0,12,2,Dimou et al. 2018,rainfed
+917.0,17.25,121.75,0.239,12,2,Dimou et al. 2018,rainfed
+918.0,17.25,122.25,0.0,12,2,Dimou et al. 2018,rainfed
+963.0,17.25,121.75,0.25,12,2,Dimou et al. 2018,rainfed
+964.0,17.25,121.75,0.346,12,2,Dimou et al. 2018,rainfed
+965.0,17.25,122.25,0.25,12,2,Dimou et al. 2018,rainfed
+1010.0,16.75,121.75,0.0,12,2,Dimou et al. 2018,rainfed
+1011.0,16.75,121.75,0.239,12,2,Dimou et al. 2018,rainfed
+1012.0,16.75,122.25,0.0,12,2,Dimou et al. 2018,rainfed
+1055.0,16.75,121.25,0.25,4,6,Dimou et al. 2018,rainfed
+1056.0,16.75,121.25,0.346,4,6,Dimou et al. 2018,rainfed
+1057.0,16.75,121.75,0.25,12,2,Dimou et al. 2018,rainfed
+1058.0,16.75,121.75,0.346,12,2,Dimou et al. 2018,rainfed
+1101.0,16.25,120.75,0.24,12,2,Dimou et al. 2018,rainfed
+1102.0,16.25,121.25,0.0,12,2,Dimou et al. 2018,rainfed
+1103.0,16.25,121.25,0.24,12,2,Dimou et al. 2018,rainfed
+1104.0,16.25,121.75,0.0,12,2,Dimou et al. 2018,rainfed
+1105.0,16.25,121.75,0.24,12,2,Dimou et al. 2018,rainfed
+1149.0,16.25,121.25,0.25,12,2,Dimou et al. 2018,rainfed
+1150.0,16.25,121.25,0.347,12,2,Dimou et al. 2018,rainfed
+1196.0,15.75,121.25,0.0,5,7,Dimou et al. 2018,rainfed
+1195.0,15.75,120.75,0.241,5,7,Dimou et al. 2018,rainfed
+1197.0,15.75,121.25,0.241,5,7,Dimou et al. 2018,rainfed
+1238.0,15.75,119.75,0.347,5,9,MIRCA2000,rainfed
+1240.0,15.75,120.25,0.347,5,6,Dimou et al. 2018,rainfed
+1241.0,15.75,120.75,0.25,5,7,Dimou et al. 2018,rainfed
+1242.0,15.75,120.75,0.347,5,7,Dimou et al. 2018,rainfed
+1243.0,15.75,121.25,0.25,5,7,Dimou et al. 2018,rainfed
+1244.0,15.75,121.25,0.347,5,7,Dimou et al. 2018,rainfed
+1285.0,15.25,119.75,0.241,5,9,MIRCA2000,rainfed
+1286.0,15.25,120.25,0.0,5,7,Dimou et al. 2018,rainfed
+1287.0,15.25,120.25,0.241,5,7,Dimou et al. 2018,rainfed
+1288.0,15.25,120.75,0.0,5,7,Dimou et al. 2018,rainfed
+1289.0,15.25,120.75,0.241,5,7,Dimou et al. 2018,rainfed
+1290.0,15.25,121.25,0.0,5,7,Dimou et al. 2018,rainfed
+1333.0,15.25,120.25,0.25,5,7,Dimou et al. 2018,rainfed
+1334.0,15.25,120.25,0.348,5,7,Dimou et al. 2018,rainfed
+1335.0,15.25,120.75,0.25,5,7,Dimou et al. 2018,rainfed
+1336.0,15.25,120.75,0.348,5,7,Dimou et al. 2018,rainfed
+1337.0,15.25,121.25,0.25,5,7,Dimou et al. 2018,rainfed
+1338.0,15.25,121.25,0.348,5,7,Dimou et al. 2018,rainfed
+1380.0,14.75,120.25,0.0,5,7,Dimou et al. 2018,rainfed
+1381.0,14.75,120.25,0.242,5,7,Dimou et al. 2018,rainfed
+1383.0,14.75,120.75,0.242,5,9,MIRCA2000,rainfed
+1384.0,14.75,121.25,0.0,5,7,Dimou et al. 2018,rainfed
+1385.0,14.75,121.25,0.242,5,7,Dimou et al. 2018,rainfed
+1430.0,14.75,120.75,0.348,5,9,MIRCA2000,rainfed
+1432.0,14.75,121.25,0.348,5,7,Dimou et al. 2018,rainfed
+1476.0,14.25,120.75,0.0,5,7,Dimou et al. 2018,rainfed
+1477.0,14.25,120.75,0.242,5,7,Dimou et al. 2018,rainfed
+1478.0,14.25,121.25,0.0,5,7,Dimou et al. 2018,rainfed
+1479.0,14.25,121.25,0.242,5,7,Dimou et al. 2018,rainfed
+1483.0,14.25,122.25,0.242,5,8,SAGE,rainfed
+1524.0,14.25,120.75,0.348,5,7,Dimou et al. 2018,rainfed
+1525.0,14.25,121.25,0.25,5,7,Dimou et al. 2018,rainfed
+1526.0,14.25,121.25,0.348,5,7,Dimou et al. 2018,rainfed
+1527.0,14.25,121.75,0.25,5,7,Dimou et al. 2018,rainfed
+1529.0,14.25,122.25,0.25,5,8,SAGE,rainfed
+1530.0,14.25,122.25,0.348,5,8,SAGE,rainfed
+1531.0,14.25,122.75,0.25,5,7,Dimou et al. 2018,rainfed
+1572.0,13.75,121.25,0.0,5,7,Dimou et al. 2018,rainfed
+1578.0,13.75,122.75,0.0,5,8,SAGE,rainfed
+1484.0,14.25,122.75,0.0,5,7,Dimou et al. 2018,rainfed
+1532.0,14.25,122.75,0.348,5,7,Dimou et al. 2018,rainfed
+1579.0,13.75,122.75,0.243,5,8,SAGE,rainfed
+1580.0,13.75,123.25,0.0,5,8,SAGE,rainfed
+1581.0,13.75,123.25,0.243,5,8,SAGE,rainfed
+1627.0,13.75,123.25,0.25,5,8,SAGE,rainfed
+1628.0,13.75,123.25,0.349,5,8,SAGE,rainfed
+1675.0,13.25,123.25,0.243,5,9,MIRCA2000,rainfed
+1676.0,13.25,123.75,0.0,5,7,Dimou et al. 2018,rainfed
+1722.0,13.25,123.25,0.349,5,9,MIRCA2000,rainfed
+1723.0,13.25,123.75,0.25,5,7,Dimou et al. 2018,rainfed
+1724.0,13.25,123.75,0.349,5,7,Dimou et al. 2018,rainfed
+1771.0,12.75,123.75,0.244,5,9,MIRCA2000,rainfed
+1864.0,12.25,123.75,0.0,5,9,MIRCA2000,rainfed
+2001.0,11.75,122.75,0.25,5,8,SAGE,rainfed
+1999.0,11.75,122.25,0.25,5,7,Dimou et al. 2018,rainfed
+2000.0,11.75,122.25,0.35,5,7,Dimou et al. 2018,rainfed
+2046.0,11.25,122.25,0.0,5,7,Dimou et al. 2018,rainfed
+2047.0,11.25,122.25,0.245,5,7,Dimou et al. 2018,rainfed
+2048.0,11.25,122.75,0.0,5,7,Dimou et al. 2018,rainfed
+2049.0,11.25,122.75,0.245,5,7,Dimou et al. 2018,rainfed
+2093.0,11.25,122.25,0.25,5,7,Dimou et al. 2018,rainfed
+2094.0,11.25,122.25,0.35,5,7,Dimou et al. 2018,rainfed
+2095.0,11.25,122.75,0.25,5,7,Dimou et al. 2018,rainfed
+2096.0,11.25,122.75,0.35,5,7,Dimou et al. 2018,rainfed
+2140.0,10.75,122.25,0.0,5,7,Dimou et al. 2018,rainfed
+2141.0,10.75,122.25,0.246,5,7,Dimou et al. 2018,rainfed
+2142.0,10.75,122.75,0.0,5,9,MIRCA2000,rainfed
+2143.0,10.75,122.75,0.246,5,9,MIRCA2000,rainfed
+2144.0,10.75,123.25,0.0,5,7,Dimou et al. 2018,rainfed
+2145.0,10.75,123.25,0.246,5,7,Dimou et al. 2018,rainfed
+2189.0,10.75,122.75,0.25,5,9,MIRCA2000,rainfed
+2190.0,10.75,122.75,0.351,5,9,MIRCA2000,rainfed
+2191.0,10.75,123.25,0.25,5,7,Dimou et al. 2018,rainfed
+2237.0,10.25,122.75,0.246,5,9,MIRCA2000,rainfed
+2238.0,10.25,123.25,0.0,5,7,Dimou et al. 2018,rainfed
+2283.0,10.25,122.75,0.25,5,9,MIRCA2000,rainfed
+2284.0,10.25,122.75,0.351,5,9,MIRCA2000,rainfed
+2330.0,9.75,122.75,0.0,5,7,Dimou et al. 2018,rainfed
+2331.0,9.75,122.75,0.246,5,7,Dimou et al. 2018,rainfed
+2377.0,9.75,122.75,0.25,5,7,Dimou et al. 2018,rainfed
+2055.0,11.25,124.25,0.245,5,9,MIRCA2000,rainfed
+2102.0,11.25,124.25,0.35,5,9,MIRCA2000,rainfed
+2150.0,10.75,124.75,0.0,5,9,MIRCA2000,rainfed
+2193.0,10.75,123.75,0.25,5,9,MIRCA2000,rainfed
+2197.0,10.75,124.75,0.25,5,9,MIRCA2000,rainfed
+2240.0,10.25,123.75,0.0,5,7,Dimou et al. 2018,rainfed
+2285.0,10.25,123.25,0.25,5,7,Dimou et al. 2018,rainfed
+2286.0,10.25,123.25,0.351,5,7,Dimou et al. 2018,rainfed
+2288.0,10.25,123.75,0.351,5,7,Dimou et al. 2018,rainfed
+2289.0,10.25,124.25,0.25,5,9,MIRCA2000,rainfed
+2333.0,9.75,123.25,0.246,5,9,MIRCA2000,rainfed
+2335.0,9.75,123.75,0.246,5,9,MIRCA2000,rainfed
+2336.0,9.75,124.25,0.0,5,7,Dimou et al. 2018,rainfed
+2378.0,9.75,122.75,0.351,5,7,Dimou et al. 2018,rainfed
+2425.0,9.25,122.75,0.247,5,9,MIRCA2000,rainfed
+2568.0,8.75,123.25,0.352,5,9,MIRCA2000,rainfed
+2569.0,8.75,123.75,0.25,5,9,MIRCA2000,rainfed
+1820.0,12.75,124.25,0.349,5,9,MIRCA2000,rainfed
+1821.0,12.25,124.75,0.25,4,7,Dimou et al. 2018,rainfed
+1822.0,12.25,124.75,0.349,4,7,Dimou et al. 2018,rainfed
+1867.0,12.25,124.25,0.244,5,9,MIRCA2000,rainfed
+1868.0,12.25,124.75,0.0,4,7,Dimou et al. 2018,rainfed
+1869.0,12.25,124.75,0.244,4,7,Dimou et al. 2018,rainfed
+1870.0,12.25,125.25,0.0,4,7,Dimou et al. 2018,rainfed
+1915.0,12.25,124.75,0.25,4,7,Dimou et al. 2018,rainfed
+1916.0,12.25,124.75,0.35,4,7,Dimou et al. 2018,rainfed
+1917.0,12.25,125.25,0.25,4,7,Dimou et al. 2018,rainfed
+1963.0,11.75,124.75,0.245,5,9,MIRCA2000,rainfed
+1964.0,11.75,125.25,0.0,4,7,Dimou et al. 2018,rainfed
+2010.0,11.75,124.75,0.35,5,9,MIRCA2000,rainfed
+2011.0,11.75,125.25,0.25,4,7,Dimou et al. 2018,rainfed
+2012.0,11.75,125.25,0.35,4,7,Dimou et al. 2018,rainfed
+2056.0,11.25,124.75,0.0,4,7,Dimou et al. 2018,rainfed
+2058.0,11.25,125.25,0.0,4,7,Dimou et al. 2018,rainfed
+2059.0,11.25,125.25,0.245,4,7,Dimou et al. 2018,rainfed
+2103.0,11.25,124.75,0.25,4,7,Dimou et al. 2018,rainfed
+2104.0,11.25,124.75,0.35,4,7,Dimou et al. 2018,rainfed
+2151.0,10.75,124.75,0.246,5,9,MIRCA2000,rainfed
+2198.0,10.75,124.75,0.351,5,9,MIRCA2000,rainfed
+2245.0,10.25,124.75,0.246,5,9,MIRCA2000,rainfed
+2614.0,8.25,123.25,0.0,5,7,Dimou et al. 2018,rainfed
+2615.0,8.25,123.25,0.247,5,7,Dimou et al. 2018,rainfed
+2658.0,8.25,122.75,0.352,5,8,SAGE,rainfed
+2659.0,8.25,122.75,0.25,5,8,SAGE,rainfed
+2660.0,8.25,122.75,0.352,5,8,SAGE,rainfed
+2661.0,8.25,123.25,0.25,5,7,Dimou et al. 2018,rainfed
+2662.0,8.25,123.25,0.352,5,7,Dimou et al. 2018,rainfed
+2663.0,8.25,123.75,0.25,5,7,Dimou et al. 2018,rainfed
+2704.0,7.75,122.25,0.0,5,7,Dimou et al. 2018,rainfed
+2705.0,7.75,122.25,0.248,5,7,Dimou et al. 2018,rainfed
+2706.0,7.75,122.75,0.0,5,9,Iizumi et al. 2019,rainfed
+2707.0,7.75,122.75,0.248,5,9,Iizumi et al. 2019,rainfed
+2708.0,7.75,123.25,0.0,5,7,Dimou et al. 2018,rainfed
+2751.0,7.75,122.25,0.25,5,7,Dimou et al. 2018,rainfed
+2482.0,9.25,125.75,0.351,5,7,Dimou et al. 2018,rainfed
+2526.0,8.75,124.75,0.0,5,8,SAGE,rainfed
+2527.0,8.75,124.75,0.247,5,8,SAGE,rainfed
+2528.0,8.75,125.25,0.0,5,7,Dimou et al. 2018,rainfed
+2573.0,8.75,124.75,0.25,5,8,SAGE,rainfed
+2574.0,8.75,124.75,0.352,5,8,SAGE,rainfed
+2575.0,8.75,125.25,0.25,5,7,Dimou et al. 2018,rainfed
+2616.0,8.25,123.75,0.0,5,7,Dimou et al. 2018,rainfed
+2618.0,8.25,124.25,0.0,5,7,Dimou et al. 2018,rainfed
+2620.0,8.25,124.75,0.0,5,7,Dimou et al. 2018,rainfed
+2621.0,8.25,124.75,0.247,5,7,Dimou et al. 2018,rainfed
+2622.0,8.25,125.25,0.0,5,7,Dimou et al. 2018,rainfed
+2623.0,8.25,125.25,0.247,5,7,Dimou et al. 2018,rainfed
+2667.0,8.25,124.75,0.25,5,7,Dimou et al. 2018,rainfed
+2668.0,8.25,124.75,0.352,5,7,Dimou et al. 2018,rainfed
+2669.0,8.25,125.25,0.25,5,7,Dimou et al. 2018,rainfed
+2670.0,8.25,125.25,0.352,5,7,Dimou et al. 2018,rainfed
+2715.0,7.75,124.75,0.248,5,7,Dimou et al. 2018,rainfed
+2716.0,7.75,125.25,0.0,5,7,Dimou et al. 2018,rainfed
+2717.0,7.75,125.25,0.248,5,7,Dimou et al. 2018,rainfed
+2762.0,7.75,124.75,0.352,5,7,Dimou et al. 2018,rainfed
+2763.0,7.75,125.25,0.25,5,7,Dimou et al. 2018,rainfed
+2764.0,7.75,125.25,0.352,5,7,Dimou et al. 2018,rainfed
+2671.0,8.25,125.75,0.25,5,7,Dimou et al. 2018,rainfed
+2672.0,8.25,125.75,0.352,5,7,Dimou et al. 2018,rainfed
+2673.0,8.25,126.25,0.25,4,7,Dimou et al. 2018,rainfed
+2718.0,7.75,125.75,0.0,4,7,Dimou et al. 2018,rainfed
+2719.0,7.75,125.75,0.248,4,7,Dimou et al. 2018,rainfed
+2720.0,7.75,126.25,0.0,4,7,Dimou et al. 2018,rainfed
+2765.0,7.75,125.75,0.25,4,7,Dimou et al. 2018,rainfed
+2766.0,7.75,125.75,0.352,4,7,Dimou et al. 2018,rainfed
+2767.0,7.75,126.25,0.25,4,7,Dimou et al. 2018,rainfed
+2768.0,7.75,126.25,0.352,4,7,Dimou et al. 2018,rainfed
+2810.0,7.25,125.25,0.0,5,7,Dimou et al. 2018,rainfed
+2811.0,7.25,125.25,0.248,5,7,Dimou et al. 2018,rainfed
+2812.0,7.25,125.75,0.0,5,8,SAGE,rainfed
+2813.0,7.25,125.75,0.248,5,8,SAGE,rainfed
+2814.0,7.25,126.25,0.0,4,7,Dimou et al. 2018,rainfed
+2815.0,7.25,126.25,0.248,4,7,Dimou et al. 2018,rainfed
+2857.0,7.25,125.25,0.25,5,7,Dimou et al. 2018,rainfed
+2858.0,7.25,125.25,0.352,5,7,Dimou et al. 2018,rainfed
+2860.0,7.25,125.75,0.352,5,8,SAGE,rainfed
+2861.0,7.25,126.25,0.25,4,7,Dimou et al. 2018,rainfed
+2904.0,6.75,125.25,0.0,4,7,Dimou et al. 2018,rainfed
+2950.0,6.75,124.75,0.352,5,7,Dimou et al. 2018,rainfed
+2951.0,6.75,125.25,0.25,4,7,Dimou et al. 2018,rainfed
+2952.0,6.75,125.25,0.352,4,7,Dimou et al. 2018,rainfed
+2999.0,6.25,125.25,0.249,5,7,Dimou et al. 2018,rainfed
+3046.0,6.25,125.25,0.353,5,7,Dimou et al. 2018,rainfed
+3093.0,5.75,125.25,0.249,5,7,Dimou et al. 2018,rainfed
+2809.0,7.25,124.75,0.248,5,7,Dimou et al. 2018,rainfed
+2856.0,7.25,124.75,0.352,5,7,Dimou et al. 2018,rainfed
+2947.0,6.75,124.25,0.25,4,7,Dimou et al. 2018,rainfed
+2948.0,6.75,124.25,0.352,4,7,Dimou et al. 2018,rainfed
+2994.0,6.25,124.25,0.0,5,7,Dimou et al. 2018,rainfed
+2995.0,6.25,124.25,0.249,5,7,Dimou et al. 2018,rainfed
+2996.0,6.25,124.75,0.0,5,7,Dimou et al. 2018,rainfed
+2997.0,6.25,124.75,0.249,5,7,Dimou et al. 2018,rainfed
+2998.0,6.25,125.25,0.0,5,7,Dimou et al. 2018,rainfed
+3043.0,6.25,124.75,0.25,5,7,Dimou et al. 2018,rainfed
+3044.0,6.25,124.75,0.353,5,7,Dimou et al. 2018,rainfed
+3045.0,6.25,125.25,0.25,5,7,Dimou et al. 2018,rainfed
+2341.0,9.75,125.25,0.246,5,8,SAGE,rainfed
+2388.0,9.75,125.25,0.351,5,8,SAGE,rainfed
+2389.0,9.75,125.75,0.25,5,8,SAGE,rainfed
+2436.0,9.25,125.75,0.0,5,7,Dimou et al. 2018,rainfed
+2437.0,9.25,125.75,0.247,5,7,Dimou et al. 2018,rainfed
+2483.0,9.25,125.75,0.25,5,7,Dimou et al. 2018,rainfed
+2484.0,9.25,125.75,0.351,5,7,Dimou et al. 2018,rainfed
+2529.0,8.75,125.25,0.247,5,7,Dimou et al. 2018,rainfed
+2530.0,8.75,125.75,0.0,5,7,Dimou et al. 2018,rainfed
+2531.0,8.75,125.75,0.247,5,7,Dimou et al. 2018,rainfed
+2532.0,8.75,126.25,0.0,5,8,SAGE,rainfed
+2576.0,8.75,125.25,0.352,5,7,Dimou et al. 2018,rainfed
+2577.0,8.75,125.75,0.25,5,7,Dimou et al. 2018,rainfed
+2578.0,8.75,125.75,0.352,5,7,Dimou et al. 2018,rainfed
+2579.0,8.75,126.25,0.25,5,8,SAGE,rainfed
+2624.0,8.25,125.75,0.0,5,7,Dimou et al. 2018,rainfed
+2625.0,8.25,125.75,0.247,5,7,Dimou et al. 2018,rainfed
+2626.0,8.25,126.25,0.0,4,7,Dimou et al. 2018,rainfed
+2498.0,8.75,117.75,0.0,5,7,Dimou et al. 2018,irrigated
+2619.0,8.25,124.25,0.247,5,7,Dimou et al. 2018,irrigated
+2664.0,8.25,123.75,0.352,5,7,Dimou et al. 2018,irrigated
+2665.0,8.25,124.25,0.25,5,7,Dimou et al. 2018,irrigated
+2666.0,8.25,124.25,0.352,5,7,Dimou et al. 2018,irrigated
+2711.0,7.75,123.75,0.248,5,7,Dimou et al. 2018,irrigated
+2712.0,7.75,124.25,0.0,4,7,Dimou et al. 2018,irrigated
+2713.0,7.75,124.25,0.248,4,7,Dimou et al. 2018,irrigated
+2714.0,7.75,124.75,0.0,5,7,Dimou et al. 2018,irrigated
+2759.0,7.75,124.25,0.25,4,7,Dimou et al. 2018,irrigated
+2760.0,7.75,124.25,0.352,4,7,Dimou et al. 2018,irrigated
+2761.0,7.75,124.75,0.25,5,7,Dimou et al. 2018,irrigated
+2797.0,7.25,121.75,0.248,5,8,SAGE,irrigated
+2806.0,7.25,124.25,0.0,4,7,Dimou et al. 2018,irrigated
+2807.0,7.25,124.25,0.248,4,7,Dimou et al. 2018,irrigated
+2808.0,7.25,124.75,0.0,5,7,Dimou et al. 2018,irrigated
+2853.0,7.25,124.25,0.25,4,7,Dimou et al. 2018,irrigated
+2854.0,7.25,124.25,0.352,4,7,Dimou et al. 2018,irrigated
+2855.0,7.25,124.75,0.25,5,7,Dimou et al. 2018,irrigated
+2899.0,6.75,124.25,0.248,4,7,Dimou et al. 2018,irrigated
+2900.0,6.75,124.25,0.0,4,7,Dimou et al. 2018,irrigated
+2901.0,6.75,124.25,0.248,4,7,Dimou et al. 2018,irrigated
+2902.0,6.75,124.75,0.0,5,7,Dimou et al. 2018,irrigated
+2903.0,6.75,124.75,0.248,5,7,Dimou et al. 2018,irrigated
+2949.0,6.75,124.75,0.25,5,7,Dimou et al. 2018,irrigated
+678.0,18.75,121.25,0.345,5,8,SAGE,irrigated
+679.0,18.75,121.25,0.25,5,8,SAGE,irrigated
+725.0,18.25,120.75,0.237,5,6,Dimou et al. 2018,irrigated
+726.0,18.25,121.25,0.0,4,6,Dimou et al. 2018,irrigated
+727.0,18.25,121.25,0.237,4,6,Dimou et al. 2018,irrigated
+771.0,18.25,120.75,0.25,5,6,Dimou et al. 2018,irrigated
+772.0,18.25,120.75,0.345,5,6,Dimou et al. 2018,irrigated
+773.0,18.25,121.25,0.25,4,6,Dimou et al. 2018,irrigated
+774.0,18.25,121.25,0.345,4,6,Dimou et al. 2018,irrigated
+817.0,17.75,120.25,0.238,5,8,SAGE,irrigated
+818.0,17.75,120.75,0.0,4,6,Dimou et al. 2018,irrigated
+819.0,17.75,120.75,0.238,4,6,Dimou et al. 2018,irrigated
+820.0,17.75,121.25,0.0,4,6,Dimou et al. 2018,irrigated
+821.0,17.75,121.25,0.238,4,6,Dimou et al. 2018,irrigated
+864.0,17.75,120.25,0.345,5,8,SAGE,irrigated
+865.0,17.75,120.75,0.25,4,6,Dimou et al. 2018,irrigated
+866.0,17.75,120.75,0.345,4,6,Dimou et al. 2018,irrigated
+867.0,17.75,121.25,0.25,4,6,Dimou et al. 2018,irrigated
+868.0,17.75,121.25,0.345,4,6,Dimou et al. 2018,irrigated
+869.0,17.75,121.75,0.25,12,2,Dimou et al. 2018,irrigated
+911.0,17.25,120.25,0.239,5,8,SAGE,irrigated
+912.0,17.25,120.75,0.0,4,6,Dimou et al. 2018,irrigated
+913.0,17.25,120.75,0.239,4,6,Dimou et al. 2018,irrigated
+914.0,17.25,121.25,0.0,4,6,Dimou et al. 2018,irrigated
+915.0,17.25,121.25,0.239,4,6,Dimou et al. 2018,irrigated
+959.0,17.25,120.75,0.25,4,6,Dimou et al. 2018,irrigated
+960.0,17.25,120.75,0.346,4,6,Dimou et al. 2018,irrigated
+961.0,17.25,121.25,0.25,4,6,Dimou et al. 2018,irrigated
+962.0,17.25,121.25,0.346,4,6,Dimou et al. 2018,irrigated
+1005.0,16.75,120.25,0.239,5,8,SAGE,irrigated
+1006.0,16.75,120.75,0.0,4,6,Dimou et al. 2018,irrigated
+1007.0,16.75,120.75,0.239,4,6,Dimou et al. 2018,irrigated
+1008.0,16.75,121.25,0.0,4,6,Dimou et al. 2018,irrigated
+1009.0,16.75,121.25,0.239,4,6,Dimou et al. 2018,irrigated
+1052.0,16.75,120.25,0.346,5,8,SAGE,irrigated
+1053.0,16.75,120.75,0.25,4,6,Dimou et al. 2018,irrigated
+1054.0,16.75,120.75,0.346,4,6,Dimou et al. 2018,irrigated
+1099.0,16.25,120.25,0.24,5,8,SAGE,irrigated
+1100.0,16.25,120.75,0.0,12,2,Dimou et al. 2018,irrigated
+1523.0,14.25,120.75,0.25,5,7,Dimou et al. 2018,irrigated
+1576.0,13.75,122.25,0.0,5,7,Dimou et al. 2018,irrigated
+1619.0,13.75,121.25,0.25,5,7,Dimou et al. 2018,irrigated
+1664.0,13.25,120.75,0.0,5,7,Dimou et al. 2018,irrigated
+1665.0,13.25,120.75,0.243,5,7,Dimou et al. 2018,irrigated
+1666.0,13.25,121.25,0.0,5,7,Dimou et al. 2018,irrigated
+1712.0,13.25,120.75,0.349,5,7,Dimou et al. 2018,irrigated
+1713.0,13.25,121.25,0.25,5,7,Dimou et al. 2018,irrigated
+1714.0,13.25,121.25,0.349,5,7,Dimou et al. 2018,irrigated
+1759.0,12.75,120.75,0.244,5,8,SAGE,irrigated
+1760.0,12.75,121.25,0.0,5,7,Dimou et al. 2018,irrigated
+1806.0,12.75,120.75,0.349,5,8,SAGE,irrigated
+1807.0,12.75,121.25,0.25,5,7,Dimou et al. 2018,irrigated
+1863.0,12.25,123.25,0.244,5,7,Dimou et al. 2018,irrigated
+1952.0,11.75,122.25,0.0,5,7,Dimou et al. 2018,irrigated
+2082.0,11.25,119.25,0.35,5,8,SAGE,irrigated
+2092.0,11.25,122.25,0.35,5,7,Dimou et al. 2018,irrigated
+2129.0,10.75,119.25,0.246,5,8,SAGE,irrigated
+2139.0,10.75,122.25,0.246,5,7,Dimou et al. 2018,irrigated
+2176.0,10.75,119.25,0.351,5,8,SAGE,irrigated
+2221.0,10.25,118.75,0.246,5,8,SAGE,irrigated
+2222.0,10.25,119.25,0.0,5,7,Dimou et al. 2018,irrigated
+2314.0,9.75,118.75,0.0,5,7,Dimou et al. 2018,irrigated
+2329.0,9.75,122.25,0.246,5,8,SAGE,irrigated
+2359.0,9.75,118.25,0.25,5,8,SAGE,irrigated
+2360.0,9.75,118.25,0.351,5,8,SAGE,irrigated
+2406.0,9.25,118.25,0.0,5,7,Dimou et al. 2018,irrigated
+2452.0,9.25,117.75,0.351,5,8,SAGE,irrigated
+677.0,18.25,120.75,0.25,5,6,Dimou et al. 2018,irrigated
+724.0,18.25,120.75,0.0,5,6,Dimou et al. 2018,irrigated
+958.0,17.25,120.25,0.346,5,8,SAGE,irrigated
+1098.0,16.25,120.25,0.0,5,8,SAGE,irrigated
+1145.0,16.25,120.25,0.25,5,8,SAGE,irrigated
+1146.0,16.25,120.25,0.347,5,8,SAGE,irrigated
+1147.0,16.25,120.75,0.25,12,2,Dimou et al. 2018,irrigated
+1148.0,16.25,120.75,0.347,12,2,Dimou et al. 2018,irrigated
+1191.0,15.75,119.75,0.241,5,8,SAGE,irrigated
+1192.0,15.75,120.25,0.0,5,6,Dimou et al. 2018,irrigated
+1193.0,15.75,120.25,0.241,5,6,Dimou et al. 2018,irrigated
+1194.0,15.75,120.75,0.0,5,7,Dimou et al. 2018,irrigated
+1239.0,15.75,120.25,0.25,5,6,Dimou et al. 2018,irrigated
+728.0,18.25,121.75,0.0,12,2,Dimou et al. 2018,irrigated
+729.0,18.25,121.75,0.237,12,2,Dimou et al. 2018,irrigated
+775.0,18.25,121.75,0.25,12,2,Dimou et al. 2018,irrigated
+776.0,18.25,121.75,0.345,12,2,Dimou et al. 2018,irrigated
+822.0,17.75,121.75,0.0,12,2,Dimou et al. 2018,irrigated
+823.0,17.75,121.75,0.238,12,2,Dimou et al. 2018,irrigated
+870.0,17.75,121.75,0.345,12,2,Dimou et al. 2018,irrigated
+916.0,17.25,121.75,0.0,12,2,Dimou et al. 2018,irrigated
+917.0,17.25,121.75,0.239,12,2,Dimou et al. 2018,irrigated
+918.0,17.25,122.25,0.0,12,2,Dimou et al. 2018,irrigated
+963.0,17.25,121.75,0.25,12,2,Dimou et al. 2018,irrigated
+964.0,17.25,121.75,0.346,12,2,Dimou et al. 2018,irrigated
+965.0,17.25,122.25,0.25,12,2,Dimou et al. 2018,irrigated
+1010.0,16.75,121.75,0.0,12,2,Dimou et al. 2018,irrigated
+1011.0,16.75,121.75,0.239,12,2,Dimou et al. 2018,irrigated
+1012.0,16.75,122.25,0.0,12,2,Dimou et al. 2018,irrigated
+1055.0,16.75,121.25,0.25,4,6,Dimou et al. 2018,irrigated
+1056.0,16.75,121.25,0.346,4,6,Dimou et al. 2018,irrigated
+1057.0,16.75,121.75,0.25,12,2,Dimou et al. 2018,irrigated
+1058.0,16.75,121.75,0.346,12,2,Dimou et al. 2018,irrigated
+1101.0,16.25,120.75,0.24,12,2,Dimou et al. 2018,irrigated
+1102.0,16.25,121.25,0.0,12,2,Dimou et al. 2018,irrigated
+1103.0,16.25,121.25,0.24,12,2,Dimou et al. 2018,irrigated
+1104.0,16.25,121.75,0.0,12,2,Dimou et al. 2018,irrigated
+1105.0,16.25,121.75,0.24,12,2,Dimou et al. 2018,irrigated
+1149.0,16.25,121.25,0.25,12,2,Dimou et al. 2018,irrigated
+1150.0,16.25,121.25,0.347,12,2,Dimou et al. 2018,irrigated
+1196.0,15.75,121.25,0.0,5,7,Dimou et al. 2018,irrigated
+1195.0,15.75,120.75,0.241,5,7,Dimou et al. 2018,irrigated
+1197.0,15.75,121.25,0.241,5,7,Dimou et al. 2018,irrigated
+1238.0,15.75,119.75,0.347,5,8,SAGE,irrigated
+1240.0,15.75,120.25,0.347,5,6,Dimou et al. 2018,irrigated
+1241.0,15.75,120.75,0.25,5,7,Dimou et al. 2018,irrigated
+1242.0,15.75,120.75,0.347,5,7,Dimou et al. 2018,irrigated
+1243.0,15.75,121.25,0.25,5,7,Dimou et al. 2018,irrigated
+1244.0,15.75,121.25,0.347,5,7,Dimou et al. 2018,irrigated
+1285.0,15.25,119.75,0.241,5,8,SAGE,irrigated
+1286.0,15.25,120.25,0.0,5,7,Dimou et al. 2018,irrigated
+1287.0,15.25,120.25,0.241,5,7,Dimou et al. 2018,irrigated
+1288.0,15.25,120.75,0.0,5,7,Dimou et al. 2018,irrigated
+1289.0,15.25,120.75,0.241,5,7,Dimou et al. 2018,irrigated
+1290.0,15.25,121.25,0.0,5,7,Dimou et al. 2018,irrigated
+1333.0,15.25,120.25,0.25,5,7,Dimou et al. 2018,irrigated
+1334.0,15.25,120.25,0.348,5,7,Dimou et al. 2018,irrigated
+1335.0,15.25,120.75,0.25,5,7,Dimou et al. 2018,irrigated
+1336.0,15.25,120.75,0.348,5,7,Dimou et al. 2018,irrigated
+1337.0,15.25,121.25,0.25,5,7,Dimou et al. 2018,irrigated
+1338.0,15.25,121.25,0.348,5,7,Dimou et al. 2018,irrigated
+1380.0,14.75,120.25,0.0,5,7,Dimou et al. 2018,irrigated
+1381.0,14.75,120.25,0.242,5,7,Dimou et al. 2018,irrigated
+1383.0,14.75,120.75,0.242,5,8,SAGE,irrigated
+1384.0,14.75,121.25,0.0,5,7,Dimou et al. 2018,irrigated
+1385.0,14.75,121.25,0.242,5,7,Dimou et al. 2018,irrigated
+1430.0,14.75,120.75,0.348,5,8,SAGE,irrigated
+1432.0,14.75,121.25,0.348,5,7,Dimou et al. 2018,irrigated
+1476.0,14.25,120.75,0.0,5,7,Dimou et al. 2018,irrigated
+1477.0,14.25,120.75,0.242,5,7,Dimou et al. 2018,irrigated
+1478.0,14.25,121.25,0.0,5,7,Dimou et al. 2018,irrigated
+1479.0,14.25,121.25,0.242,5,7,Dimou et al. 2018,irrigated
+1483.0,14.25,122.25,0.242,5,8,SAGE,irrigated
+1524.0,14.25,120.75,0.348,5,7,Dimou et al. 2018,irrigated
+1525.0,14.25,121.25,0.25,5,7,Dimou et al. 2018,irrigated
+1526.0,14.25,121.25,0.348,5,7,Dimou et al. 2018,irrigated
+1527.0,14.25,121.75,0.25,5,7,Dimou et al. 2018,irrigated
+1529.0,14.25,122.25,0.25,5,8,SAGE,irrigated
+1530.0,14.25,122.25,0.348,5,8,SAGE,irrigated
+1531.0,14.25,122.75,0.25,5,7,Dimou et al. 2018,irrigated
+1572.0,13.75,121.25,0.0,5,7,Dimou et al. 2018,irrigated
+1578.0,13.75,122.75,0.0,5,8,SAGE,irrigated
+1484.0,14.25,122.75,0.0,5,7,Dimou et al. 2018,irrigated
+1532.0,14.25,122.75,0.348,5,7,Dimou et al. 2018,irrigated
+1579.0,13.75,122.75,0.243,5,8,SAGE,irrigated
+1580.0,13.75,123.25,0.0,5,8,SAGE,irrigated
+1581.0,13.75,123.25,0.243,5,8,SAGE,irrigated
+1627.0,13.75,123.25,0.25,5,8,SAGE,irrigated
+1628.0,13.75,123.25,0.349,5,8,SAGE,irrigated
+1675.0,13.25,123.25,0.243,5,8,SAGE,irrigated
+1676.0,13.25,123.75,0.0,5,7,Dimou et al. 2018,irrigated
+1722.0,13.25,123.25,0.349,5,8,SAGE,irrigated
+1723.0,13.25,123.75,0.25,5,7,Dimou et al. 2018,irrigated
+1724.0,13.25,123.75,0.349,5,7,Dimou et al. 2018,irrigated
+1771.0,12.75,123.75,0.244,5,10,Iizumi et al. 2019,irrigated
+1864.0,12.25,123.75,0.0,5,11,Iizumi et al. 2019,irrigated
+2001.0,11.75,122.75,0.25,5,8,SAGE,irrigated
+1999.0,11.75,122.25,0.25,5,7,Dimou et al. 2018,irrigated
+2000.0,11.75,122.25,0.35,5,7,Dimou et al. 2018,irrigated
+2046.0,11.25,122.25,0.0,5,7,Dimou et al. 2018,irrigated
+2047.0,11.25,122.25,0.245,5,7,Dimou et al. 2018,irrigated
+2048.0,11.25,122.75,0.0,5,7,Dimou et al. 2018,irrigated
+2049.0,11.25,122.75,0.245,5,7,Dimou et al. 2018,irrigated
+2093.0,11.25,122.25,0.25,5,7,Dimou et al. 2018,irrigated
+2094.0,11.25,122.25,0.35,5,7,Dimou et al. 2018,irrigated
+2095.0,11.25,122.75,0.25,5,7,Dimou et al. 2018,irrigated
+2096.0,11.25,122.75,0.35,5,7,Dimou et al. 2018,irrigated
+2140.0,10.75,122.25,0.0,5,7,Dimou et al. 2018,irrigated
+2141.0,10.75,122.25,0.246,5,7,Dimou et al. 2018,irrigated
+2142.0,10.75,122.75,0.0,5,8,SAGE,irrigated
+2143.0,10.75,122.75,0.246,5,8,SAGE,irrigated
+2144.0,10.75,123.25,0.0,5,7,Dimou et al. 2018,irrigated
+2145.0,10.75,123.25,0.246,5,7,Dimou et al. 2018,irrigated
+2189.0,10.75,122.75,0.25,5,8,SAGE,irrigated
+2190.0,10.75,122.75,0.351,5,8,SAGE,irrigated
+2191.0,10.75,123.25,0.25,5,7,Dimou et al. 2018,irrigated
+2237.0,10.25,122.75,0.246,5,8,SAGE,irrigated
+2238.0,10.25,123.25,0.0,5,7,Dimou et al. 2018,irrigated
+2283.0,10.25,122.75,0.25,5,8,SAGE,irrigated
+2284.0,10.25,122.75,0.351,5,8,SAGE,irrigated
+2330.0,9.75,122.75,0.0,5,7,Dimou et al. 2018,irrigated
+2331.0,9.75,122.75,0.246,5,7,Dimou et al. 2018,irrigated
+2377.0,9.75,122.75,0.25,5,7,Dimou et al. 2018,irrigated
+2055.0,11.25,124.25,0.245,4,10,Iizumi et al. 2019,irrigated
+2102.0,11.25,124.25,0.35,4,10,Iizumi et al. 2019,irrigated
+2150.0,10.75,124.75,0.0,4,10,Iizumi et al. 2019,irrigated
+2193.0,10.75,123.75,0.25,5,8,SAGE,irrigated
+2197.0,10.75,124.75,0.25,4,10,Iizumi et al. 2019,irrigated
+2240.0,10.25,123.75,0.0,5,7,Dimou et al. 2018,irrigated
+2285.0,10.25,123.25,0.25,5,7,Dimou et al. 2018,irrigated
+2286.0,10.25,123.25,0.351,5,7,Dimou et al. 2018,irrigated
+2288.0,10.25,123.75,0.351,5,7,Dimou et al. 2018,irrigated
+2289.0,10.25,124.25,0.25,4,10,Iizumi et al. 2019,irrigated
+2333.0,9.75,123.25,0.246,5,8,SAGE,irrigated
+2335.0,9.75,123.75,0.246,5,8,SAGE,irrigated
+2336.0,9.75,124.25,0.0,5,7,Dimou et al. 2018,irrigated
+2378.0,9.75,122.75,0.351,5,7,Dimou et al. 2018,irrigated
+2425.0,9.25,122.75,0.247,5,8,SAGE,irrigated
+2568.0,8.75,123.25,0.352,5,8,SAGE,irrigated
+2569.0,8.75,123.75,0.25,5,8,SAGE,irrigated
+1820.0,12.75,124.25,0.349,5,8,SAGE,irrigated
+1821.0,12.25,124.75,0.25,4,7,Dimou et al. 2018,irrigated
+1822.0,12.25,124.75,0.349,4,7,Dimou et al. 2018,irrigated
+1867.0,12.25,124.25,0.244,5,8,SAGE,irrigated
+1868.0,12.25,124.75,0.0,4,7,Dimou et al. 2018,irrigated
+1869.0,12.25,124.75,0.244,4,7,Dimou et al. 2018,irrigated
+1870.0,12.25,125.25,0.0,4,7,Dimou et al. 2018,irrigated
+1915.0,12.25,124.75,0.25,4,7,Dimou et al. 2018,irrigated
+1916.0,12.25,124.75,0.35,4,7,Dimou et al. 2018,irrigated
+1917.0,12.25,125.25,0.25,4,7,Dimou et al. 2018,irrigated
+1963.0,11.75,124.75,0.245,4,10,Iizumi et al. 2019,irrigated
+1964.0,11.75,125.25,0.0,4,7,Dimou et al. 2018,irrigated
+2010.0,11.75,124.75,0.35,4,10,Iizumi et al. 2019,irrigated
+2011.0,11.75,125.25,0.25,4,7,Dimou et al. 2018,irrigated
+2012.0,11.75,125.25,0.35,4,7,Dimou et al. 2018,irrigated
+2056.0,11.25,124.75,0.0,4,7,Dimou et al. 2018,irrigated
+2058.0,11.25,125.25,0.0,4,7,Dimou et al. 2018,irrigated
+2059.0,11.25,125.25,0.245,4,7,Dimou et al. 2018,irrigated
+2103.0,11.25,124.75,0.25,4,7,Dimou et al. 2018,irrigated
+2104.0,11.25,124.75,0.35,4,7,Dimou et al. 2018,irrigated
+2151.0,10.75,124.75,0.246,4,10,Iizumi et al. 2019,irrigated
+2198.0,10.75,124.75,0.351,4,10,Iizumi et al. 2019,irrigated
+2245.0,10.25,124.75,0.246,4,10,Iizumi et al. 2019,irrigated
+2614.0,8.25,123.25,0.0,5,7,Dimou et al. 2018,irrigated
+2615.0,8.25,123.25,0.247,5,7,Dimou et al. 2018,irrigated
+2658.0,8.25,122.75,0.352,5,8,SAGE,irrigated
+2659.0,8.25,122.75,0.25,5,8,SAGE,irrigated
+2660.0,8.25,122.75,0.352,5,8,SAGE,irrigated
+2661.0,8.25,123.25,0.25,5,7,Dimou et al. 2018,irrigated
+2662.0,8.25,123.25,0.352,5,7,Dimou et al. 2018,irrigated
+2663.0,8.25,123.75,0.25,5,7,Dimou et al. 2018,irrigated
+2704.0,7.75,122.25,0.0,5,7,Dimou et al. 2018,irrigated
+2705.0,7.75,122.25,0.248,5,7,Dimou et al. 2018,irrigated
+2706.0,7.75,122.75,0.0,5,8,SAGE,irrigated
+2707.0,7.75,122.75,0.248,5,8,SAGE,irrigated
+2708.0,7.75,123.25,0.0,5,7,Dimou et al. 2018,irrigated
+2751.0,7.75,122.25,0.25,5,7,Dimou et al. 2018,irrigated
+2482.0,9.25,125.75,0.351,5,7,Dimou et al. 2018,irrigated
+2526.0,8.75,124.75,0.0,5,8,SAGE,irrigated
+2527.0,8.75,124.75,0.247,5,8,SAGE,irrigated
+2528.0,8.75,125.25,0.0,5,7,Dimou et al. 2018,irrigated
+2573.0,8.75,124.75,0.25,5,8,SAGE,irrigated
+2574.0,8.75,124.75,0.352,5,8,SAGE,irrigated
+2575.0,8.75,125.25,0.25,5,7,Dimou et al. 2018,irrigated
+2616.0,8.25,123.75,0.0,5,7,Dimou et al. 2018,irrigated
+2618.0,8.25,124.25,0.0,5,7,Dimou et al. 2018,irrigated
+2620.0,8.25,124.75,0.0,5,7,Dimou et al. 2018,irrigated
+2621.0,8.25,124.75,0.247,5,7,Dimou et al. 2018,irrigated
+2622.0,8.25,125.25,0.0,5,7,Dimou et al. 2018,irrigated
+2623.0,8.25,125.25,0.247,5,7,Dimou et al. 2018,irrigated
+2667.0,8.25,124.75,0.25,5,7,Dimou et al. 2018,irrigated
+2668.0,8.25,124.75,0.352,5,7,Dimou et al. 2018,irrigated
+2669.0,8.25,125.25,0.25,5,7,Dimou et al. 2018,irrigated
+2670.0,8.25,125.25,0.352,5,7,Dimou et al. 2018,irrigated
+2715.0,7.75,124.75,0.248,5,7,Dimou et al. 2018,irrigated
+2716.0,7.75,125.25,0.0,5,7,Dimou et al. 2018,irrigated
+2717.0,7.75,125.25,0.248,5,7,Dimou et al. 2018,irrigated
+2762.0,7.75,124.75,0.352,5,7,Dimou et al. 2018,irrigated
+2763.0,7.75,125.25,0.25,5,7,Dimou et al. 2018,irrigated
+2764.0,7.75,125.25,0.352,5,7,Dimou et al. 2018,irrigated
+2671.0,8.25,125.75,0.25,5,7,Dimou et al. 2018,irrigated
+2672.0,8.25,125.75,0.352,5,7,Dimou et al. 2018,irrigated
+2673.0,8.25,126.25,0.25,4,7,Dimou et al. 2018,irrigated
+2718.0,7.75,125.75,0.0,4,7,Dimou et al. 2018,irrigated
+2719.0,7.75,125.75,0.248,4,7,Dimou et al. 2018,irrigated
+2720.0,7.75,126.25,0.0,4,7,Dimou et al. 2018,irrigated
+2765.0,7.75,125.75,0.25,4,7,Dimou et al. 2018,irrigated
+2766.0,7.75,125.75,0.352,4,7,Dimou et al. 2018,irrigated
+2767.0,7.75,126.25,0.25,4,7,Dimou et al. 2018,irrigated
+2768.0,7.75,126.25,0.352,4,7,Dimou et al. 2018,irrigated
+2810.0,7.25,125.25,0.0,5,7,Dimou et al. 2018,irrigated
+2811.0,7.25,125.25,0.248,5,7,Dimou et al. 2018,irrigated
+2812.0,7.25,125.75,0.0,5,8,SAGE,irrigated
+2813.0,7.25,125.75,0.248,5,8,SAGE,irrigated
+2814.0,7.25,126.25,0.0,4,7,Dimou et al. 2018,irrigated
+2815.0,7.25,126.25,0.248,4,7,Dimou et al. 2018,irrigated
+2857.0,7.25,125.25,0.25,5,7,Dimou et al. 2018,irrigated
+2858.0,7.25,125.25,0.352,5,7,Dimou et al. 2018,irrigated
+2860.0,7.25,125.75,0.352,5,8,SAGE,irrigated
+2861.0,7.25,126.25,0.25,4,7,Dimou et al. 2018,irrigated
+2904.0,6.75,125.25,0.0,4,7,Dimou et al. 2018,irrigated
+2950.0,6.75,124.75,0.352,5,7,Dimou et al. 2018,irrigated
+2951.0,6.75,125.25,0.25,4,7,Dimou et al. 2018,irrigated
+2952.0,6.75,125.25,0.352,4,7,Dimou et al. 2018,irrigated
+2999.0,6.25,125.25,0.249,5,7,Dimou et al. 2018,irrigated
+3046.0,6.25,125.25,0.353,5,7,Dimou et al. 2018,irrigated
+3093.0,5.75,125.25,0.249,5,7,Dimou et al. 2018,irrigated
+2809.0,7.25,124.75,0.248,5,7,Dimou et al. 2018,irrigated
+2856.0,7.25,124.75,0.352,5,7,Dimou et al. 2018,irrigated
+2947.0,6.75,124.25,0.25,4,7,Dimou et al. 2018,irrigated
+2948.0,6.75,124.25,0.352,4,7,Dimou et al. 2018,irrigated
+2994.0,6.25,124.25,0.0,5,7,Dimou et al. 2018,irrigated
+2995.0,6.25,124.25,0.249,5,7,Dimou et al. 2018,irrigated
+2996.0,6.25,124.75,0.0,5,7,Dimou et al. 2018,irrigated
+2997.0,6.25,124.75,0.249,5,7,Dimou et al. 2018,irrigated
+2998.0,6.25,125.25,0.0,5,7,Dimou et al. 2018,irrigated
+3043.0,6.25,124.75,0.25,5,7,Dimou et al. 2018,irrigated
+3044.0,6.25,124.75,0.353,5,7,Dimou et al. 2018,irrigated
+3045.0,6.25,125.25,0.25,5,7,Dimou et al. 2018,irrigated
+2341.0,9.75,125.25,0.246,5,8,SAGE,irrigated
+2388.0,9.75,125.25,0.351,5,8,SAGE,irrigated
+2389.0,9.75,125.75,0.25,5,8,SAGE,irrigated
+2436.0,9.25,125.75,0.0,5,7,Dimou et al. 2018,irrigated
+2437.0,9.25,125.75,0.247,5,7,Dimou et al. 2018,irrigated
+2483.0,9.25,125.75,0.25,5,7,Dimou et al. 2018,irrigated
+2484.0,9.25,125.75,0.351,5,7,Dimou et al. 2018,irrigated
+2529.0,8.75,125.25,0.247,5,7,Dimou et al. 2018,irrigated
+2530.0,8.75,125.75,0.0,5,7,Dimou et al. 2018,irrigated
+2531.0,8.75,125.75,0.247,5,7,Dimou et al. 2018,irrigated
+2532.0,8.75,126.25,0.0,5,8,SAGE,irrigated
+2576.0,8.75,125.25,0.352,5,7,Dimou et al. 2018,irrigated
+2577.0,8.75,125.75,0.25,5,7,Dimou et al. 2018,irrigated
+2578.0,8.75,125.75,0.352,5,7,Dimou et al. 2018,irrigated
+2579.0,8.75,126.25,0.25,5,8,SAGE,irrigated
+2624.0,8.25,125.75,0.0,5,7,Dimou et al. 2018,irrigated
+2625.0,8.25,125.75,0.247,5,7,Dimou et al. 2018,irrigated
+2626.0,8.25,126.25,0.0,4,7,Dimou et al. 2018,irrigated
