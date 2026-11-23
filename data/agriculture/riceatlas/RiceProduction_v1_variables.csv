@@ -1,0 +1,94 @@
+Variables,Description
+OBJECTID_1,
+ISO,ISO code
+COUNTRY,Country
+REGION,Region
+SUB_REGION,lowest administrative level available
+HASC,HASC code
+NAME1,name of major season
+NAME2,name of second season
+NAME3,name of late/third season
+PLANT_ST1,start of planting date in day-of-year for major season
+PLANT_ST2,start of planting date in day-of-year for second season
+PLANT_ST3,start of planting date in day-of-year for late/third season
+PLANT_PK1,peak of planting date in day-of-year for major season
+PLANT_PK2,peak of planting date in day-of-year for second season
+PLANT_PK3,peak of planting date in day-of-year for late/thirdseason
+PLANT_END1,end of planting date in day-of-year for major season
+PLANT_END2,end of planting date in day-of-year for second season
+PLANT_END3,end of planting date in day-of-year for late/thirdseason
+HARV_ST1,start of harvesting date in day-of-year for major season
+HARV_ST2,start of harvesting date in day-of-year for second season
+HARV_ST3,start of harvesting date in day-of-year for late/thirdseason
+HARV_PK1,peak of harvesting date in day-of-year for major season
+HARV_PK2,peak of harvesting date in day-of-year for second season
+HARV_PK3,peak of harvesting date in day-of-year for late/thirdseason
+HARV_END1,end of harvesting date in day-of-year for major season
+HARV_END2,end of harvesting date in day-of-year for second season
+HARV_END3,end of harvesting date in day-of-year for late/thirdseason
+SEED_AGE1,age of rice seedlings (in days) from seed beds at the time of transplanting - major season; 0 is no data
+SEED_AGE2,age of rice seedlings (in days) from seed beds at the time of transplanting - second season; 0 is no data
+SEED_AGE3,age of rice seedlings (in days) from seed beds at the time of transplanting - late/thirdseason; 0 is no data
+METHOD,"method used for planting - direct seeded, sowing, planting or transplanting"
+NUM_CROP,the frequency of planting rice crop in a year
+MATURITY1,average growing period of rice from sowing to harvesting - major season
+MATURITY2,average growing period of rice from sowing to harvesting - second season
+MATURITY3,average growing period of rice from sowing to harvesting - late/thirdseason
+MATURITYS1,start of maturity duration for major season
+MATURITYS2,start of maturity duration for second season
+MATURITYS3,start of maturity duration for late/thirdseason
+MATURITYE1,end of maturity duration for major season
+MATURITYE2,end of maturity duration for second season
+MATURITYE3,end of maturity duration for late/thirdseason
+HMO_ST1,start of harvest month for major season
+HMO_ST2,start of harvest month for second season
+HMO_ST3,start of harvest month for late/third season
+HMO_PK1,peak of harvest month for major season
+HMO_PK2,peak of harvest month for second season
+HMO_PK3,peak of harvest month for late/third season
+HMO_END1,end of harvest month for major season
+HMO_END2,end of harvest month for second season
+HMO_END3,end of harvest month for late/third season
+A_S1,average rice area for the current last 3 years for major season
+A_S2,average rice area for the current last 3 years for second season
+A_S3,average rice area for the current last 3 years for late/third season
+P_S1,average production for the current last 3 years for major season
+P_S2,average production for the current last 3 years for second season
+P_S3,average production for the current last 3 years for late/third season
+A_Jan,monthly distribution of area planted
+A_Feb,monthly distribution of area planted
+A_Mar,monthly distribution of area planted
+A_Apr,monthly distribution of area planted
+A_May,monthly distribution of area planted
+A_Jun,monthly distribution of area planted
+A_Jul,monthly distribution of area planted
+A_Aug,monthly distribution of area planted
+A_Sep,monthly distribution of area planted
+A_Oct,monthly distribution of area planted
+A_Nov,monthly distribution of area planted
+A_Dec,monthly distribution of area planted
+A_total,total area planted
+P_Jan,monthly distribution of production
+P_Feb,monthly distribution of production
+P_Mar,monthly distribution of production
+P_Apr,monthly distribution of production
+P_May,monthly distribution of production
+P_Jun,monthly distribution of production
+P_Jul,monthly distribution of production
+P_Aug,monthly distribution of production
+P_Sep,monthly distribution of production
+P_Oct,monthly distribution of production
+P_Nov,monthly distribution of production
+P_Dec,monthly distribution of production
+P_total,total production
+A_Q1,area planted from January to March
+A_Q2,area planted from April to June
+A_Q3,area planted from July to September
+A_Q4,area planted from October to December
+P_Q1,production from January to March
+P_Q2,production from April to June
+P_Q3,production from July to September
+P_Q4,production from October to December
+CONTINENT,
+Shape_Length,
+Shape_Area,

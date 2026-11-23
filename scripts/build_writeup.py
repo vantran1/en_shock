@@ -25,6 +25,7 @@ import sys
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 TAB, FIG = ROOT / "outputs/tables", ROOT / "outputs/figures"
+PROC = ROOT / "data/processed"
 OUT = ROOT / "outputs/writeup/agriculture_results.docx"
 INK, MUTED, ACCENT = RGBColor(0x0B, 0x0B, 0x0B), RGBColor(0x52, 0x51, 0x4E), RGBColor(0x18, 0x4F, 0x95)
 FONT = "Calibri"
@@ -611,6 +612,29 @@ def decline_table():
                          "Validation error (pts)": d["mae"],
                          "Effect in 1995 (%)": (np.exp(d["y1995"]) - 1) * 100,
                          "Effect today (%)": (np.exp(d["today"]) - 1) * 100})
+    return pd.DataFrame(rows)
+
+
+def rice_calendar_table():
+    """National growing window of total palay by harvest quarter (RiceAtlas, PSA weights)."""
+    s = pd.read_csv(PROC / "rice_season_by_quarter.csv")
+    w = pd.read_csv(PROC / "rice_growing_window.csv")
+    s, w = s[s.ecosystem == "total"], w[w.ecosystem == "total"]
+    prod = s.groupby(["region_code", "quarter"]).production_t.sum().rename("p").reset_index()
+    w = w.merge(prod, on=["region_code", "quarter"])
+    nat = (w.assign(x=w.weight * w.p).groupby(["quarter", "lag", "calendar_month"]).x.sum()
+           / w.groupby(["quarter", "lag", "calendar_month"]).p.sum()).rename("weight").reset_index()
+    names = "Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec".split()
+    q_tot = s.groupby("quarter").production_t.sum()
+    near = s[s.matched_by == "nearest"].groupby("quarter").production_t.sum() / q_tot
+    rows = []
+    for q in range(1, 5):
+        m = nat[(nat.quarter == q) & (nat.weight >= 0.5)].sort_values("lag", ascending=False)
+        rows.append({"Harvest quarter": f"Q{q}",
+                     "Share of annual production (%)": 100 * q_tot[q] / q_tot.sum(),
+                     "Months in the field (weight ≥ 0.5)": f"{names[m.calendar_month.iloc[0] - 1]}–"
+                                                          f"{names[m.calendar_month.iloc[-1] - 1]}",
+                     "Not covered by the calendar (%)": 100 * near.get(q, 0.0)})
     return pd.DataFrame(rows)
 
 
@@ -1301,8 +1325,37 @@ def main():
               "2023–24 (−45 against −45), and over-predicts the drying of 2015–16 (−71 against −40), "
               "because of the typhoon rain over Luzon described in section 2.6 (national "
               "cropland-weighted means, Van's figures). Stage 2 (weather → production) "
-              "is next. The cropland weights, in particular which ERA5 cells count as land, are still "
-              "being agreed with Van; the anomalies barely depend on it.")
+              "is next. The cropland weights and the ERA5 cells counted as land were agreed with Van "
+              "on 17 November 2026 (349 cells).")
+
+    doc.add_heading("7.1 Rice crop calendar (growing windows for stage 2)", level=2)
+    status(doc, "done (rice); corn calendar to come")
+    para(doc, "Stage 2 relates production in a quarter to the weather in the months the crop harvested "
+              "in that quarter was in the field. Those months come from RiceAtlas (Laborte et al. 2017, "
+              "Harvard Dataverse), which gives planting and harvest dates for each rice season in 81 "
+              "Philippine provinces, covering all 16 regions. For each province and harvest quarter, the "
+              "season harvested in that quarter is taken, and its window runs from the planting peak to "
+              "the harvest peak. Provinces are then combined by their PSA production in that quarter "
+              "(2016–2025 mean), separately for irrigated and rainfed palay "
+              "(scripts/build_rice_calendar.py, data/processed/rice_growing_window.csv).")
+    table(doc, rice_calendar_table(), [2.6, 3.4, 4.6, 3.6],
+          note="Table 14. Rice growing windows, total palay, all regions: months in which at least half of "
+               "the quarter's harvest was in the field. 'Not covered' is the share of the quarter's PSA "
+               "production in provinces where RiceAtlas lists no harvest in that quarter; for these the "
+               "nearest season is used.",
+          fmt={"Share of annual production (%)": "{:.0f}", "Not covered by the calendar (%)": "{:.0f}"})
+    para(doc, "Limitations.", italic=True)
+    bullets(doc, [
+        "One fixed calendar (around 2010–2015): planting dates that shift from year to year, for example "
+        "when the rains come late in an El Niño year, are not captured.",
+        "No irrigated/rainfed split in the calendar: the two ecosystems share the windows and differ "
+        "only in their production weights.",
+        "About 18% of annual production is harvested in quarters that RiceAtlas does not cover (for example, "
+        "Cagayan is listed with one crop, but PSA reports dry-season harvests), and some provinces have "
+        "a single date instead of a planting or harvest range. These are matched to the nearest season.",
+        "Batanes and Tawi-Tawi have no calendar (less than 0.1% of production); Davao Occidental "
+        "takes the calendar of Davao del Sur, from which it was created in 2013.",
+    ])
 
     doc.add_heading("Annex", level=1)
     table(doc, quarterly_palay(), [2.0, 2.0, 3.0, 3.4, 3.6],

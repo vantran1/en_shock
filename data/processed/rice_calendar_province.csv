@@ -1,0 +1,170 @@
+province,region_code,riceatlas_name,season,season_name,num_crop,plant_st_month,plant_pk_month,plant_end_month,harv_st_month,harv_pk_month,harv_end_month
+Basilan,BARMM,Basilan,1,Wet,2,3,5,7,6,8,10
+Basilan,BARMM,Basilan,2,Dry,2,11,1,1,2,4,4
+Lanao del Sur,BARMM,Lanao del Sur,1,Wet,2,3,4,8,6,7,11
+Lanao del Sur,BARMM,Lanao del Sur,2,Dry,2,11,1,2,2,4,5
+Maguindanao del Norte,BARMM,Maguindanao,1,Wet,2,6,6,6,9,9,9
+Maguindanao del Norte,BARMM,Maguindanao,2,Dry,2,1,1,1,4,4,4
+Maguindanao del Sur,BARMM,Maguindanao,1,Wet,2,6,6,6,9,9,9
+Maguindanao del Sur,BARMM,Maguindanao,2,Dry,2,1,1,1,4,4,4
+Sulu,BARMM,Sulu,1,Wet,1,3,5,7,6,8,10
+Abra,CAR,Abra,1,Wet,2,4,6,9,8,10,1
+Abra,CAR,Abra,2,Dry,2,11,1,1,3,5,5
+Apayao,CAR,Apayao,1,Wet,2,6,6,7,9,10,11
+Apayao,CAR,Apayao,2,Dry,2,12,12,1,3,4,5
+Benguet,CAR,Benguet,1,Wet,2,4,7,9,8,11,1
+Benguet,CAR,Benguet,2,Dry,2,12,1,2,3,4,5
+Ifugao,CAR,Ifugao,1,Wet,2,5,5,7,8,9,10
+Ifugao,CAR,Ifugao,2,Dry,2,11,11,1,2,3,3
+Kalinga,CAR,Kalinga,1,Wet,2,7,7,8,10,11,11
+Kalinga,CAR,Kalinga,2,Dry,2,1,1,2,4,5,5
+Mountain Province,CAR,Mountain Province,1,Wet,2,4,6,9,8,10,1
+Mountain Province,CAR,Mountain Province,2,Dry,2,12,12,2,4,4,6
+Marinduque,MIMAROPA,Marinduque,1,Wet,2,3,5,7,6,8,10
+Marinduque,MIMAROPA,Marinduque,2,Dry,2,11,1,1,3,5,5
+Occidental Mindoro,MIMAROPA,Occidental Mindoro,1,Wet,2,5,6,8,9,11,12
+Occidental Mindoro,MIMAROPA,Occidental Mindoro,2,Dry,2,11,12,2,1,3,5
+Oriental Mindoro,MIMAROPA,Oriental Mindoro,1,Wet,2,5,6,8,8,10,12
+Oriental Mindoro,MIMAROPA,Oriental Mindoro,2,Dry,2,11,12,1,2,4,5
+Palawan,MIMAROPA,Palawan,1,Wet,2,5,6,7,8,10,11
+Palawan,MIMAROPA,Palawan,2,Dry,2,11,11,12,2,3,4
+Romblon,MIMAROPA,Romblon,1,Wet,2,5,6,8,9,10,12
+Romblon,MIMAROPA,Romblon,2,Dry,2,10,10,11,1,2,3
+Ilocos Norte,R01,Ilocos Norte,1,Wet,3,6,6,6,10,10,10
+Ilocos Norte,R01,Ilocos Norte,2,Dry,3,10,10,10,2,2,2
+Ilocos Norte,R01,Ilocos Norte,3,Third,3,2,2,2,5,5,5
+Ilocos Sur,R01,Ilocos Sur,1,Wet,3,5,7,8,8,10,12
+Ilocos Sur,R01,Ilocos Sur,2,Dry,3,10,11,1,1,3,5
+Ilocos Sur,R01,Ilocos Sur,3,Third,3,1,2,3,5,5,6
+La Union,R01,La Union,1,Wet,2,5,7,9,9,11,1
+La Union,R01,La Union,2,Dry,2,11,11,2,2,2,5
+Pangasinan,R01,Pangasinan,1,Wet,2,7,7,7,11,11,11
+Pangasinan,R01,Pangasinan,2,Dry,2,12,12,12,3,3,3
+Cagayan,R02,Cagayan,1,Wet,1,5,5,8,9,11,12
+Isabela,R02,Isabela,1,Wet,2,5,7,8,9,11,12
+Isabela,R02,Isabela,2,Dry,2,10,12,1,2,4,5
+Nueva Vizcaya,R02,Nueva Vizcaya,1,Wet,2,3,6,9,7,10,1
+Nueva Vizcaya,R02,Nueva Vizcaya,2,Dry,2,11,1,3,2,4,6
+Quirino,R02,Quirino,1,Wet,2,5,6,7,9,10,11
+Quirino,R02,Quirino,2,Dry,2,11,12,1,2,3,4
+Aurora,R03,Aurora,1,Wet,2,8,8,8,12,12,12
+Aurora,R03,Aurora,2,Dry,2,1,1,1,4,4,4
+Bataan,R03,Bataan,1,Wet,2,5,6,9,9,10,1
+Bataan,R03,Bataan,2,Dry,2,11,1,3,2,4,6
+Bulacan,R03,Bulacan,1,Wet,2,6,7,8,9,10,11
+Bulacan,R03,Bulacan,2,Dry,2,1,2,3,4,5,6
+Nueva Ecija,R03,Nueva Ecija,1,Wet,2,6,7,8,9,10,11
+Nueva Ecija,R03,Nueva Ecija,2,Dry,2,12,1,2,3,4,5
+Pampanga,R03,Pampanga,1,Wet,2,7,7,7,11,11,11
+Pampanga,R03,Pampanga,2,Dry,2,12,12,12,3,3,3
+Tarlac,R03,Tarlac,1,Wet,2,7,7,7,10,10,10
+Tarlac,R03,Tarlac,2,Dry,2,12,12,12,3,3,3
+Zambales,R03,Zambales,1,Wet,2,5,7,9,8,10,12
+Zambales,R03,Zambales,2,Dry,2,11,11,1,2,2,4
+Batangas,R04A,Batangas,1,Wet,2,6,6,6,8,8,8
+Batangas,R04A,Batangas,2,Dry,2,11,12,3,3,4,7
+Cavite,R04A,Cavite,1,Wet,2,3,6,9,7,10,1
+Cavite,R04A,Cavite,2,Dry,2,11,11,3,3,3,7
+Laguna,R04A,Laguna,1,Wet,2,6,6,6,10,10,10
+Laguna,R04A,Laguna,2,Dry,2,12,12,12,4,4,4
+Quezon,R04A,Quezon,1,Wet,2,7,7,7,10,10,10
+Quezon,R04A,Quezon,2,Dry,2,12,12,12,3,3,3
+Rizal,R04A,Rizal,1,Wet,2,3,7,9,7,11,1
+Rizal,R04A,Rizal,2,Dry,2,11,1,3,3,5,7
+Albay,R05,Albay,1,Wet,2,6,7,7,9,10,10
+Albay,R05,Albay,2,Dry,2,1,1,1,4,4,5
+Camarines Norte,R05,Camarines Norte,1,Wet,2,4,7,8,7,10,11
+Camarines Norte,R05,Camarines Norte,2,Dry,2,11,1,2,2,4,5
+Camarines Sur,R05,Camarines Sur,1,Wet,2,7,7,8,10,10,11
+Camarines Sur,R05,Camarines Sur,2,Dry,2,11,11,12,2,2,3
+Catanduanes,R05,Catanduanes,1,Wet,2,4,7,8,7,10,11
+Catanduanes,R05,Catanduanes,2,Dry,2,11,1,2,2,4,5
+Masbate,R05,Masbate,1,Wet,2,4,7,8,7,10,11
+Masbate,R05,Masbate,2,Dry,2,11,1,2,2,4,5
+Sorsogon,R05,Sorsogon,1,Wet,2,6,7,7,9,10,10
+Sorsogon,R05,Sorsogon,2,Dry,2,12,12,12,3,3,3
+Aklan,R06,Aklan,1,Wet,2,5,6,9,8,10,12
+Aklan,R06,Aklan,2,Dry,2,11,1,3,2,4,6
+Antique,R06,Antique,1,Wet,2,5,6,9,8,10,12
+Antique,R06,Antique,2,Dry,2,11,1,3,2,4,6
+Capiz,R06,Capiz,1,Wet,2,5,6,9,8,10,12
+Capiz,R06,Capiz,2,Dry,2,11,1,3,2,4,6
+Guimaras,R06,Guimaras,1,Wet,2,5,6,9,8,9,12
+Guimaras,R06,Guimaras,2,Dry,2,11,1,3,2,4,6
+Iloilo,R06,Iloilo,1,Wet,3,6,6,6,9,9,9
+Iloilo,R06,Iloilo,2,Dry,3,10,10,10,1,1,1
+Iloilo,R06,Iloilo,3,Third,3,2,2,2,5,5,5
+Negros Occidental,R06,Negros Occidental,1,Wet,2,5,7,9,9,11,1
+Negros Occidental,R06,Negros Occidental,2,Dry,2,11,1,3,2,4,5
+Bohol,R07,Bohol,1,Wet,2,6,6,6,10,10,10
+Bohol,R07,Bohol,2,Dry,2,12,12,12,3,3,3
+Cebu,R07,Cebu,1,Wet,2,3,5,8,7,9,12
+Cebu,R07,Cebu,2,Dry,2,11,12,2,2,3,5
+Negros Oriental,R07,Negros Oriental,1,Wet,2,3,5,9,7,9,1
+Negros Oriental,R07,Negros Oriental,2,Dry,2,11,1,3,2,4,5
+Siquijor,R07,Siquijor,1,Wet,2,3,5,8,7,9,12
+Siquijor,R07,Siquijor,2,Dry,2,11,12,1,2,3,5
+Biliran,R08,Biliran,1,Wet,2,6,6,7,10,10,11
+Biliran,R08,Biliran,2,Dry,2,12,12,1,4,4,5
+Eastern Samar,R08,Eastern Samar,1,Wet,2,5,6,8,8,9,11
+Eastern Samar,R08,Eastern Samar,2,Dry,2,11,12,3,3,4,7
+Leyte,R08,Leyte,1,Wet,2,11,12,2,3,4,5
+Leyte,R08,Leyte,2,Dry,2,5,6,8,9,10,12
+Northern Samar,R08,Northern Samar,1,Wet,2,6,6,6,9,9,9
+Northern Samar,R08,Northern Samar,2,Dry,2,11,11,11,3,3,3
+Samar,R08,Western Samar,1,Wet,2,5,6,9,8,10,12
+Samar,R08,Western Samar,2,Dry,2,11,12,3,3,4,7
+Southern Leyte,R08,Southern Leyte,1,Wet,2,5,7,9,9,11,1
+Southern Leyte,R08,Southern Leyte,2,Dry,2,11,12,3,3,4,7
+Zamboanga City,R09,Zamboanga City,1,Wet,2,6,6,7,9,9,10
+Zamboanga City,R09,Zamboanga City,2,Dry,2,11,1,3,2,4,6
+Zamboanga Sibugay,R09,Zamboanga Sibugay,1,Wet,2,6,6,6,9,9,9
+Zamboanga Sibugay,R09,Zamboanga Sibugay,2,Dry,2,11,11,11,2,2,2
+Zamboanga del Norte,R09,Zamboanga del Norte,1,Wet,2,6,6,6,9,9,9
+Zamboanga del Norte,R09,Zamboanga del Norte,2,Dry,2,11,11,11,2,2,2
+Zamboanga del Sur,R09,Zamboanga del Sur,1,Wet,2,6,6,6,9,9,9
+Zamboanga del Sur,R09,Zamboanga del Sur,2,Dry,2,10,10,10,1,1,1
+Bukidnon,R10,Bukidnon,1,Wet,3,5,5,5,10,10,10
+Bukidnon,R10,Bukidnon,2,Dry,3,9,9,9,12,12,12
+Bukidnon,R10,Bukidnon,3,Third,3,1,1,1,4,4,4
+Camiguin,R10,Camiguin,1,Wet,2,1,1,2,4,5,6
+Camiguin,R10,Camiguin,2,Dry,2,7,7,8,10,11,12
+Lanao del Norte,R10,Lanao del Norte,1,Wet,2,3,3,5,6,6,8
+Lanao del Norte,R10,Lanao del Norte,2,Dry,2,11,11,3,2,2,6
+Misamis Occidental,R10,Misamis Occidental,1,Wet,2,5,5,7,8,9,9
+Misamis Occidental,R10,Misamis Occidental,2,Dry,2,10,10,11,1,2,2
+Misamis Oriental,R10,Misamis Oriental,1,Wet,2,5,5,6,9,10,12
+Misamis Oriental,R10,Misamis Oriental,2,Dry,2,11,11,12,3,3,4
+City of Davao,R11,Davao City,1,Wet,2,5,6,9,8,9,12
+City of Davao,R11,Davao City,2,Dry,2,11,12,3,2,3,6
+Davao Occidental,R11,Davao del Sur (fallback),1,Wet,3,6,6,6,9,9,9
+Davao Occidental,R11,Davao del Sur (fallback),2,Dry,3,12,12,12,3,3,3
+Davao Occidental,R11,Davao del Sur (fallback),3,Third,3,5,5,5,9,9,9
+Davao Oriental,R11,Davao Oriental,1,Wet,3,6,6,6,10,10,10
+Davao Oriental,R11,Davao Oriental,2,Dry,3,12,12,12,3,3,3
+Davao Oriental,R11,Davao Oriental,3,Third,3,3,3,3,5,5,5
+Davao de Oro (Compostela Valley),R11,Compostela Valley,1,Wet,2,6,6,6,10,10,10
+Davao de Oro (Compostela Valley),R11,Compostela Valley,2,Dry,2,12,12,12,3,3,3
+Davao del Norte,R11,Davao del Norte,1,Wet,2,5,5,6,9,9,10
+Davao del Norte,R11,Davao del Norte,2,Dry,2,11,11,12,3,3,4
+Davao del Sur,R11,Davao del Sur,1,Wet,3,6,6,6,9,9,9
+Davao del Sur,R11,Davao del Sur,2,Dry,3,12,12,12,3,3,3
+Davao del Sur,R11,Davao del Sur,3,Third,3,5,5,5,9,9,9
+Cotabato (North Cotabato),R12,North Cotabato,1,Wet,2,5,5,5,9,10,11
+Cotabato (North Cotabato),R12,North Cotabato,2,Dry,2,11,12,1,3,5,5
+Sarangani,R12,Sarangani,1,Wet,2,4,5,6,8,8,9
+Sarangani,R12,Sarangani,2,Dry,2,11,11,12,4,5,6
+South Cotabato,R12,South Cotabato,1,Wet,2,5,6,6,9,10,10
+South Cotabato,R12,South Cotabato,2,Dry,2,11,12,12,3,4,4
+Sultan Kudarat,R12,Sultan Kudarat,1,Wet,2,5,5,6,8,9,9
+Sultan Kudarat,R12,Sultan Kudarat,2,Dry,2,10,10,11,1,2,2
+Agusan del Norte,R13,Agusan del Norte,1,Wet,2,7,8,9,10,11,12
+Agusan del Norte,R13,Agusan del Norte,2,Dry,2,12,1,3,3,5,7
+Agusan del Sur,R13,Agusan del Sur,1,Wet,2,6,7,9,9,11,12
+Agusan del Sur,R13,Agusan del Sur,2,Dry,2,12,1,3,3,5,7
+Dinagat Islands,R13,Dinagat Island,1,Wet,2,6,7,7,10,11,11
+Dinagat Islands,R13,Dinagat Island,2,Dry,2,11,1,2,3,5,6
+Surigao del Norte,R13,Surigao del Norte,1,Wet,2,5,7,9,8,10,12
+Surigao del Norte,R13,Surigao del Norte,2,Dry,2,12,2,4,3,5,7
+Surigao del Sur,R13,Surigao del Sur,1,Wet,2,6,7,9,9,11,12
+Surigao del Sur,R13,Surigao del Sur,2,Dry,2,12,1,3,3,5,6

@@ -22,3 +22,5 @@ data/boundaries/source/
 outputs/logs/
 # FAOSTAT bulk download (re-download: see scripts/check_faostat_vrpf.py)
 data/faostat/*.zip
+# RiceAtlas shapefile archives (Harvard Dataverse, Laborte et al. 2017; re-download: data/agriculture/riceatlas/README.md)
+data/agriculture/riceatlas/*.zip

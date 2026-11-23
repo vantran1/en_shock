@@ -1,0 +1,952 @@
+ecosystem,region_code,province,quarter,production_t,season,season_name,matched_by,plant_pk_month,harv_pk_month,lag_first,lag_last,share
+irrigated,BARMM,Basilan,1,269.25,2,Dry,overlap,1,4,3,0,0.004568503139320952
+irrigated,BARMM,Basilan,2,210.05900000000003,1,Wet,overlap,5,8,3,0,0.00571328139170823
+irrigated,BARMM,Basilan,3,173.82,1,Wet,overlap,5,8,4,1,0.002986218401073664
+irrigated,BARMM,Basilan,4,286.4,1,Wet,overlap,5,8,5,2,0.006518909572162872
+irrigated,BARMM,Lanao del Sur,1,10487.625,2,Dry,overlap,1,4,3,0,0.17794892381251962
+irrigated,BARMM,Lanao del Sur,2,14638.919,2,Dry,overlap,1,4,5,2,0.3981560586188834
+irrigated,BARMM,Lanao del Sur,3,16530.932,1,Wet,overlap,4,7,5,2,0.28400053690770605
+irrigated,BARMM,Lanao del Sur,4,15616.177,1,Wet,overlap,4,7,5,2,0.3554484836797824
+irrigated,BARMM,Maguindanao del Norte,1,5687.0,2,Dry,nearest,1,4,3,0,0.09649425200861006
+irrigated,BARMM,Maguindanao del Norte,2,3126.8450000000003,2,Dry,overlap,1,4,5,2,0.085045369887774
+irrigated,BARMM,Maguindanao del Norte,3,4179.446,1,Wet,overlap,6,9,3,0,0.0718026610947746
+irrigated,BARMM,Maguindanao del Norte,4,3310.0,1,Wet,nearest,6,9,5,2,0.07534074959448012
+irrigated,BARMM,Maguindanao del Sur,1,42492.278000000006,2,Dry,nearest,1,4,3,0,0.7209883210395494
+irrigated,BARMM,Maguindanao del Sur,2,18790.964,2,Dry,overlap,1,4,5,2,0.5110852901016344
+irrigated,BARMM,Maguindanao del Sur,3,37174.399,1,Wet,overlap,6,9,3,0,0.63865420747126
+irrigated,BARMM,Maguindanao del Sur,4,24721.151,1,Wet,nearest,6,9,5,2,0.5626918571535746
+irrigated,BARMM,Sulu,3,148.8,1,Wet,overlap,5,8,4,1,0.0025563761251856014
+irrigated,CAR,Abra,1,7373.35,1,Wet,overlap,6,10,6,2,0.1831812241127194
+irrigated,CAR,Abra,2,11204.45,2,Dry,overlap,1,5,5,1,0.09552308022518399
+irrigated,CAR,Abra,3,7900.655000000001,1,Wet,overlap,6,10,4,0,0.14520587235910795
+irrigated,CAR,Abra,4,25403.98,1,Wet,overlap,6,10,6,2,0.23896793464321556
+irrigated,CAR,Apayao,1,3593.3949999999995,2,Dry,overlap,12,4,4,0,0.08927319262214939
+irrigated,CAR,Apayao,2,34771.653999999995,2,Dry,overlap,12,4,6,2,0.29644431405417837
+irrigated,CAR,Apayao,3,4624.906,1,Wet,overlap,6,10,4,0,0.08500099172902403
+irrigated,CAR,Apayao,4,20514.806,1,Wet,overlap,6,10,6,2,0.19297688076538583
+irrigated,CAR,Benguet,1,5123.199,1,Wet,overlap,7,11,6,2,0.1272791694674822
+irrigated,CAR,Benguet,2,3257.226,2,Dry,overlap,1,4,5,2,0.02776934704600004
+irrigated,CAR,Benguet,3,5097.982,1,Wet,overlap,7,11,4,0,0.09369563961228908
+irrigated,CAR,Benguet,4,4724.26,1,Wet,overlap,7,11,5,1,0.044439755302813085
+irrigated,CAR,Ifugao,1,11946.797,2,Dry,overlap,11,3,4,0,0.29680252513256034
+irrigated,CAR,Ifugao,2,8827.966,2,Dry,nearest,11,3,6,2,0.07526246307879428
+irrigated,CAR,Ifugao,3,10692.145,1,Wet,overlap,5,9,4,0,0.1965105731252756
+irrigated,CAR,Ifugao,4,12137.711,1,Wet,overlap,5,9,6,2,0.11417595703374976
+irrigated,CAR,Kalinga,1,11948.164999999999,1,Wet,nearest,7,11,6,2,0.2968365113009351
+irrigated,CAR,Kalinga,2,57038.786,2,Dry,overlap,1,5,5,1,0.4862818372187034
+irrigated,CAR,Kalinga,3,17183.55,1,Wet,nearest,7,11,4,0,0.31581588716079223
+irrigated,CAR,Kalinga,4,41957.502,1,Wet,overlap,7,11,5,1,0.39468215593495926
+irrigated,CAR,Mountain Province,1,266.76300000000003,1,Wet,overlap,6,10,6,2,0.006627377364153522
+irrigated,CAR,Mountain Province,2,2195.654,2,Dry,overlap,12,4,6,2,0.018718958377139987
+irrigated,CAR,Mountain Province,3,8910.786,1,Wet,overlap,6,10,4,0,0.16377103601351103
+irrigated,CAR,Mountain Province,4,1568.807,1,Wet,overlap,6,10,6,2,0.014757316319876613
+irrigated,MIMAROPA,Marinduque,1,3889.2,2,Dry,overlap,1,5,4,0,0.018599384920464028
+irrigated,MIMAROPA,Marinduque,2,1219.194,2,Dry,overlap,1,5,5,1,0.007279996709176893
+irrigated,MIMAROPA,Marinduque,3,1759.673,1,Wet,overlap,5,8,4,1,0.01803170429477683
+irrigated,MIMAROPA,Marinduque,4,3311.7,1,Wet,overlap,5,8,5,2,0.008343534114408755
+irrigated,MIMAROPA,Occidental Mindoro,1,46450.311,2,Dry,overlap,12,3,3,0,0.22214008381267725
+irrigated,MIMAROPA,Occidental Mindoro,2,55644.676,2,Dry,overlap,12,3,5,2,0.33226300175625406
+irrigated,MIMAROPA,Occidental Mindoro,3,12168.681,1,Wet,overlap,6,11,5,0,0.1246947912762594
+irrigated,MIMAROPA,Occidental Mindoro,4,140351.861,1,Wet,overlap,6,11,6,1,0.35360405238223747
+irrigated,MIMAROPA,Oriental Mindoro,1,88114.528,2,Dry,overlap,12,4,4,0,0.42139155182479826
+irrigated,MIMAROPA,Oriental Mindoro,2,82311.921,2,Dry,overlap,12,4,6,2,0.49149726295079244
+irrigated,MIMAROPA,Oriental Mindoro,3,22217.377,1,Wet,overlap,6,10,4,0,0.22766569258582472
+irrigated,MIMAROPA,Oriental Mindoro,4,147079.378,1,Wet,overlap,6,10,6,2,0.3705534341483288
+irrigated,MIMAROPA,Palawan,1,62479.00600000001,2,Dry,overlap,11,3,4,0,0.2987943746893916
+irrigated,MIMAROPA,Palawan,2,27603.864,2,Dry,overlap,11,3,6,2,0.16482695869612754
+irrigated,MIMAROPA,Palawan,3,59945.594,1,Wet,overlap,6,10,4,0,0.6142739161098386
+irrigated,MIMAROPA,Palawan,4,96702.135,1,Wet,overlap,6,10,6,2,0.24363244324928612
+irrigated,MIMAROPA,Romblon,1,8170.644,2,Dry,overlap,10,2,5,1,0.0390746047526689
+irrigated,MIMAROPA,Romblon,2,692.124,2,Dry,nearest,10,2,6,2,0.004132779887649011
+irrigated,MIMAROPA,Romblon,3,1496.4,1,Wet,overlap,6,10,4,0,0.015333895733300476
+irrigated,MIMAROPA,Romblon,4,9473.061,1,Wet,overlap,6,10,6,2,0.02386653610573878
+irrigated,R01,Ilocos Norte,1,43330.284999999996,2,Dry,overlap,10,2,5,1,0.13379253234466457
+irrigated,R01,Ilocos Norte,2,30038.409999999996,3,Third,overlap,2,5,4,1,0.1785583160094165
+irrigated,R01,Ilocos Norte,3,41782.43,1,Wet,nearest,6,10,4,0,0.2756461760503304
+irrigated,R01,Ilocos Norte,4,165130.4,1,Wet,overlap,6,10,6,2,0.2283646072463536
+irrigated,R01,Ilocos Sur,1,24821.2,2,Dry,overlap,11,3,4,0,0.07664134228134868
+irrigated,R01,Ilocos Sur,2,7892.783,2,Dry,overlap,11,3,6,2,0.04691733154676798
+irrigated,R01,Ilocos Sur,3,23686.1,1,Wet,overlap,7,10,3,0,0.15626144507501674
+irrigated,R01,Ilocos Sur,4,95452.1,1,Wet,overlap,7,10,5,2,0.13200404848131944
+irrigated,R01,La Union,1,26381.775,2,Dry,overlap,11,2,4,1,0.08145998774291846
+irrigated,R01,La Union,2,9825.655999999999,2,Dry,overlap,11,2,5,2,0.058406972574374584
+irrigated,R01,La Union,3,11833.210000000001,1,Wet,overlap,7,11,4,0,0.07806580629466814
+irrigated,R01,La Union,4,63142.989,1,Wet,overlap,7,11,5,1,0.08732264854530618
+irrigated,R01,Pangasinan,1,229328.5,2,Dry,overlap,12,3,3,0,0.7081061376310682
+irrigated,R01,Pangasinan,2,120470.6,2,Dry,nearest,12,3,5,2,0.716117379869441
+irrigated,R01,Pangasinan,3,74278.197,1,Wet,nearest,7,11,4,0,0.4900265725799846
+irrigated,R01,Pangasinan,4,399374.303,1,Wet,overlap,7,11,5,1,0.5523086957270208
+irrigated,R02,Cagayan,1,148433.9,1,Wet,nearest,5,11,8,2,0.25623178584771134
+irrigated,R02,Cagayan,2,336207.3,1,Wet,nearest,5,11,6,0,0.42832373328277273
+irrigated,R02,Cagayan,3,105416.8,1,Wet,overlap,5,11,6,0,0.29305014759798353
+irrigated,R02,Cagayan,4,246457.6,1,Wet,overlap,5,11,7,1,0.3092164448492371
+irrigated,R02,Isabela,1,349688.493,2,Dry,overlap,12,4,4,0,0.603644498000692
+irrigated,R02,Isabela,2,341868.903,2,Dry,overlap,12,4,6,2,0.43553654196754826
+irrigated,R02,Isabela,3,191989.186,1,Wet,overlap,7,11,4,0,0.5337143538270628
+irrigated,R02,Isabela,4,429148.217,1,Wet,overlap,7,11,5,1,0.5384280540511995
+irrigated,R02,Nueva Vizcaya,1,58342.291000000005,2,Dry,overlap,1,4,3,0,0.10071250174910756
+irrigated,R02,Nueva Vizcaya,2,78097.0,2,Dry,overlap,1,4,5,2,0.09949456361650892
+irrigated,R02,Nueva Vizcaya,3,55369.029,1,Wet,overlap,6,10,4,0,0.1539214064627937
+irrigated,R02,Nueva Vizcaya,4,81497.262,1,Wet,overlap,6,10,6,2,0.10225001631350311
+irrigated,R02,Quirino,1,22830.735999999997,2,Dry,overlap,12,3,3,0,0.03941121440248914
+irrigated,R02,Quirino,2,28764.156,2,Dry,overlap,12,3,5,2,0.03664516113317012
+irrigated,R02,Quirino,3,6947.717999999999,1,Wet,overlap,6,10,4,0,0.01931409211216017
+irrigated,R02,Quirino,4,39936.031,1,Wet,overlap,6,10,6,2,0.05010548478606025
+irrigated,R03,Aurora,1,19381.32,1,Wet,nearest,8,12,6,2,0.026620155165568458
+irrigated,R03,Aurora,2,33489.537,2,Dry,overlap,1,4,5,2,0.030296722613460985
+irrigated,R03,Aurora,3,19165.438000000002,1,Wet,nearest,8,12,4,0,0.060029724637057046
+irrigated,R03,Aurora,4,20252.627,1,Wet,overlap,8,12,4,0,0.016055151151980057
+irrigated,R03,Bataan,1,43460.1,2,Dry,overlap,1,4,3,0,0.059692250347815404
+irrigated,R03,Bataan,2,24648.052000000003,2,Dry,overlap,1,4,5,2,0.02229816418202982
+irrigated,R03,Bataan,3,7642.592999999999,1,Wet,overlap,6,10,4,0,0.023938026008228957
+irrigated,R03,Bataan,4,41704.653000000006,1,Wet,overlap,6,10,6,2,0.033061118819592075
+irrigated,R03,Bulacan,1,88595.88,2,Dry,nearest,2,5,3,0,0.12168603957986779
+irrigated,R03,Bulacan,2,87203.80799999999,2,Dry,overlap,2,5,4,1,0.07889000023540217
+irrigated,R03,Bulacan,3,21230.454,1,Wet,overlap,7,10,3,0,0.06649773970935108
+irrigated,R03,Bulacan,4,123137.656,1,Wet,overlap,7,10,5,2,0.097616653858313
+irrigated,R03,Nueva Ecija,1,228481.239,2,Dry,overlap,1,4,3,0,0.3138179460739171
+irrigated,R03,Nueva Ecija,2,771452.11,2,Dry,overlap,1,4,5,2,0.6979036642471108
+irrigated,R03,Nueva Ecija,3,148520.751,1,Wet,overlap,7,10,3,0,0.46519467937121567
+irrigated,R03,Nueva Ecija,4,620309.043,1,Wet,overlap,7,10,5,2,0.49174635203152145
+irrigated,R03,Pampanga,1,152756.944,2,Dry,overlap,12,3,3,0,0.20981097014537975
+irrigated,R03,Pampanga,2,86935.36799999999,2,Dry,nearest,12,3,5,2,0.07864715267921299
+irrigated,R03,Pampanga,3,51979.42,1,Wet,nearest,7,11,4,0,0.1628092334437614
+irrigated,R03,Pampanga,4,147684.414,1,Wet,overlap,7,11,5,1,0.11707595214989144
+irrigated,R03,Tarlac,1,170511.3,2,Dry,overlap,12,3,3,0,0.23419649763188433
+irrigated,R03,Tarlac,2,79071.34,2,Dry,nearest,12,3,5,2,0.07153286277605636
+irrigated,R03,Tarlac,3,59757.536,1,Wet,nearest,7,10,3,0,0.18717174275218876
+irrigated,R03,Tarlac,4,259644.21899999998,1,Wet,overlap,7,10,5,2,0.20583143025261919
+irrigated,R03,Zambales,1,24882.602000000003,2,Dry,overlap,11,2,4,1,0.03417614105556712
+irrigated,R03,Zambales,2,22584.595999999998,2,Dry,overlap,11,2,5,2,0.020431433266726876
+irrigated,R03,Zambales,3,10969.607,1,Wet,overlap,7,10,3,0,0.03435885407819708
+irrigated,R03,Zambales,4,48708.455,1,Wet,overlap,7,10,5,2,0.03861334173608287
+irrigated,R04A,Batangas,1,7568.6,2,Dry,overlap,12,4,4,0,0.115556889362317
+irrigated,R04A,Batangas,2,5573.628,2,Dry,overlap,12,4,6,2,0.04704273743197117
+irrigated,R04A,Batangas,3,3707.65,1,Wet,overlap,6,8,3,1,0.11754627830884141
+irrigated,R04A,Batangas,4,10612.075,1,Wet,nearest,6,8,4,2,0.10372982828563204
+irrigated,R04A,Cavite,1,6702.7210000000005,1,Wet,overlap,6,10,6,2,0.10233670547042767
+irrigated,R04A,Cavite,2,6410.347,2,Dry,overlap,11,3,6,2,0.0541048435182298
+irrigated,R04A,Cavite,3,4303.8769999999995,1,Wet,overlap,6,10,4,0,0.13644888909390623
+irrigated,R04A,Cavite,4,8538.325,1,Wet,overlap,6,10,6,2,0.08345954830670903
+irrigated,R04A,Laguna,1,22005.010000000002,2,Dry,nearest,12,4,4,0,0.3359710522403984
+irrigated,R04A,Laguna,2,62869.27099999999,2,Dry,overlap,12,4,6,2,0.5306315039669743
+irrigated,R04A,Laguna,3,9460.969000000001,1,Wet,nearest,6,10,4,0,0.29994786324095346
+irrigated,R04A,Laguna,4,38130.209,1,Wet,overlap,6,10,6,2,0.3727112776780471
+irrigated,R04A,Quezon,1,25353.727,2,Dry,overlap,12,3,3,0,0.3870990441906547
+irrigated,R04A,Quezon,2,36029.958,2,Dry,nearest,12,3,5,2,0.30410135981069225
+irrigated,R04A,Quezon,3,12970.295,1,Wet,nearest,7,10,3,0,0.4112065340088127
+irrigated,R04A,Quezon,4,37031.752,1,Wet,overlap,7,10,5,2,0.36197419223630733
+irrigated,R04A,Rizal,1,3866.686,1,Wet,overlap,7,11,6,2,0.05903630873620222
+irrigated,R04A,Rizal,2,7596.8910000000005,2,Dry,overlap,1,5,5,1,0.06411955527213244
+irrigated,R04A,Rizal,3,1099.2540000000001,1,Wet,overlap,7,11,4,0,0.03485043534748619
+irrigated,R04A,Rizal,4,7992.589999999999,1,Wet,overlap,7,11,5,1,0.07812515349330454
+irrigated,R05,Albay,1,34473.668,2,Dry,nearest,1,4,3,0,0.18542589625324954
+irrigated,R05,Albay,2,57194.786,2,Dry,overlap,1,4,5,2,0.21782097668145647
+irrigated,R05,Albay,3,40760.002,1,Wet,overlap,7,10,3,0,0.22771365556713488
+irrigated,R05,Albay,4,48598.807,1,Wet,overlap,7,10,5,2,0.16687302602348117
+irrigated,R05,Camarines Norte,1,14226.88,2,Dry,overlap,1,4,3,0,0.07652310090378056
+irrigated,R05,Camarines Norte,2,18450.372,2,Dry,overlap,1,4,5,2,0.07026651081754545
+irrigated,R05,Camarines Norte,3,14027.135999999999,1,Wet,overlap,7,10,3,0,0.07836531548004727
+irrigated,R05,Camarines Norte,4,21454.679,1,Wet,overlap,7,10,5,2,0.07366862332839642
+irrigated,R05,Camarines Sur,1,108518.3,2,Dry,overlap,11,2,4,1,0.5836948663942292
+irrigated,R05,Camarines Sur,2,131642.2,2,Dry,nearest,11,2,5,2,0.5013469685242923
+irrigated,R05,Camarines Sur,3,105774.0,1,Wet,nearest,7,10,3,0,0.590926963250839
+irrigated,R05,Camarines Sur,4,166406.8,1,Wet,overlap,7,10,5,2,0.571388640607664
+irrigated,R05,Catanduanes,1,4213.526,2,Dry,overlap,1,4,3,0,0.02266358296820546
+irrigated,R05,Catanduanes,2,3240.02,2,Dry,overlap,1,4,5,2,0.012339312203518912
+irrigated,R05,Catanduanes,3,3924.7709999999997,1,Wet,overlap,7,10,3,0,0.021926494303751
+irrigated,R05,Catanduanes,4,3059.436,1,Wet,overlap,7,10,5,2,0.010505141478990938
+irrigated,R05,Masbate,1,9550.710000000001,2,Dry,overlap,1,4,3,0,0.051371062737068575
+irrigated,R05,Masbate,2,13918.321,2,Dry,overlap,1,4,5,2,0.05300661976401181
+irrigated,R05,Masbate,3,4897.826,1,Wet,overlap,7,10,3,0,0.02736265476119844
+irrigated,R05,Masbate,4,11318.3,1,Wet,overlap,7,10,5,2,0.03886348425058185
+irrigated,R05,Sorsogon,1,14933.062,2,Dry,overlap,12,3,3,0,0.08032149074346667
+irrigated,R05,Sorsogon,2,38131.335,2,Dry,nearest,12,3,5,2,0.1452196120091752
+irrigated,R05,Sorsogon,3,9613.005000000001,1,Wet,overlap,7,10,3,0,0.053704916637029254
+irrigated,R05,Sorsogon,4,40394.229,1,Wet,overlap,7,10,5,2,0.13870108431088563
+irrigated,R06,Aklan,1,20965.394,2,Dry,overlap,1,4,3,0,0.06842804376130893
+irrigated,R06,Aklan,2,5571.202,2,Dry,overlap,1,4,5,2,0.06928078335407413
+irrigated,R06,Aklan,3,10897.463,1,Wet,overlap,6,10,4,0,0.03179982134319686
+irrigated,R06,Aklan,4,20164.042,1,Wet,overlap,6,10,6,2,0.05994176908862678
+irrigated,R06,Antique,1,47356.696,2,Dry,overlap,1,4,3,0,0.1545654742419343
+irrigated,R06,Antique,2,15286.634,2,Dry,overlap,1,4,5,2,0.19009721391667786
+irrigated,R06,Antique,3,50223.335999999996,1,Wet,overlap,6,10,4,0,0.14655641520043214
+irrigated,R06,Antique,4,55224.312,1,Wet,overlap,6,10,6,2,0.1641656448633801
+irrigated,R06,Capiz,1,30747.801,2,Dry,overlap,1,4,3,0,0.10035641936383444
+irrigated,R06,Capiz,2,16246.685999999998,2,Dry,overlap,1,4,5,2,0.2020359579472561
+irrigated,R06,Capiz,3,30157.912,1,Wet,overlap,6,10,4,0,0.08800362191492209
+irrigated,R06,Capiz,4,26067.869,1,Wet,overlap,6,10,6,2,0.07749211116652961
+irrigated,R06,Guimaras,1,3509.4,2,Dry,overlap,1,4,3,0,0.011454179052200857
+irrigated,R06,Guimaras,2,432.6,2,Dry,overlap,1,4,5,2,0.005379605133501257
+irrigated,R06,Guimaras,3,3856.4,1,Wet,overlap,6,9,3,0,0.011253337683083151
+irrigated,R06,Guimaras,4,6319.6,1,Wet,overlap,6,9,5,2,0.018786312978939727
+irrigated,R06,Iloilo,1,144426.6,2,Dry,overlap,10,1,5,2,0.47138774044013004
+irrigated,R06,Iloilo,2,13509.001999999999,3,Third,overlap,2,5,4,1,0.1679914389913979
+irrigated,R06,Iloilo,3,111416.33,1,Wet,overlap,6,9,3,0,0.32512332354004453
+irrigated,R06,Iloilo,4,120397.519,1,Wet,nearest,6,9,5,2,0.3579064298091402
+irrigated,R06,Negros Occidental,1,59380.1,2,Dry,overlap,1,4,3,0,0.19380814314059158
+irrigated,R06,Negros Occidental,2,29368.7,2,Dry,overlap,1,4,5,2,0.36521500065709284
+irrigated,R06,Negros Occidental,3,136138.0,1,Wet,overlap,7,11,4,0,0.3972634803183212
+irrigated,R06,Negros Occidental,4,108220.5,1,Wet,overlap,7,11,5,1,0.32170773209338355
+irrigated,R07,Bohol,1,44224.746,2,Dry,overlap,12,3,3,0,0.7424966899735576
+irrigated,R07,Bohol,2,22670.294,2,Dry,nearest,12,3,5,2,0.6434917458706645
+irrigated,R07,Bohol,3,5951.662,1,Wet,nearest,6,10,4,0,0.3333522833659806
+irrigated,R07,Bohol,4,56880.812,1,Wet,overlap,6,10,6,2,0.676156537180774
+irrigated,R07,Cebu,1,3934.4019999999996,2,Dry,overlap,12,3,3,0,0.0660553361239281
+irrigated,R07,Cebu,2,1447.563,2,Dry,overlap,12,3,5,2,0.04108878526797124
+irrigated,R07,Cebu,3,1528.618,1,Wet,overlap,5,9,4,0,0.08561781577890991
+irrigated,R07,Cebu,4,4446.995,1,Wet,overlap,5,9,6,2,0.05286254950193425
+irrigated,R07,Negros Oriental,1,10907.3,2,Dry,overlap,1,4,3,0,0.1831244920332292
+irrigated,R07,Negros Oriental,2,10536.939999999999,2,Dry,overlap,1,4,5,2,0.2990889274190462
+irrigated,R07,Negros Oriental,3,10140.7,1,Wet,overlap,5,9,4,0,0.5679800868949546
+irrigated,R07,Negros Oriental,4,22155.819,1,Wet,overlap,5,9,6,2,0.26337180020292256
+irrigated,R07,Siquijor,1,495.765,2,Dry,overlap,12,3,3,0,0.008323481869285146
+irrigated,R07,Siquijor,2,575.327,2,Dry,overlap,12,3,5,2,0.016330541442317943
+irrigated,R07,Siquijor,3,232.99099999999999,1,Wet,overlap,5,9,4,0,0.013049813960154857
+irrigated,R07,Siquijor,4,640.107,1,Wet,overlap,5,9,6,2,0.007609113114369283
+irrigated,R08,Biliran,1,7298.75,2,Dry,nearest,12,4,4,0,0.053609952633811894
+irrigated,R08,Biliran,2,19702.462,2,Dry,overlap,12,4,6,2,0.14626151469704085
+irrigated,R08,Biliran,3,8145.4,1,Wet,nearest,6,10,4,0,0.09599299428151441
+irrigated,R08,Biliran,4,20092.1,1,Wet,overlap,6,10,6,2,0.12722256483453978
+irrigated,R08,Eastern Samar,1,1279.145,2,Dry,overlap,12,4,4,0,0.009395431116530545
+irrigated,R08,Eastern Samar,2,2619.776,2,Dry,overlap,12,4,6,2,0.01944794543580162
+irrigated,R08,Eastern Samar,3,4866.68,1,Wet,overlap,6,9,3,0,0.05735349834384568
+irrigated,R08,Eastern Samar,4,6740.7080000000005,1,Wet,overlap,6,9,5,2,0.04268195761322615
+irrigated,R08,Leyte,1,108605.46599999999,1,Wet,overlap,12,4,4,0,0.7977165799668529
+irrigated,R08,Leyte,2,79449.67199999999,1,Wet,overlap,12,4,6,2,0.589795801606067
+irrigated,R08,Leyte,3,59002.759999999995,2,Dry,overlap,6,10,4,0,0.6953435808276532
+irrigated,R08,Leyte,4,98019.313,2,Dry,overlap,6,10,6,2,0.6206553024910063
+irrigated,R08,Northern Samar,1,4540.832,2,Dry,overlap,11,3,4,0,0.03335280540340433
+irrigated,R08,Northern Samar,2,1695.3759999999997,2,Dry,nearest,11,3,6,2,0.012585648521540623
+irrigated,R08,Northern Samar,3,1267.925,1,Wet,overlap,6,9,3,0,0.014942411333315633
+irrigated,R08,Northern Samar,4,2985.456,1,Wet,nearest,6,9,5,2,0.018903816401504365
+irrigated,R08,Samar,1,4239.296,2,Dry,overlap,12,4,4,0,0.031137997295524335
+irrigated,R08,Samar,2,4032.1270000000004,2,Dry,overlap,12,4,6,2,0.029932553732159733
+irrigated,R08,Samar,3,4925.979,1,Wet,overlap,6,10,4,0,0.058052333093262465
+irrigated,R08,Samar,4,5720.268,1,Wet,overlap,6,10,6,2,0.036220562634117055
+irrigated,R08,Southern Leyte,1,10181.939999999999,1,Wet,overlap,7,11,6,2,0.07478723358387594
+irrigated,R08,Southern Leyte,2,27207.670000000002,2,Dry,overlap,12,4,6,2,0.20197653600739024
+irrigated,R08,Southern Leyte,3,6645.365,1,Wet,overlap,7,11,4,0,0.07831518212040857
+irrigated,R08,Southern Leyte,4,24370.9,1,Wet,overlap,7,11,5,1,0.15431579602560638
+irrigated,R09,Zamboanga City,1,2936.312,2,Dry,overlap,1,4,3,0,0.022515779442021808
+irrigated,R09,Zamboanga City,2,2183.415,2,Dry,overlap,1,4,5,2,0.030141541686332714
+irrigated,R09,Zamboanga City,3,2926.471,1,Wet,overlap,6,9,3,0,0.02027950345831501
+irrigated,R09,Zamboanga City,4,4095.869,1,Wet,overlap,6,9,5,2,0.04570734082032213
+irrigated,R09,Zamboanga Sibugay,1,27616.142,2,Dry,overlap,11,2,4,1,0.21176188440177848
+irrigated,R09,Zamboanga Sibugay,2,6869.192999999999,2,Dry,nearest,11,2,5,2,0.09482762881127264
+irrigated,R09,Zamboanga Sibugay,3,28805.98,1,Wet,overlap,6,9,3,0,0.1996161831195843
+irrigated,R09,Zamboanga Sibugay,4,22159.909,1,Wet,nearest,6,9,5,2,0.24729074909630258
+irrigated,R09,Zamboanga del Norte,1,18608.947,2,Dry,overlap,11,2,4,1,0.1426942866767133
+irrigated,R09,Zamboanga del Norte,2,4764.99,2,Dry,nearest,11,2,5,2,0.06577959055880743
+irrigated,R09,Zamboanga del Norte,3,11412.323,1,Wet,overlap,6,9,3,0,0.0790837304541572
+irrigated,R09,Zamboanga del Norte,4,24843.491,1,Wet,nearest,6,9,5,2,0.2772378487455545
+irrigated,R09,Zamboanga del Sur,1,81249.896,2,Dry,overlap,10,1,5,2,0.6230280494794864
+irrigated,R09,Zamboanga del Sur,2,58621.132,1,Wet,nearest,6,9,3,0,0.8092512389435872
+irrigated,R09,Zamboanga del Sur,3,101162.063,1,Wet,overlap,6,9,3,0,0.7010205829679435
+irrigated,R09,Zamboanga del Sur,4,38511.47900000001,1,Wet,nearest,6,9,5,2,0.4297640613378208
+irrigated,R10,Bukidnon,1,118203.38799999999,2,Dry,nearest,9,12,5,2,0.6951875679041899
+irrigated,R10,Bukidnon,2,60680.81800000001,3,Third,overlap,1,4,5,2,0.47280956603967805
+irrigated,R10,Bukidnon,3,121425.111,1,Wet,nearest,5,10,5,0,0.6264438039690453
+irrigated,R10,Bukidnon,4,129271.699,1,Wet,overlap,5,10,7,2,0.6288467817173765
+irrigated,R10,Camiguin,1,233.15300000000002,1,Wet,nearest,1,5,4,0,0.0013712387585672722
+irrigated,R10,Camiguin,2,940.235,1,Wet,overlap,1,5,5,1,0.007326072999301306
+irrigated,R10,Camiguin,3,232.746,1,Wet,nearest,1,5,6,2,0.001200758956675604
+irrigated,R10,Camiguin,4,751.363,2,Dry,overlap,7,11,5,1,0.0036550320612055488
+irrigated,R10,Lanao del Norte,1,31132.794,2,Dry,overlap,11,2,4,1,0.18310076986052343
+irrigated,R10,Lanao del Norte,2,41026.957,2,Dry,overlap,11,2,5,2,0.31967165859726104
+irrigated,R10,Lanao del Norte,3,43435.436,1,Wet,overlap,3,6,5,2,0.2240875839503578
+irrigated,R10,Lanao del Norte,4,50774.416000000005,2,Dry,nearest,11,2,3,0,0.24699395414598269
+irrigated,R10,Misamis Occidental,1,15658.279999999999,2,Dry,overlap,10,2,5,1,0.09209077484955693
+irrigated,R10,Misamis Occidental,2,20533.5,2,Dry,nearest,10,2,6,2,0.15999183175605391
+irrigated,R10,Misamis Occidental,3,23285.898,1,Wet,overlap,5,9,4,0,0.12013418313412276
+irrigated,R10,Misamis Occidental,4,18518.610999999997,1,Wet,nearest,5,9,6,2,0.09008444245190904
+irrigated,R10,Misamis Oriental,1,4803.314,2,Dry,overlap,11,3,4,0,0.028249648627162414
+irrigated,R10,Misamis Oriental,2,5159.4169999999995,2,Dry,overlap,11,3,6,2,0.04020087060770567
+irrigated,R10,Misamis Oriental,3,5453.217,1,Wet,overlap,5,10,5,0,0.028133669989798608
+irrigated,R10,Misamis Oriental,4,6253.38,1,Wet,overlap,5,10,7,2,0.030419789623526247
+irrigated,R11,City of Davao,1,1402.0149999999999,2,Dry,overlap,12,3,3,0,0.011233732875491235
+irrigated,R11,City of Davao,2,1549.1399999999999,2,Dry,overlap,12,3,5,2,0.020368008098503247
+irrigated,R11,City of Davao,3,1887.446,1,Wet,overlap,6,9,3,0,0.014986771919507544
+irrigated,R11,City of Davao,4,1611.3290000000002,1,Wet,overlap,6,9,5,2,0.015321506562784038
+irrigated,R11,Davao Occidental,1,306.819,2,Dry,overlap,12,3,3,0,0.0024584064272674296
+irrigated,R11,Davao Occidental,2,382.951,2,Dry,nearest,12,3,5,2,0.005035018829369791
+irrigated,R11,Davao Occidental,3,225.64299999999997,1,Wet,overlap,6,9,3,0,0.0017916592984559244
+irrigated,R11,Davao Occidental,4,314.754,1,Wet,nearest,6,9,5,2,0.0029928745009011365
+irrigated,R11,Davao Oriental,1,12199.486,2,Dry,overlap,12,3,3,0,0.09774914458282906
+irrigated,R11,Davao Oriental,2,18388.278,3,Third,overlap,3,5,3,1,0.24176807468758738
+irrigated,R11,Davao Oriental,3,8355.744,1,Wet,nearest,6,10,4,0,0.0663466025230887
+irrigated,R11,Davao Oriental,4,21326.556,1,Wet,overlap,6,10,6,2,0.20278600317848267
+irrigated,R11,Davao de Oro (Compostela Valley),1,23727.2,2,Dry,overlap,12,3,3,0,0.1901156740001752
+irrigated,R11,Davao de Oro (Compostela Valley),2,21555.98,2,Dry,nearest,12,3,5,2,0.2834168475484295
+irrigated,R11,Davao de Oro (Compostela Valley),3,31899.82,1,Wet,nearest,6,10,4,0,0.2532921877570776
+irrigated,R11,Davao de Oro (Compostela Valley),4,29726.987,1,Wet,overlap,6,10,6,2,0.2826624645943167
+irrigated,R11,Davao del Norte,1,32163.008,2,Dry,overlap,11,3,4,0,0.2577081132115474
+irrigated,R11,Davao del Norte,2,26695.489,2,Dry,overlap,11,3,6,2,0.35099083113566526
+irrigated,R11,Davao del Norte,3,38321.701,1,Wet,overlap,5,9,4,0,0.3042834562973268
+irrigated,R11,Davao del Norte,4,25431.251,1,Wet,overlap,5,9,6,2,0.24181596625909924
+irrigated,R11,Davao del Sur,1,55005.490000000005,2,Dry,overlap,12,3,3,0,0.44073492890268967
+irrigated,R11,Davao del Sur,2,7485.673,2,Dry,nearest,12,3,5,2,0.09842121970044483
+irrigated,R11,Davao del Sur,3,45250.443,1,Wet,overlap,6,9,3,0,0.35929932220454347
+irrigated,R11,Davao del Sur,4,26756.914,1,Wet,nearest,6,9,5,2,0.25442118490441623
+irrigated,R12,Cotabato (North Cotabato),1,132013.5,2,Dry,overlap,12,5,5,0,0.39595450145396566
+irrigated,R12,Cotabato (North Cotabato),2,27079.5,2,Dry,overlap,12,5,6,1,0.34871396345513206
+irrigated,R12,Cotabato (North Cotabato),3,133430.3,1,Wet,overlap,5,10,5,0,0.3794314708649367
+irrigated,R12,Cotabato (North Cotabato),4,104543.3,1,Wet,overlap,5,10,7,2,0.3690146297433826
+irrigated,R12,Sarangani,1,6477.124,2,Dry,nearest,11,5,6,0,0.01942715255845437
+irrigated,R12,Sarangani,2,4358.236999999999,2,Dry,overlap,11,5,7,1,0.056122827155110105
+irrigated,R12,Sarangani,3,10903.895,1,Wet,overlap,5,8,4,1,0.0310070570028459
+irrigated,R12,Sarangani,4,10988.01,1,Wet,nearest,5,8,5,2,0.03878523484304193
+irrigated,R12,South Cotabato,1,84442.4,2,Dry,overlap,12,4,4,0,0.2532721910530086
+irrigated,R12,South Cotabato,2,25062.3,2,Dry,overlap,12,4,6,2,0.32273764162194857
+irrigated,R12,South Cotabato,3,91391.2,1,Wet,overlap,6,10,4,0,0.2598862285411305
+irrigated,R12,South Cotabato,4,68848.814,1,Wet,overlap,6,10,6,2,0.24302102197348863
+irrigated,R12,Sultan Kudarat,1,110472.70700000001,2,Dry,overlap,10,2,5,1,0.3313461549345713
+irrigated,R12,Sultan Kudarat,2,21155.299,2,Dry,nearest,10,2,6,2,0.2724255677678093
+irrigated,R12,Sultan Kudarat,3,115933.1,1,Wet,overlap,5,9,4,0,0.32967524359108685
+irrigated,R12,Sultan Kudarat,4,98923.81999999999,1,Wet,nearest,5,9,6,2,0.3491791134400868
+irrigated,R13,Agusan del Norte,1,7423.389999999999,2,Dry,overlap,1,5,4,0,0.31809861155943814
+irrigated,R13,Agusan del Norte,2,26092.306,2,Dry,overlap,1,5,5,1,0.1689101747105774
+irrigated,R13,Agusan del Norte,3,10969.923999999999,2,Dry,overlap,1,5,6,2,0.32771726998927875
+irrigated,R13,Agusan del Norte,4,22200.429,1,Wet,overlap,8,11,4,1,0.19826265436056884
+irrigated,R13,Agusan del Sur,1,691.92,2,Dry,overlap,1,5,4,0,0.029649363876908856
+irrigated,R13,Agusan del Sur,2,75937.908,2,Dry,overlap,1,5,5,1,0.49158879661444077
+irrigated,R13,Agusan del Sur,3,4986.21,1,Wet,overlap,7,11,4,0,0.14895883770874271
+irrigated,R13,Agusan del Sur,4,61670.378000000004,1,Wet,overlap,7,11,5,1,0.5507520975247654
+irrigated,R13,Dinagat Islands,1,489.53999999999996,2,Dry,overlap,1,5,4,0,0.020977207758558738
+irrigated,R13,Dinagat Islands,2,1935.1709999999998,2,Dry,overlap,1,5,5,1,0.012527450494595716
+irrigated,R13,Dinagat Islands,3,852.2459999999999,1,Wet,nearest,7,11,4,0,0.02546013376932081
+irrigated,R13,Dinagat Islands,4,1207.5700000000002,1,Wet,overlap,7,11,5,1,0.010784297615428609
+irrigated,R13,Surigao del Norte,1,6113.975,2,Dry,overlap,2,5,3,0,0.26198905871968414
+irrigated,R13,Surigao del Norte,2,20656.195,2,Dry,overlap,2,5,4,1,0.13371917017628704
+irrigated,R13,Surigao del Norte,3,4244.098,1,Wet,overlap,7,10,3,0,0.12678886472932338
+irrigated,R13,Surigao del Norte,4,14052.495,1,Wet,overlap,7,10,5,2,0.12549689733872357
+irrigated,R13,Surigao del Sur,1,8617.932,2,Dry,overlap,1,5,4,0,0.3692857580854101
+irrigated,R13,Surigao del Sur,2,29852.868,2,Dry,overlap,1,5,5,1,0.19325440800409918
+irrigated,R13,Surigao del Sur,3,12421.266,1,Wet,overlap,7,11,4,0,0.37107489380333436
+irrigated,R13,Surigao del Sur,4,12843.968,1,Wet,overlap,7,11,5,1,0.11470405316051355
+rainfed,BARMM,Basilan,1,45.385000000000005,2,Dry,overlap,1,4,3,0,0.00028427428895490254
+rainfed,BARMM,Basilan,2,15.104,1,Wet,overlap,5,8,3,0,0.0002557581178437701
+rainfed,BARMM,Basilan,3,23.1,1,Wet,overlap,5,8,4,1,0.00012239495647579715
+rainfed,BARMM,Basilan,4,72.477,1,Wet,overlap,5,8,5,2,0.0005315182115115109
+rainfed,BARMM,Lanao del Sur,1,25787.401,2,Dry,overlap,1,4,3,0,0.16152242113627724
+rainfed,BARMM,Lanao del Sur,2,19491.004,2,Dry,overlap,1,4,5,2,0.3300438624156114
+rainfed,BARMM,Lanao del Sur,3,50309.363,1,Wet,overlap,4,7,5,2,0.26656330280130214
+rainfed,BARMM,Lanao del Sur,4,52491.477,1,Wet,overlap,4,7,5,2,0.38495213618993074
+rainfed,BARMM,Maguindanao del Norte,1,11878.3,2,Dry,nearest,1,4,3,0,0.07440113003179505
+rainfed,BARMM,Maguindanao del Norte,2,4443.1,2,Dry,overlap,1,4,5,2,0.0752356258866297
+rainfed,BARMM,Maguindanao del Norte,3,14031.261999999999,1,Wet,overlap,6,9,3,0,0.07434440267491368
+rainfed,BARMM,Maguindanao del Norte,4,7675.295,1,Wet,nearest,6,9,5,2,0.05628763706035352
+rainfed,BARMM,Maguindanao del Sur,1,121934.55900000001,2,Dry,nearest,1,4,3,0,0.7637514610279742
+rainfed,BARMM,Maguindanao del Sur,2,35106.591,2,Dry,overlap,1,4,5,2,0.5944647535799151
+rainfed,BARMM,Maguindanao del Sur,3,123266.146,1,Wet,overlap,6,9,3,0,0.6531235746584093
+rainfed,BARMM,Maguindanao del Sur,4,75925.50200000001,1,Wet,nearest,6,9,5,2,0.5568081878548181
+rainfed,BARMM,Sulu,1,6.5,1,Wet,nearest,5,8,3,0,4.071351499849876e-05
+rainfed,BARMM,Sulu,3,1103.396,1,Wet,overlap,5,8,4,1,0.005846324908899076
+rainfed,BARMM,Sulu,4,193.7,1,Wet,overlap,5,8,5,2,0.001420520683386173
+rainfed,CAR,Abra,3,1329.3870000000002,1,Wet,overlap,6,10,4,0,0.21319332207966077
+rainfed,CAR,Abra,4,21469.714,1,Wet,overlap,6,10,6,2,0.5336324266523396
+rainfed,CAR,Apayao,1,573.591,2,Dry,overlap,12,4,4,0,0.6829350475240239
+rainfed,CAR,Apayao,2,4333.101,2,Dry,overlap,12,4,6,2,0.999753124645982
+rainfed,CAR,Apayao,3,4467.9,1,Wet,overlap,6,10,4,0,0.7165155396582907
+rainfed,CAR,Apayao,4,8649.119,1,Wet,overlap,6,10,6,2,0.21497493447629795
+rainfed,CAR,Benguet,4,2463.33,1,Wet,overlap,7,11,5,1,0.06122637523469141
+rainfed,CAR,Ifugao,1,67.4,2,Dry,overlap,11,3,4,0,0.08024850843740437
+rainfed,CAR,Ifugao,3,438.30699999999996,1,Wet,overlap,5,9,4,0,0.07029113826204848
+rainfed,CAR,Ifugao,4,1506.365,1,Wet,overlap,5,9,6,2,0.03744089047362957
+rainfed,CAR,Kalinga,1,198.9,1,Wet,nearest,7,11,6,2,0.23681644403857166
+rainfed,CAR,Kalinga,2,1.0699999999999998,2,Dry,overlap,1,5,5,1,0.000246875354018104
+rainfed,CAR,Kalinga,4,4170.236999999999,1,Wet,overlap,7,11,5,1,0.10365176219978393
+rainfed,CAR,Mountain Province,4,1974.386,1,Wet,overlap,6,10,6,2,0.04907361096325764
+rainfed,MIMAROPA,Marinduque,1,3111.004,2,Dry,overlap,1,5,4,0,0.04656303433856973
+rainfed,MIMAROPA,Marinduque,2,652.631,2,Dry,overlap,1,5,5,1,0.02658727365226117
+rainfed,MIMAROPA,Marinduque,3,1086.299,1,Wet,overlap,5,8,4,1,0.03372820068903334
+rainfed,MIMAROPA,Marinduque,4,2669.4,1,Wet,overlap,5,8,5,2,0.01306750591116908
+rainfed,MIMAROPA,Occidental Mindoro,1,264.214,2,Dry,overlap,12,3,3,0,0.003954545077644022
+rainfed,MIMAROPA,Occidental Mindoro,3,3344.0589999999997,1,Wet,overlap,6,11,5,0,0.103828773724332
+rainfed,MIMAROPA,Occidental Mindoro,4,95533.027,1,Wet,overlap,6,11,6,1,0.4676625440302597
+rainfed,MIMAROPA,Oriental Mindoro,1,13400.328,2,Dry,overlap,12,4,4,0,0.20056545501455394
+rainfed,MIMAROPA,Oriental Mindoro,2,11849.97,2,Dry,overlap,12,4,6,2,0.4827511950261102
+rainfed,MIMAROPA,Oriental Mindoro,3,2593.199,1,Wet,overlap,6,10,4,0,0.08051552684721294
+rainfed,MIMAROPA,Oriental Mindoro,4,26085.045000000002,1,Wet,overlap,6,10,6,2,0.1276940435043873
+rainfed,MIMAROPA,Palawan,1,42972.321,2,Dry,overlap,11,3,4,0,0.643175533792641
+rainfed,MIMAROPA,Palawan,2,11903.217999999999,2,Dry,overlap,11,3,6,2,0.48492044403119205
+rainfed,MIMAROPA,Palawan,3,24412.883,1,Wet,overlap,6,10,4,0,0.757988930507982
+rainfed,MIMAROPA,Palawan,4,72062.336,1,Wet,overlap,6,10,6,2,0.35276653991633034
+rainfed,MIMAROPA,Romblon,1,7064.875,2,Dry,overlap,10,2,5,1,0.10574143177659136
+rainfed,MIMAROPA,Romblon,2,140.925,2,Dry,nearest,10,2,6,2,0.005741087290436565
+rainfed,MIMAROPA,Romblon,3,771.0,1,Wet,overlap,6,10,4,0,0.02393856823143969
+rainfed,MIMAROPA,Romblon,4,7927.888000000001,1,Wet,overlap,6,10,6,2,0.03880936663785361
+rainfed,R01,Ilocos Norte,1,1094.3,2,Dry,overlap,10,2,5,1,0.6036518093556928
+rainfed,R01,Ilocos Norte,2,13.5,3,Third,overlap,2,5,4,1,1.0
+rainfed,R01,Ilocos Norte,3,2337.548,1,Wet,nearest,6,10,4,0,0.08149989643188403
+rainfed,R01,Ilocos Norte,4,45297.8,1,Wet,overlap,6,10,6,2,0.09119225358870271
+rainfed,R01,Ilocos Sur,1,125.3,2,Dry,overlap,11,3,4,0,0.06911959399823478
+rainfed,R01,Ilocos Sur,3,5102.426,1,Wet,overlap,7,10,3,0,0.1778988883014819
+rainfed,R01,Ilocos Sur,4,77044.537,1,Wet,overlap,7,10,5,2,0.15510388927780572
+rainfed,R01,La Union,3,1783.891,1,Wet,overlap,7,11,4,0,0.062196340672264296
+rainfed,R01,La Union,4,58625.898,1,Wet,overlap,7,11,5,1,0.11802400463778415
+rainfed,R01,Pangasinan,1,593.2,2,Dry,overlap,12,3,3,0,0.3272285966460724
+rainfed,R01,Pangasinan,3,19457.742,1,Wet,nearest,7,11,4,0,0.6784048745943698
+rainfed,R01,Pangasinan,4,315760.36,1,Wet,overlap,7,11,5,1,0.6356798524957075
+rainfed,R02,Cagayan,1,43044.1,1,Wet,nearest,5,11,8,2,0.6917405480142823
+rainfed,R02,Cagayan,2,49509.8,1,Wet,nearest,5,11,6,0,0.6826140060992381
+rainfed,R02,Cagayan,3,3120.1099999999997,1,Wet,overlap,5,11,6,0,0.6203468173154961
+rainfed,R02,Cagayan,4,51013.675,1,Wet,overlap,5,11,7,1,0.5978583469843864
+rainfed,R02,Isabela,1,14298.041000000001,2,Dry,overlap,12,4,4,0,0.2297767804849138
+rainfed,R02,Isabela,2,19780.153,2,Dry,overlap,12,4,6,2,0.27271791606077705
+rainfed,R02,Isabela,3,1433.58,1,Wet,overlap,7,11,4,0,0.2850273837676072
+rainfed,R02,Isabela,4,27667.46,1,Wet,overlap,7,11,5,1,0.3242507406270305
+rainfed,R02,Nueva Vizcaya,1,3729.317,2,Dry,overlap,1,4,3,0,0.05993201821617781
+rainfed,R02,Nueva Vizcaya,2,1073.958,2,Dry,overlap,1,4,5,2,0.014807144701903977
+rainfed,R02,Nueva Vizcaya,3,391.55,1,Wet,overlap,6,10,4,0,0.0778487926130433
+rainfed,R02,Nueva Vizcaya,4,3053.566,1,Wet,overlap,6,10,6,2,0.035786481196810944
+rainfed,R02,Quirino,1,1154.3290000000002,2,Dry,overlap,12,3,3,0,0.018550653284626198
+rainfed,R02,Quirino,2,2165.805,2,Dry,overlap,12,3,5,2,0.029860933138080945
+rainfed,R02,Quirino,3,84.382,1,Wet,overlap,6,10,4,0,0.016777006303853453
+rainfed,R02,Quirino,4,3592.66,1,Wet,overlap,6,10,6,2,0.04210443119177212
+rainfed,R03,Aurora,1,1195.844,1,Wet,nearest,8,12,6,2,0.388785899925939
+rainfed,R03,Aurora,2,1244.392,2,Dry,overlap,1,4,5,2,0.6412170629555123
+rainfed,R03,Aurora,3,998.866,1,Wet,nearest,8,12,4,0,0.06473262326138969
+rainfed,R03,Aurora,4,636.92,1,Wet,overlap,8,12,4,0,0.0039025033684151585
+rainfed,R03,Bataan,1,0.2,2,Dry,overlap,1,4,3,0,6.502284577686371e-05
+rainfed,R03,Bataan,4,1074.715,1,Wet,overlap,6,10,6,2,0.006584938308714277
+rainfed,R03,Bulacan,1,1625.998,2,Dry,nearest,2,5,3,0,0.5286350859374441
+rainfed,R03,Bulacan,2,696.28,2,Dry,overlap,2,5,4,1,0.35878293704448766
+rainfed,R03,Bulacan,3,4813.745,1,Wet,overlap,7,10,3,0,0.31196010431969684
+rainfed,R03,Bulacan,4,41258.864,1,Wet,overlap,7,10,5,2,0.2527991831579836
+rainfed,R03,Nueva Ecija,3,3037.8959999999997,1,Wet,overlap,7,10,3,0,0.19687423265511358
+rainfed,R03,Nueva Ecija,4,68141.948,1,Wet,overlap,7,10,5,2,0.4175158286760827
+rainfed,R03,Pampanga,3,337.1,1,Wet,nearest,7,11,4,0,0.02184614082511014
+rainfed,R03,Pampanga,4,1492.6,1,Wet,overlap,7,11,5,1,0.009145381724072829
+rainfed,R03,Tarlac,1,253.8,2,Dry,overlap,12,3,3,0,0.08251399129084004
+rainfed,R03,Tarlac,3,929.0,1,Wet,nearest,7,10,3,0,0.060204879343005994
+rainfed,R03,Tarlac,4,23619.272,1,Wet,overlap,7,10,5,2,0.14471878499578258
+rainfed,R03,Zambales,3,5314.036,1,Wet,overlap,7,10,3,0,0.3443820195956837
+rainfed,R03,Zambales,4,26983.74,1,Wet,overlap,7,10,5,2,0.1653333797689488
+rainfed,R04A,Batangas,1,1837.9,2,Dry,overlap,12,4,4,0,0.08008700763364833
+rainfed,R04A,Batangas,2,157.388,2,Dry,overlap,12,4,6,2,0.007949946472677223
+rainfed,R04A,Batangas,3,1421.02,1,Wet,overlap,6,8,3,1,0.21748153499092435
+rainfed,R04A,Batangas,4,5552.248,1,Wet,nearest,6,8,4,2,0.20622289916834077
+rainfed,R04A,Cavite,3,194.75799999999998,1,Wet,overlap,6,10,4,0,0.029806947679668436
+rainfed,R04A,Cavite,4,718.051,1,Wet,overlap,6,10,6,2,0.02667001887716944
+rainfed,R04A,Laguna,1,763.549,2,Dry,nearest,12,4,4,0,0.033271861685436936
+rainfed,R04A,Laguna,2,500.203,2,Dry,overlap,12,4,6,2,0.025266138939897355
+rainfed,R04A,Laguna,3,314.18199999999996,1,Wet,nearest,6,10,4,0,0.04808432226606141
+rainfed,R04A,Laguna,4,914.512,1,Wet,overlap,6,10,6,2,0.03396701947827936
+rainfed,R04A,Quezon,1,19984.642,2,Dry,overlap,12,3,3,0,0.8708363765219701
+rainfed,R04A,Quezon,2,19139.338,2,Dry,nearest,12,3,5,2,0.9667618409438912
+rainfed,R04A,Quezon,3,4520.88,1,Wet,nearest,7,10,3,0,0.691902944300411
+rainfed,R04A,Quezon,4,17711.182,1,Wet,overlap,7,10,5,2,0.6578328813370966
+rainfed,R04A,Rizal,1,362.7,1,Wet,overlap,7,11,6,2,0.01580475415894458
+rainfed,R04A,Rizal,2,0.437,2,Dry,overlap,1,5,5,1,2.2073643534195405e-05
+rainfed,R04A,Rizal,3,83.14,1,Wet,overlap,7,11,4,0,0.012724250762934689
+rainfed,R04A,Rizal,4,2027.5349999999999,1,Wet,overlap,7,11,5,1,0.07530718113911371
+rainfed,R05,Albay,1,6844.928,2,Dry,nearest,1,4,3,0,0.07514814495539085
+rainfed,R05,Albay,2,7095.472,2,Dry,overlap,1,4,5,2,0.0735802830320232
+rainfed,R05,Albay,3,2077.7349999999997,1,Wet,overlap,7,10,3,0,0.06366735173466632
+rainfed,R05,Albay,4,14463.428,1,Wet,overlap,7,10,5,2,0.09828502764569394
+rainfed,R05,Camarines Norte,1,10569.555,2,Dry,overlap,1,4,3,0,0.11603956261541043
+rainfed,R05,Camarines Norte,2,7544.0779999999995,2,Dry,overlap,1,4,5,2,0.07823234232418358
+rainfed,R05,Camarines Norte,3,7013.344999999999,1,Wet,overlap,7,10,3,0,0.21490762919793113
+rainfed,R05,Camarines Norte,4,8766.514,1,Wet,overlap,7,10,5,2,0.05957212016724962
+rainfed,R05,Camarines Sur,1,40644.7,2,Dry,overlap,11,2,4,1,0.4462243879363485
+rainfed,R05,Camarines Sur,2,30655.8,2,Dry,nearest,11,2,5,2,0.31790167596646096
+rainfed,R05,Camarines Sur,3,17540.1,1,Wet,nearest,7,10,3,0,0.5374755279962175
+rainfed,R05,Camarines Sur,4,54188.0,1,Wet,overlap,7,10,5,2,0.36823006814600684
+rainfed,R05,Catanduanes,1,4577.259,2,Dry,overlap,1,4,3,0,0.050252175454638434
+rainfed,R05,Catanduanes,2,3476.594,2,Dry,overlap,1,4,5,2,0.03605239658579918
+rainfed,R05,Catanduanes,3,1604.431,1,Wet,overlap,7,10,3,0,0.0491640525914048
+rainfed,R05,Catanduanes,4,3767.411,1,Wet,overlap,7,10,5,2,0.025601129572304124
+rainfed,R05,Masbate,1,23840.28,2,Dry,overlap,1,4,3,0,0.26173435530908506
+rainfed,R05,Masbate,2,33584.894,2,Dry,overlap,1,4,5,2,0.34827647915748206
+rainfed,R05,Masbate,3,3913.996,1,Wet,overlap,7,10,3,0,0.11993529493418416
+rainfed,R05,Masbate,4,51154.803,1,Wet,overlap,7,10,5,2,0.34761822903014605
+rainfed,R05,Sorsogon,1,4609.066,2,Dry,overlap,12,3,3,0,0.05060137372912665
+rainfed,R05,Sorsogon,2,14074.865,2,Dry,nearest,12,3,5,2,0.14595682293405107
+rainfed,R05,Sorsogon,3,484.62299999999993,1,Wet,overlap,7,10,3,0,0.014850143545596143
+rainfed,R05,Sorsogon,4,14817.842999999999,1,Wet,overlap,7,10,5,2,0.10069342543859951
+rainfed,R06,Aklan,1,14913.339000000002,2,Dry,overlap,1,4,3,0,0.04840581853600536
+rainfed,R06,Aklan,2,2755.684,2,Dry,overlap,1,4,5,2,0.07069256360039622
+rainfed,R06,Aklan,3,8622.128,1,Wet,overlap,6,10,4,0,0.02516623008488185
+rainfed,R06,Aklan,4,16211.662,1,Wet,overlap,6,10,6,2,0.041345245228781136
+rainfed,R06,Antique,1,13136.797,2,Dry,overlap,1,4,3,0,0.04263950626525284
+rainfed,R06,Antique,2,842.2969999999999,2,Dry,overlap,1,4,5,2,0.021607751194593766
+rainfed,R06,Antique,3,43980.732,1,Wet,overlap,6,10,4,0,0.1283707712079345
+rainfed,R06,Antique,4,44817.640999999996,1,Wet,overlap,6,10,6,2,0.1143002091778422
+rainfed,R06,Capiz,1,83962.385,2,Dry,overlap,1,4,3,0,0.2725256880541787
+rainfed,R06,Capiz,2,24297.197,2,Dry,overlap,1,4,5,2,0.6233048289404214
+rainfed,R06,Capiz,3,61761.591,1,Wet,overlap,6,10,4,0,0.18026946590381956
+rainfed,R06,Capiz,4,59764.188,1,Wet,overlap,6,10,6,2,0.15241898139493526
+rainfed,R06,Guimaras,1,7254.1,2,Dry,overlap,1,4,3,0,0.02354540778842595
+rainfed,R06,Guimaras,2,150.619,2,Dry,overlap,1,4,5,2,0.0038638839710678284
+rainfed,R06,Guimaras,3,15418.105,1,Wet,overlap,6,9,3,0,0.0450022984932336
+rainfed,R06,Guimaras,4,17283.175,1,Wet,overlap,6,9,5,2,0.044077967373545
+rainfed,R06,Iloilo,1,175092.78,2,Dry,overlap,10,1,5,2,0.5683173523812949
+rainfed,R06,Iloilo,2,8896.846,3,Third,overlap,2,5,4,1,0.2282340252721033
+rainfed,R06,Iloilo,3,153885.103,1,Wet,overlap,6,9,3,0,0.4491591761028997
+rainfed,R06,Iloilo,4,195251.302,1,Wet,nearest,6,9,5,2,0.4979571472948797
+rainfed,R06,Negros Occidental,1,13730.4,2,Dry,overlap,1,4,3,0,0.04456622697484231
+rainfed,R06,Negros Occidental,2,2038.6,2,Dry,overlap,1,4,5,2,0.05229694702141745
+rainfed,R06,Negros Occidental,3,58939.397,1,Wet,overlap,7,11,4,0,0.17203205820723086
+rainfed,R06,Negros Occidental,4,58776.659999999996,1,Wet,overlap,7,11,5,1,0.14990044953001677
+rainfed,R07,Bohol,1,23927.625,2,Dry,overlap,12,3,3,0,0.920856160267505
+rainfed,R07,Bohol,2,11347.356,2,Dry,nearest,12,3,5,2,0.9453961891406237
+rainfed,R07,Bohol,3,1023.742,1,Wet,nearest,6,10,4,0,0.4167763830163162
+rainfed,R07,Bohol,4,37133.294,1,Wet,overlap,6,10,6,2,0.7955891206914759
+rainfed,R07,Cebu,1,190.7,2,Dry,overlap,12,3,3,0,0.007339101551575353
+rainfed,R07,Cebu,2,208.51999999999998,2,Dry,overlap,12,3,5,2,0.01737268253147278
+rainfed,R07,Cebu,3,229.939,1,Wet,overlap,5,9,4,0,0.09361064089818405
+rainfed,R07,Cebu,4,351.248,1,Wet,overlap,5,9,6,2,0.0075255668798097876
+rainfed,R07,Negros Oriental,1,1819.902,2,Dry,overlap,1,4,3,0,0.0700390434814635
+rainfed,R07,Negros Oriental,2,382.143,2,Dry,overlap,1,4,5,2,0.03183794849714465
+rainfed,R07,Negros Oriental,3,1186.25,1,Wet,overlap,5,9,4,0,0.4829351382995961
+rainfed,R07,Negros Oriental,4,9113.242999999999,1,Wet,overlap,5,9,6,2,0.19525326745905566
+rainfed,R07,Siquijor,1,45.88,2,Dry,overlap,12,3,3,0,0.0017656946994560946
+rainfed,R07,Siquijor,2,64.733,2,Dry,overlap,12,3,5,2,0.005393179830758813
+rainfed,R07,Siquijor,3,16.403,1,Wet,overlap,5,9,4,0,0.006677837785903708
+rainfed,R07,Siquijor,4,76.174,1,Wet,overlap,5,9,6,2,0.0016320449696585627
+rainfed,R08,Biliran,1,8.5,2,Dry,nearest,12,4,4,0,6.389491286368843e-05
+rainfed,R08,Biliran,2,4.401999999999999,2,Dry,overlap,12,4,6,2,5.671513951512034e-05
+rainfed,R08,Biliran,3,5.0,1,Wet,nearest,6,10,4,0,9.073107818335115e-05
+rainfed,R08,Biliran,4,5.3,1,Wet,overlap,6,10,6,2,4.9962247865633976e-05
+rainfed,R08,Eastern Samar,1,18631.041999999998,2,Dry,overlap,12,4,4,0,0.14005044766467287
+rainfed,R08,Eastern Samar,2,9150.471,2,Dry,overlap,12,4,6,2,0.11789419341073666
+rainfed,R08,Eastern Samar,3,5327.7699999999995,1,Wet,overlap,6,9,3,0,0.09667886328258253
+rainfed,R08,Eastern Samar,4,7996.466,1,Wet,overlap,6,9,5,2,0.07538139930964428
+rainfed,R08,Leyte,1,31486.695,1,Wet,overlap,12,4,4,0,0.23668701569300404
+rainfed,R08,Leyte,2,28723.472999999998,1,Wet,overlap,12,4,6,2,0.3700717352462045
+rainfed,R08,Leyte,3,6554.673999999999,2,Dry,overlap,6,10,4,0,0.11894252783207578
+rainfed,R08,Leyte,4,44056.877,2,Dry,overlap,6,10,6,2,0.41531709601127337
+rainfed,R08,Northern Samar,1,35681.202000000005,2,Dry,overlap,11,3,4,0,0.2682173285484313
+rainfed,R08,Northern Samar,2,15659.001,2,Dry,nearest,11,3,6,2,0.20174975610686258
+rainfed,R08,Northern Samar,3,21163.376,1,Wet,overlap,6,9,3,0,0.38403518449593144
+rainfed,R08,Northern Samar,4,10315.525,1,Wet,nearest,6,9,5,2,0.0972427956441781
+rainfed,R08,Samar,1,46634.596000000005,2,Dry,overlap,12,4,4,0,0.35055452327686043
+rainfed,R08,Samar,2,21991.565,2,Dry,overlap,12,4,6,2,0.2833381819924665
+rainfed,R08,Samar,3,21732.881,1,Wet,overlap,6,10,4,0,0.3943695450320933
+rainfed,R08,Samar,4,42183.527,1,Wet,overlap,6,10,6,2,0.39765732675861576
+rainfed,R08,Southern Leyte,1,588.9,1,Wet,overlap,7,11,6,2,0.004426789904167778
+rainfed,R08,Southern Leyte,2,2087.048,2,Dry,overlap,12,4,6,2,0.02688941810421465
+rainfed,R08,Southern Leyte,3,324.20799999999997,1,Wet,overlap,7,11,4,0,0.005883148279133581
+rainfed,R08,Southern Leyte,4,1522.4,1,Wet,overlap,7,11,5,1,0.014351420028422863
+rainfed,R09,Zamboanga City,1,436.23400000000004,2,Dry,overlap,1,4,3,0,0.007142972346882009
+rainfed,R09,Zamboanga City,2,77.368,2,Dry,overlap,1,4,5,2,0.005288304458913931
+rainfed,R09,Zamboanga City,3,1663.187,1,Wet,overlap,6,9,3,0,0.027823748159518782
+rainfed,R09,Zamboanga City,4,1413.4060000000002,1,Wet,overlap,6,9,5,2,0.013224044099295926
+rainfed,R09,Zamboanga Sibugay,1,20759.377,2,Dry,overlap,11,2,4,1,0.3399176952037173
+rainfed,R09,Zamboanga Sibugay,2,7544.729000000001,2,Dry,nearest,11,2,5,2,0.5157018924102633
+rainfed,R09,Zamboanga Sibugay,3,19364.764,1,Wet,overlap,6,9,3,0,0.32395654650049305
+rainfed,R09,Zamboanga Sibugay,4,44323.15,1,Wet,nearest,6,9,5,2,0.41469421399067796
+rainfed,R09,Zamboanga del Norte,1,14744.876,2,Dry,overlap,11,2,4,1,0.24143519653718923
+rainfed,R09,Zamboanga del Norte,2,3936.7580000000003,2,Dry,nearest,11,2,5,2,0.2690876704201361
+rainfed,R09,Zamboanga del Norte,3,7711.836,1,Wet,overlap,6,9,3,0,0.12901266226317948
+rainfed,R09,Zamboanga del Norte,4,25670.841,1,Wet,nearest,6,9,5,2,0.24018033986696952
+rainfed,R09,Zamboanga del Sur,1,25131.288,2,Dry,overlap,10,1,5,2,0.41150413591221147
+rainfed,R09,Zamboanga del Sur,2,3071.165,1,Wet,nearest,6,9,3,0,0.20992213271068663
+rainfed,R09,Zamboanga del Sur,3,31036.02,1,Wet,overlap,6,9,3,0,0.5192070430768086
+rainfed,R09,Zamboanga del Sur,4,35474.128000000004,1,Wet,nearest,6,9,5,2,0.33190140204305657
+rainfed,R10,Bukidnon,1,10870.5,2,Dry,nearest,9,12,5,2,0.7428638633718194
+rainfed,R10,Bukidnon,2,7048.425,3,Third,overlap,1,4,5,2,0.7755745926168166
+rainfed,R10,Bukidnon,3,22475.118,1,Wet,nearest,5,10,5,0,0.6161943581129533
+rainfed,R10,Bukidnon,4,17125.134,1,Wet,overlap,5,10,7,2,0.6490776650124443
+rainfed,R10,Camiguin,2,0.075,1,Wet,overlap,1,5,5,1,8.252637212747704e-06
+rainfed,R10,Camiguin,3,0.1,1,Wet,nearest,1,5,6,2,2.741673516966422e-06
+rainfed,R10,Lanao del Norte,1,3108.886,2,Dry,overlap,11,2,4,1,0.2124538029292638
+rainfed,R10,Lanao del Norte,2,1630.243,2,Dry,overlap,11,2,5,2,0.17938405396828608
+rainfed,R10,Lanao del Norte,3,12794.774000000001,1,Wet,overlap,3,6,5,2,0.35079093031370534
+rainfed,R10,Lanao del Norte,4,7224.3820000000005,2,Dry,nearest,11,2,3,0,0.2738188792985756
+rainfed,R10,Misamis Occidental,1,521.86,2,Dry,overlap,10,2,5,1,0.035662659099325485
+rainfed,R10,Misamis Occidental,2,271.91700000000003,2,Dry,nearest,10,2,6,2,0.02992043137304957
+rainfed,R10,Misamis Occidental,3,784.26,1,Wet,overlap,5,9,4,0,0.02150184872416086
+rainfed,R10,Misamis Occidental,4,1702.298,1,Wet,nearest,5,9,6,2,0.0645205819116717
+rainfed,R10,Misamis Oriental,1,131.987,2,Dry,overlap,11,3,4,0,0.009019674599591217
+rainfed,R10,Misamis Oriental,2,137.344,2,Dry,overlap,11,3,6,2,0.015112669404634942
+rainfed,R10,Misamis Oriental,3,419.821,1,Wet,overlap,5,10,5,0,0.011510121175663603
+rainfed,R10,Misamis Oriental,4,331.98400000000004,1,Wet,overlap,5,10,7,2,0.012582873777308334
+rainfed,R11,City of Davao,1,340.13199999999995,2,Dry,overlap,12,3,3,0,0.033529063789228195
+rainfed,R11,City of Davao,2,469.22700000000003,2,Dry,overlap,12,3,5,2,0.044714531014727985
+rainfed,R11,City of Davao,3,670.769,1,Wet,overlap,6,9,3,0,0.05408753942251062
+rainfed,R11,City of Davao,4,551.8779999999999,1,Wet,overlap,6,9,5,2,0.04743740552862495
+rainfed,R11,Davao Occidental,1,60.16799999999999,2,Dry,overlap,12,3,3,0,0.005931158227012695
+rainfed,R11,Davao Occidental,2,74.928,2,Dry,nearest,12,3,5,2,0.007140190952079778
+rainfed,R11,Davao Occidental,3,111.13899999999998,1,Wet,overlap,6,9,3,0,0.008961706703616902
+rainfed,R11,Davao Occidental,4,141.644,1,Wet,nearest,6,9,5,2,0.01217519790369711
+rainfed,R11,Davao Oriental,1,3606.608,2,Dry,overlap,12,3,3,0,0.35552723558718596
+rainfed,R11,Davao Oriental,2,3223.1369999999997,3,Third,overlap,3,5,3,1,0.30714570847631806
+rainfed,R11,Davao Oriental,3,2400.457,1,Wet,nearest,6,10,4,0,0.19356114045154377
+rainfed,R11,Davao Oriental,4,1789.166,1,Wet,overlap,6,10,6,2,0.1537901367694088
+rainfed,R11,Davao de Oro (Compostela Valley),1,3687.5589999999997,2,Dry,overlap,12,3,3,0,0.36350711176114725
+rainfed,R11,Davao de Oro (Compostela Valley),2,4305.057,2,Dry,nearest,12,3,5,2,0.4102462235691292
+rainfed,R11,Davao de Oro (Compostela Valley),3,5372.232,1,Wet,nearest,6,10,4,0,0.4331905769152615
+rainfed,R11,Davao de Oro (Compostela Valley),4,5062.824,1,Wet,overlap,6,10,6,2,0.4351817525033705
+rainfed,R11,Davao del Norte,1,1967.446,2,Dry,overlap,11,3,4,0,0.19394418177608064
+rainfed,R11,Davao del Norte,2,2168.065,2,Dry,overlap,11,3,6,2,0.20660364745516824
+rainfed,R11,Davao del Norte,3,3279.0989999999997,1,Wet,overlap,5,9,4,0,0.26441054436447586
+rainfed,R11,Davao del Norte,4,3544.851,1,Wet,overlap,5,9,6,2,0.30470236977294207
+rainfed,R11,Davao del Sur,1,482.48,2,Dry,overlap,12,3,3,0,0.047561248859345255
+rainfed,R11,Davao del Sur,2,253.423,2,Dry,nearest,12,3,5,2,0.02414969853257679
+rainfed,R11,Davao del Sur,3,567.8480000000001,1,Wet,overlap,6,9,3,0,0.045788492142591286
+rainfed,R11,Davao del Sur,4,543.452,1,Wet,nearest,6,9,5,2,0.046713137521956466
+rainfed,R12,Cotabato (North Cotabato),1,29516.9,2,Dry,overlap,12,5,5,0,0.5527152478993491
+rainfed,R12,Cotabato (North Cotabato),2,1803.0459999999998,2,Dry,overlap,12,5,6,1,0.2801865314056535
+rainfed,R12,Cotabato (North Cotabato),3,21412.2,1,Wet,overlap,5,10,5,0,0.32276599127976197
+rainfed,R12,Cotabato (North Cotabato),4,41855.7,1,Wet,overlap,5,10,7,2,0.5306544120320664
+rainfed,R12,Sarangani,1,808.601,2,Dry,nearest,11,5,6,0,0.015141363156925746
+rainfed,R12,Sarangani,2,412.617,2,Dry,overlap,11,5,7,1,0.06411912176894353
+rainfed,R12,Sarangani,3,3140.9489999999996,1,Wet,overlap,5,8,4,1,0.047346443501563445
+rainfed,R12,Sarangani,4,2848.495,1,Wet,nearest,5,8,5,2,0.036113753667989815
+rainfed,R12,South Cotabato,1,11661.3,2,Dry,overlap,12,4,4,0,0.21836230499573733
+rainfed,R12,South Cotabato,2,2815.9,2,Dry,overlap,12,4,6,2,0.4375802135858874
+rainfed,R12,South Cotabato,3,17534.968,1,Wet,overlap,6,10,4,0,0.2643208698115516
+rainfed,R12,South Cotabato,4,14583.515,1,Wet,overlap,6,10,6,2,0.18489253740077988
+rainfed,R12,Sultan Kudarat,1,11416.647,2,Dry,overlap,10,2,5,1,0.21378108394798778
+rainfed,R12,Sultan Kudarat,2,1403.6,2,Dry,nearest,10,2,6,2,0.21811413323951542
+rainfed,R12,Sultan Kudarat,3,24251.586,1,Wet,overlap,5,9,4,0,0.3655666954071229
+rainfed,R12,Sultan Kudarat,4,19587.917999999998,1,Wet,nearest,5,9,6,2,0.24833929689916381
+rainfed,R13,Agusan del Norte,1,1499.05,2,Dry,overlap,1,5,4,0,0.21440535677992487
+rainfed,R13,Agusan del Norte,2,5123.084,2,Dry,overlap,1,5,5,1,0.048157469315814834
+rainfed,R13,Agusan del Norte,3,1870.136,2,Dry,overlap,1,5,6,2,0.18509737937996887
+rainfed,R13,Agusan del Norte,4,3895.744,1,Wet,overlap,8,11,4,1,0.06390317258928836
+rainfed,R13,Agusan del Sur,1,832.6139999999999,2,Dry,overlap,1,5,4,0,0.11908668938992052
+rainfed,R13,Agusan del Sur,2,68935.698,2,Dry,overlap,1,5,5,1,0.6480020162072843
+rainfed,R13,Agusan del Sur,3,3898.475,1,Wet,overlap,7,11,4,0,0.3858529572599662
+rainfed,R13,Agusan del Sur,4,51961.002,1,Wet,overlap,7,11,5,1,0.85233343841853
+rainfed,R13,Dinagat Islands,1,254.01,2,Dry,overlap,1,5,4,0,0.03633041237828539
+rainfed,R13,Dinagat Islands,2,976.135,2,Dry,overlap,1,5,5,1,0.009175760403419681
+rainfed,R13,Dinagat Islands,3,579.176,1,Wet,nearest,7,11,4,0,0.057324151719325686
+rainfed,R13,Dinagat Islands,4,496.541,1,Wet,overlap,7,11,5,1,0.008144925647233965
+rainfed,R13,Surigao del Norte,1,3092.08,2,Dry,overlap,2,5,3,0,0.4422524369381075
+rainfed,R13,Surigao del Norte,2,11637.72,2,Dry,overlap,2,5,4,1,0.10939565773390493
+rainfed,R13,Surigao del Norte,3,1315.1200000000001,1,Wet,overlap,7,10,3,0,0.130164472300509
+rainfed,R13,Surigao del Norte,4,1839.0440000000003,1,Wet,overlap,7,10,5,2,0.030166444748755374
+rainfed,R13,Surigao del Sur,1,1313.909,2,Dry,overlap,1,5,4,0,0.1879251045137616
+rainfed,R13,Surigao del Sur,2,19709.282,2,Dry,overlap,1,5,5,1,0.18526909633957625
+rainfed,R13,Surigao del Sur,3,2440.618,1,Wet,overlap,7,11,4,0,0.24156103934023027
+rainfed,R13,Surigao del Sur,4,2770.902,1,Wet,overlap,7,11,5,1,0.04545201859619223
+total,BARMM,Basilan,1,314.635,2,Dry,overlap,1,4,3,0,0.001439395442842965
+total,BARMM,Basilan,2,225.163,1,Wet,overlap,5,8,3,0,0.0023497905008511297
+total,BARMM,Basilan,3,196.92000000000002,1,Wet,overlap,5,8,4,1,0.0007974385296056385
+total,BARMM,Basilan,4,358.877,1,Wet,overlap,5,8,5,2,0.0019905300495591657
+total,BARMM,Lanao del Sur,1,36275.026,2,Dry,overlap,1,4,3,0,0.16595136305055083
+total,BARMM,Lanao del Sur,2,34129.922000000006,2,Dry,overlap,1,4,5,2,0.356178264236975
+total,BARMM,Lanao del Sur,3,66840.295,1,Wet,overlap,4,7,5,2,0.2706735047897984
+total,BARMM,Lanao del Sur,4,68107.65400000001,1,Wet,overlap,4,7,5,2,0.3777626649018425
+total,BARMM,Maguindanao del Norte,1,17565.3,2,Dry,nearest,1,4,3,0,0.08035791559162055
+total,BARMM,Maguindanao del Norte,2,7569.945,2,Dry,overlap,1,4,5,2,0.07899959075410039
+total,BARMM,Maguindanao del Norte,3,18210.708000000002,1,Wet,overlap,6,9,3,0,0.07374527833941519
+total,BARMM,Maguindanao del Norte,4,10985.295,1,Wet,nearest,6,9,5,2,0.0609305132420636
+total,BARMM,Maguindanao del Sur,1,164426.837,2,Dry,nearest,1,4,3,0,0.7522215896479508
+total,BARMM,Maguindanao del Sur,2,53897.55500000001,2,Dry,overlap,1,4,5,2,0.5624723545080734
+total,BARMM,Maguindanao del Sur,3,160440.54499999998,1,Wet,overlap,6,9,3,0,0.6497129407572987
+total,BARMM,Maguindanao del Sur,4,100646.653,1,Wet,nearest,6,9,5,2,0.558241924626137
+total,BARMM,Sulu,1,6.5,1,Wet,nearest,5,8,3,0,2.9736267034752242e-05
+total,BARMM,Sulu,3,1252.196,1,Wet,overlap,5,8,4,1,0.005070837583882094
+total,BARMM,Sulu,4,193.7,1,Wet,overlap,5,8,5,2,0.0010743671803977698
+total,CAR,Abra,1,7373.35,1,Wet,overlap,6,10,6,2,0.1794370955845214
+total,CAR,Abra,2,11204.45,2,Dry,overlap,1,5,5,1,0.0921192022287742
+total,CAR,Abra,3,9230.042,1,Wet,overlap,6,10,4,0,0.1521963548957486
+total,CAR,Abra,4,46873.694,1,Wet,overlap,6,10,6,2,0.31986913899815356
+total,CAR,Apayao,1,4166.985,2,Dry,overlap,12,4,4,0,0.10140732309523715
+total,CAR,Apayao,2,39104.755,2,Dry,overlap,12,4,6,2,0.32150608320369756
+total,CAR,Apayao,3,9092.806,1,Wet,overlap,6,10,4,0,0.14993343789488633
+total,CAR,Apayao,4,29163.926,1,Wet,overlap,6,10,6,2,0.1990165293869492
+total,CAR,Benguet,1,5123.199,1,Wet,overlap,7,11,6,2,0.12467764973336737
+total,CAR,Benguet,2,3257.226,2,Dry,overlap,1,4,5,2,0.026779811646160348
+total,CAR,Benguet,3,5097.982,1,Wet,overlap,7,11,4,0,0.08406183609176841
+total,CAR,Benguet,4,7187.589999999999,1,Wet,overlap,7,11,5,1,0.04904858202069029
+total,CAR,Ifugao,1,12014.197,2,Dry,overlap,11,3,4,0,0.29237627611062406
+total,CAR,Ifugao,2,8827.966,2,Dry,nearest,11,3,6,2,0.07258055372845101
+total,CAR,Ifugao,3,11130.452000000001,1,Wet,overlap,5,9,4,0,0.18353266677899135
+total,CAR,Ifugao,4,13644.076000000001,1,Wet,overlap,5,9,6,2,0.09310806275574038
+total,CAR,Kalinga,1,12147.064999999999,1,Wet,nearest,7,11,6,2,0.29560973824332143
+total,CAR,Kalinga,2,57039.85600000001,2,Dry,overlap,1,5,5,1,0.468962423855179
+total,CAR,Kalinga,3,17183.55,1,Wet,nearest,7,11,4,0,0.2833436374578621
+total,CAR,Kalinga,4,46127.740000000005,1,Wet,overlap,7,11,5,1,0.3147787003458846
+total,CAR,Mountain Province,1,266.76300000000003,1,Wet,overlap,6,10,6,2,0.006491917232928544
+total,CAR,Mountain Province,2,2195.654,2,Dry,overlap,12,4,6,2,0.018051925337737862
+total,CAR,Mountain Province,3,8910.786,1,Wet,overlap,6,10,4,0,0.14693206688074315
+total,CAR,Mountain Province,4,3543.1940000000004,1,Wet,overlap,6,10,6,2,0.02417898649258204
+total,MIMAROPA,Marinduque,1,7000.204,2,Dry,overlap,1,5,4,0,0.025370739881743397
+total,MIMAROPA,Marinduque,2,1871.8239999999998,2,Dry,overlap,1,5,5,1,0.00974814294216888
+total,MIMAROPA,Marinduque,3,2845.972,1,Wet,overlap,5,8,4,1,0.021926641104081192
+total,MIMAROPA,Marinduque,4,5981.1,1,Wet,overlap,5,8,5,2,0.00994867178312153
+total,MIMAROPA,Occidental Mindoro,1,46714.526,2,Dry,overlap,12,3,3,0,0.1693067927513168
+total,MIMAROPA,Occidental Mindoro,2,55644.676,2,Dry,overlap,12,3,5,2,0.28978806534090495
+total,MIMAROPA,Occidental Mindoro,3,15512.741,1,Wet,overlap,6,11,5,0,0.11951709449269547
+total,MIMAROPA,Occidental Mindoro,4,235884.88799999998,1,Wet,overlap,6,11,6,1,0.39235948726996406
+total,MIMAROPA,Oriental Mindoro,1,101514.85500000001,2,Dry,overlap,12,4,4,0,0.36791884641331857
+total,MIMAROPA,Oriental Mindoro,2,94161.891,2,Dry,overlap,12,4,6,2,0.4903792093556475
+total,MIMAROPA,Oriental Mindoro,3,24810.575,1,Wet,overlap,6,10,4,0,0.19115176593827668
+total,MIMAROPA,Oriental Mindoro,4,173164.423,1,Wet,overlap,6,10,6,2,0.28803330640528013
+total,MIMAROPA,Palawan,1,105451.327,2,Dry,overlap,11,3,4,0,0.3821857459442131
+total,MIMAROPA,Palawan,2,39507.082,2,Dry,overlap,11,3,6,2,0.2057462040042158
+total,MIMAROPA,Palawan,3,84358.477,1,Wet,overlap,6,10,4,0,0.6499354348060654
+total,MIMAROPA,Palawan,4,168764.471,1,Wet,overlap,6,10,6,2,0.28071463955311426
+total,MIMAROPA,Romblon,1,15235.519,2,Dry,overlap,10,2,5,1,0.055217875009408196
+total,MIMAROPA,Romblon,2,833.049,2,Dry,nearest,10,2,6,2,0.004338378357062867
+total,MIMAROPA,Romblon,3,2267.4,1,Wet,overlap,6,10,4,0,0.017469063658881286
+total,MIMAROPA,Romblon,4,17400.949,1,Wet,overlap,6,10,6,2,0.028943894988519972
+total,R01,Ilocos Norte,1,44424.585,2,Dry,overlap,10,2,5,1,0.13640790671521902
+total,R01,Ilocos Norte,2,30051.909999999996,3,Third,overlap,2,5,4,1,0.17862423018072726
+total,R01,Ilocos Norte,3,44119.978,1,Wet,nearest,6,10,4,0,0.24475535527841344
+total,R01,Ilocos Norte,4,210428.2,1,Wet,overlap,6,10,6,2,0.17250639700025278
+total,R01,Ilocos Sur,1,24946.5,2,Dry,overlap,11,3,4,0,0.07659947402707783
+total,R01,Ilocos Sur,2,7892.783,2,Dry,overlap,11,3,6,2,0.04691356680352535
+total,R01,Ilocos Sur,3,28788.526,1,Wet,overlap,7,10,3,0,0.1597042026873142
+total,R01,Ilocos Sur,4,172496.63700000002,1,Wet,overlap,7,10,5,2,0.14141057778154495
+total,R01,La Union,1,26381.775,2,Dry,overlap,11,2,4,1,0.08100655758926949
+total,R01,La Union,2,9825.655999999999,2,Dry,overlap,11,2,5,2,0.058402285878689376
+total,R01,La Union,3,13617.1,1,Wet,overlap,7,11,4,0,0.07554079352355261
+total,R01,La Union,4,121768.88700000002,1,Wet,overlap,7,11,5,1,0.09982460508192781
+total,R01,Pangasinan,1,229921.7,2,Dry,overlap,12,3,3,0,0.7059860616684337
+total,R01,Pangasinan,2,120470.6,2,Dry,nearest,12,3,5,2,0.7160599171370581
+total,R01,Pangasinan,3,93735.939,1,Wet,nearest,7,11,4,0,0.5199996485107198
+total,R01,Pangasinan,4,715134.663,1,Wet,overlap,7,11,5,1,0.5862584201362744
+total,R02,Cagayan,1,191478.0,1,Wet,nearest,5,11,8,2,0.2984749341263788
+total,R02,Cagayan,2,385717.1,1,Wet,nearest,5,11,6,0,0.4498331320768206
+total,R02,Cagayan,3,108536.91,1,Wet,overlap,5,11,6,0,0.29756328783675706
+total,R02,Cagayan,4,297471.275,1,Wet,overlap,5,11,7,1,0.3371289421988928
+total,R02,Isabela,1,363986.534,2,Dry,overlap,12,4,4,0,0.5673803609737877
+total,R02,Isabela,2,361649.056,2,Dry,overlap,12,4,6,2,0.42176436453842847
+total,R02,Isabela,3,193422.766,1,Wet,overlap,7,11,4,0,0.5302851738955873
+total,R02,Isabela,4,456815.67699999997,1,Wet,overlap,7,11,5,1,0.5177164953721366
+total,R02,Nueva Vizcaya,1,62071.60799999999,2,Dry,overlap,1,4,3,0,0.09675690736752214
+total,R02,Nueva Vizcaya,2,79170.958,2,Dry,overlap,1,4,5,2,0.09233119300819802
+total,R02,Nueva Vizcaya,3,55760.579000000005,1,Wet,overlap,6,10,4,0,0.15287243039184764
+total,R02,Nueva Vizcaya,4,84550.82800000001,1,Wet,overlap,6,10,6,2,0.09582280240564581
+total,R02,Quirino,1,23985.065,2,Dry,overlap,12,3,3,0,0.037387797532311355
+total,R02,Quirino,2,30929.961,2,Dry,overlap,12,3,5,2,0.036071310376552944
+total,R02,Quirino,3,7032.1,1,Wet,overlap,6,10,4,0,0.019279107875807958
+total,R02,Quirino,4,43528.691000000006,1,Wet,overlap,6,10,6,2,0.049331760023324824
+total,R03,Aurora,1,20577.164,1,Wet,nearest,8,12,6,2,0.028143743869369475
+total,R03,Aurora,2,34733.929000000004,2,Dry,overlap,1,4,5,2,0.03136740690361228
+total,R03,Aurora,3,20164.304,1,Wet,nearest,8,12,4,0,0.06024654424022829
+total,R03,Aurora,4,20889.547,1,Wet,overlap,8,12,4,0,0.01466294164560488
+total,R03,Bataan,1,43460.3,2,Dry,overlap,1,4,3,0,0.059441405612841405
+total,R03,Bataan,2,24648.052000000003,2,Dry,overlap,1,4,5,2,0.022259084955963217
+total,R03,Bataan,3,7642.592999999999,1,Wet,overlap,6,10,4,0,0.022834401687484924
+total,R03,Bataan,4,42779.368,1,Wet,overlap,6,10,6,2,0.030028002838924983
+total,R03,Bulacan,1,90221.878,2,Dry,nearest,2,5,3,0,0.12339802636774924
+total,R03,Bulacan,2,87900.088,2,Dry,overlap,2,5,4,1,0.07938053386241813
+total,R03,Bulacan,3,26044.199,1,Wet,overlap,7,10,3,0,0.077814388597534
+total,R03,Bulacan,4,164396.52,1,Wet,overlap,7,10,5,2,0.11539439220489156
+total,R03,Nueva Ecija,1,228481.239,2,Dry,overlap,1,4,3,0,0.312497750874328
+total,R03,Nueva Ecija,2,771452.11,2,Dry,overlap,1,4,5,2,0.6966805350762437
+total,R03,Nueva Ecija,3,151558.647,1,Wet,overlap,7,10,3,0,0.45282419524495576
+total,R03,Nueva Ecija,4,688450.991,1,Wet,overlap,7,10,5,2,0.48324248998275804
+total,R03,Pampanga,1,152756.944,2,Dry,overlap,12,3,3,0,0.20892832006410678
+total,R03,Pampanga,2,86935.36799999999,2,Dry,nearest,12,3,5,2,0.07850931757162495
+total,R03,Pampanga,3,52316.520000000004,1,Wet,nearest,7,11,4,0,0.15631035599715162
+total,R03,Pampanga,4,149177.014,1,Wet,overlap,7,11,5,1,0.10471140667375806
+total,R03,Tarlac,1,170765.1,2,Dry,overlap,12,3,3,0,0.23355838716293775
+total,R03,Tarlac,2,79071.34,2,Dry,nearest,12,3,5,2,0.07140749600178757
+total,R03,Tarlac,3,60686.536,1,Wet,nearest,7,10,3,0,0.1813181390198346
+total,R03,Tarlac,4,283263.49100000004,1,Wet,overlap,7,10,5,2,0.19883035466797458
+total,R03,Zambales,1,24882.602000000003,2,Dry,overlap,11,2,4,1,0.03403236604866738
+total,R03,Zambales,2,22584.595999999998,2,Dry,overlap,11,2,5,2,0.02039562562835014
+total,R03,Zambales,3,16283.643,1,Wet,overlap,7,10,3,0,0.0486519752128109
+total,R03,Zambales,4,75692.19499999999,1,Wet,overlap,7,10,5,2,0.05313041198608785
+total,R04A,Batangas,1,9406.5,2,Dry,overlap,12,4,4,0,0.10635358691251529
+total,R04A,Batangas,2,5731.0160000000005,2,Dry,overlap,12,4,6,2,0.04144577142218262
+total,R04A,Batangas,3,5128.67,1,Wet,overlap,6,8,3,1,0.13469552034383842
+total,R04A,Batangas,4,16164.323,1,Wet,nearest,6,8,4,2,0.12508328949818082
+total,R04A,Cavite,1,6702.7210000000005,1,Wet,overlap,6,10,6,2,0.0757835986205115
+total,R04A,Cavite,2,6410.347,2,Dry,overlap,11,3,6,2,0.04635858223024924
+total,R04A,Cavite,3,4498.635,1,Wet,overlap,6,10,4,0,0.11814875633682875
+total,R04A,Cavite,4,9256.376,1,Wet,overlap,6,10,6,2,0.07162798954908368
+total,R04A,Laguna,1,22768.56,2,Dry,nearest,12,4,4,0,0.2574302902070716
+total,R04A,Laguna,2,63369.473,2,Dry,overlap,12,4,6,2,0.45827767591334123
+total,R04A,Laguna,3,9775.151,1,Wet,nearest,6,10,4,0,0.2567271925049949
+total,R04A,Laguna,4,39044.719,1,Wet,overlap,6,10,6,2,0.30213711332371423
+total,R04A,Quezon,1,45338.369,2,Dry,overlap,12,3,3,0,0.5126134234745323
+total,R04A,Quezon,2,55169.295999999995,2,Dry,nearest,12,3,5,2,0.39897533553190806
+total,R04A,Quezon,3,17491.175,1,Wet,nearest,7,10,3,0,0.45937502667360885
+total,R04A,Quezon,4,54742.933999999994,1,Wet,overlap,7,10,5,2,0.42361355075011836
+total,R04A,Rizal,1,4229.386,1,Wet,overlap,7,11,6,2,0.047819100785369203
+total,R04A,Rizal,2,7597.3279999999995,2,Dry,overlap,1,5,5,1,0.05494263490231886
+total,R04A,Rizal,3,1182.394,1,Wet,overlap,7,11,4,0,0.031053504140728976
+total,R04A,Rizal,4,10020.125,1,Wet,overlap,7,11,5,1,0.07753805687890294
+total,R05,Albay,1,41318.596000000005,2,Dry,nearest,1,4,3,0,0.1491635645072299
+total,R05,Albay,2,64290.257999999994,2,Dry,overlap,1,4,5,2,0.17907714039839648
+total,R05,Albay,3,42837.737,1,Wet,overlap,7,10,3,0,0.20241714335453156
+total,R05,Albay,4,63062.235,1,Wet,overlap,7,10,5,2,0.14384953915272664
+total,R05,Camarines Norte,1,24796.435,2,Dry,overlap,1,4,3,0,0.08951719055680965
+total,R05,Camarines Norte,2,25994.45,2,Dry,overlap,1,4,5,2,0.07240617656611517
+total,R05,Camarines Norte,3,21040.481,1,Wet,overlap,7,10,3,0,0.09942061269075203
+total,R05,Camarines Norte,4,30221.192,1,Wet,overlap,7,10,5,2,0.06893673435212166
+total,R05,Camarines Sur,1,149163.0,2,Dry,overlap,11,2,4,1,0.5384908231778237
+total,R05,Camarines Sur,2,162298.0,2,Dry,nearest,11,2,5,2,0.45207256334822854
+total,R05,Camarines Sur,3,123314.1,1,Wet,nearest,7,10,3,0,0.5826845581813774
+total,R05,Camarines Sur,4,220594.8,1,Wet,overlap,7,10,5,2,0.5031927637751485
+total,R05,Catanduanes,1,8790.786,2,Dry,overlap,1,4,3,0,0.03173546784068494
+total,R05,Catanduanes,2,6716.614,2,Dry,overlap,1,4,5,2,0.01870877588140703
+total,R05,Catanduanes,3,5529.205,1,Wet,overlap,7,10,3,0,0.026126634119855413
+total,R05,Catanduanes,4,6826.847,1,Wet,overlap,7,10,5,2,0.015572533939150339
+total,R05,Masbate,1,33390.990000000005,2,Dry,overlap,1,4,3,0,0.12054424818368148
+total,R05,Masbate,2,47503.215000000004,2,Dry,overlap,1,4,5,2,0.13231771292518713
+total,R05,Masbate,3,8811.822,1,Wet,overlap,7,10,3,0,0.04163767654179807
+total,R05,Masbate,4,62473.103,1,Wet,overlap,7,10,5,2,0.14250568626359064
+total,R05,Sorsogon,1,19542.128,2,Dry,overlap,12,3,3,0,0.07054870573377042
+total,R05,Sorsogon,2,52206.2,2,Dry,nearest,12,3,5,2,0.14541763088066573
+total,R05,Sorsogon,3,10097.628,1,Wet,overlap,7,10,3,0,0.047713375111685566
+total,R05,Sorsogon,4,55212.06999999999,1,Wet,overlap,7,10,5,2,0.12594274251726223
+total,R06,Aklan,1,35878.733,2,Dry,overlap,1,4,3,0,0.05838917247369771
+total,R06,Aklan,2,8326.886999999999,2,Dry,overlap,1,4,5,2,0.0697417187976408
+total,R06,Aklan,3,19519.591,1,Wet,overlap,6,10,4,0,0.0284834244527008
+total,R06,Aklan,4,36375.704,1,Wet,overlap,6,10,6,2,0.04993243712637095
+total,R06,Antique,1,60493.492999999995,2,Dry,overlap,1,4,3,0,0.0984473168635421
+total,R06,Antique,2,16128.931,2,Dry,overlap,1,4,5,2,0.1350876228185337
+total,R06,Antique,3,94204.068,1,Wet,overlap,6,10,4,0,0.13746468632539938
+total,R06,Antique,4,100041.95300000001,1,Wet,overlap,6,10,6,2,0.13732623643990116
+total,R06,Capiz,1,114710.18599999999,2,Dry,overlap,1,4,3,0,0.18667974799567041
+total,R06,Capiz,2,40543.883,2,Dry,overlap,1,4,5,2,0.3395746918566866
+total,R06,Capiz,3,91919.503,1,Wet,overlap,6,10,4,0,0.13413099790002284
+total,R06,Capiz,4,85832.057,1,Wet,overlap,6,10,6,2,0.11782050430088137
+total,R06,Guimaras,1,10763.5,2,Dry,overlap,1,4,3,0,0.01751655661644031
+total,R06,Guimaras,2,583.219,2,Dry,overlap,1,4,5,2,0.004884742100552257
+total,R06,Guimaras,3,19274.504999999997,1,Wet,overlap,6,9,3,0,0.028125789471239625
+total,R06,Guimaras,4,23602.775,1,Wet,overlap,6,9,5,2,0.03239921016223851
+total,R06,Iloilo,1,319519.38,2,Dry,overlap,10,1,5,2,0.5199869289561858
+total,R06,Iloilo,2,22405.848,3,Third,overlap,2,5,4,1,0.18765984822883783
+total,R06,Iloilo,3,265301.433,1,Wet,overlap,6,9,3,0,0.38713379414808247
+total,R06,Iloilo,4,315648.82,1,Wet,nearest,6,9,5,2,0.43328686803321204
+total,R06,Negros Occidental,1,73110.5,2,Dry,overlap,1,4,3,0,0.11898027709446363
+total,R06,Negros Occidental,2,31407.3,2,Dry,overlap,1,4,5,2,0.2630513761977488
+total,R06,Negros Occidental,3,195077.397,1,Wet,overlap,7,11,4,0,0.28466130770255493
+total,R06,Negros Occidental,4,166997.16,1,Wet,overlap,7,11,5,1,0.22923474393739596
+total,R07,Bohol,1,68152.371,2,Dry,overlap,12,3,3,0,0.7966721537524935
+total,R07,Bohol,2,34017.65,2,Dry,nearest,12,3,5,2,0.7202112782630471
+total,R07,Bohol,3,6975.404,1,Wet,nearest,6,10,4,0,0.34344161744493745
+total,R07,Bohol,4,94014.106,1,Wet,overlap,6,10,6,2,0.7187749612584907
+total,R07,Cebu,1,4125.102,2,Dry,overlap,12,3,3,0,0.04822068325089846
+total,R07,Cebu,2,1656.083,2,Dry,overlap,12,3,5,2,0.03506208260534463
+total,R07,Cebu,3,1758.557,1,Wet,overlap,5,9,4,0,0.08658447029722104
+total,R07,Cebu,4,4798.243,1,Wet,overlap,5,9,6,2,0.036684462291582336
+total,R07,Negros Oriental,1,12727.202000000001,2,Dry,overlap,1,4,3,0,0.14877556392840746
+total,R07,Negros Oriental,2,10919.083,2,Dry,overlap,1,4,5,2,0.2311754846348971
+total,R07,Negros Oriental,3,11326.95,1,Wet,overlap,5,9,4,0,0.5576947268886411
+total,R07,Negros Oriental,4,31269.061999999998,1,Wet,overlap,5,9,6,2,0.23906432538580266
+total,R07,Siquijor,1,541.645,2,Dry,overlap,12,3,3,0,0.0063315990682007136
+total,R07,Siquijor,2,640.0600000000001,2,Dry,overlap,12,3,5,2,0.013551154496711147
+total,R07,Siquijor,3,249.394,1,Wet,overlap,5,9,4,0,0.012279185369200512
+total,R07,Siquijor,4,716.281,1,Wet,overlap,5,9,6,2,0.005476251064124281
+total,R08,Biliran,1,7307.25,2,Dry,nearest,12,4,4,0,0.027146699896924458
+total,R08,Biliran,2,19706.864,2,Dry,overlap,12,4,6,2,0.0928154745785176
+total,R08,Biliran,3,8150.4,1,Wet,nearest,6,10,4,0,0.05823294145415937
+total,R08,Biliran,4,20097.4,1,Wet,overlap,6,10,6,2,0.0761239661520425
+total,R08,Eastern Samar,1,19910.186999999998,2,Dry,overlap,12,4,4,0,0.07396706988000228
+total,R08,Eastern Samar,2,11770.247,2,Dry,overlap,12,4,6,2,0.05543556099090007
+total,R08,Eastern Samar,3,10194.45,1,Wet,overlap,6,9,3,0,0.07283726074884117
+total,R08,Eastern Samar,4,14737.173999999999,1,Wet,overlap,6,9,5,2,0.0558207596382
+total,R08,Leyte,1,140092.16199999998,1,Wet,overlap,12,4,4,0,0.5204474843101473
+total,R08,Leyte,2,108173.14499999999,1,Wet,overlap,12,4,6,2,0.5094743531911418
+total,R08,Leyte,3,65557.434,2,Dry,overlap,6,10,4,0,0.4683944611315907
+total,R08,Leyte,4,142076.19,2,Dry,overlap,6,10,6,2,0.5381493665136365
+total,R08,Northern Samar,1,40222.034,2,Dry,overlap,11,3,4,0,0.1494263212893896
+total,R08,Northern Samar,2,17354.377,2,Dry,nearest,11,3,6,2,0.08173572097871638
+total,R08,Northern Samar,3,22431.301,1,Wet,overlap,6,9,3,0,0.16026705902454194
+total,R08,Northern Samar,4,13300.981,1,Wet,nearest,6,9,5,2,0.05038081679386191
+total,R08,Samar,1,50873.892,2,Dry,overlap,12,4,4,0,0.1889983617246633
+total,R08,Samar,2,26023.692,2,Dry,overlap,12,4,6,2,0.12256649882321062
+total,R08,Samar,3,26658.859999999997,1,Wet,overlap,6,10,4,0,0.19047210365314968
+total,R08,Samar,4,47903.795,1,Wet,overlap,6,10,6,2,0.18144769319087953
+total,R08,Southern Leyte,1,10770.84,1,Wet,overlap,7,11,6,2,0.040014062898873014
+total,R08,Southern Leyte,2,29294.718,2,Dry,overlap,12,4,6,2,0.13797239143751344
+total,R08,Southern Leyte,3,6969.572999999999,1,Wet,overlap,7,11,4,0,0.04979617398771716
+total,R08,Southern Leyte,4,25893.3,1,Wet,overlap,7,11,5,1,0.09807739771137967
+total,R09,Zamboanga City,1,3372.546,2,Dry,overlap,1,4,3,0,0.017612763363361573
+total,R09,Zamboanga City,2,2260.7830000000004,2,Dry,overlap,1,4,5,2,0.025965492785873238
+total,R09,Zamboanga City,3,4589.658,1,Wet,overlap,6,9,3,0,0.022489212642260687
+total,R09,Zamboanga City,4,5509.276,1,Wet,overlap,6,9,5,2,0.02803813110835419
+total,R09,Zamboanga Sibugay,1,48375.518,2,Dry,overlap,11,2,4,1,0.25263600588814455
+total,R09,Zamboanga Sibugay,2,14413.922,2,Dry,nearest,11,2,5,2,0.16554644461991244
+total,R09,Zamboanga Sibugay,3,48170.745,1,Wet,overlap,6,9,3,0,0.23603547964600322
+total,R09,Zamboanga Sibugay,4,66483.05799999999,1,Wet,nearest,6,9,5,2,0.3383494848848226
+total,R09,Zamboanga del Norte,1,33353.823,2,Dry,overlap,11,2,4,1,0.17418679886425467
+total,R09,Zamboanga del Norte,2,8701.747,2,Dry,nearest,11,2,5,2,0.09994110401263369
+total,R09,Zamboanga del Norte,3,19124.159,1,Wet,overlap,6,9,3,0,0.09370791426189129
+total,R09,Zamboanga del Norte,4,50514.33,1,Wet,nearest,6,9,5,2,0.25708049612883244
+total,R09,Zamboanga del Sur,1,106381.183,2,Dry,overlap,10,1,5,2,0.5555644318842392
+total,R09,Zamboanga del Sur,2,61692.297999999995,1,Wet,nearest,6,9,3,0,0.7085469585815806
+total,R09,Zamboanga del Sur,3,132198.083,1,Wet,overlap,6,9,3,0,0.6477673934498448
+total,R09,Zamboanga del Sur,4,73985.60500000001,1,Wet,nearest,6,9,5,2,0.3765318878779908
+total,R10,Bukidnon,1,129073.88799999999,2,Dry,nearest,9,12,5,2,0.698965552395597
+total,R10,Bukidnon,2,67729.243,3,Third,overlap,1,4,5,2,0.49283104006681105
+total,R10,Bukidnon,3,143900.228,1,Wet,nearest,5,10,5,0,0.6248205782138653
+total,R10,Bukidnon,4,146396.833,1,Wet,overlap,5,10,7,2,0.6311479701260168
+total,R10,Camiguin,1,233.15300000000002,1,Wet,nearest,1,5,4,0,0.0012625784964166466
+total,R10,Camiguin,2,940.3100000000001,1,Wet,overlap,1,5,5,1,0.00684215465519411
+total,R10,Camiguin,3,232.846,1,Wet,nearest,1,5,6,2,0.0010110266979895658
+total,R10,Camiguin,4,751.363,2,Dry,overlap,7,11,5,1,0.0032392861413729785
+total,R10,Lanao del Norte,1,34241.68,2,Dry,overlap,11,2,4,1,0.185426774903947
+total,R10,Lanao del Norte,2,42657.2,2,Dry,overlap,11,2,5,2,0.31039461407147234
+total,R10,Lanao del Norte,3,56230.21,1,Wet,overlap,3,6,5,2,0.24415383362205004
+total,R10,Lanao del Norte,4,57998.797999999995,2,Dry,nearest,11,2,3,0,0.25004518798196185
+total,R10,Misamis Occidental,1,16180.14,2,Dry,overlap,10,2,5,1,0.08761927503832606
+total,R10,Misamis Occidental,2,20805.416999999998,2,Dry,nearest,10,2,6,2,0.15139037208984765
+total,R10,Misamis Occidental,3,24070.158000000003,1,Wet,overlap,5,9,4,0,0.10451359423321481
+total,R10,Misamis Occidental,4,20220.908000000003,1,Wet,nearest,5,9,6,2,0.08717664704061551
+total,R10,Misamis Oriental,1,4935.301,2,Dry,overlap,11,3,4,0,0.026725819165713382
+total,R10,Misamis Oriental,2,5296.761,2,Dry,overlap,11,3,6,2,0.03854181911667494
+total,R10,Misamis Oriental,3,5873.0380000000005,1,Wet,overlap,5,10,5,0,0.02550096723288029
+total,R10,Misamis Oriental,4,6585.364,1,Wet,overlap,5,10,7,2,0.028390908710032994
+total,R11,City of Davao,1,1742.1470000000002,2,Dry,overlap,12,3,3,0,0.012909725924820266
+total,R11,City of Davao,2,2018.3669999999997,2,Dry,overlap,12,3,5,2,0.023319879431571648
+total,R11,City of Davao,3,2558.215,1,Wet,overlap,6,9,3,0,0.018491916368539692
+total,R11,City of Davao,4,2163.207,1,Wet,overlap,6,9,5,2,0.018520353221855527
+total,R11,Davao Occidental,1,366.986,2,Dry,overlap,12,3,3,0,0.002719454028991864
+total,R11,Davao Occidental,2,457.879,2,Dry,nearest,12,3,5,2,0.00529025844866102
+total,R11,Davao Occidental,3,336.78200000000004,1,Wet,overlap,6,9,3,0,0.0024344101564682933
+total,R11,Davao Occidental,4,456.39799999999997,1,Wet,nearest,6,9,5,2,0.003907463395665981
+total,R11,Davao Oriental,1,15806.094000000001,2,Dry,overlap,12,3,3,0,0.11712693675214896
+total,R11,Davao Oriental,2,21611.415,3,Third,overlap,3,5,3,1,0.2496947245697433
+total,R11,Davao Oriental,3,10756.201,1,Wet,nearest,6,10,4,0,0.07775060709721543
+total,R11,Davao Oriental,4,23115.722,1,Wet,overlap,6,10,6,2,0.19790585756158183
+total,R11,Davao de Oro (Compostela Valley),1,27414.76,2,Dry,overlap,12,3,3,0,0.2031499281603249
+total,R11,Davao de Oro (Compostela Valley),2,25861.037,2,Dry,nearest,12,3,5,2,0.29879415627356837
+total,R11,Davao de Oro (Compostela Valley),3,37272.052,1,Wet,nearest,6,10,4,0,0.26941897708670404
+total,R11,Davao de Oro (Compostela Valley),4,34789.811,1,Wet,overlap,6,10,6,2,0.2978538753996242
+total,R11,Davao del Norte,1,34130.454,2,Dry,overlap,11,3,4,0,0.2529148268370496
+total,R11,Davao del Norte,2,28863.554000000004,2,Dry,overlap,11,3,6,2,0.33348474249066584
+total,R11,Davao del Norte,3,41600.8,1,Wet,overlap,5,9,4,0,0.30070909382688554
+total,R11,Davao del Norte,4,28976.102000000003,1,Wet,overlap,5,9,6,2,0.24807965397325105
+total,R11,Davao del Sur,1,55487.969999999994,2,Dry,overlap,12,3,3,0,0.4111791282966644
+total,R11,Davao del Sur,2,7739.096,2,Dry,nearest,12,3,5,2,0.0894162387857899
+total,R11,Davao del Sur,3,45818.291000000005,1,Wet,overlap,6,9,3,0,0.3311949954641869
+total,R11,Davao del Sur,4,27300.365999999998,1,Wet,nearest,6,9,5,2,0.23373279644802142
+total,R12,Cotabato (North Cotabato),1,161530.4,2,Dry,overlap,12,5,5,0,0.4175971222234103
+total,R12,Cotabato (North Cotabato),2,28882.546000000002,2,Dry,overlap,12,5,6,1,0.3434697896132119
+total,R12,Cotabato (North Cotabato),3,154842.5,1,Wet,overlap,5,10,5,0,0.3704381998316653
+total,R12,Cotabato (North Cotabato),4,146399.0,1,Wet,overlap,5,10,7,2,0.4042166121831504
+total,R12,Sarangani,1,7285.725,2,Dry,nearest,11,5,6,0,0.018835450127723054
+total,R12,Sarangani,2,4770.854,2,Dry,overlap,11,5,7,1,0.056734756681607997
+total,R12,Sarangani,3,14044.844000000001,1,Wet,overlap,5,8,4,1,0.03360025011399691
+total,R12,Sarangani,4,13836.505,1,Wet,nearest,5,8,5,2,0.03820343838110384
+total,R12,South Cotabato,1,96103.7,2,Dry,overlap,12,4,4,0,0.24845248049297194
+total,R12,South Cotabato,2,27878.2,2,Dry,overlap,12,4,6,2,0.3315261573129683
+total,R12,South Cotabato,3,108926.16799999999,1,Wet,overlap,6,10,4,0,0.26059004206520525
+total,R12,South Cotabato,4,83432.329,1,Wet,overlap,6,10,6,2,0.23036177415781536
+total,R12,Sultan Kudarat,1,121889.354,2,Dry,overlap,10,2,5,1,0.31511494715589466
+total,R12,Sultan Kudarat,2,22558.898999999998,2,Dry,nearest,10,2,6,2,0.2682692963922119
+total,R12,Sultan Kudarat,3,140184.686,1,Wet,overlap,5,9,4,0,0.3353715079891325
+total,R12,Sultan Kudarat,4,118511.73899999999,1,Wet,nearest,5,9,6,2,0.3272181752779304
+total,R13,Agusan del Norte,1,8922.439999999999,2,Dry,overlap,1,5,4,0,0.29419402659287885
+total,R13,Agusan del Norte,2,31215.390000000003,2,Dry,overlap,1,5,5,1,0.11966504923378006
+total,R13,Agusan del Norte,3,12840.060000000001,2,Dry,overlap,1,5,6,2,0.29465040592608044
+total,R13,Agusan del Norte,4,26096.173000000003,1,Wet,overlap,8,11,4,1,0.15089894635289477
+total,R13,Agusan del Sur,1,1524.534,2,Dry,overlap,1,5,4,0,0.05026750486837099
+total,R13,Agusan del Sur,2,144873.606,2,Dry,overlap,1,5,5,1,0.5553769212771409
+total,R13,Agusan del Sur,3,8884.685000000001,1,Wet,overlap,7,11,4,0,0.20388347420303005
+total,R13,Agusan del Sur,4,113631.38,1,Wet,overlap,7,11,5,1,0.6570639884486281
+total,R13,Dinagat Islands,1,743.55,2,Dry,overlap,1,5,4,0,0.024516608514390133
+total,R13,Dinagat Islands,2,2911.306,2,Dry,overlap,1,5,5,1,0.011160570981961118
+total,R13,Dinagat Islands,3,1431.422,1,Wet,nearest,7,11,4,0,0.0328479051773529
+total,R13,Dinagat Islands,4,1704.111,1,Wet,overlap,7,11,5,1,0.009853879891445304
+total,R13,Surigao del Norte,1,9206.055,2,Dry,overlap,2,5,3,0,0.3035454863787827
+total,R13,Surigao del Norte,2,32293.915,2,Dry,overlap,2,5,4,1,0.12379960424734428
+total,R13,Surigao del Norte,3,5559.218,1,Wet,overlap,7,10,3,0,0.127571509816276
+total,R13,Surigao del Norte,4,15891.539,1,Wet,overlap,7,10,5,2,0.09189150037539738
+total,R13,Surigao del Sur,1,9931.841,2,Dry,overlap,1,5,4,0,0.32747637364557736
+total,R13,Surigao del Sur,2,49562.15,2,Dry,overlap,1,5,5,1,0.18999785425977353
+total,R13,Surigao del Sur,3,14861.884,1,Wet,overlap,7,11,4,0,0.3410467048772607
+total,R13,Surigao del Sur,4,15614.87,1,Wet,overlap,7,11,5,1,0.09029168493163446

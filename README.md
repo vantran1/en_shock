@@ -33,18 +33,18 @@ git clone https://github.com/<your-username>/<repo-name>.git
 cd <repo-name>
 ```
 
-## Status (agriculture and electricity, Ginevra) — updated 19 Nov 2026
+## Status (agriculture and electricity, Ginevra) — updated 23 Nov 2026
 
 Delivery of all shocks: **7 Dec 2026**. IDs follow the milestone tracker (G = Ginevra, V = Van).
 All results are provisional.
 
 | ID | Task | Status | Outputs | Code |
 |---|---|---|---|---|
-| G1, G2 | Inputs; crop panels on the 16 regions; typhoon, flood and geophysical controls | Done (crop calendars still to collect, for G7) | `data/processed/` | `scripts/build_*.py` |
+| G1, G2 | Inputs; crop panels on the 16 regions; typhoon, flood and geophysical controls | Done (rice crop calendar done, RiceAtlas; corn calendar still to find, for G7) | `data/processed/` | `scripts/build_*.py` |
 | G4 | Direct model, rice (irrigated, rainfed) and corn | Done | `outputs/tables/direct_{rice,corn}_*`, `shocks_{rice,corn}*` | `scripts/estimate_direct.py`, `shocks_direct.py` |
 | G5 | Direct model, vegetables and root crops (VR), perennial fruits (PF) | Done | `outputs/tables/direct_{vr,pf}_*`, `shocks_{vr,pf}*` | same |
 | G6 | Validation (episodes; 1997–98 vs FAOSTAT) and food categories for DEFINE-PH | Done | `outputs/delivery/` (see its README), `validation_strict_*`, `faostat_*` | `scripts/validate_strict.py`, `check_faostat_vrpf.py`, `deliver_food_shocks.py` |
-| G7, G8 | Stage 2 (weather → production) and two-stage shocks | Next | — | — |
+| G7, G8 | Stage 2 (weather → production) and two-stage shocks | In progress: rice growing windows done | `data/processed/rice_growing_window.csv` | `scripts/build_rice_calendar.py` |
 | G12 | Residual food price shock, step 1 (total food price response, price note Eqs. 3–4) | To do: Van after the rice price if time allows, otherwise Ginevra | — | — |
 | G3, G9 | Electricity: inputs; demand and price equations | G3 done (public inputs; ERA5 t2m Aug–Nov 2026 in progress); G9 to do | `data/electricity/` (see its README); IEMOP in `~/data_tmp/electricity/raw/iemop/` | `scripts/download_iemop.py`, `build_ph_holidays.py` |
 | G10 | Report sections | Agriculture drafted | `outputs/writeup/agriculture_results.docx` | `scripts/build_writeup.py` |
