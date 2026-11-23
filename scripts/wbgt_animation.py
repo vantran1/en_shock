@@ -17,9 +17,9 @@ Outputs (in --outdir):
   wbgt_indoor_YYYY_MM.mp4|gif      animation, indoor
 
 Usage:
-  python wbgt_animation.py --indir era5_wbgt --year 2024 --month 4
-  python wbgt_animation.py --indir era5_wbgt --year 2024 --month 4 --max-frames 48   # quick look
-  python wbgt_animation.py --indir era5_wbgt --year 2024 --month 4 --reuse           # skip recompute
+  python wbgt_animation.py --year 2024 --month 4                     # reads en_shock/data/era5/hourly
+  python wbgt_animation.py --year 2024 --month 4 --max-frames 48   # quick look
+  python wbgt_animation.py --year 2024 --month 4 --reuse           # skip recompute
 
 Requirements:
   pip install pywbgt metpy xarray netCDF4 matplotlib numpy pandas
@@ -349,7 +349,8 @@ def animate(res, var, title, subtitle, out_path, fps, vmin, vmax, tz_offset, max
 # ----------------------------------------------------------------------------
 def main():
     p = argparse.ArgumentParser(description="Compute and animate hourly WBGT (outdoor + indoor) from ERA5 single levels.")
-    p.add_argument("--indir", default="era5_wbgt", help="folder with era5_YYYY_MM.nc")
+    p.add_argument("--indir", default=str(Path(__file__).resolve().parents[1] / "data" / "era5" / "hourly"),
+                   help="folder with era5_YYYY_MM.nc (default: en_shock/data/era5/hourly)")
     p.add_argument("--year", type=int, required=True)
     p.add_argument("--month", type=int, required=True)
     p.add_argument("--outdir", default="wbgt_output")

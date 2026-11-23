@@ -2,12 +2,11 @@
 # Relative paths are relative to this folder. Run the scripts from this folder.
 
 paths:
-  # Monthly ERA5 files (era5_mean_<variable>_<years>.nc), as downloaded for en_shock. Not in the repository:
-  # set this to where they are on your computer.
-  era5_monthly_dir: /Users/vantran/Documents/career/undrr/projects/catfisc/en_shock/data/era5_monthly
-  # Hourly ERA5 files, one per month. Steps 2 needs t2m, d2m, tp; the labour steps (6-8) need t2m, d2m, sp,
-  # u10, v10, ssrd. Leave null until they are downloaded.
-  era5_hourly_dir: null
+  # Monthly ERA5 files (era5_mean_<variable>_<years>.nc), in en_shock's data/era5/monthly/ (not tracked by git).
+  era5_monthly_dir: ../data/era5/monthly
+  # Hourly ERA5 files, one per month, in en_shock's data/era5/hourly/ (not tracked by git; a copy is on Azure).
+  # Steps 2 needs t2m, d2m, tp; the labour steps (6-8) need t2m, d2m, sp, u10, v10, ssrd.
+  era5_hourly_dir: ../data/era5/hourly
   hourly_pattern: "era5_{year}_{month:02d}.nc"
   # Shared with the rest of en_shock (one copy in the repository, used by its scripts too). Relative paths
   # are relative to this file, so ../ is the en_shock repository.

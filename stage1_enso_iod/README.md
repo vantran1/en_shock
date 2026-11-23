@@ -24,7 +24,7 @@ python -m pip install -r requirements.txt
 ```
 
 **Data.**
-- The monthly ERA5 files are read from the folder in `paths.era5_monthly_dir` (`config.yaml`). They are not in the repository, so set this path on your computer. Nothing is copied.
+- The monthly ERA5 files are in en_shock's `data/era5/monthly/` and the hourly ones in `data/era5/hourly/` (`paths.era5_monthly_dir` and `paths.era5_hourly_dir` in `config.yaml`). Both folders are ignored by git; the hourly files are also on Azure (`scripts/sync_era5_hourly.py`).
 - The region polygons, the ERA5 land-sea mask and the land cover are en_shock's own files (`../data/boundaries/`, `../data/era5/`, `../data/agriculture/cropland_weights/`). NCR is taken from the ADM1 file.
 - RONI (CPC) and DMI (NOAA PSL) are downloaded on each run. The copies in `data/indices/` are the fallback.
 
@@ -82,10 +82,19 @@ This refits nothing. It rebuilds the path and the scenario outputs. Step 4 uses 
 
 **Hourly data: EDD and WBGT.** Both come from the hourly ERA5 files (`era5_YYYY_MM.nc`, one per month, with `t2m`, `d2m`, `tp`, `sp`, `u10`, `v10` and `ssrd`, the files in the Azure container):
 
-* **EDD** and the other hourly rows of Table 2 (TMAX, TMIN, NHOT, NDRY, LDRY, N50, VPDMAX), on Philippine days: $EDD = \sum_h \max(0, T_h - T^*)/24$ per month, with $T^*$ = `hourly.t_star` (35 °C, rice at flowering). Step 2.
-* **WBGT** in the sun and in the shade for every working hour (Liljegren model of pywbgt), for the labour steps. Step 6, described in section 7.
+* **EDD** and the other hourly rows of Table 2 (TMAX, TMIN, NHOT, NDRY, LDRY, N50, VPDMAX), on Philippine days: $EDD = \sum_h \max(0, T_h - T^*)/24$ per month, with $T^*$ = `hourly.t_star` (35 °C, rice at flowering). Step 2: they are Stage 1 weather variables, fitted with the others in step 3.
+* **WBGT** in the sun and in the shade for every working hour (Liljegren model of pywbgt), for the labour steps only. Step 6, described in section 7.
 
-`scripts/hourly_wbgt_edd.py` does both in one pass, month by month, straight from Azure while the download goes on:
+Each side has its own command, which pulls from Azure what is not here:
+
+```bash
+python scripts/run_all.py --from 2 --azure --delete-raw   # Stage 1: the hourly variables (step 2), then fit, path, simulate
+python scripts/run_labour.py --delete-raw                 # labour: WBGT only, its fit and the shocks (section 7)
+```
+
+Step 2 with `--azure` stops the run if months are missing (add `--allow-incomplete` to go on with them as NaN); the RONI + DMI variant is then refitted with `python scripts/run_all.py --from 3 --to 5 --variant roni_dmi`. With `--delete-raw`, a raw file is kept until both commands have used it, so neither has to download it again.
+
+Both commands use `scripts/hourly_wbgt_edd.py` (with `--only edd` and `--only wbgt`), which can also do both in one pass, month by month, straight from Azure while the download goes on:
 
 ```bash
 python scripts/sync_era5_hourly.py list                  # what is in Azure
@@ -346,6 +355,17 @@ python scripts/08_labour_shocks.py      # needs outputs/shared/path.csv (step 4)
 ```
 
 or `python scripts/run_all.py --from 6 --to 8`. Steps 6 and 7 are the hindcast side and need no forecast. Step 8 needs the path of step 4, and uses the blocks of step 5 when that has been run, so that each draw has the same historical weather in the three channels.
+
+**In one go, from Azure.** `scripts/run_labour.py` runs the whole labour chain: it downloads every month that is not here from Azure and computes its hourly WBGT (`hourly_wbgt_edd.py --azure --only wbgt`), writes the monthly WBGT statistics and observed tables (`--tables`), fits them on RONI and on RONI + DMI (step 7, main run and `roni_dmi`), and computes the shocks of `outputs/shared/path.csv` with both models (step 8). It computes WBGT only: the hourly variables of Table 2 (EDD and the rest) are Stage 1 variables, computed by step 2 (`python scripts/run_all.py --from 2 --azure`; see *Hourly data* in section 2). It can be stopped and run again, and stops before the fit if months are missing.
+
+```bash
+python scripts/sync_era5_hourly.py set-token     # once: the Blob Container SAS URL, with read and list (r, l) permission
+python scripts/run_labour.py --delete-raw        # everything; a raw file is removed once WBGT and step 2 have both used it
+python scripts/run_labour.py --allow-incomplete  # the same with the months there are (30 years at least)
+python scripts/run_labour.py --from fit          # only steps 7 and 8, e.g. after a new forecast path
+```
+
+Without `--delete-raw` the raw files stay in `data/inputs/era5_hourly/` (about 26 MB a month). If the files are already on your computer, set `paths.era5_hourly_dir` to their folder: only the months that are not there are downloaded, into the same folder (then leave out `--delete-raw`, which would remove your copies).
 
 ### What each step does
 

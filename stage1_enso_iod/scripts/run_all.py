@@ -7,6 +7,12 @@ The labour steps 6-8 (WBGT, its EOF-CCA and the productivity shocks) run only wh
   python scripts/run_all.py --download-c3s   # download this month's C3S forecast first
   python scripts/run_all.py --from 6 --to 8  # labour: hourly WBGT, its EOF-CCA, the shocks (needs the path of step 4)
   python scripts/run_all.py --from 3 --to 3 --variant roni_dmi   # fit the RONI + DMI variant as well
+  python scripts/run_all.py --from 2 --azure  # step 2 from Azure: the hourly variables of Table 2, then fit, path, simulate
+
+Step 2 with --azure downloads every month that is not in the local folder and computes its hourly variables (TMAX,
+TMIN, EDD, NHOT, NDRY, LDRY, N50, VPDMAX) with scripts/hourly_wbgt_edd.py --only edd; it stops the run if months are
+missing, unless --allow-incomplete (they are then NaN). --delete-raw removes a raw file once these and the WBGT of
+the labour steps (scripts/run_labour.py) have both used it.
 
 With --variant, the steps that depend on the predictors (3, 4, 5, 7, 8) run for that variant and write to
 outputs/variants/<name>/; steps 1, 2 and 6 prepare the shared inputs and run as usual.
@@ -28,7 +34,7 @@ def run(name, args):
     mod = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(mod)
     print(f"\n=== {name} {' '.join(args)}")
-    mod.main(args)
+    return mod.main(args)
 
 
 def main():
@@ -40,6 +46,9 @@ def main():
     ap.add_argument("--download-c3s", action="store_true")
     ap.add_argument("--forecast-start")
     ap.add_argument("--variant", help="run steps 3, 4, 5, 7 and 8 for this variant of config.yaml (e.g. roni_dmi)")
+    ap.add_argument("--azure", action="store_true", help="step 2: download the hourly files that are not here from Azure")
+    ap.add_argument("--delete-raw", action="store_true", help="step 2 with --azure: remove raw files once fully used")
+    ap.add_argument("--allow-incomplete", action="store_true", help="step 2 with --azure: go on if months are missing")
     a = ap.parse_args()
     common = ["--config", a.config] if a.config else []
     if a.download_c3s:
@@ -55,6 +64,12 @@ def main():
             continue
         if a.variant and k in VARIANT_STEPS:
             extra = extra + ["--variant", a.variant]
+        if k == 2 and a.azure:
+            rc = run("hourly_wbgt_edd.py", common + ["--azure", "--only", "edd", "--tables"]
+                     + (["--delete-raw"] if a.delete_raw else []) + (["--allow-incomplete"] if a.allow_incomplete else []))
+            if rc:
+                raise SystemExit("Stopped after step 2: the hourly variables were not written (see above).")
+            continue
         run(STEPS[k], common + extra)
 
 

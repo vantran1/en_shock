@@ -9,4 +9,12 @@ E,Actual evaporation,mm/month,monthly
 SPEI3,"Climatic water balance, 3-month P - PET, standardised",std. units,monthly
 RS,Surface solar radiation downwards,MJ m⁻² day⁻¹,monthly
 RO,Runoff,mm/month,monthly
+TMAX,Mean daily maximum temperature,°C,hourly
+TMIN,Mean daily minimum temperature,°C,hourly
+EDD,Extreme degree-days above T*,°C·day/month,hourly
+NHOT,"Hot days, daily maximum above T*",days/month,hourly
+NDRY,"Dry days, daily rain below 1 mm",days/month,hourly
+LDRY,Longest dry spell in the month,days,hourly
+N50,"Heavy-rain days, daily rain of 50 mm or more",days/month,hourly
+VPDMAX,Mean daily maximum VPD (afternoon VPD),kPa,hourly
 CWB3,3-month P - PET,mm/3 months,monthly

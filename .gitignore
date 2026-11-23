@@ -1,1 +1,9 @@
-scripts/era5_wbgt/
+# ERA5 inputs: monthly (Stage 1 step 1) and hourly (Stage 1 steps 2 and 6-8, a copy is on Azure)
+data/era5/monthly/
+data/era5/hourly/
+# archived inputs that no current step reads (see archive/README.md)
+archive/
+scripts/era5_azure_upload.log
+scripts/azure_upload.sh
+# Python bytecode
+__pycache__/

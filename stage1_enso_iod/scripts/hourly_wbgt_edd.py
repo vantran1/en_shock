@@ -282,8 +282,9 @@ def main(argv=None):
             run_step("02_hourly_metrics.py", common)
         if "wbgt" in products:
             run_step("06_wbgt_hourly.py", common)
-        print("\nNext: python scripts/03_fit_stage1.py (and --variant roni_dmi) to fit the hourly variables; "
-              "python scripts/07_fit_wbgt.py for WBGT")
+        nxt = (["python scripts/03_fit_stage1.py (and --variant roni_dmi) to fit the hourly variables"] if "edd" in products
+               else []) + (["python scripts/07_fit_wbgt.py for WBGT"] if "wbgt" in products else [])
+        print("\nNext: " + "; ".join(nxt))
     elif not a.status and all(not m for *_, m in rows):
         print("\nEvery month is done: run with --tables to write the fields and tables of steps 2 and 6.")
     return 0

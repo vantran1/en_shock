@@ -1,0 +1,49 @@
+World rice price, Eq. (1): Thai 5%, deflated by MUV, 1960Q1-2025Q4, n = 264
+controls: lnurea, lnoil, ban, quarter effects, linear trend
+theta_R = 0.15 (mean lag 5.25 quarters), R2 = 0.644
+B_R = 0.0296 (Newey-West s.e. 0.0317, p = 0.351): a sustained +1 RONI raises the real price by 3.0% (90% interval -2.2 to 8.5)
+
+Coefficients
+           coef      se       p
+BR       0.0296  0.0317  0.3505
+lnurea   0.5009  0.0700  0.0000
+lnoil   -0.1585  0.0594  0.0076
+ban      0.2728  0.0719  0.0001
+s1       0.8513  0.0965  0.0000
+s2       0.8537  0.0978  0.0000
+s3       0.8563  0.0990  0.0000
+s4       0.8470  0.0984  0.0000
+trend   -0.0796  0.0230  0.0005
+theta_R  0.1500     NaN     NaN
+
+Checks (effect = % rise of the real price for a sustained +1 RONI)
+                        check        sample   n  theta_R  mean_lag_quarters  effect_pct_per_unit_RONI  effect_lo90  effect_hi90  B_R_p  ban_pct
+                         main 1960Q1-2025Q4 264     0.15               5.25                     3.003       -2.230        8.516  0.351   31.367
+         year-on-year changes 1961Q1-2025Q4 260     0.15               5.25                     3.956       -0.054        8.127  0.105   30.754
+                 lagged price 1960Q2-2025Q4 263     0.55               3.25                    21.144        2.068       43.784  0.066    8.881
+                  Viet Nam 5% 2004Q1-2025Q4  81     0.50               3.50                    -1.598       -6.185        3.214  0.579   23.369
+                    from 1990 1990Q1-2025Q4 144     0.55               3.25                     3.905       -2.310       10.515  0.307   30.759
+ test: RONI effect after 1990 1960Q1-2025Q4 264     0.95               1.25                    -4.406      -11.605        3.378  0.344   30.326
+    from 1967 (main controls) 1967Q1-2025Q4 236     0.30               4.50                     3.210       -2.081        8.786  0.323   32.228
+        DAP added (from 1967) 1967Q1-2025Q4 236     0.40               4.00                     4.882       -0.234       10.261  0.117   20.928
+                       4 lags 1960Q1-2025Q4 264     0.95               1.15                    -2.549       -6.699        1.785  0.329   29.684
+              US CPI deflator 1960Q1-2025Q3 263     0.25               4.75                     4.160       -1.846       10.533  0.259   26.995
+no export restriction control 1960Q1-2025Q4 264     0.95               1.25                    -2.879       -7.247        1.695  0.296      NaN
+restrictions of all exporters 1960Q1-2025Q4 264     0.15               5.25                     3.003       -2.230        8.516  0.351   31.367
+          DMI added (variant) 1960Q1-2025Q4 264     0.90               1.50                    -3.990       -8.416        0.649  0.156   24.777
+
+RONI effect after 1990 minus before: 0.0361 (s.e. 0.0585, p = 0.537)
+
+Validation, episode left out (mean over the path and the K quarters after it, %; observed
+measured against the quarter before the path)
+         predicted_pct  observed_vs_pre_pct  observed_vs_pre_incl_ban_pct  in_sample_predicted_pct
+episode                                                                                           
+1997-98           -0.5                 17.2                          17.2                      1.4
+2015-16           -1.6                 13.8                          13.8                      2.1
+2023-24            0.1                  7.7                          23.7                     -0.5
+
+Real-time check, 2026 (model fitted to 2025Q4)
+quarter  roni  predicted_pct  observed_vs_2025Q4_pct  price_usd
+ 2026Q1  -0.8           -2.1                    -8.9      399.3
+ 2026Q2   0.5           -2.4                    -7.4      445.7
+ 2026Q3   NaN           -2.0                    28.0      473.3

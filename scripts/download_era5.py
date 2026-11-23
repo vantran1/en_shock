@@ -137,7 +137,8 @@ def main():
     p.add_argument("--end", type=int, required=True, help="last year (inclusive)")
     p.add_argument("--months", type=int, nargs="+", default=list(range(1, 13)),
                    metavar="M", help="months to fetch, 1-12 (default: all)")
-    p.add_argument("--outdir", default="era5_wbgt", help="output directory")
+    p.add_argument("--outdir", default=str(Path(__file__).resolve().parents[1] / "data" / "era5" / "hourly"),
+                   help="output directory (default: en_shock/data/era5/hourly)")
     p.add_argument("--area", type=float, nargs=4, default=PHILIPPINES_AREA,
                    metavar=("N", "W", "S", "E"),
                    help="bounding box in degrees (default: Philippines)")
