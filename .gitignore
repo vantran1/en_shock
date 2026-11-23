@@ -1,9 +1,70 @@
-# ERA5 inputs: monthly (Stage 1 step 1) and hourly (Stage 1 steps 2 and 6-8, a copy is on Azure)
-data/era5/monthly/
-data/era5/hourly/
-# archived inputs that no current step reads (see archive/README.md)
-archive/
-scripts/era5_azure_upload.log
-scripts/azure_upload.sh
-# Python bytecode
+# ---------------------------------------------------------------- data: large or downloaded inputs stay local
+# ERA5 for Stage 1: monthly and hourly files (a copy of the hourly files is on Azure)
+data/shared/era5/monthly/
+data/shared/era5/hourly/
+# C3S seasonal forecasts (scripts/00_download_inputs.py --c3s)
+data/shared/c3s/
+# inputs that no step of the run reads (see data/shared/archive/README.md)
+data/shared/archive/
+
+# ---------------------------------------------------------------- outputs: only the hand-off files are tracked
+# Everything else in outputs/ is rebuilt by the scripts. To hand off another file, add a !outputs/... line.
+outputs/**
+!outputs/**/
+# agriculture
+!outputs/agriculture/hist_fitted_16regions.csv
+!outputs/agriculture/cell_weights_16regions.csv
+!outputs/agriculture/island_reassignment_16regions.csv
+!outputs/agriculture/effects_16regions.csv
+!outputs/agriculture/simulated_monthly_16regions.csv
+!outputs/agriculture/deterministic_monthly_16regions.csv
+# electricity
+!outputs/electricity/hist_fitted_17regions.csv
+!outputs/electricity/cell_weights_17regions.csv
+!outputs/electricity/region_grid_map.csv
+!outputs/electricity/cells_hist_fitted.csv.gz
+# labour
+!outputs/labour/hist_fitted_17regions.csv
+!outputs/labour/T_coefficients_monthly_17regions.csv
+!outputs/labour/T_coefficients_quarterly_17regions.csv
+!outputs/labour/cell_weights_17regions.csv
+!outputs/labour/shocks_quarterly.csv
+# prices
+!outputs/prices/world_rice/shocks.csv
+!outputs/prices/world_rice/summary_estimation.txt
+!outputs/prices/world_rice/summary_shocks.txt
+!outputs/prices/world_rice/coefficients.csv
+!outputs/prices/world_rice/checks.csv
+!outputs/prices/world_rice/validation.csv
+!outputs/prices/world_rice/figure_price.png
+!outputs/prices/world_rice/figure_shocks.png
+# shared: cells, model settings, the path and its blocks, skill, analyses, scenarios, the RONI + DMI variant
+!outputs/shared/cells.csv
+!outputs/shared/island_reassignment_17regions.csv
+!outputs/shared/model_configs.csv
+!outputs/shared/variables.csv
+!outputs/shared/weights_coverage.csv
+!outputs/shared/path.csv
+!outputs/shared/path_members.csv
+!outputs/shared/path_systems.csv
+!outputs/shared/blocks.csv
+!outputs/shared/skill/skill_summary.csv
+!outputs/shared/analysis/dmi/summary.txt
+!outputs/shared/analysis/dmi/dmi_summary.png
+!outputs/shared/analysis/sst/summary.txt
+!outputs/shared/analysis/sst/sst_summary.png
+!outputs/shared/analysis/nonlinear/summary.txt
+!outputs/shared/analysis/nonlinear/nonlinear_summary.png
+!outputs/shared/analysis/lags/*.png
+!outputs/shared/scenarios/**
+!outputs/shared/variants/roni_dmi/agriculture/hist_fitted_16regions.csv
+!outputs/shared/variants/roni_dmi/skill/skill_summary.csv
+# model caches (models, fields, weights, hourly stores), rebuilt by steps 01-03 and the hourly steps
+outputs/shared/work/
+
+# ---------------------------------------------------------------- system and generated files
 __pycache__/
+.ipynb_checkpoints/
+.DS_Store
+scripts/helpers/analysis/*.html
+scripts/azure_upload.sh

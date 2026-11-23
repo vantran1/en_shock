@@ -168,19 +168,19 @@ def deflator(kind: str, quarters: pd.PeriodIndex) -> pd.Series:
 
 
 def index_quarterly(name: str) -> pd.Series:
-    """RONI (data/roni/ersst/roni_nino34_monthly_ersst.csv, monthly relative Nino-3.4) or DMI
-    (data/dmi/dmi_had.csv), calendar-quarter means, as climate.indices.quarterly on ginevra-agriculture."""
+    """RONI (data/indices/roni/ersst/roni_nino34_monthly_ersst.csv, monthly relative Nino-3.4) or DMI
+    (data/indices/dmi/dmi_had.csv), calendar-quarter means, as climate.indices.quarterly on ginevra-agriculture."""
     return _index_quarterly(name).copy()
 
 
 @lru_cache(maxsize=None)
 def _index_quarterly(name: str) -> pd.Series:
     if name == "roni":
-        df = pd.read_csv(DATA / "roni" / "ersst" / "roni_nino34_monthly_ersst.csv")
+        df = pd.read_csv(DATA / "indices" / "roni" / "ersst" / "roni_nino34_monthly_ersst.csv")
         s = pd.Series(pd.to_numeric(df["rel_ssta"], errors="coerce").to_numpy(float),
                       index=_monthly_index(df["month"]))
     elif name == "dmi":
-        df = pd.read_csv(DATA / "dmi" / "dmi_had.csv", skipinitialspace=True)
+        df = pd.read_csv(DATA / "indices" / "dmi" / "dmi_had.csv", skipinitialspace=True)
         df.columns = df.columns.str.strip()
         s = pd.Series(pd.to_numeric(df["DMI"], errors="coerce").to_numpy(float),
                       index=pd.DatetimeIndex(pd.to_datetime(df["Date"])).to_period("M"))

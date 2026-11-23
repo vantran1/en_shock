@@ -4,14 +4,14 @@ The world rice price shock of the DEFINE-PH methodology (v5, price note "El Niñ
 
 ## Run
 
-From the repository root (needs numpy, pandas, openpyxl; matplotlib for the figures):
+Step 08 of the main run (needs numpy, pandas, openpyxl; matplotlib for the figures):
 
 ```bash
-python scripts/estimate_rice_price.py      # Eq. 1, the note's checks, the episode validation (seconds)
-python scripts/shocks_rice_price.py        # Eq. 2 for the episode paths, bootstrap range (under a minute)
+python scripts/08_prices.py               # Eq. 1 with its checks and validation, then Eq. 2 with its range (about a minute)
+python scripts/08_prices.py --reps 200    # a quicker bootstrap; --block-years sets the block length (default 5)
 ```
 
-`shocks_rice_price.py` takes `--reps` (default 1000) and `--block-years` (default 5).
+The two parts are `scripts/helpers/prices_estimate_rice.py` and `scripts/helpers/prices_shocks_rice.py`; each also runs alone.
 
 ## Inputs
 
@@ -21,10 +21,10 @@ python scripts/shocks_rice_price.py        # Eq. 2 for the episode paths, bootst
 | `data/prices/CMO-Historical-Data-Annual.xlsx` | MUV index, the deflator (annual, 1960–2025) | World Bank Pink Sheet, sheet "Annual Prices (Real)" |
 | `data/prices/fred_CPIAUCNS.csv` | US CPI, the alternative deflator of one check | FRED, series CPIAUCNS |
 | `data/prices/rice_export_restrictions.csv` | Rice export restrictions, one row per episode, with sources | Compiled (Slayton 2009, DGFT, Global Trade Alert, IFPRI and others) |
-| `data/roni/ersst/roni_nino34_monthly_ersst.csv` | RONI (monthly relative Niño-3.4), averaged to quarters | NOAA CPC; same file as the crop models |
-| `data/dmi/dmi_had.csv` | DMI, only for the DMI variant check | NOAA PSL |
+| `data/indices/roni/ersst/roni_nino34_monthly_ersst.csv` | RONI (monthly relative Niño-3.4), averaged to quarters | NOAA CPC; same file as the crop models |
+| `data/indices/dmi/dmi_had.csv` | DMI, only for the DMI variant check | NOAA PSL |
 
-## Outputs (`outputs/rice_price/`)
+## Outputs (`outputs/prices/world_rice/`)
 
 | File | Content |
 |---|---|
