@@ -1,0 +1,67 @@
+SST predictors beyond the RONI (ERSSTv5 to 2026-10; nested CV, July-June 5-year blocks)
+
+Checks of the index construction
+                                                                        check  n_months     r
+           RONI rebuilt from ERSSTv5 vs CPC RONI (both centred 3-month means)       912 0.992
+DMI rebuilt from ERSSTv5 vs PSL DMI from HadISST (both centred 3-month means)       912 0.835
+
+Correlation of each index with the RONI (quarterly means, 1950-2025)
+index        emi   iob  psea   tna
+months                            
+JFM         0.68 -0.23 -0.87 -0.21
+AMJ         0.32 -0.27 -0.59 -0.14
+JAS         0.45 -0.32 -0.66 -0.43
+OND         0.66 -0.46 -0.88 -0.60
+all months  0.55 -0.32 -0.74 -0.35
+
+Variance of the SST field explained by its leading EOFs (sync, mean over target months, 1950-2025)
+                                  eof1   eof2   eof3  eof4   eof5
+field                            0.404  0.109  0.073  0.05  0.042
+field, Philippine waters masked  0.405  0.110  0.074  0.05  0.042
+
+MSE reduction against the RONI alone (%, nested CV, all months, r16_cropland; > 0 = smaller error; [+] / [-] = 90 % interval above / below 0)
+menu     roni_emi  roni_iob roni_psea  roni_tna roni_emi_iob_psea     field field_masked
+var                                                                                     
+E        -1.9 [-]      -0.8      +0.0  -2.1 [-]          -2.6 [-]      -1.0     -2.0 [-]
+P            -2.7  -1.9 [-]      -0.5  -2.1 [-]              -3.2  -3.8 [-]     -3.4 [-]
+PET          -2.8      -0.0      +0.2  -1.7 [-]              -1.7      -0.7         -0.6
+RO           -0.3      -1.4      +1.4  -1.2 [-]              +1.1      +1.1         -0.9
+RS           -2.2      +1.0      -0.3      -1.0          -2.4 [-]      -0.7         -2.3
+SM_DEEP      +0.4      -1.2      +2.4      -1.8              +1.8      +2.9         +2.1
+SM_RZ        -0.6      -0.3      +0.3  -2.0 [-]              +0.8      +0.8         +0.2
+SPEI3        -0.5      -1.8      +2.1      -1.3              +2.2      +3.6         +0.8
+T            -0.1  -3.0 [-]      -1.3      -0.4              -2.6      +3.4         +1.4
+VPD          -0.0      -1.0      -0.8  -2.5 [-]              -1.6      -0.8         -1.0
+all          -1.0      -1.1      +0.3  -1.6 [-]              -0.8      +0.5         -0.5
+
+Rainfall by quarter, MSE reduction against the RONI alone (%)
+quarter              Q1        Q2        Q3        Q4
+menu                                                 
+roni_emi           -4.2      -0.9  -4.8 [-]      -0.6
+roni_iob           -1.4      -0.5  -3.3 [-]      -1.3
+roni_psea          +1.5      +0.7  -2.3 [-]      -1.4
+roni_tna           -0.8  -2.9 [-]      -0.7  -3.6 [-]
+roni_emi_iob_psea  -4.7      -4.7      -3.2      -0.0
+field              -3.1      -1.5  -5.4 [-]      -4.4
+field_masked       -2.4      +0.7  -5.7 [-]  -5.2 [-]
+
+Mean nested Spearman rho over regions and months
+menu      roni  field  field_masked  roni_emi  roni_emi_iob_psea  roni_iob  roni_psea  roni_tna
+var                                                                                            
+E        0.199  0.223         0.210     0.180              0.192     0.205      0.207     0.185
+P        0.361  0.346         0.346     0.341              0.349     0.343      0.359     0.338
+PET      0.383  0.401         0.402     0.359              0.388     0.381      0.389     0.376
+RO       0.434  0.475         0.462     0.437              0.452     0.425      0.456     0.433
+RS       0.333  0.369         0.355     0.312              0.339     0.353      0.351     0.330
+SM_DEEP  0.431  0.478         0.471     0.452              0.474     0.434      0.467     0.412
+SM_RZ    0.429  0.466         0.462     0.437              0.443     0.425      0.435     0.426
+SPEI3    0.506  0.551         0.529     0.510              0.523     0.489      0.511     0.487
+T        0.263  0.353         0.326     0.276              0.258     0.229      0.244     0.274
+VPD      0.318  0.338         0.335     0.323              0.312     0.312      0.318     0.305
+all      0.366  0.400         0.390     0.363              0.373     0.360      0.374     0.357
+
+Number of SST EOFs chosen in the outer folds (share of folds, %)
+Mx            2.0   3.0   4.0   5.0   6.0   7.0   8.0   9.0   10.0  11.0  12.0  13.0  14.0  15.0
+menu                                                                                            
+field          1.0   2.0   1.0   5.0   8.0   5.0   6.0   7.0   8.0  10.0   7.0   9.0  13.0  20.0
+field_masked   1.0   2.0   2.0   7.0   8.0   4.0   6.0   7.0  11.0  11.0   6.0   7.0  11.0  19.0
