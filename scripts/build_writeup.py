@@ -1410,9 +1410,40 @@ def main():
     para(doc, "The corn windows are rougher than the rice windows: GGCMI covers about a third of annual "
               "production (mostly the Q3 harvest), and the dry-season crop harvested in Q1 and Q2 and the "
               "late crop of Q4 rely on the standard cycle. Like RiceAtlas, the calendar is fixed and does "
-              "not distinguish white and yellow corn. v5 sets the windows from PSA and Department of "
-              "Agriculture calendars; for corn none was found in machine-readable form, so this is a change "
-              "to note (for rice, RiceAtlas is built from them).")
+              "not distinguish white and yellow corn.")
+    para(doc, "v5 sets the windows from PSA and Department of Agriculture calendars. Neither publishes "
+              "regional corn planting or harvest windows (searched 23 Nov 2026): PSA OpenSTAT gives corn "
+              "production by quarter, semester, region and province only, and the monthly distribution "
+              "collected by the Corn Production Survey is not published. DA has scattered regional "
+              "statements but no calendar, and none was found for the National Corn Program. These "
+              "statements support the standard cycle. The DA Region 2 corn techno guide gives wet-season "
+              "planting from early April to June, dry-season planting from October to December and "
+              "maturity at 95–120 days after planting. PSA's monthly corn monitoring tables pair each "
+              "quarter's plantings with the next quarter's harvests. FAO GIEWS reports main-season maize "
+              "planting from April (to August in some areas) and secondary-season planting finished by "
+              "December. Press releases from DA Region 1 (three cropping seasons) and Region 10 (mid-May "
+              "wet-season and October–November dry-season plantings) agree, but they are not calendars. "
+              "Using GGCMI is therefore a change from v5 to note (for rice, RiceAtlas is built from PSA "
+              "and DA calendars).")
+    para(doc, "Sources for the corn calendar check (accessed 23 Nov 2026).", italic=True)
+    bullets(doc, [
+        "DA Region 2, Corn Techno Guide (planting windows p. 3, maturity p. 30): "
+        "https://cagayanvalley.da.gov.ph/wp-content/uploads/2018/02/corn_techno_guide_final.pdf",
+        "DA Region 1, cropping seasons news item: https://ilocos.da.gov.ph/?p=1434",
+        "DA Region 10, seed-trial news: https://cagayandeoro.da.gov.ph/?p=75933, "
+        "https://cagayandeoro.da.gov.ph/?p=76413, https://cagayandeoro.da.gov.ph/?p=65543",
+        "PSA OpenSTAT corn production (2E4EVCP0): "
+        "https://openstat.psa.gov.ph/PXWeb/pxweb/en/DB/DB__2E__CS/0012E4EVCP0.px/",
+        "PSA Corn Production Survey technical notes (PSA MIMAROPA): "
+        "https://rssomimaropa.psa.gov.ph/node/1684057173",
+        "PSA monthly corn monitoring tables, Table 7 (April–June 2020 plantings, July–September 2020 "
+        "harvests): https://psa.gov.ph/sites/default/files/csd/2022-12/9%2520Statistical%2520Tables.pdf; "
+        "system described at https://psa.gov.ph/content/psa-clears-conduct-monthly-palay-and-corn-"
+        "situation-reporting-system-mpcsrs",
+        "FAO GIEWS Country Brief, Philippines (secondary-season line from the 29 January 2026 brief). The "
+        "live pages are overwritten with each brief; archive: "
+        "https://cb.apps.fao.org/country/PHL/pdf_archive/PHL_Archive.pdf",
+    ])
 
     doc.add_heading("Annex", level=1)
     table(doc, quarterly_palay(), [2.0, 2.0, 3.0, 3.4, 3.6],
