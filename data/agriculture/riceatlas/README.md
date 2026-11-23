@@ -17,3 +17,10 @@ To rebuild, download the two zips from the Dataverse record into this folder.
 Stage 2 weather features (`data/processed/rice_growing_window.csv`).
 
 **Philippines:** 81 provinces in all 16 regions. One fixed calendar, no irrigated/rainfed split.
+
+**Philippine calendar sources** (Laborte et al. 2017, Supplementary Table 1): Alosnos and Quilang (comps.),
+GMA-Rice Program, Department of Agriculture, 2009–2010; IRRI SSD Farm Household Survey Database (RTDP),
+1994–1999; Malasa (comp.), Planting calendar of top rice-producing provinces (2004–2008), PhilRice
+Socio-economic Division, 2010; Philippine Food Security Information System (PhilFSIS) crops, PSA, 2014.
+Production: PhilRice-BAS, CountrySTAT Philippines, FAOSTAT. Where a source gave only a peak date, RiceAtlas
+set the start and end 15 days either side.

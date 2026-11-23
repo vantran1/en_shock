@@ -1363,7 +1363,11 @@ def main():
     para(doc, "Stage 2 relates production in a quarter to the weather in the months the crop harvested "
               "in that quarter was in the field. Those months come from RiceAtlas (Laborte et al. 2017, "
               "Harvard Dataverse), which gives planting and harvest dates for each rice season in 81 "
-              "Philippine provinces, covering all 16 regions. For each province and harvest quarter, the "
+              "Philippine provinces, covering all 16 regions. For the Philippines the calendars come from the "
+              "Department of Agriculture and the PSA, as v5 requires: the DA GMA-Rice Program (2009–2010), "
+              "the PhilRice planting calendar of the top rice-producing provinces (2004–2008), the IRRI farm "
+              "household survey (1994–1999) and the PSA's Philippine Food Security Information System (2014) "
+              "(Laborte et al. 2017, Supplementary Table 1). For each province and harvest quarter, the "
               "season harvested in that quarter is taken, and its window runs from the planting peak to "
               "the harvest peak. Provinces are then combined by their PSA production in that quarter "
               "(2016–2025 mean), separately for irrigated and rainfed palay "
@@ -1381,8 +1385,9 @@ def main():
         "No irrigated/rainfed split in the calendar: the two ecosystems share the windows and differ "
         "only in their production weights.",
         "About 18% of annual production is harvested in quarters that RiceAtlas does not cover (for example, "
-        "Cagayan is listed with one crop, but PSA reports dry-season harvests), and some provinces have "
-        "a single date instead of a planting or harvest range. These are matched to the nearest season.",
+        "Cagayan is listed with one crop, but PSA reports dry-season harvests). These are matched to the "
+        "nearest season. Some provinces have a single date instead of a planting or harvest range: where "
+        "the sources gave only a peak, RiceAtlas set a window of 15 days either side (Laborte et al. 2017).",
         "Batanes and Tawi-Tawi have no calendar (less than 0.1% of production); Davao Occidental "
         "takes the calendar of Davao del Sur, from which it was created in 2013.",
         "GGCMI's rice calendar for the Philippines (Jägermeyr et al. 2021) is taken from RiceAtlas, so it "
@@ -1406,7 +1411,8 @@ def main():
               "production (mostly the Q3 harvest), and the dry-season crop harvested in Q1 and Q2 and the "
               "late crop of Q4 rely on the standard cycle. Like RiceAtlas, the calendar is fixed and does "
               "not distinguish white and yellow corn. v5 sets the windows from PSA and Department of "
-              "Agriculture calendars; none was found in machine-readable form, so this is a change to note.")
+              "Agriculture calendars; for corn none was found in machine-readable form, so this is a change "
+              "to note (for rice, RiceAtlas is built from them).")
 
     doc.add_heading("Annex", level=1)
     table(doc, quarterly_palay(), [2.0, 2.0, 3.0, 3.4, 3.6],
