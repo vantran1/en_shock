@@ -4,8 +4,10 @@
 # rebuilt by steps 1-3 (saved models, fields, weights) and by the hourly steps
 work/
 
-# downloaded inputs: seasonal forecasts (scripts/00_download_inputs.py --c3s) and hourly ERA5 (Azure)
+# downloaded inputs: seasonal forecasts (scripts/00_download_inputs.py --c3s), hourly ERA5 (Azure) and the
+# ERSSTv5 file of analysis/sst_predictors.py
 data/inputs/c3s/
+data/inputs/sst/
 data/inputs/era5_hourly/
 
 # outputs: only the hand-off files below are tracked; the rest is rebuilt by the scripts
@@ -32,8 +34,20 @@ outputs/**
 !outputs/skill/skill_summary.csv
 !outputs/analysis/dmi/summary.txt
 !outputs/analysis/dmi/dmi_summary.png
+!outputs/analysis/sst/summary.txt
+!outputs/analysis/sst/sst_summary.png
+!outputs/analysis/nonlinear/summary.txt
+!outputs/analysis/nonlinear/nonlinear_summary.png
 !outputs/analysis/lags/*.png
 !outputs/variants/roni_dmi/agriculture/hist_fitted_16regions.csv
+# steps 4-5: the forecast path and its agriculture simulation, and the scenarios of the direct approach
+!outputs/shared/path.csv
+!outputs/shared/path_members.csv
+!outputs/shared/path_systems.csv
+!outputs/shared/blocks.csv
+!outputs/agriculture/simulated_monthly_16regions.csv
+!outputs/agriculture/deterministic_monthly_16regions.csv
+!outputs/scenarios/**
 !outputs/variants/roni_dmi/skill/skill_summary.csv
 
 # exports and system files

@@ -75,7 +75,22 @@ variants:
   #                                          python scripts/05_simulate.py --variant stress_nino_piod
   # stress_nino_piod:
   #   models_from: roni_dmi
+  #   model: {predictors: [roni, dmi]}
   #   path: {source: csv, csv: data/paths/stress_nino_piod.csv}
+
+  # The El Nino scenarios of the direct approach (scripts/make_stage1_paths.py on ginevra-agriculture), so that
+  # the two-stage and direct shocks can be compared: each path is 6 zero months (they keep the observed lead-in
+  # of step 4 out of the El Nino months, and are dropped from the hand-off), the El Nino months, and 12 zero
+  # months. RONI alone on the main run's models (models_from: main); *_dmi on the RONI + DMI models.
+  # Run all: python scripts/run_scenarios.py
+  scen_1997_98:     {models_from: main, path: {source: csv, csv: data/paths/path_1997-98.csv}}
+  scen_2015_16:     {models_from: main, path: {source: csv, csv: data/paths/path_2015-16.csv}}
+  scen_2023_24:     {models_from: main, path: {source: csv, csv: data/paths/path_2023-24.csv}}
+  scen_unit:        {models_from: main, path: {source: csv, csv: data/paths/path_unit.csv}}
+  scen_1997_98_dmi: {models_from: roni_dmi, model: {predictors: [roni, dmi]}, path: {source: csv, csv: data/paths/path_1997-98.csv}}
+  scen_2015_16_dmi: {models_from: roni_dmi, model: {predictors: [roni, dmi]}, path: {source: csv, csv: data/paths/path_2015-16.csv}}
+  scen_2023_24_dmi: {models_from: roni_dmi, model: {predictors: [roni, dmi]}, path: {source: csv, csv: data/paths/path_2023-24.csv}}
+  scen_unit_dmi:    {models_from: roni_dmi, model: {predictors: [roni, dmi]}, path: {source: csv, csv: data/paths/path_unit.csv}}
 
 land:
   lsm_threshold: 0.5         # ERA5 land fraction (paths.land_sea_mask); cells below are dropped

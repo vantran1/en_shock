@@ -49,7 +49,7 @@ The CDS uses the key in `~/.cdsapirc` that you already use for ERA5. Before the 
 
 **In the repository.** Stage 1 lives in `en_shock/stage1_enso_iod/`. `.gitignore` in this folder decides what is pushed:
 
-* **tracked:** the code (`stage1/`, `scripts/`, `analysis/`), `config.yaml`, `requirements.txt`, this README, the notebook, the small inputs (`data/indices/`, `data/labour/`, the population raster) and the **hand-off outputs**: each section's `hist_fitted` table, the cell weights and island reassignment tables, the temperature coefficients for labour, the cell-level hindcast for electricity, `shared/cells.csv`, `model_configs.csv`, `variables.csv`, `weights_coverage.csv`, `skill/skill_summary.csv`, the DMI summary and figure, the lag figures, and the RONI + DMI variant's agriculture `hist_fitted` and skill summary (about 18 MB); `effects_16regions.csv` (step 5) and `shocks_quarterly.csv` (step 8) are tracked too once they exist;
+* **tracked:** the code (`stage1/`, `scripts/`, `analysis/`), `config.yaml`, `requirements.txt`, this README, the notebook, the small inputs (`data/indices/`, `data/labour/`, the population raster) and the **hand-off outputs**: each section's `hist_fitted` table, the cell weights and island reassignment tables, the temperature coefficients for labour, the cell-level hindcast for electricity, `shared/cells.csv`, `model_configs.csv`, `variables.csv`, `weights_coverage.csv`, `skill/skill_summary.csv`, the DMI, SST and non-linearity summaries and figures, the lag figures, and the RONI + DMI variant's agriculture `hist_fitted` and skill summary (about 18 MB); from steps 4 and 5, the path (`shared/path.csv`, `path_members.csv`, `path_systems.csv`), `shared/blocks.csv` and the agriculture tables (`simulated_monthly_16regions.csv`, `deterministic_monthly_16regions.csv`, `effects_16regions.csv`; about 6 MB), and `outputs/scenarios/` (the scenarios of the direct approach, about 75 MB); `shocks_quarterly.csv` (step 8) is tracked too once it exists;
 * **local only:** `work/` (rebuilt by steps 1–3), the seasonal forecasts (`data/inputs/c3s/`), the hourly ERA5, the rest of `outputs/` (rebuilt by the scripts) and the notebook's HTML export.
 
 To hand off another output, add a `!outputs/...` line to `.gitignore`.
@@ -110,6 +110,10 @@ Steps 2 and 6 can also be run on their own, on a local folder (`paths.era5_hourl
 
 **The DMI analysis** (stand-alone): `python analysis/dmi_analysis.py` (about 15 minutes; it needs the `roni_dmi` variant fitted) writes `outputs/analysis/dmi/`, and `python analysis/dmi_figure.py` its one-page figure.
 
+**The SST analysis** (stand-alone): download ERSSTv5 to `data/inputs/sst/` (about 160 MB, not tracked; the command is at the top of the script), then `python analysis/sst_predictors.py` (about an hour on 2 cores) writes `outputs/analysis/sst/`, with `summary.txt` and `sst_summary.png`.
+
+**The non-linearity test** (stand-alone; it uses the same ERSSTv5 file): `python analysis/nonlinear_test.py` (about 15 minutes on 2 cores) writes `outputs/analysis/nonlinear/`, with `summary.txt` and `nonlinear_summary.png`.
+
 **Variants: RONI + DMI, and stress scenarios.** `model.predictors` in `config.yaml` sets the indices of the main run (`[roni]`). A *variant* is a named set of overrides under `variants:`. It has its own models (`work/variants/<name>/`) and outputs (`outputs/variants/<name>/`, with the same file names as `outputs/`), and reads the shared inputs of the main run: fields, weights, cells, and the path unless it builds its own.
 
 ```bash
@@ -120,6 +124,12 @@ python scripts/run_all.py --from 3 --variant roni_dmi       # the same, then its
 `roni_dmi` is the RONI + DMI model: the sensitivity, and the model of any scenario that sets the IOD as well as ENSO. Use its two effects together, the RONI effect holding the DMI fixed plus the DMI effect, both from this model. Adding the DMI effect to the RONI-alone model would count the IOD twice, because the RONI-alone coefficient already carries the positive IOD that usually comes with El Niño.
 
 For a stress scenario, such as a strong El Niño with a strong positive IOD, write the monthly path (`date`, `roni`, `dmi`, in the model's units) to a csv, uncomment the example `stress_nino_piod` in `config.yaml` (it uses the `roni_dmi` models through `models_from`), and run steps 4 and 5 with `--variant stress_nino_piod`.
+
+**The El Niño scenarios of the direct approach.** The variants `scen_1997_98`, `scen_2015_16`, `scen_2023_24` and `scen_unit` run the path tables of the direct approach (`data/paths/path_*.csv`, from `scripts/make_stage1_paths.py` on the `ginevra-agriculture` branch) on the main RONI-alone models (`models_from: main`); the `*_dmi` variants run them on the RONI + DMI models. Each table is 6 zero months, the El Niño months and 12 zero months: the 6 leading months keep the observed lead-in of step 4 out of the El Niño months (no model lag is longer than 6 months). One command runs steps 4 and 5 for all eight (about 30 seconds) and writes `outputs/scenarios/<scenario>/<roni|roni_dmi>/` without the 6 leading months (see `outputs/scenarios/README.md`):
+
+```bash
+python scripts/run_scenarios.py                      # all eight; --only scen_unit for one
+```
 
 Steps 5 and 8 stop with a message if the saved models were fitted with other predictors than the run asks for, so a main run never uses the RONI + DMI models by mistake, or the reverse.
 
@@ -287,6 +297,22 @@ The gain is from March to August (e.g. May 0.40 → 0.48, August 0.01 → 0.11) 
 * RONI and DMI correlate at about 0.4 in July–September and 0.45–0.6 in October–December, and hardly at all from January to June; since 1990 only 2019 has a positive IOD without an El Niño in October–December.
 
 This is why RONI alone is the main specification, with the DMI kept in the `roni_dmi` variant.
+
+**Other SST predictors.** `analysis/sst_predictors.py` asks whether more of the ocean than the RONI improves Stage 1, with the nested cross-validation and paired bootstrap of the DMI analysis (`outputs/analysis/sst/`). Every predictor is built from ERSSTv5 anomalies minus the tropical-mean anomaly, like the RONI, so the warming trend cannot enter. Step 1 adds one index to the RONI at a time, then the first three together: the El Niño Modoki index (EMI), the Indian Ocean basin (IOB), the Philippine Sea (125–150°E, 5–20°N, the mean of the three months before the target month only, our choice of box) and the tropical North Atlantic (TNA). Step 2 replaces the indices with the leading EOFs of the tropical Indo-Pacific SST map (30°S–30°N, 40°E–80°W), recomputed in every fold, with the number of EOFs (2–15) chosen along with the lag set, My and Mc; a second run masks the waters around the Philippines (110–135°E, 0–25°N). In short:
+
+* no index improves the hindcasts: over all variables the error changes by −1.6 % (TNA, significantly worse) to +0.3 % (Philippine Sea). Each index moves with the RONI (Philippine Sea −0.6 to −0.9 by season, EMI +0.3 to +0.7), which leaves it little to add;
+* the SST field ranks the years better than the RONI alone (mean nested Spearman 0.366 → 0.400), most for temperature (0.26 → 0.35), soil moisture, runoff and SPEI-3, but its error is no smaller (+0.5 %, 90 % interval −2.9 to +3.4 %) and rainfall is worse (−3.8 %, significant). At these skill levels a gain of 0.03 in correlation is worth only a few per cent of the error;
+* about 30 % of the field's gain in ranking needs the waters around the Philippines, where the SST partly responds to the local weather (0.390 with them masked);
+* the few seasons that look better, such as January–March SPEI-3 with the Philippine Sea, are fewer than chance would give in 280 variable–season–predictor tests, and are mostly accumulated variables, whose accumulation period overlaps the months of the Philippine Sea index.
+
+RONI alone stays the main specification. The field CCA is the linear benchmark that a model of SST patterns (a CNN, for example) would have to beat out of sample.
+
+**Non-linear responses.** `analysis/nonlinear_test.py` asks whether the weather responds to ENSO non-linearly enough for a non-linear model to beat the linear EOF-CCA, with the same nested cross-validation and test (`outputs/analysis/nonlinear/`). It compares four models with the RONI alone: separate El Niño and La Niña parts of the RONI (max and min of RONI and 0); RONI and RONI²; analogues, the mean weather of the k past years closest in RONI (no linearity at all); and analogues in the SST map, the k past years with the closest tropical Indo-Pacific SST map, the Philippine waters masked. In short:
+
+* all four are worse than the linear RONI alone, significantly so over all variables: −1.9 % (El Niño and La Niña parts), −2.3 % (RONI²), −9.3 % (analogues in RONI) and −6.6 % (analogues in the SST map). The analogues in the SST map also rank the years worse than the linear SST field (mean nested Spearman 0.338 against 0.390);
+* the observed response is somewhat asymmetric: in January–March a La Niña of one unit of RONI raises the national rainfall by about 47 % of the mean, an El Niño of one unit lowers it by about 28 % (p = 0.06 for equal slopes), with the same pattern in SPEI-3 and runoff. But the two slopes differ at p < 0.1 in only 15 % of 640 region–quarter–variable cases (10 % by chance), and estimating them separately costs more out of sample than it gains.
+
+With 76 years, the extra freedom of a non-linear model costs more than any non-linearity returns. This is why the main specification stays linear, and why a CNN trained on the observations alone would not help.
 
 ## 7 · Labour: WBGT and productivity shocks (steps 6–8)
 

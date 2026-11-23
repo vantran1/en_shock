@@ -1,0 +1,23 @@
+date,roni,roni_source,dmi,dmi_source,roni_q10,roni_q90,dmi_q10,dmi_q90,n_members,lead_in
+2025-07-01,-0.41,observed,-0.168667,observed,,,,,,True
+2025-08-01,-0.59,observed,-0.319667,observed,,,,,,True
+2025-09-01,-0.78,observed,-0.445,observed,,,,,,True
+2025-10-01,-0.93,observed,-0.390333,observed,,,,,,True
+2025-11-01,-0.98,observed,-0.240333,observed,,,,,,True
+2025-12-01,-1.04,observed,-0.05,observed,,,,,,True
+2026-01-01,-0.91,observed,0.211667,observed,,,,,,False
+2026-02-01,-0.76,observed,0.312333,observed,,,,,,False
+2026-03-01,-0.44,observed,0.364333,observed,,,,,,False
+2026-04-01,-0.04,observed,0.236667,observed,,,,,,False
+2026-05-01,0.49,observed,0.23,observed,0.73,0.73,0.2055,0.2055,100,False
+2026-06-01,0.97,observed,0.316667,observed,0.94,0.94,0.316667,0.316667,100,False
+2026-07-01,1.36,observed,0.402,forecast with observed lead-in,1.34,1.34,0.402,0.402,100,False
+2026-08-01,1.69,observed,0.437609,interpolated,1.67333,1.67333,,,100,False
+2026-09-01,1.97,observed,0.473219,interpolated,1.83,1.83,,,100,False
+2026-10-01,2.44325,forecast with observed lead-in,0.508828,interpolated,2.33174,2.75597,,,100,False
+2026-11-01,2.99437,forecast,0.544437,forecast,2.74306,3.70461,0.242061,0.81141,100,False
+2026-12-01,2.98557,forecast,0.408787,forecast,2.7066,3.66449,0.092691,0.675147,100,False
+2027-01-01,2.95465,forecast,0.166903,forecast,2.47574,3.60558,-0.208196,0.435495,100,False
+2027-02-01,2.49434,forecast,-0.0866133,forecast,1.96228,3.31949,-0.388679,0.247161,100,False
+2027-03-01,1.95713,forecast,-0.202918,forecast,1.25675,2.90107,-0.462518,0.160826,100,False
+2027-04-01,1.60803,forecast,-0.214672,forecast,0.842907,2.78806,-0.479519,0.188994,100,False

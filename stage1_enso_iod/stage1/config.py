@@ -61,8 +61,8 @@ def load(path=None, variant: str | None = None) -> dict:
     """The configuration, with the overrides of `variant` (an entry of `variants:` in config.yaml) merged in.
 
     A variant writes its outputs to outputs/variants/<name>/ and its models to work/variants/<name>/ (or uses
-    those of the variant named in its `models_from`), and reads the shared inputs (fields, weights, path,
-    cells) of the main run unless it has made its own."""
+    those of the variant named in its `models_from`, or the main run's with `models_from: main`), and reads the
+    shared inputs (fields, weights, path, cells) of the main run unless it has made its own."""
     path = pathlib.Path(path or os.environ.get("STAGE1_CONFIG", ROOT / "config.yaml")).resolve()
     cfg = yaml.safe_load(path.read_text(encoding="utf-8"))
     cfg["_root"] = path.parent
@@ -76,7 +76,8 @@ def load(path=None, variant: str | None = None) -> dict:
         models_from = over.pop("models_from", None)
         cfg = _merge(cfg, over)
         cfg["_variant"] = variant
-        cfg["_models_from"] = models_from or variant
+        # models_from: main = the main run's models (work/), e.g. a scenario path on the RONI-alone model
+        cfg["_models_from"] = None if models_from == "main" else (models_from or variant)
     predictors(cfg)
     return cfg
 

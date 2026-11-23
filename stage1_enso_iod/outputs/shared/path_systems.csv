@@ -1,0 +1,11 @@
+label,centre,system,members_available,members_used,leads
+ECMWF SEAS5,ecmwf,51,51,10,6
+Met Office GloSea6,ukmo,610,62,10,6
+Météo-France System 9,meteo_france,9,51,10,6
+DWD GCFS2.2,dwd,22,50,10,6
+CMCC SPS4,cmcc,4,50,10,6
+NCEP CFSv2,ncep,2,124,10,6
+JMA CPS4,jma,4,155,10,6
+ECCC CanESM5.1,eccc,4,20,10,6
+ECCC GEM5.2-NEMO,eccc,5,20,10,6
+BoM ACCESS-S2,bom,2,99,10,6
