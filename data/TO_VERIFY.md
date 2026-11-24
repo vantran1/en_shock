@@ -13,12 +13,18 @@ Last updated: 24 Nov 2026.
 
 1. **Rice, well-milled (FNRI A019).** Current value: 3,600 kcal/kg of milled rice. This is a typical value
    for raw milled rice, NOT the FNRI figure (the record would not load).
+   Source of the current value: none. It is a placeholder chosen on 24 Nov 2026 (Claude, while building the
+   series) from general knowledge of raw milled rice (about 360 kcal/100 g), not taken from a document.
+   FNRI record to use instead: https://i.fnri.dost.gov.ph/fct/library/report/2981 (A019; returned a server
+   error on 24 Nov 2026).
    Set in: `scripts/build_national_hazard_controls.py` (`RICE_KCAL_PER_KG`).
    Affects: the food weights of the national typhoon and flood series for the food price equation (Eq. 3).
    The effect is very small: changing the palay factor by ±20% leaves the series correlated at 0.9995 or more.
 
 2. **Corn, dried shelled.** Current value: 357 kcal/100 g, edible portion 1.0, from FNRI A001 "Corn grits,
    white", the closest record found. Is there a record for dried shelled corn?
+   Source of the current value: FNRI PhilFCT A001, looked up on 19 Nov 2026 while the FNRI site was not
+   working properly; the page URL was not recorded.
    Set in: `scripts/deliver_food_shocks.py` and `scripts/build_national_hazard_controls.py`
    (`CORN_KCAL_PER_KG`).
    Affects: the two-food-type fallback of the delivery (`nonrice_fallback`), and the food weights of the
@@ -26,22 +32,28 @@ Last updated: 24 Nov 2026.
 
 3. **Bananas Lakatan (E011), Latundan (E012) and Bungulan (E006): edible portion.** Current value: 0.64,
    assumed from Cavendish (E008). The kcal values are from FNRI.
+   Source of the current values: kcal per 100 g from FNRI PhilFCT E011, E012 and E006, sent by A. Aras on
+   11 Nov 2026; edible portion from the Cavendish record E008,
+   https://i.fnri.dost.gov.ph/fct/library/report/3590.
    Set in: `data/agriculture/fnri_calorie_factors.csv`.
    Affects: the PF index (bananas are most of its calories), and so the PF shocks.
 
 4. **Banana, others.** No FNRI record found; the Cavendish values (E008) are used. Is there a better record?
+   Source of the current values: FNRI E008, https://i.fnri.dost.gov.ph/fct/library/report/3590.
    Set in: `data/agriculture/fnri_calorie_factors.csv`.
    Affects: the PF index.
 
 5. **Calamansi.** Current value: 44 kcal/100 g, edible portion 0.38, from a secondary website citing
    PhilFCT.
+   Source of the current values: https://nuxt-ssr-juanutrisyon.pages.dev/food/calamansiphilippine-lemon
+   (a nutrition website citing PhilFCT, not FNRI itself).
    Set in: `data/agriculture/fnri_calorie_factors.csv`.
    Affects: the PF index (very small weight).
 
 ## Other
 
 6. **Palay milling recovery rate.** Current value: 0.63 kg of milled rice per kg of palay. Source: a USDA FAS
-   report that PSA lowered the rate from 0.654 to 0.63 from January 2025
+   report that PSA lowered the rate from 0.654 to 0.63 from January 2025 (found on 24 Nov 2026)
    (https://www.fas.usda.gov/data/philippines-philippine-statistics-authority-lowers-milling-recovery-rate-palay-rice-63-percent).
    A PSA release would be the better source to cite.
    Set in: `scripts/build_national_hazard_controls.py` (`MILLING_RECOVERY`).

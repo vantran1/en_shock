@@ -16,8 +16,9 @@ weighted sum over provinces, with fixed weights:
   palay, corn, VR and PF. VR and PF in kcal as in the direct approach (FNRI factors). Corn: 3,570
   kcal/kg, PROVISIONAL (FNRI A001, as in scripts/deliver_food_shocks.py). Palay: PROVISIONAL
   3,600 kcal/kg of milled rice x 0.63 kg of milled rice per kg of palay (PSA milling recovery
-  rate from January 2025; 0.654 before) = 2,268 kcal/kg; the FNRI value for well-milled rice
-  (A019) is to be confirmed. The sensitivity to the palay factor is reported.
+  rate from January 2025, per a USDA FAS report; 0.654 before) = 2,268 kcal/kg. The 3,600 is a
+  placeholder for raw milled rice with no document behind it; the FNRI value for well-milled rice
+  (A019) is to be confirmed (data/TO_VERIFY.md). The sensitivity to the palay factor is reported.
 - population (food equation, check): each province's share of the 2020 population (WorldPop,
   data/population/), INCLUDING Metro Manila, which the agricultural controls leave out (no
   production): its boundary units are added as one unit for the typhoon exposure, and EM-DAT
