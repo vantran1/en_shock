@@ -836,7 +836,7 @@ def main():
          "soil moisture is best for irrigated rice. Both miss most of the 1997–98 irrigated loss "
          "(irrigation water) and over-predict 2023–24, and the response to the same weather has changed "
          "since 2000, as in the direct approach. Van's scenario simulations pass the checks needed for "
-         "the chain, except for the missing lead-in months (section 7.2)."),
+         "the chain once all residual years are drawn again (section 7.2)."),
     ])
     doc.add_heading("How reliable are the results?", level=2)
     bullets(doc, [
