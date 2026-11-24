@@ -63,6 +63,8 @@ All results are provisional.
 - Work split (19 Nov): Ginevra does the electricity data and stage 2. Van does the world rice price now, then the residual food price step 1 if he has time (otherwise Ginevra), and CDD and labour once the ERA5 hourly data arrive.
 
 **Open points:**
+- Data values to double-check (FNRI calorie factors, palay milling recovery): listed in
+  `data/TO_VERIFY.md`, with where each is set and what to re-run.
 - Rice shocks are probably too low: part of the smaller effect after 2000 is typhoon rain over Luzon in
   late 2015 (`scripts/check_luzon_2015.py`; sensitivity in the delivery file). Stage 2 to settle.
 - Severe droughts are understated (1997–98 validation and FAOSTAT): direct shocks are lower bounds for
