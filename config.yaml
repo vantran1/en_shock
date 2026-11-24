@@ -78,18 +78,19 @@ variants:
   #   path: {source: csv, csv: data/shared/paths/stress_nino_piod.csv}
 
   # The El Nino scenarios of the direct approach (scripts/make_stage1_paths.py on ginevra-agriculture), so that
-  # the two-stage and direct shocks can be compared: each path is 6 zero months (they keep the observed lead-in
-  # of the path out of the El Nino months, and are dropped from the hand-off), the El Nino months, and 12 zero
-  # months. RONI alone on the main run's models (models_from: main); *_dmi on the RONI + DMI models.
+  # the two-stage and direct shocks can be compared: each path is 6 zero months, the El Nino months, and 12 zero
+  # months, all kept in the hand-off (Stage 2's growing windows reach back before the first El Nino month). With
+  # lead_in: zero the lagged predictors see zeros before the table, so its leading zero months are exactly neutral.
+  # RONI alone on the main run's models (models_from: main); *_dmi on the RONI + DMI models.
   # Run all: python scripts/04_simulate.py --scenarios-only
-  scen_1997_98:     {models_from: main, path: {source: csv, csv: data/shared/paths/path_1997-98.csv}}
-  scen_2015_16:     {models_from: main, path: {source: csv, csv: data/shared/paths/path_2015-16.csv}}
-  scen_2023_24:     {models_from: main, path: {source: csv, csv: data/shared/paths/path_2023-24.csv}}
-  scen_unit:        {models_from: main, path: {source: csv, csv: data/shared/paths/path_unit.csv}}
-  scen_1997_98_dmi: {models_from: roni_dmi, model: {predictors: [roni, dmi]}, path: {source: csv, csv: data/shared/paths/path_1997-98.csv}}
-  scen_2015_16_dmi: {models_from: roni_dmi, model: {predictors: [roni, dmi]}, path: {source: csv, csv: data/shared/paths/path_2015-16.csv}}
-  scen_2023_24_dmi: {models_from: roni_dmi, model: {predictors: [roni, dmi]}, path: {source: csv, csv: data/shared/paths/path_2023-24.csv}}
-  scen_unit_dmi:    {models_from: roni_dmi, model: {predictors: [roni, dmi]}, path: {source: csv, csv: data/shared/paths/path_unit.csv}}
+  scen_1997_98:     {models_from: main, path: {source: csv, csv: data/shared/paths/path_1997-98.csv, lead_in: zero}}
+  scen_2015_16:     {models_from: main, path: {source: csv, csv: data/shared/paths/path_2015-16.csv, lead_in: zero}}
+  scen_2023_24:     {models_from: main, path: {source: csv, csv: data/shared/paths/path_2023-24.csv, lead_in: zero}}
+  scen_unit:        {models_from: main, path: {source: csv, csv: data/shared/paths/path_unit.csv, lead_in: zero}}
+  scen_1997_98_dmi: {models_from: roni_dmi, model: {predictors: [roni, dmi]}, path: {source: csv, csv: data/shared/paths/path_1997-98.csv, lead_in: zero}}
+  scen_2015_16_dmi: {models_from: roni_dmi, model: {predictors: [roni, dmi]}, path: {source: csv, csv: data/shared/paths/path_2015-16.csv, lead_in: zero}}
+  scen_2023_24_dmi: {models_from: roni_dmi, model: {predictors: [roni, dmi]}, path: {source: csv, csv: data/shared/paths/path_2023-24.csv, lead_in: zero}}
+  scen_unit_dmi:    {models_from: roni_dmi, model: {predictors: [roni, dmi]}, path: {source: csv, csv: data/shared/paths/path_unit.csv, lead_in: zero}}
 
 land:
   lsm_threshold: 0.5         # ERA5 land fraction (paths.land_sea_mask); cells below are dropped
@@ -150,6 +151,7 @@ grids:
 path:
   source: c3s            # c3s: the latest C3S multi-system forecast; csv: a hand-made path (path.csv below)
   csv: null              # columns date (YYYY-MM-01), roni, dmi, in the model's units (centred 3-month means)
+  lead_in: observed      # the months before a csv path that the lags need: observed indices, or zero (scenarios)
   forecast_start: auto   # YYYY-MM, or auto: this month from the 11th, otherwise last month
   start: auto            # first month of the path; auto = January of the forecast-start year
   per_system: 10         # members taken from each C3S system, so that every system has the same weight

@@ -1,10 +1,10 @@
 date,roni,roni_source,dmi,dmi_source,lead_in
-2022-07-01,-0.86,observed,-0.258667,observed,True
-2022-08-01,-0.94,observed,-0.254333,observed,True
-2022-09-01,-1.07,observed,-0.419667,observed,True
-2022-10-01,-1.1,observed,-0.427333,observed,True
-2022-11-01,-1.05,observed,-0.350333,observed,True
-2022-12-01,-0.99,observed,-0.0833333,observed,True
+2022-07-01,0,zero lead-in,0,zero lead-in,True
+2022-08-01,0,zero lead-in,0,zero lead-in,True
+2022-09-01,0,zero lead-in,0,zero lead-in,True
+2022-10-01,0,zero lead-in,0,zero lead-in,True
+2022-11-01,0,zero lead-in,0,zero lead-in,True
+2022-12-01,0,zero lead-in,0,zero lead-in,True
 2023-01-01,0,path file,0,path file,False
 2023-02-01,0,path file,0,path file,False
 2023-03-01,0,path file,0,path file,False

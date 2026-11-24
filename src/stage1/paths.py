@@ -12,9 +12,15 @@ def build_path(cfg: dict, idx: pd.DataFrame, raw_dmi: pd.Series, forecast_start=
     """Path from `start` to the end of the forecast, with lead-in months before `start` for the lagged
     predictors (as many as the longest lag of config model.lag_sets). Months before the forecast start use the observed indices where they exist; the months
     between the last observation and the forecast use the members' centred 3-month means with the observed
-    lead-in; any remaining gap is interpolated. Every value carries its source."""
+    lead-in; any remaining gap is interpolated. Every value carries its source.
+
+    With path.lead_in: zero (csv paths only) the lead-in months are zeros instead of the observed indices, so that
+    an idealised scenario does not carry the ENSO state of the months before its table into its first months."""
     pc = cfg["path"]
     members, used, meta = None, [], {}
+    zero_lead = str(pc.get("lead_in", "observed")) == "zero"
+    if zero_lead and pc.get("source", "c3s") != "csv":
+        raise SystemExit("path.lead_in: zero is for csv paths (scenarios); a forecast path starts from the observations")
     if pc.get("source", "c3s") == "csv":
         f = C.ROOT / pc["csv"] if not str(pc["csv"]).startswith("/") else pc["csv"]
         d = pd.read_csv(f, parse_dates=["date"]).set_index("date").sort_index()
@@ -48,7 +54,9 @@ def build_path(cfg: dict, idx: pd.DataFrame, raw_dmi: pd.Series, forecast_start=
         r = {"date": t}
         for v in ("roni", "dmi"):
             obs = idx[v].get(t, np.nan)
-            if t < fc_start and np.isfinite(obs):
+            if zero_lead and t < start:
+                r[v], r[f"{v}_source"] = 0.0, "zero lead-in"
+            elif t < fc_start and np.isfinite(obs):
                 r[v], r[f"{v}_source"] = float(obs), "observed"
             elif t in central.index and np.isfinite(central.loc[t, v]):
                 r[v] = float(central.loc[t, v])
@@ -73,7 +81,8 @@ def build_path(cfg: dict, idx: pd.DataFrame, raw_dmi: pd.Series, forecast_start=
     if members is not None:
         path["n_members"] = central["n_members"].reindex(path.index)
     path["lead_in"] = path.index < start
-    meta.update(start=f"{start:%Y-%m}", end=f"{end:%Y-%m}", months=int((~path["lead_in"]).sum()), lead_in_months=n_lead)
+    meta.update(start=f"{start:%Y-%m}", end=f"{end:%Y-%m}", months=int((~path["lead_in"]).sum()), lead_in_months=n_lead,
+                lead_in_values="zero" if zero_lead else "observed")
     return path, members, meta
 
 

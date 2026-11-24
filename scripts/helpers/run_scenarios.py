@@ -4,13 +4,14 @@ variant, and the hand-off (python scripts/04_simulate.py --scenarios-only runs t
 
 The scenario variants (scen_* in config.yaml) each read a path table from data/shared/paths/ (date, roni, dmi; written
 by scripts/make_stage1_paths.py on the ginevra-agriculture branch, in the units of data/indices/). Each table is
-6 zero months, the El Nino months, and 12 zero months. Step 4 fills the 6 months before a table with the observed
-indices; the 6 leading zero months keep them out of the El Nino months (no model lag is longer than 6 months) and
-are dropped from the hand-off. scen_<name> runs the main RONI-alone models, scen_<name>_dmi the RONI + DMI models.
+6 zero months, the El Nino months, and 12 zero months. The variants set path.lead_in: zero, so the 6 lead-in months
+that the lagged predictors need before a table are zeros, not the observed indices: the 6 leading zero months of
+the table are then exactly neutral (scenario = neutral, draw by draw) and stay in the hand-off, where Stage 2's
+growing windows need them. scen_<name> runs the main RONI-alone models, scen_<name>_dmi the RONI + DMI models.
 
 Writes, for each scenario and model (roni, roni_dmi), outputs/shared/scenarios/<scenario>/<model>/:
   path.csv                              the path of step 4, with its observed lead-in (lead_in = True)
-  blocks.csv                            the historical blocks (draws); first/last_hist_month for the months kept
+  blocks.csv                            the historical blocks (draws); first/last_hist_month for the months written
   simulated_monthly_16regions.csv       draws x months x regions, scenario and neutral path (step 5)
   deterministic_monthly_16regions.csv   the same with e = 0
   effects_16regions.csv                 scenario minus neutral: mean, 10th and 90th percentiles over the draws
@@ -45,7 +46,8 @@ def step(name: str):
 
 
 def handoff(cfg: dict, drop: int) -> tuple[pathlib.Path, pd.DataFrame]:
-    """Trims the step 4-5 outputs of one variant to the months after the first `drop` path months."""
+    """Writes the step 4-5 outputs of one variant, from the month after the first `drop` months of its path table
+    (drop = 0: every month of the table), and checks that the table's leading zero months are exactly neutral."""
     csv = pathlib.Path(cfg["path"]["csv"])
     scenario = csv.stem.removeprefix("path_")
     model = "_".join(C.predictors(cfg))
@@ -54,6 +56,17 @@ def handoff(cfg: dict, drop: int) -> tuple[pathlib.Path, pd.DataFrame]:
     if len(src) <= drop or (lead[["roni", "dmi"]].abs().to_numpy() > 0).any():
         raise SystemExit(f"{csv}: the first {drop} months are not all zero; nothing dropped")
     keep_from = src["date"].iloc[drop]
+    nz = (src[["roni", "dmi"]].abs() > 0).any(axis=1).to_numpy()
+    zeros = src["date"][: int(nz.argmax()) if nz.any() else len(src)]      # the table's leading zero months
+    det = pd.read_csv(C.out(cfg, "agriculture", "deterministic_monthly_16regions.csv"), parse_dates=["date"])
+    det = det[det["date"].isin(zeros) & (det["date"] >= keep_from)]
+    if len(det):
+        num = det.select_dtypes("number").columns.difference(["draw", "block_year"])
+        w = det.pivot_table(index=["date", "code"], columns="path", values=list(num))
+        gap = max((w[v]["scenario"] - w[v]["neutral"]).abs().max() for v in num)
+        print(f"  leading zero months {zeros.iloc[0]:%Y-%m} to {zeros.iloc[-1]:%Y-%m}: largest |scenario - neutral| = {gap:.2g}")
+        if gap > 1e-6 and str(cfg["path"].get("lead_in", "observed")) == "zero":
+            raise SystemExit(f"{scenario} {model}: the leading zero months are not neutral (|difference| up to {gap:.3g})")
     dest = C.path(cfg, "outputs_dir") / "shared" / "scenarios" / scenario / model
     path = pd.read_csv(C.out(cfg, "shared", "path.csv"), parse_dates=["date"])
     write_csv(path, dest / "path.csv")
@@ -76,7 +89,7 @@ def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--config")
     ap.add_argument("--only", nargs="+", help="variant names (default: every scen_* variant)")
-    ap.add_argument("--drop", type=int, default=6, help="leading zero months of each path table to drop")
+    ap.add_argument("--drop", type=int, default=0, help="leading zero months of each path table to leave out (default: none)")
     ap.add_argument("--handoff-only", action="store_true", help="only rewrite the hand-off from existing outputs")
     a = ap.parse_args(argv)
     names = a.only or [v for v in (C.load(a.config).get("variants") or {}) if v.startswith("scen_")]
@@ -89,7 +102,7 @@ def main(argv=None):
         print(f"\n=== {v} ({C.label(cfg)}) ===")
         base = ["--variant", v] + (["--config", a.config] if a.config else [])
         if not a.handoff_only:
-            make_path(base + ["--no-refresh"])   # the cached indices: they only enter the dropped lead-in
+            make_path(base + ["--no-refresh"])   # the cached indices (with lead_in: zero they are not used)
             simulate(base)
         dest, e = handoff(cfg, a.drop)
         summary.append(e)

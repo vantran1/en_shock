@@ -1,10 +1,10 @@
 date,roni,roni_source,dmi,dmi_source,lead_in
-2000-07-01,-0.35,observed,0.062,observed,True
-2000-08-01,-0.29,observed,0.0373333,observed,True
-2000-09-01,-0.36,observed,-0.0356667,observed,True
-2000-10-01,-0.55,observed,-0.181333,observed,True
-2000-11-01,-0.79,observed,-0.232,observed,True
-2000-12-01,-0.82,observed,-0.328333,observed,True
+2000-07-01,0,zero lead-in,0,zero lead-in,True
+2000-08-01,0,zero lead-in,0,zero lead-in,True
+2000-09-01,0,zero lead-in,0,zero lead-in,True
+2000-10-01,0,zero lead-in,0,zero lead-in,True
+2000-11-01,0,zero lead-in,0,zero lead-in,True
+2000-12-01,0,zero lead-in,0,zero lead-in,True
 2001-01-01,0,path file,0,path file,False
 2001-02-01,0,path file,0,path file,False
 2001-03-01,0,path file,0,path file,False
