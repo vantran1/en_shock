@@ -1546,27 +1546,34 @@ def main():
     ])
 
     doc.add_heading("7.2 Check of Van's scenario simulations", level=2)
-    status(doc, "done (a check, not a result): ready for the chain, with one gap")
+    status(doc, "done (a check, not a result): ready for the chain once all residual years are drawn")
     para(doc, "Van ran stage 1 on the four scenario paths of the direct approach (1997–98, 2015–16, "
-              "2023–24 and the unit path, RONI and RONI + DMI models; dev_Van commit af5e28f). For each path "
-              "and each of 73 draws there is a scenario run and a neutral run (RONI = 0) that use the same "
+              "2023–24 and the unit path, RONI and RONI + DMI models; dev_Van commit af5e28f, re-run on 24 "
+              "November as 30cc20c). For each path and draw there is a scenario run and a neutral run "
+              "(RONI = 0) that use the same "
               "historical residuals, so their difference is the El Niño effect (v5 Section 3.5). Before "
               "chaining them with stage 2, scripts/check_stage1_scenarios.py checks that the files are what "
               "the chain needs (outputs/stage1_scenarios_check.md).")
     table(doc, stage1_scen_checks(), [11.0, 3.0],
-          note="Table 16. Checks of Van's scenario simulations (4 paths × 2 models; check 7 for irrigated, "
-               "rainfed and corn windows).")
+          note="Table 16. Checks of Van's scenario simulations, version 30cc20c (4 paths × 2 models; check 7 "
+               "for irrigated, rainfed and corn windows).")
     bullets(doc, [
         ("Consistent: ", "the RONI paths are ours month by month; the scenario and neutral runs of each "
          "draw use the same historical month in every region; the neutral weather depends only on the "
          "calendar month (today's climate) and is the same in every path; Van's effects table matches the "
          "draws; and the effects fade to zero within six months of the last El Niño month."),
-        ("The gap: ", "Van dropped the six months before each path from the tables. The growing windows "
-         "reach up to eight months back, so the first one or two harvest quarters of each path (for "
-         "1997–98: 1997Q2 and 1997Q3 for rice, 1997Q2 for corn) cannot be built. The El Niño effect in "
-         "those months is zero, but stage 2 is non-linear and needs their level. The reply to Van "
-         "already asks him to keep these months; until then, the chain fills them with the neutral "
-         "weather of the same calendar month in both runs (no residual for those months)."),
+        ("Leading months (fixed): ", "the first version (af5e28f) dropped the six zero months before each "
+         "path. The growing windows reach up to eight months back, so the first one or two harvest "
+         "quarters of each path (for 1997–98: 1997Q2 and 1997Q3 for rice) could not be built. Van's re-run "
+         "(30cc20c) keeps them, with the observed months before the table set to zero, so the scenario "
+         "equals the neutral run there in every draw (checked), and every harvest quarter from the first "
+         "El Niño month on is complete."),
+        ("Residual years (open): ", "the re-run draws 51 historical years instead of 73: it skips the "
+         "years without hourly data (1987–2009), for all variables, because the hourly download is not "
+         "finished. Those years cover the production period, including 1997–98. Without them, more draws "
+         "come from the 1950s, and more simulated months fall outside the range observed in 1987–2025 "
+         "(Table 18). Asked of Van: draw all years for the monthly variables until the hourly data are "
+         "complete."),
     ])
     table(doc, stage1_scen_effects(), [2.0, 4.4, 4.4, 4.0],
           note="Table 17. Largest national effect of each path on the weather (scenario − neutral, RONI model, "
@@ -1587,8 +1594,8 @@ def main():
                "and calendar month (% of region-months, all draws, RONI model; in brackets, the share below "
                "the range).")
     para(doc, "This is a first look at v5's reliability flag. Even the neutral run, which is today's "
-              "climate with historical residuals, lies outside the observed range in 8% of region-months "
-              "for temperature and 15–20% for soil moisture, almost all above it. For temperature this is "
+              "climate with historical residuals, lies outside the observed range in about 8–10% of "
+              "region-months for temperature and 15–24% for soil moisture, almost all above it. For temperature this is "
               "today's warmer climate. For soil moisture it comes mostly from residuals of the 1950s, when "
               "ERA5-Land soil moisture varies more. El Niño adds about 6 points for temperature and little "
               "for rainfall and soil moisture. The flag in the chain will therefore be (i) applied to the "

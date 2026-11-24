@@ -1,81 +1,97 @@
 scenario,model,check,ok,detail
-1997-98,roni,1 structure,True,"73 draws, 24 months 1997-04 to 1999-03, 16 regions, 0 missing values"
+1997-98,roni,1 structure,True,"51 draws, 30 months 1996-10 to 1999-03, 16 regions, 0 missing values"
 1997-98,roni,2 RONI path = ours,True,"30 common months, max |difference| 0; Van adds 6 observed lead-in months (1996-04-01 to 1996-09-01) before our 6 zero months"
 1997-98,roni,3 same residual months in both runs,True,"hist_date identical for every draw, month, region"
+1997-98,roni,7b leading zero months: scenario = neutral,True,"6 months before 1997-04, max |scenario - neutral| 0"
+1997-98,roni,9 residual years drawn,False,"51 draws, block years 1950-2022; missing 1987-2009 (22 years)"
 1997-98,roni,4 neutral depends on calendar month only,True,max spread across years of the same calendar month 0
 1997-98,roni,5 effects table = draws,True,"max |mean effect recomputed - table| 3e-06, deterministic 7e-06 (relative to each variable's largest value)"
 1997-98,roni,6 effects fade after the El Nino months,True,"from 1998-10 on: max |national mean effect| T 0.000 °C, P 0.00 mm, SM_RZ 0.0000"
-1997-98,roni,7 windows inside the tables (irrigated),False,"incomplete windows for harvest quarters 1997Q2, 1997Q3"
-1997-98,roni,7 windows inside the tables (rainfed),False,"incomplete windows for harvest quarters 1997Q2, 1997Q3"
-1997-98,roni,7 windows inside the tables (corn),False,incomplete windows for harvest quarters 1997Q2
-1997-98,roni_dmi,1 structure,True,"73 draws, 24 months 1997-04 to 1999-03, 16 regions, 0 missing values"
+1997-98,roni,7 windows inside the tables (irrigated),True,all harvest quarters complete
+1997-98,roni,7 windows inside the tables (rainfed),True,all harvest quarters complete
+1997-98,roni,7 windows inside the tables (corn),True,all harvest quarters complete
+1997-98,roni_dmi,1 structure,True,"50 draws, 30 months 1996-10 to 1999-03, 16 regions, 0 missing values"
 1997-98,roni_dmi,2 RONI path = ours,True,"30 common months, max |difference| 0; Van adds 6 observed lead-in months (1996-04-01 to 1996-09-01) before our 6 zero months"
 1997-98,roni_dmi,3 same residual months in both runs,True,"hist_date identical for every draw, month, region"
+1997-98,roni_dmi,7b leading zero months: scenario = neutral,True,"6 months before 1997-04, max |scenario - neutral| 0"
+1997-98,roni_dmi,9 residual years drawn,False,"50 draws, block years 1950-2022; missing 1987-2009 (23 years)"
 1997-98,roni_dmi,4 neutral depends on calendar month only,True,max spread across years of the same calendar month 0
 1997-98,roni_dmi,5 effects table = draws,True,"max |mean effect recomputed - table| 3e-06, deterministic 7e-06 (relative to each variable's largest value)"
 1997-98,roni_dmi,6 effects fade after the El Nino months,True,"from 1998-10 on: max |national mean effect| T 0.000 °C, P 0.00 mm, SM_RZ 0.0000"
-1997-98,roni_dmi,7 windows inside the tables (irrigated),False,"incomplete windows for harvest quarters 1997Q2, 1997Q3"
-1997-98,roni_dmi,7 windows inside the tables (rainfed),False,"incomplete windows for harvest quarters 1997Q2, 1997Q3"
-1997-98,roni_dmi,7 windows inside the tables (corn),False,incomplete windows for harvest quarters 1997Q2
-2015-16,roni,1 structure,True,"73 draws, 24 months 2015-04 to 2017-03, 16 regions, 0 missing values"
+1997-98,roni_dmi,7 windows inside the tables (irrigated),True,all harvest quarters complete
+1997-98,roni_dmi,7 windows inside the tables (rainfed),True,all harvest quarters complete
+1997-98,roni_dmi,7 windows inside the tables (corn),True,all harvest quarters complete
+2015-16,roni,1 structure,True,"51 draws, 30 months 2014-10 to 2017-03, 16 regions, 0 missing values"
 2015-16,roni,2 RONI path = ours,True,"30 common months, max |difference| 0; Van adds 6 observed lead-in months (2014-04-01 to 2014-09-01) before our 6 zero months"
 2015-16,roni,3 same residual months in both runs,True,"hist_date identical for every draw, month, region"
+2015-16,roni,7b leading zero months: scenario = neutral,True,"6 months before 2015-04, max |scenario - neutral| 0"
+2015-16,roni,9 residual years drawn,False,"51 draws, block years 1950-2022; missing 1987-2009 (22 years)"
 2015-16,roni,4 neutral depends on calendar month only,True,max spread across years of the same calendar month 0
 2015-16,roni,5 effects table = draws,True,"max |mean effect recomputed - table| 3e-06, deterministic 7e-06 (relative to each variable's largest value)"
 2015-16,roni,6 effects fade after the El Nino months,True,"from 2016-10 on: max |national mean effect| T 0.000 °C, P 0.00 mm, SM_RZ 0.0000"
-2015-16,roni,7 windows inside the tables (irrigated),False,"incomplete windows for harvest quarters 2015Q2, 2015Q3"
-2015-16,roni,7 windows inside the tables (rainfed),False,"incomplete windows for harvest quarters 2015Q2, 2015Q3"
-2015-16,roni,7 windows inside the tables (corn),False,incomplete windows for harvest quarters 2015Q2
-2015-16,roni_dmi,1 structure,True,"73 draws, 24 months 2015-04 to 2017-03, 16 regions, 0 missing values"
+2015-16,roni,7 windows inside the tables (irrigated),True,all harvest quarters complete
+2015-16,roni,7 windows inside the tables (rainfed),True,all harvest quarters complete
+2015-16,roni,7 windows inside the tables (corn),True,all harvest quarters complete
+2015-16,roni_dmi,1 structure,True,"50 draws, 30 months 2014-10 to 2017-03, 16 regions, 0 missing values"
 2015-16,roni_dmi,2 RONI path = ours,True,"30 common months, max |difference| 0; Van adds 6 observed lead-in months (2014-04-01 to 2014-09-01) before our 6 zero months"
 2015-16,roni_dmi,3 same residual months in both runs,True,"hist_date identical for every draw, month, region"
+2015-16,roni_dmi,7b leading zero months: scenario = neutral,True,"6 months before 2015-04, max |scenario - neutral| 0"
+2015-16,roni_dmi,9 residual years drawn,False,"50 draws, block years 1950-2022; missing 1987-2009 (23 years)"
 2015-16,roni_dmi,4 neutral depends on calendar month only,True,max spread across years of the same calendar month 0
 2015-16,roni_dmi,5 effects table = draws,True,"max |mean effect recomputed - table| 3e-06, deterministic 7e-06 (relative to each variable's largest value)"
 2015-16,roni_dmi,6 effects fade after the El Nino months,True,"from 2016-10 on: max |national mean effect| T 0.000 °C, P 0.00 mm, SM_RZ 0.0000"
-2015-16,roni_dmi,7 windows inside the tables (irrigated),False,"incomplete windows for harvest quarters 2015Q2, 2015Q3"
-2015-16,roni_dmi,7 windows inside the tables (rainfed),False,"incomplete windows for harvest quarters 2015Q2, 2015Q3"
-2015-16,roni_dmi,7 windows inside the tables (corn),False,incomplete windows for harvest quarters 2015Q2
-2023-24,roni,1 structure,True,"73 draws, 21 months 2023-07 to 2025-03, 16 regions, 0 missing values"
+2015-16,roni_dmi,7 windows inside the tables (irrigated),True,all harvest quarters complete
+2015-16,roni_dmi,7 windows inside the tables (rainfed),True,all harvest quarters complete
+2015-16,roni_dmi,7 windows inside the tables (corn),True,all harvest quarters complete
+2023-24,roni,1 structure,True,"51 draws, 27 months 2023-01 to 2025-03, 16 regions, 0 missing values"
 2023-24,roni,2 RONI path = ours,True,"27 common months, max |difference| 0; Van adds 6 observed lead-in months (2022-07-01 to 2022-12-01) before our 6 zero months"
 2023-24,roni,3 same residual months in both runs,True,"hist_date identical for every draw, month, region"
+2023-24,roni,7b leading zero months: scenario = neutral,True,"6 months before 2023-07, max |scenario - neutral| 0"
+2023-24,roni,9 residual years drawn,False,"51 draws, block years 1951-2023; missing 1988-2010 (22 years)"
 2023-24,roni,4 neutral depends on calendar month only,True,max spread across years of the same calendar month 0
-2023-24,roni,5 effects table = draws,True,"max |mean effect recomputed - table| 9e-07, deterministic 7e-06 (relative to each variable's largest value)"
+2023-24,roni,5 effects table = draws,True,"max |mean effect recomputed - table| 1e-06, deterministic 7e-06 (relative to each variable's largest value)"
 2023-24,roni,6 effects fade after the El Nino months,True,"from 2024-10 on: max |national mean effect| T 0.000 °C, P 0.00 mm, SM_RZ 0.0000"
-2023-24,roni,7 windows inside the tables (irrigated),False,"incomplete windows for harvest quarters 2023Q3, 2023Q4"
-2023-24,roni,7 windows inside the tables (rainfed),False,"incomplete windows for harvest quarters 2023Q3, 2023Q4"
-2023-24,roni,7 windows inside the tables (corn),False,incomplete windows for harvest quarters 2023Q3
-2023-24,roni_dmi,1 structure,True,"73 draws, 21 months 2023-07 to 2025-03, 16 regions, 0 missing values"
+2023-24,roni,7 windows inside the tables (irrigated),True,all harvest quarters complete
+2023-24,roni,7 windows inside the tables (rainfed),True,all harvest quarters complete
+2023-24,roni,7 windows inside the tables (corn),True,all harvest quarters complete
+2023-24,roni_dmi,1 structure,True,"50 draws, 27 months 2023-01 to 2025-03, 16 regions, 0 missing values"
 2023-24,roni_dmi,2 RONI path = ours,True,"27 common months, max |difference| 0; Van adds 6 observed lead-in months (2022-07-01 to 2022-12-01) before our 6 zero months"
 2023-24,roni_dmi,3 same residual months in both runs,True,"hist_date identical for every draw, month, region"
+2023-24,roni_dmi,7b leading zero months: scenario = neutral,True,"6 months before 2023-07, max |scenario - neutral| 0"
+2023-24,roni_dmi,9 residual years drawn,False,"50 draws, block years 1951-2023; missing 1988-2010 (23 years)"
 2023-24,roni_dmi,4 neutral depends on calendar month only,True,max spread across years of the same calendar month 0
 2023-24,roni_dmi,5 effects table = draws,True,"max |mean effect recomputed - table| 4e-06, deterministic 6e-06 (relative to each variable's largest value)"
 2023-24,roni_dmi,6 effects fade after the El Nino months,True,"from 2024-10 on: max |national mean effect| T 0.000 °C, P 0.00 mm, SM_RZ 0.0000"
-2023-24,roni_dmi,7 windows inside the tables (irrigated),False,"incomplete windows for harvest quarters 2023Q3, 2023Q4"
-2023-24,roni_dmi,7 windows inside the tables (rainfed),False,"incomplete windows for harvest quarters 2023Q3, 2023Q4"
-2023-24,roni_dmi,7 windows inside the tables (corn),False,incomplete windows for harvest quarters 2023Q3
-unit,roni,1 structure,True,"73 draws, 24 months 2001-07 to 2003-06, 16 regions, 0 missing values"
+2023-24,roni_dmi,7 windows inside the tables (irrigated),True,all harvest quarters complete
+2023-24,roni_dmi,7 windows inside the tables (rainfed),True,all harvest quarters complete
+2023-24,roni_dmi,7 windows inside the tables (corn),True,all harvest quarters complete
+unit,roni,1 structure,True,"51 draws, 30 months 2001-01 to 2003-06, 16 regions, 0 missing values"
 unit,roni,2 RONI path = ours,True,"30 common months, max |difference| 0; Van adds 6 observed lead-in months (2000-07-01 to 2000-12-01) before our 6 zero months"
 unit,roni,3 same residual months in both runs,True,"hist_date identical for every draw, month, region"
+unit,roni,7b leading zero months: scenario = neutral,True,"6 months before 2001-07, max |scenario - neutral| 0"
+unit,roni,9 residual years drawn,False,"51 draws, block years 1951-2023; missing 1988-2010 (22 years)"
 unit,roni,4 neutral depends on calendar month only,True,max spread across years of the same calendar month 0
 unit,roni,5 effects table = draws,True,"max |mean effect recomputed - table| 2e-06, deterministic 7e-06 (relative to each variable's largest value)"
 unit,roni,6 effects fade after the El Nino months,True,"from 2003-01 on: max |national mean effect| T 0.000 °C, P 0.00 mm, SM_RZ 0.0000"
-unit,roni,7 windows inside the tables (irrigated),False,"incomplete windows for harvest quarters 2001Q3, 2001Q4"
-unit,roni,7 windows inside the tables (rainfed),False,"incomplete windows for harvest quarters 2001Q3, 2001Q4"
-unit,roni,7 windows inside the tables (corn),False,incomplete windows for harvest quarters 2001Q3
-unit,roni_dmi,1 structure,True,"73 draws, 24 months 2001-07 to 2003-06, 16 regions, 0 missing values"
+unit,roni,7 windows inside the tables (irrigated),True,all harvest quarters complete
+unit,roni,7 windows inside the tables (rainfed),True,all harvest quarters complete
+unit,roni,7 windows inside the tables (corn),True,all harvest quarters complete
+unit,roni_dmi,1 structure,True,"50 draws, 30 months 2001-01 to 2003-06, 16 regions, 0 missing values"
 unit,roni_dmi,2 RONI path = ours,True,"30 common months, max |difference| 0; Van adds 6 observed lead-in months (2000-07-01 to 2000-12-01) before our 6 zero months"
 unit,roni_dmi,3 same residual months in both runs,True,"hist_date identical for every draw, month, region"
+unit,roni_dmi,7b leading zero months: scenario = neutral,True,"6 months before 2001-07, max |scenario - neutral| 0"
+unit,roni_dmi,9 residual years drawn,False,"50 draws, block years 1951-2023; missing 1988-2010 (23 years)"
 unit,roni_dmi,4 neutral depends on calendar month only,True,max spread across years of the same calendar month 0
 unit,roni_dmi,5 effects table = draws,True,"max |mean effect recomputed - table| 3e-06, deterministic 7e-06 (relative to each variable's largest value)"
 unit,roni_dmi,6 effects fade after the El Nino months,True,"from 2003-01 on: max |national mean effect| T 0.000 °C, P 0.00 mm, SM_RZ 0.0000"
-unit,roni_dmi,7 windows inside the tables (irrigated),False,"incomplete windows for harvest quarters 2001Q3, 2001Q4"
-unit,roni_dmi,7 windows inside the tables (rainfed),False,"incomplete windows for harvest quarters 2001Q3, 2001Q4"
-unit,roni_dmi,7 windows inside the tables (corn),False,incomplete windows for harvest quarters 2001Q3
-1997-98,roni,4b neutral = neutral of the unit path,True,"max |difference| 0 (calendar months in common, same model)"
-1997-98,roni_dmi,4b neutral = neutral of the unit path,True,"max |difference| 0 (calendar months in common, same model)"
-2015-16,roni,4b neutral = neutral of the unit path,True,"max |difference| 0 (calendar months in common, same model)"
-2015-16,roni_dmi,4b neutral = neutral of the unit path,True,"max |difference| 0 (calendar months in common, same model)"
-2023-24,roni,4b neutral = neutral of the unit path,True,"max |difference| 0 (calendar months in common, same model)"
-2023-24,roni_dmi,4b neutral = neutral of the unit path,True,"max |difference| 0 (calendar months in common, same model)"
+unit,roni_dmi,7 windows inside the tables (irrigated),True,all harvest quarters complete
+unit,roni_dmi,7 windows inside the tables (rainfed),True,all harvest quarters complete
+unit,roni_dmi,7 windows inside the tables (corn),True,all harvest quarters complete
+1997-98,roni,4b neutral = neutral of the unit path,True,"max |difference| 1.1e-13 (calendar months in common, same model)"
+1997-98,roni_dmi,4b neutral = neutral of the unit path,True,"max |difference| 1.1e-13 (calendar months in common, same model)"
+2015-16,roni,4b neutral = neutral of the unit path,True,"max |difference| 1.1e-13 (calendar months in common, same model)"
+2015-16,roni_dmi,4b neutral = neutral of the unit path,True,"max |difference| 1.1e-13 (calendar months in common, same model)"
+2023-24,roni,4b neutral = neutral of the unit path,True,"max |difference| 5.7e-14 (calendar months in common, same model)"
+2023-24,roni_dmi,4b neutral = neutral of the unit path,True,"max |difference| 5.7e-14 (calendar months in common, same model)"
 unit,roni,4b neutral = neutral of the unit path,True,"max |difference| 0 (calendar months in common, same model)"
 unit,roni_dmi,4b neutral = neutral of the unit path,True,"max |difference| 0 (calendar months in common, same model)"

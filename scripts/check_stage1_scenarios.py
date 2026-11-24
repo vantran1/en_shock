@@ -1,5 +1,5 @@
-"""Check of Van's Stage-1 simulations on the El Nino scenario paths (dev_Van af5e28f, copied to
-data/reference/van/af5e28f/scenarios/), before they are chained with Stage 2 (methodology v5
+"""Check of Van's Stage-1 simulations on the El Nino scenario paths (dev_Van 30cc20c, 24 Nov 2026,
+copied to data/reference/van/30cc20c/scenarios/; the first version, af5e28f, with --van af5e28f), before they are chained with Stage 2 (methodology v5
 Section 3.5). A check, not a result.
 
 Checks
@@ -16,16 +16,20 @@ Checks
    percentiles over the draws) for T, P, SM_RZ, VPD; effects after the El Nino months should
    fade within the 6 months of the longest Stage-1 lag.
 7. Growing windows: harvest quarters whose window reaches before the first month of the tables
-   (the 6 lead-in months were dropped by Van): these quarters cannot be built from the tables.
+   (af5e28f dropped the 6 leading zero months; 30cc20c keeps them).
+7b. Leading zero months exactly neutral: scenario = neutral in every draw before the first El Nino
+   month (30cc20c sets the observed lead-in to zero so nothing leaks in through the lags).
+9. Residual years: the historical years drawn (30cc20c drops the years without hourly data).
 8. Range: share of simulated region-months (scenario path) outside the range observed in the
    production period (1987-2025) for that region and calendar month: a first look at v5's
    reliability flag, which will be applied to the window features in the chain.
 
-Run:  python scripts/check_stage1_scenarios.py
+Run:  python scripts/check_stage1_scenarios.py [--van 30cc20c|af5e28f]
 Writes outputs/tables/stage1_scenarios_check.csv (checks 1-5, 7), stage1_scenarios_effects.csv
 (check 6), stage1_scenarios_range.csv (check 8), outputs/stage1_scenarios_check.md,
 outputs/figures/stage1_scenarios_effects.png
 """
+import argparse
 import sys
 from pathlib import Path
 
@@ -42,15 +46,18 @@ import pandas as pd  # noqa: E402
 from estimation.data import production  # noqa: E402
 from estimation.stage2 import VARS, window_features  # noqa: E402
 
-VAN = ROOT / "data/reference/van/af5e28f/scenarios"
+VAN_ROOT = ROOT / "data/reference/van"
+VAN = VAN_ROOT / "30cc20c/scenarios"
 HIST = ROOT / "data/reference/van/hist_fitted_16regions_roni_18fe296.csv"
 PATHS = ROOT / "outputs/stage1_paths"
 PROC, TAB, FIG, OUT = (ROOT / "data/processed", ROOT / "outputs/tables", ROOT / "outputs/figures",
                        ROOT / "outputs")
 SCEN = ["1997-98", "2015-16", "2023-24", "unit"]
 MODELS = ["roni", "roni_dmi"]
-README_MONTHS = {"1997-98": ("1997-04", "1999-03", 24), "2015-16": ("2015-04", "2017-03", 24),
-                 "2023-24": ("2023-07", "2025-03", 21), "unit": ("2001-07", "2003-06", 24)}
+README_MONTHS = {"af5e28f": {"1997-98": ("1997-04", "1999-03", 24), "2015-16": ("2015-04", "2017-03", 24),
+                             "2023-24": ("2023-07", "2025-03", 21), "unit": ("2001-07", "2003-06", 24)},
+                 "30cc20c": {"1997-98": ("1996-10", "1999-03", 30), "2015-16": ("2014-10", "2017-03", 30),
+                             "2023-24": ("2023-01", "2025-03", 27), "unit": ("2001-01", "2003-06", 30)}}
 SHOW = ["T", "P", "SM_RZ", "VPD"]
 UNIT = {"T": "°C", "P": "mm/month", "SM_RZ": "m³/m³", "VPD": "kPa"}
 INK, MUTED, GRID, BLUE, ORANGE = "#0b0b0b", "#52514e", "#d9d8d4", "#2a78d6", "#eb6834"
@@ -104,7 +111,7 @@ def main():
                 rows.append({**tag, "check": check, "ok": bool(ok), "detail": detail})
 
             # 1. structure
-            a, z, n = README_MONTHS[scen]
+            a, z, n = README_MONTHS[VAN.parent.name][scen]
             months = sorted(sim.date.str[:7].unique())
             add("1 structure", months[0] == a and months[-1] == z and len(months) == n
                 and sim.region_code.nunique() == 16 and set(sim.path) == {"scenario", "neutral"}
@@ -123,6 +130,20 @@ def main():
             dd, same = diff_draws(sim)
             add("3 same residual months in both runs", same, "hist_date identical for every draw, month, region"
                 if same else "hist_date differs between scenario and neutral")
+            # 7b. leading zero months exactly neutral
+            first_nino = path[(path.lead_in.astype(str) == "False") & (path.roni != 0)].date.min()
+            lead = dd.reset_index()
+            lead = lead[lead.date < first_nino]
+            if len(lead):
+                mx = float(lead[VARS].abs().max().max())
+                add("7b leading zero months: scenario = neutral", mx < 1e-9,
+                    f"{lead.date.nunique()} months before {first_nino[:7]}, max |scenario - neutral| {mx:.2g}")
+            # 9. residual years drawn
+            yrs = sorted(sim.block_year.unique())
+            gaps = [y for y in range(min(yrs), max(yrs) + 1) if y not in yrs]
+            add("9 residual years drawn", not gaps,
+                f"{len(yrs)} draws, block years {yrs[0]}-{yrs[-1]}"
+                + (f"; missing {gaps[0]}-{gaps[-1]} ({len(gaps)} years)" if gaps else ""))
             # 4. deterministic neutral by calendar month
             dn = det[det.path == "neutral"].copy()
             dn["cm"] = dn.date.str[5:7].astype(int)
@@ -165,7 +186,8 @@ def main():
             for crop, win in wins.items():
                 f = window_features(det_s, win)
                 bad = f[f["T"].isna()].period.unique()
-                first_q = pd.Period(months[0], "M").asfreq("Q")
+                # harvest quarters from the first El Nino month on (before it the shock is zero)
+                first_q = pd.Period(first_nino[:7], "M").asfreq("Q")
                 bad = sorted(q for q in bad if pd.Period(q, "Q") >= first_q)
                 add(f"7 windows inside the tables ({crop})", not bad,
                     "all harvest quarters complete" if not bad else
@@ -216,7 +238,7 @@ def report(chk, eff, rng):
          .pivot_table(index="var", columns=["scenario", "path"], values="outside"))
     r.columns = [f"{a} {b}" for a, b in r.columns]
     r = r.reset_index()
-    s = ["# Check of Van's Stage-1 scenario simulations (af5e28f)\n",
+    s = [f"# Check of Van's Stage-1 scenario simulations ({VAN.parent.name})\n",
          "A check before the chain, not a result. Details in scripts/check_stage1_scenarios.py.\n",
          "## Checks\n", md(chk[["scenario", "model", "check", "ok", "detail"]]),
          "\n## Largest national effect by scenario (RONI model; palay-weighted, scenario - neutral; "
@@ -258,4 +280,7 @@ def figure(eff):
 
 
 if __name__ == "__main__":
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--van", default="30cc20c", help="Van's commit folder under data/reference/van/")
+    VAN = VAN_ROOT / ap.parse_args().van / "scenarios"
     main()
