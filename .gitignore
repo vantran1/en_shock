@@ -6,6 +6,8 @@ data/shared/era5/hourly/
 data/shared/c3s/
 # inputs that no step of the run reads (see data/shared/archive/README.md)
 data/shared/archive/
+# PSA CPI full tables (the backcast is over GitHub's 100 MB limit; see data/prices/psa_cpi/README.md)
+data/prices/psa_cpi/*.csv
 
 # ---------------------------------------------------------------- outputs: only the hand-off files are tracked
 # Everything else in outputs/ is rebuilt by the scripts. To hand off another file, add a !outputs/... line.
