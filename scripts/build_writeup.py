@@ -836,7 +836,7 @@ def main():
          "soil moisture is best for irrigated rice. Both miss most of the 1997–98 irrigated loss "
          "(irrigation water) and over-predict 2023–24, and the response to the same weather has changed "
          "since 2000, as in the direct approach. Van's scenario simulations pass the checks needed for "
-         "the chain once all residual years are drawn again (section 7.2)."),
+         "the chain (section 7.2)."),
     ])
     doc.add_heading("How reliable are the results?", level=2)
     bullets(doc, [
@@ -1546,16 +1546,17 @@ def main():
     ])
 
     doc.add_heading("7.2 Check of Van's scenario simulations", level=2)
-    status(doc, "done (a check, not a result): ready for the chain once all residual years are drawn")
+    status(doc, "done (a check, not a result): ready for the chain (version f6ddf65, 25 November)")
     para(doc, "Van ran stage 1 on the four scenario paths of the direct approach (1997–98, 2015–16, "
               "2023–24 and the unit path, RONI and RONI + DMI models; dev_Van commit af5e28f, re-run on 24 "
-              "November as 30cc20c). For each path and draw there is a scenario run and a neutral run "
+              "November as 30cc20c and on 25 November with the complete hourly record as f6ddf65). For each "
+              "path and each of 73 draws there is a scenario run and a neutral run "
               "(RONI = 0) that use the same "
               "historical residuals, so their difference is the El Niño effect (v5 Section 3.5). Before "
               "chaining them with stage 2, scripts/check_stage1_scenarios.py checks that the files are what "
               "the chain needs (outputs/stage1_scenarios_check.md).")
     table(doc, stage1_scen_checks(), [11.0, 3.0],
-          note="Table 16. Checks of Van's scenario simulations, version 30cc20c (4 paths × 2 models; check 7 "
+          note="Table 16. Checks of Van's scenario simulations, version f6ddf65 (4 paths × 2 models; check 7 "
                "for irrigated, rainfed and corn windows).")
     bullets(doc, [
         ("Consistent: ", "the RONI paths are ours month by month; the scenario and neutral runs of each "
@@ -1568,12 +1569,10 @@ def main():
          "(30cc20c) keeps them, with the observed months before the table set to zero, so the scenario "
          "equals the neutral run there in every draw (checked), and every harvest quarter from the first "
          "El Niño month on is complete."),
-        ("Residual years (open): ", "the re-run draws 51 historical years instead of 73: it skips the "
-         "years without hourly data (1987–2009), for all variables, because the hourly download is not "
-         "finished. Those years cover the production period, including 1997–98. Without them, more draws "
-         "come from the 1950s, and more simulated months fall outside the range observed in 1987–2025 "
-         "(Table 18). Asked of Van: draw all years for the monthly variables until the hourly data are "
-         "complete."),
+        ("Residual years (fixed): ", "the 24 November re-run drew only 51 historical years, skipping the "
+         "years without hourly data (1987–2009). The 25 November re-run, with the complete hourly record, "
+         "draws all 73 years again, and adds the daily variables of v5 Table 2 (with extreme degree-days "
+         "and hot days at 30, 32 and 35 °C)."),
     ])
     table(doc, stage1_scen_effects(), [2.0, 4.4, 4.4, 4.0],
           note="Table 17. Largest national effect of each path on the weather (scenario − neutral, RONI model, "
