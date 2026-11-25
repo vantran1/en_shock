@@ -1,0 +1,11 @@
+check,value,detail
+palay version = regional controls x regional palay shares,1.1102230246251565e-16,ty_share_ts 1.1e-16; ty_share_ty 5.6e-17; ty_share_sty 3.5e-18; flood_share 1.1e-16
+Metro Manila share of 2020 population,0.12462571271164671,total population 104.2 million
+EM-DAT events placed in Metro Manila,29.0,dropped in the agricultural controls (no production)
+food weights: calorie shares 2016-2025,,"palay 52%, corn 34%, vr+pf 13%"
+food version with the palay factor x 0.8,0.022288713472175647,"max |difference|; correlation ty_share_ts 0.9997, ty_share_ty 0.9995, ty_share_sty 0.9996, flood_share 0.9996"
+food version with the palay factor x 1.2,0.018066627525990586,"max |difference|; correlation ty_share_ts 0.9998, ty_share_ty 0.9997, ty_share_sty 0.9998, flood_share 0.9997"
+"correlation between versions, ty_share_ts",,"palay-food 0.988, food-population 0.879, palay-population 0.923"
+"correlation between versions, ty_share_ty",,"palay-food 0.978, food-population 0.634, palay-population 0.690"
+"correlation between versions, ty_share_sty",,"palay-food 0.977, food-population 0.503, palay-population 0.594"
+"correlation between versions, flood_share",,"palay-food 0.971, food-population 0.930, palay-population 0.952"
