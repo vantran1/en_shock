@@ -51,7 +51,7 @@ SEASONS = list(SEASON_CENTRE)
 
 def read_index_file(kind: str, f) -> pd.Series:
     """The shared index files of en_shock (data/indices/), as monthly series:
-    RONI  roni/ersst/roni_nino34_seasonal_ersst.csv  (season, rel_ssta), e.g. 1950-DJF = the centred 3-month mean of
+    RONI  roni/roni_nino34_seasonal_ersst.csv  (season, rel_ssta), e.g. 1950-DJF = the centred 3-month mean of
           Dec 1949-Feb 1950, dated by its centre month (Jan 1950), as CPC's RONI.ascii.txt;
     DMI   dmi/dmi_had.csv  (Date, DMI), NOAA PSL HadISST monthly, -9999 = missing."""
     if kind == "roni":

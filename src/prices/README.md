@@ -21,7 +21,7 @@ The two parts are `scripts/helpers/prices_estimate_rice.py` and `scripts/helpers
 | `data/prices/CMO-Historical-Data-Annual.xlsx` | MUV index, the deflator (annual, 1960–2025) | World Bank Pink Sheet, sheet "Annual Prices (Real)" |
 | `data/prices/fred_CPIAUCNS.csv` | US CPI, the alternative deflator of one check | FRED, series CPIAUCNS |
 | `data/prices/rice_export_restrictions.csv` | Rice export restrictions, one row per episode, with sources | Compiled (Slayton 2009, DGFT, Global Trade Alert, IFPRI and others) |
-| `data/indices/roni/ersst/roni_nino34_monthly_ersst.csv` | RONI (monthly relative Niño-3.4), averaged to quarters | NOAA CPC; same file as the crop models |
+| `data/indices/roni/roni_nino34_monthly_ersst.csv` | RONI (monthly relative Niño-3.4), averaged to quarters | NOAA CPC; same file as the crop models |
 | `data/indices/dmi/dmi_had.csv` | DMI, only for the DMI variant check | NOAA PSL |
 
 ## Outputs (`outputs/prices/world_rice/`)

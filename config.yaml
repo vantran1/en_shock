@@ -16,7 +16,7 @@ paths:
   population: data/shared/population/phl_ppp_2020_1km_Aggregated_UNadj.tif
   c3s_dir: data/shared/c3s
   # RONI (CPC; centred 3-month means, by season) and DMI (NOAA PSL, HadISST, monthly): the shared index files
-  roni_file: data/indices/roni/ersst/roni_nino34_seasonal_ersst.csv
+  roni_file: data/indices/roni/roni_nino34_seasonal_ersst.csv
   dmi_file: data/indices/dmi/dmi_had.csv
   work_dir: outputs/shared/work   # models and fields saved by steps 1-3 and the hourly steps (not tracked by git)
   outputs_dir: outputs            # outputs/<agriculture|electricity|labour|prices>/ and outputs/shared/
