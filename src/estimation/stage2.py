@@ -19,7 +19,8 @@ Regression, v5 Eq. (11), Poisson pseudo-ML (production in levels, proportional e
 
   h_v = max(0, W - W*) for heat and evaporative demand (T, VPD), max(0, W* - W) for rainfall
   and soil moisture (P, SM). Thresholds W* chosen by fit (deviance) on a grid of the
-  training sample's deciles, one variable at a time (coordinate descent, two sweeps).
+  training sample's 5th, 10th, ..., 95th percentiles, one variable at a time (coordinate
+  descent, two sweeps).
 Region x quarter-of-year effects, smooth regional trends (restricted cubic spline, knots
 on the training years, as in scripts/validate_strict.py), exposure controls X as in the
 direct approach.
@@ -39,22 +40,41 @@ import numpy as np
 import pandas as pd
 import statsmodels.api as sm
 
-VARS = ["T", "VPD", "P", "SM_RZ", "SM_DEEP", "PET", "E", "SPEI3", "CWB3", "RS", "RO"]
+MONTHLY = ["T", "VPD", "P", "SM_RZ", "SM_DEEP", "PET", "E", "SPEI3", "CWB3", "RS", "RO"]
+# daily variables of v5 Table 2, from hourly ERA5 (Van, 25 Nov 2026): monthly means of the daily
+# maximum and minimum temperature and of the afternoon VPD; extreme degree-days and hot days above
+# 30, 32 and 35 degC; dry days (< 1 mm), longest dry spell in the month, heavy-rain days (>= 50 mm)
+DAILY = ["TMAX", "TMIN", "VPDMAX", "EDD30", "EDD32", "EDD", "NHOT30", "NHOT32", "NHOT", "NDRY",
+         "LDRY", "N50"]
+VARS = MONTHLY + DAILY
 EXTREMES = {"T_max": ("T", "max"), "VPD_max": ("VPD", "max"), "P_min": ("P", "min"),
-            "SM_RZ_min": ("SM_RZ", "min"), "SPEI3_min": ("SPEI3", "min")}
+            "SM_RZ_min": ("SM_RZ", "min"), "SPEI3_min": ("SPEI3", "min"),
+            "TMAX_max": ("TMAX", "max"), "LDRY_max": ("LDRY", "max")}
+MONTHLY_EXTREMES = ["T_max", "VPD_max", "P_min", "SM_RZ_min", "SPEI3_min"]
+FEATURES_MONTHLY = MONTHLY + MONTHLY_EXTREMES
 FEATURES = VARS + list(EXTREMES)
 # direction of the hinge: 'upper' = losses beyond a high value (heat, demand), 'lower' =
 # losses below a low value (water supply)
 HINGE = {"T": "upper", "VPD": "upper", "PET": "upper", "T_max": "upper", "VPD_max": "upper",
+         "TMAX": "upper", "TMIN": "upper", "VPDMAX": "upper", "TMAX_max": "upper",
+         "EDD30": "upper", "EDD32": "upper", "EDD": "upper", "NHOT30": "upper", "NHOT32": "upper",
+         "NHOT": "upper", "NDRY": "upper", "LDRY": "upper", "LDRY_max": "upper", "N50": "upper",
          "P": "lower", "SM_RZ": "lower", "SM_DEEP": "lower", "SPEI3": "lower", "CWB3": "lower",
          "E": "lower", "RO": "lower", "P_min": "lower", "SM_RZ_min": "lower",
          "SPEI3_min": "lower"}
 # monotonic constraints for the boosting (+1 production rises with the feature, -1 falls,
 # 0 free): heat and demand hurt, water in the soil helps; rainfall, runoff, radiation and
 # actual evaporation are left free (too much rain also hurts; E rises with both water and heat)
+# daily: heat (TMAX, night-time TMIN, degree-days, hot days, afternoon VPD) and dry spells hurt;
+# heavy-rain days left free (waterlogging, but also water supply)
 MONOTONE = {"T": -1, "VPD": -1, "PET": -1, "T_max": -1, "VPD_max": -1, "SM_RZ": 1,
-            "SM_DEEP": 1, "SPEI3": 1, "CWB3": 1, "SM_RZ_min": 1, "SPEI3_min": 1}
-DECILES = np.round(np.arange(0.1, 0.91, 0.1), 1)
+            "SM_DEEP": 1, "SPEI3": 1, "CWB3": 1, "SM_RZ_min": 1, "SPEI3_min": 1,
+            "TMAX": -1, "TMIN": -1, "VPDMAX": -1, "TMAX_max": -1, "EDD30": -1, "EDD32": -1,
+            "EDD": -1, "NHOT30": -1, "NHOT32": -1, "NHOT": -1, "NDRY": -1, "LDRY": -1,
+            "LDRY_max": -1}
+# thresholds: every 5th percentile of the training sample, 5th to 95th (deciles until 25 Nov 2026,
+# when several thresholds ended on the edge of that grid)
+GRID_Q = np.round(np.arange(0.05, 0.951, 0.05), 2)
 FULL_IN_FIELD = 0.5
 
 
@@ -111,7 +131,8 @@ def window_features(weather: pd.DataFrame, windows: pd.DataFrame, keys=()) -> pd
 
 
 def observed_weather(hist: pd.DataFrame, suffix: str = "_obs") -> pd.DataFrame:
-    """Van's hist_fitted table -> date, region_code, VARS (one of _obs, _fitted, _cv, _nested)."""
+    """Van's hist_fitted table -> date, region_code, VARS (one of _obs, _fitted, _cv, _nested).
+    Needs the version with the daily variables (dev_Van f6ddf65 or later)."""
     cols = {f"{v}{suffix}": v for v in VARS}
     return hist.rename(columns={"code": "region_code", **cols})[["date", "region_code"] + VARS]
 
@@ -156,7 +177,7 @@ def fit_hinge(d: pd.DataFrame, y: np.ndarray, base: pd.DataFrame, spec: Stage2Sp
     bt = base.loc[train]
     keep = bt.columns[bt.abs().sum() > 0]
     yt = y[train]
-    grid = {v: np.quantile(d.loc[train, v], DECILES) for v in spec.hinge}
+    grid = {v: np.unique(np.quantile(d.loc[train, v], GRID_Q)) for v in spec.hinge}
     thr = {v: spec.thresholds.get(v, float(np.median(d.loc[train, v]))) for v in spec.hinge}
 
     def dev(t):

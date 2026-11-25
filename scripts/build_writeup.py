@@ -711,9 +711,15 @@ def stage1_scen_range():
     return pd.DataFrame(rows)
 
 
-STAGE2_MODELS = {"linear": "Linear (4 means)", "hinge": "Hinge, 4 means (Eq. 11)",
-                 "hinge_sm_t": "Hinge, T and SM_RZ", "hinge_extremes": "Hinge on extremes",
-                 "gbm4": "Boosting, 4 means", "gbm_all": "Boosting, 16 features"}
+STAGE2_MODELS = {"linear": "Linear, 4 monthly means", "hinge": "Hinge, 4 monthly means (Eq. 11)",
+                 "hinge_sm_t": "Hinge, T and SM_RZ", "hinge_extremes": "Hinge on monthly extremes",
+                 "hinge_sm_tmax": "Hinge, TMAX and SM_RZ", "hinge_sm_edd30": "Hinge, EDD30 and SM_RZ",
+                 "hinge_ldry_tmax": "Hinge, dry spell and TMAX",
+                 "hinge_sm_t_post2000": "Hinge, T and SM_RZ, changing from 2000",
+                 "gbm4": "Boosting, 4 monthly means", "gbm_all": "Boosting, 16 monthly features",
+                 "gbm_daily": "Boosting, 30 monthly and daily features",
+                 "gbm_daily_post2000": "Boosting, 30 features, changing from 2000"}
+STAGE2_SHOWN = ("hinge_sm_t", "hinge_sm_t_post2000", "gbm_all", "gbm_daily_post2000")
 
 
 def stage2_skill():
@@ -729,29 +735,43 @@ def stage2_skill():
     return pd.DataFrame(rows)
 
 
+def stage2_folds_won():
+    """Folds (of 11 per series) in which each model has the lowest held-out deviance."""
+    s = pd.read_csv(TAB / "stage2_cv_skill.csv")
+    s = s[s.model != "base"]
+    best = s.loc[s.groupby(["series", "fold"]).deviance.idxmin()]
+    return best.groupby("model").size()
+
+
 def stage2_episodes():
     e = pd.read_csv(TAB / "stage2_cv_episodes.csv")
     g = e.groupby(["series", "episode"]).sum(numeric_only=True)
     rows = []
     for (ser, ep), x in g.iterrows():
         rows.append({"Series": ser, "Episode": ep, "Observed": 100 * (x.actual / x.base - 1),
-                     **{STAGE2_MODELS[m]: 100 * (x[m] / x.base - 1) for m in ("hinge_sm_t", "hinge", "gbm_all")}})
+                     **{STAGE2_MODELS[m]: 100 * (x[m] / x.base - 1) for m in STAGE2_SHOWN}})
     order = {"irrigated": 0, "rainfed": 1, "corn": 2}
     return pd.DataFrame(rows).sort_values(["Series", "Episode"], key=lambda c: c.map(order) if c.name == "Series" else c)
 
 
 def stage2_hinge():
+    """Hinge terms of the regression whose response changes from 2000: extra loss beyond the
+    threshold before 2000 and today (before + shift)."""
     c = pd.read_csv(TAB / "stage2_coefficients.csv")
-    c = c[(c.model == "hinge_sm_t") & c.term.str.startswith("H_")]
+    c = c[c.model == "hinge_sm_t_post2000"].set_index(["series", "term"])
     lab = {"H_T": "Heat: window T above threshold (per °C)",
            "H_SM_RZ": "Dry soil: SM_RZ below threshold (per 0.01 m³/m³)"}
     rows = []
-    for _, x in c.iterrows():
-        k = 0.01 if x.term == "H_SM_RZ" else 1.0
-        rows.append({"Series": x.series, "Term": lab[x.term],
-                     "Threshold": f"{x.threshold:.3g} {'°C' if x.term == 'H_T' else 'm³/m³'}"
-                                  + (" (edge)" if x.on_grid_edge else ""),
-                     "Extra loss (%)": -100 * (np.exp(x.est * k) - 1), "t": x.est / x.se})
+    for ser in ["irrigated", "rainfed", "corn"]:
+        for term in ("H_T", "H_SM_RZ"):
+            x, sh = c.loc[(ser, term)], c.loc[(ser, f"P_{term}")]
+            k = 0.01 if term == "H_SM_RZ" else 1.0
+            rows.append({"Series": ser, "Term": lab[term],
+                         "Threshold": f"{x.threshold:.3g} {'°C' if term == 'H_T' else 'm³/m³'}"
+                                      + (" (edge)" if x.on_grid_edge else ""),
+                         "Before 2000 (%)": -100 * (np.exp(x.est * k) - 1),
+                         "Today (%)": -100 * (np.exp((x.est + sh.est) * k) - 1),
+                         "t of the change": sh.est / sh.se})
     return pd.DataFrame(rows)
 
 
@@ -830,12 +850,11 @@ def main():
          "therefore use RONI alone, as stage 1 now does; the DMI is kept as a variant and for stress "
          "scenarios. This changes the agreed scope and awaits Alper's agreement (section 4)."),
         ("Two-stage approach, stage 2 (weather → production): ", "estimated and tested out of sample "
-         "on the monthly weather (section 7.3). Weather predicts the El Niño episodes clearly better than "
-         "a model without it, but no single model wins everywhere: gradient boosting is best for rainfed "
-         "rice and the only model close to its 1997–98 collapse; a hinge regression on temperature and "
-         "soil moisture is best for irrigated rice. Both miss most of the 1997–98 irrigated loss "
-         "(irrigation water) and over-predict 2023–24, and the response to the same weather has changed "
-         "since 2000, as in the direct approach. Van's scenario simulations pass the checks needed for "
+         "on the monthly and daily weather (section 7.3). The response of production to the same weather "
+         "has changed since 2000, as in the direct approach, and the models that allow for it predict "
+         "best: they reproduce the 1997–98 losses of irrigated and rainfed rice when that episode is "
+         "left out. The chain will use a hinge regression on temperature and soil moisture for irrigated "
+         "rice and gradient boosting on all features for rainfed rice and corn. Van's scenario simulations pass the checks needed for "
          "the chain (section 7.2)."),
     ])
     doc.add_heading("How reliable are the results?", level=2)
@@ -1603,32 +1622,40 @@ def main():
               "run. These are proposed clarifications of v5 Section 3.4.")
 
     doc.add_heading("7.3 Stage 2: weather to production", level=2)
-    status(doc, "model comparison done (diagnostic); chain with stage 1 to come")
+    status(doc, "model comparison done with monthly and daily weather (diagnostic); chain with stage 1 next")
     para(doc, "Stage 2 relates production to the weather in the months the crop was in the field "
               "(v5 Section 3.4). The weather is Van's observed ERA5-Land variables (the same variables, "
               "units, cells and cropland weights as stage 1), averaged over each crop's growing window "
               "(section 7.1), weighted by the share of the quarter's harvest in the field each month "
-              "(scripts/build_stage2_features.py, data/processed/stage2_features.csv). Besides the window "
-              "means of the 11 monthly variables, five extremes are kept: the hottest month, the month "
-              "with the highest VPD, and the driest month for rainfall, root-zone soil moisture and "
-              "SPEI-3. The daily variables of v5 Table 2 (hot days, dry spells and so on) are not yet "
-              "available from stage 1, so this is the monthly version.")
+              "(scripts/build_stage2_features.py, data/processed/stage2_features.csv). There are 30 "
+              "features: the window means of the 11 monthly variables and of the 12 daily variables of v5 "
+              "Table 2 (mean daily maximum and minimum temperature, afternoon VPD, extreme degree-days and "
+              "hot days above 30, 32 and 35 °C, dry days, longest dry spell, heavy-rain days; Van, 25 "
+              "November), and seven extremes: the hottest month (mean and daily maximum), the month with "
+              "the highest VPD, the driest month for rainfall, root-zone soil moisture and SPEI-3, and the "
+              "longest dry spell of the window. Degree-days above 35 °C are almost always zero on regional "
+              "averages (71% of region-months), which is why the 30 and 32 °C thresholds were added.")
     para(doc, "All models are estimated like the direct approach (Poisson, production in levels, region "
               "× quarter effects, smooth regional trends, the typhoon, flood and geophysical controls, and "
-              "the Negros corn break), with weather in place of RONI (v5 Eq. 11). Six models are compared "
-              "(scripts/estimate_stage2.py):")
+              "the Negros corn break), with weather in place of RONI (v5 Eq. 11). Twelve models are "
+              "compared (scripts/estimate_stage2.py):")
     bullets(doc, [
-        ("Regression, v5 Eq. 11: ", "window means of temperature, VPD, rainfall and root-zone soil "
-         "moisture, each with a hinge: the loss grows faster beyond a threshold (above it for heat and "
-         "VPD, below it for rainfall and soil moisture). The thresholds are chosen by fit among the "
-         "deciles of the data. Also run: the same without hinges (linear), a parsimonious version "
-         "with hinges on temperature and soil moisture only, and hinges on the hottest month and "
-         "the driest soil moisture."),
-        ("Gradient boosting: ", "on the same four means, and on all 16 features. Production is "
-         "constrained to fall with heat and VPD and to rise with soil moisture and SPEI. Region, "
-         "season, trend and control terms enter as in the regression: the two parts are fitted in "
-         "turn (backfitting), so the boosting explains only what the weather adds. Settings are "
-         "fixed in advance and not tuned."),
+        ("Regression, v5 Eq. 11: ", "weather window means with hinges: the loss grows faster beyond a "
+         "threshold (above it for heat, VPD and dry spells, below it for rainfall and soil moisture). "
+         "Thresholds are chosen by fit among the 5th, 10th, …, 95th percentiles of the data. Versions: "
+         "the four monthly means (temperature, VPD, rainfall, soil moisture) with and without hinges; "
+         "parsimonious pairs of a heat and a water measure (mean temperature, daily maximum temperature "
+         "or degree-days above 30 °C, each with soil moisture; dry spell with daily maximum temperature); "
+         "and hinges on the monthly extremes."),
+        ("Gradient boosting: ", "on the four monthly means, on the 16 monthly features, and on all 30 "
+         "features. Production is constrained to fall with heat, VPD, degree-days, hot days and dry "
+         "spells and to rise with soil moisture and SPEI. Region, season, trend and control terms enter "
+         "as in the regression: the two parts are fitted in turn (backfitting), so the boosting explains "
+         "only what the weather adds. Settings are fixed in advance and not tuned."),
+        ("Today's response: ", "the weather effects changed from 2000 (tested below), so two models let "
+         "them change: the regression with temperature and soil moisture, with every weather term "
+         "shifting from 2000, and the boosting on all 30 features with a post-2000 indicator among the "
+         "features. For the shocks, both use the post-2000 response."),
     ])
     para(doc, "Out-of-sample test (v5: the model that predicts better on years left out is kept). Each "
               "model is re-estimated without the held-out quarters, choosing its thresholds and trends "
@@ -1636,92 +1663,110 @@ def main():
               "(1997Q2–1998Q4, 2015Q2–2016Q4, 2023Q2–2024Q4). Skill is the share of the prediction error "
               "(Poisson deviance) of the model without weather that the weather removes, on the held-out "
               "quarters.")
-    table(doc, stage2_skill(), [3.4, 2.1, 2.1, 2.1, 2.1, 2.1, 2.1],
+    sk_tab = stage2_skill()
+    table(doc, sk_tab, [4.6, 1.9, 1.9, 1.9, 1.9, 1.9, 1.9],
           note="Table 19. Out-of-sample skill of stage 2 (% of the no-weather model's deviance removed on "
                "held-out quarters; 5-year blocks and the three episodes). Higher is better; negative = "
                "worse than no weather.",
-          fmt={c: "{:.1f}" for c in stage2_skill().columns[1:]})
-    sk = stage2_skill().set_index("Model")
+          fmt={c: "{:.1f}" for c in sk_tab.columns[1:]})
+    sk = sk_tab.set_index("Model")
     ep = stage2_episodes().set_index(["Series", "Episode"])
-    g = STAGE2_MODELS["gbm_all"]
-    best_ep = sk.filter(like="episodes").max()
-    para(doc, f"Weather explains little of the year-to-year variation as a whole (block skill at most "
-              f"{sk.filter(like='5-yr').max().max():.0f}%), since most of it is trend, season and region, "
-              f"but much more in the El Niño episodes (best model {best_ep.min():.0f}–{best_ep.max():.0f}%). "
-              f"No model wins everywhere. Boosting on all 16 features has the best block skill for rainfed "
-              f"rice and corn and the best episode skill for rainfed rice, and it is the best model in more "
-              f"single folds than any other. It is the only model that comes close to the 1997–98 collapse "
-              f"of rainfed rice ({ep.loc[('rainfed', '1997-98'), g]:.0f}% predicted against "
-              f"{ep.loc[('rainfed', '1997-98'), 'Observed']:.0f}% observed, against "
-              f"{ep.loc[('rainfed', '1997-98'), STAGE2_MODELS['hinge_sm_t']]:.0f}% for the regression). "
-              f"For irrigated rice the regressions do better in both tests, and for corn on the episodes.")
-    table(doc, stage2_episodes(), [2.2, 2.0, 2.2, 2.9, 2.9, 2.9],
+    won = stage2_folds_won()
+    H, G = STAGE2_MODELS["hinge_sm_t_post2000"], STAGE2_MODELS["gbm_daily_post2000"]
+    n_post = int(won.get("hinge_sm_t_post2000", 0) + won.get("gbm_daily_post2000", 0))
+    para(doc, f"Two results stand out. First, the models whose response changes from 2000 predict best: "
+              f"they are the best model in {n_post} of the 33 folds and have the highest skill in both "
+              f"tests for irrigated and rainfed rice and in the 5-year blocks for corn. For irrigated rice "
+              f"the regression is best ({sk.loc[H, 'irrigated, 5-yr']:.1f}% in the blocks, "
+              f"{sk.loc[H, 'irrigated, episodes']:.1f}% in the episodes); for rainfed rice and corn the "
+              f"boosting ({sk.loc[G, 'rainfed, 5-yr']:.1f}% and {sk.loc[G, 'rainfed, episodes']:.1f}% for "
+              f"rainfed rice; {sk.loc[G, 'corn, 5-yr']:.1f}% and {sk.loc[G, 'corn, episodes']:.1f}% for corn, "
+              f"where the linear regression does slightly better on the episodes). Second, the daily "
+              f"variables help the boosting (for irrigated rice, block skill "
+              f"{sk.loc[STAGE2_MODELS['gbm_all'], 'irrigated, 5-yr']:.1f}% with the monthly features and "
+              f"{sk.loc[STAGE2_MODELS['gbm_daily'], 'irrigated, 5-yr']:.1f}% with the daily ones) but change "
+              f"the regressions little: one heat and one water measure capture most of what the regression "
+              f"can use, whichever the measure.")
+    table(doc, stage2_episodes(), [2.0, 1.8, 2.0, 2.6, 2.6, 2.6, 2.6],
           note="Table 20. Episodes held out: national production over the episode window, observed and "
                "predicted from the observed weather, % against the model without weather (estimated without "
                "the episode).",
-          fmt={c: "{:.1f}" for c in ["Observed"] + [STAGE2_MODELS[m] for m in ("hinge_sm_t", "hinge", "gbm_all")]})
+          fmt={c: "{:.1f}" for c in ["Observed"] + [STAGE2_MODELS[m] for m in STAGE2_SHOWN]})
     figure(doc, FIG / "stage2_episodes.png", 16.0,
            "Figure 6. Stage 2 out of sample: national production by quarter in each held-out episode, "
            "observed and predicted from the observed weather (% against the model without weather).")
     para(doc, "What the episodes show.", italic=True)
     bullets(doc, [
-        ("1997–98, irrigated rice: ", f"every model predicts about a third of the loss "
-         f"({ep.loc[('irrigated', '1997-98'), STAGE2_MODELS['hinge_sm_t']]:.0f}% to "
-         f"{ep.loc[('irrigated', '1997-98'), g]:.0f}% against "
-         f"{ep.loc[('irrigated', '1997-98'), 'Observed']:.0f}%). Local rainfall and soil moisture miss "
-         "the fall in irrigation water (reservoirs and river flows), the channel v5 Section 3.6 expects "
-         "the two-stage approach to miss. Runoff, in the 16-feature boosting, recovers a little of it."),
-        ("2023–24: ", "all models predict a loss of 3–8% for rice that did not happen, in line with "
-         "the smaller El Niño effect after 2000 found in the direct approach."),
-        ("2015–16: ", "the national losses of rainfed rice are predicted well; the quarterly pattern less "
-         "so (the 2015Q3 and 2016Q1 dips are missed)."),
+        ("1997–98: ", f"only the models whose response changes from 2000 reproduce the losses of both rice "
+         f"ecosystems. Irrigated rice: {ep.loc[('irrigated', '1997-98'), H]:.0f}% (regression) and "
+         f"{ep.loc[('irrigated', '1997-98'), G]:.0f}% (boosting) predicted against "
+         f"{ep.loc[('irrigated', '1997-98'), 'Observed']:.0f}% observed, where the models with a fixed "
+         f"response predict {ep.loc[('irrigated', '1997-98'), STAGE2_MODELS['hinge_sm_t']]:.0f}% to "
+         f"{ep.loc[('irrigated', '1997-98'), STAGE2_MODELS['gbm_all']]:.0f}%. Rainfed rice: "
+         f"{ep.loc[('rainfed', '1997-98'), H]:.0f}% and {ep.loc[('rainfed', '1997-98'), G]:.0f}% against "
+         f"{ep.loc[('rainfed', '1997-98'), 'Observed']:.0f}%. This corrects the reading of the monthly-only "
+         f"comparison (23 November): the irrigated loss of 1997–98 is not mainly a channel that local "
+         f"weather misses, such as irrigation water, but a stronger response to the same weather before "
+         f"2000. The pre-2000 response is estimated here without 1997–98 itself."),
+        ("2023–24: ", f"the models with a fixed response predict a loss that did not happen (irrigated "
+         f"{ep.loc[('irrigated', '2023-24'), STAGE2_MODELS['hinge_sm_t']]:.0f}% against "
+         f"{ep.loc[('irrigated', '2023-24'), 'Observed']:.0f}%); the post-2000 regression comes closer "
+         f"({ep.loc[('irrigated', '2023-24'), H]:.0f}%). For rainfed rice too the post-2000 regression "
+         f"comes closest ({ep.loc[('rainfed', '2023-24'), H]:.0f}% against "
+         f"{ep.loc[('rainfed', '2023-24'), 'Observed']:.0f}%), the boosting less so "
+         f"({ep.loc[('rainfed', '2023-24'), G]:.0f}%)."),
+        ("2015–16: ", "the national losses of irrigated rice are predicted well and those of rainfed rice "
+         "and corn are under-predicted; the quarterly pattern is missed (the 2015Q3 and 2016Q1 dips)."),
     ])
-    para(doc, "The regression. With all four means, the separate effects of temperature, VPD and soil "
-              "moisture are poorly identified, because the three move together. Some hinges get the "
-              "wrong sign (for corn, drier soil raises production). The parsimonious version, with hinges "
-              "on temperature and root-zone soil moisture only, predicts as well (Table 19), and all its "
-              "hinges have the expected sign and are significant (Table 21). It is the regression to keep.")
-    table(doc, stage2_hinge(), [2.0, 6.4, 2.6, 2.6, 1.4],
-          note="Table 21. Hinge terms of the parsimonious regression, full sample: extra loss beyond the "
-               "threshold, on top of the linear effect (Driscoll–Kraay t, conditional on the thresholds).",
-          fmt={"Extra loss (%)": "{:.1f}", "t": "{:.1f}"})
+    para(doc, "The regression. With all four monthly means, the separate effects of temperature, VPD and "
+              "soil moisture are poorly identified, because they move together, and some hinges get the "
+              "wrong sign. A pair of one heat and one water measure predicts as well. With temperature and "
+              "soil moisture, and the response changing from 2000, today's extra loss on dry soil is "
+              "positive for all three series: smaller than before 2000 for irrigated rice and corn, larger "
+              "for rainfed rice (Table 21). The separate before and after terms should not be over-read: "
+              "corn's heat hinge has the wrong sign before 2000, and the rainfed dry-soil threshold sits at "
+              "the edge of the grid, where the hinge covers almost all seasons and works with the linear "
+              "term. What the chain uses is today's response as a whole, which is what the out-of-sample "
+              "test supports.")
+    table(doc, stage2_hinge(), [1.8, 5.4, 2.6, 2.2, 2.0, 1.8],
+          note="Table 21. Hinge terms of the regression with temperature and soil moisture whose response "
+               "changes from 2000, full sample: extra loss beyond the threshold, on top of the linear "
+               "effect, before 2000 and today; t of the change from 2000 (Driscoll–Kraay, conditional on "
+               "the thresholds). 'Edge': the threshold is at the 5th or 95th percentile of the data.",
+          fmt={"Before 2000 (%)": "{:.1f}", "Today (%)": "{:.1f}", "t of the change": "{:.1f}"})
     figure(doc, FIG / "stage2_response.png", 16.0,
            "Figure 7. Response of production to each window mean (5th–95th percentile of the data), "
-           "relative to the median, full sample. The boosting curves are partial dependences (other "
-           "features as observed), so they are flatter where other features carry the same information.")
+           "relative to the median, full sample; models changing from 2000 at today's response. The "
+           "boosting curves are partial dependences (other features as observed), so they are flatter "
+           "where other features carry the same information.")
     br = stage2_break()
     para(doc, "Did the weather effects change from 2000? As in the direct approach (section 2.3), the "
-              "test adds post-2000 shifts of all weather terms of the parsimonious regression. They are "
-              "jointly significant for all three series (Wald, Driscoll–Kraay: "
+              "test adds post-2000 shifts of all weather terms of the regression with temperature and soil "
+              "moisture. They are jointly significant for all three series (Wald, Driscoll–Kraay: "
               + "; ".join(f"{s_} χ²({br[s_][1]}) = {br[s_][0]:.0f}, p = {br[s_][2]:.3f}" for s_ in
                           ("irrigated", "rainfed", "corn"))
-              + "). For irrigated rice and corn the extra loss on dry soil is much smaller after 2000, which "
-              "fits the expansion of irrigation; for rainfed rice the linear terms change instead. "
-              "So the response of production to the same weather has changed, which is consistent "
-              "with the direct rice result and the 2023–24 over-prediction. The chain should use "
-              "today's response: a model with post-2000 shifts, or one estimated from 2000. This is "
-              "to settle with the chain.")
-    para(doc, "Provisional choice (to confirm when the daily variables arrive): the out-of-sample test does "
-              "not single out one model, so the chain will run two, boosting on all features (best for "
-              "rainfed rice, where drought losses are largest) and the parsimonious hinge regression (best "
-              "for irrigated rice, and interpretable), and report both. The final choice follows v5's rule "
-              "once the daily variables are in. Boosting cannot extrapolate: beyond the hottest or driest window in the data its "
-              "response stays flat. The reliability flag (section 7.2) matters most for it, and the "
-              "regression shows what extrapolating the thresholds would give.")
+              + "), and the models with the change predict better out of sample (above). The response of "
+              "production to the same weather has changed, as in the direct rice result; the shocks use "
+              "today's response.")
+    para(doc, f"Choice for the chain (v5's rule, the model that predicts better out of sample): for irrigated "
+              f"rice the regression with temperature and soil moisture, changing from 2000; for rainfed rice "
+              f"and corn the boosting on all 30 features, changing from 2000. The chain runs both models for "
+              f"every series, so the other one is reported as a check. Boosting cannot extrapolate: beyond "
+              f"the hottest or driest window in the data its response stays flat, so the reliability flag "
+              f"(section 7.2) matters most for it, and the regression shows what extending the thresholds "
+              f"would give.")
     para(doc, "Limitations.", italic=True)
     bullets(doc, [
-        "Monthly variables only; the daily ones of v5 Table 2 (hot days, dry spells, heavy rain) may "
-        "change the comparison.",
-        "The boosting has 16 features and the regression 2 to 4, so the comparison is also between "
-        "feature sets; boosting on the same four means does worse than the regression.",
-        "The thresholds are chosen on the data and their uncertainty is not in the standard errors. "
-        "Several sit on the edge of the grid of deciles (marked in Table 21): the dry-soil hinges of "
-        "rainfed rice and corn at the driest decile, so losses accelerate only in the driest tenth of "
-        "seasons, and the irrigated one at the wettest decile, so it is close to linear. A finer grid "
-        "(down to the 5th percentile) is to be tried before the chain.",
+        "The 2000 change is a step, and the post-2000 response is estimated from 26 years; whether the "
+        "response is still changing is not tested here (for the direct rice model, a gradual decline fitted "
+        "worse than the step).",
+        "The boosting has 30 features and the regression 2, so the comparison is also between feature sets.",
+        "The thresholds are chosen on the data and their uncertainty is not in the standard errors. Several "
+        "dry-soil thresholds still sit on the edge of the grid (Table 21): losses accelerate only in the "
+        "driest or wettest 5% of seasons, or the hinge is close to linear.",
         "VR and PF not yet included (data from 2010, longer fixed windows).",
-        "Irrigated rice: ERA5-Land soil moisture ignores irrigation (v5 Section 3.4), and 1997–98 shows "
-        "that the main channel, irrigation water, is missed.",
+        "ERA5-Land soil moisture ignores irrigation (v5 Section 3.4): for irrigated rice it measures the "
+        "drought before irrigation, not the water in the field.",
     ])
     para(doc, "Next: chain stage 2 with Van's simulations draw by draw (shock of v5 Eq. 12, aggregated as "
               "in Eqs. 13a–13b), with the reliability flag, and compare with the direct shocks by the rule "

@@ -44,7 +44,7 @@ All results are provisional.
 | G4 | Direct model, rice (irrigated, rainfed) and corn | Done | `outputs/tables/direct_{rice,corn}_*`, `shocks_{rice,corn}*` | `scripts/estimate_direct.py`, `shocks_direct.py` |
 | G5 | Direct model, vegetables and root crops (VR), perennial fruits (PF) | Done | `outputs/tables/direct_{vr,pf}_*`, `shocks_{vr,pf}*` | same |
 | G6 | Validation (episodes; 1997–98 vs FAOSTAT) and food categories for DEFINE-PH | Done | `outputs/delivery/` (see its README), `validation_strict_*`, `faostat_*` | `scripts/validate_strict.py`, `check_faostat_vrpf.py`, `deliver_food_shocks.py` |
-| G7, G8 | Stage 2 (weather → production) and two-stage shocks | In progress: growing windows done; stage 2 estimated and compared out of sample (monthly weather, rice and corn; write-up 7.3); Van's scenario simulations checked (7.2); chain to do | `data/processed/{rice,corn}_growing_window.csv`, `data/processed/stage2_features.csv`, `outputs/stage2_comparison.md`, `outputs/stage1_scenarios_check.md`, `outputs/tables/stage2_*`, `stage1_scenarios_*` | `scripts/build_{rice,corn}_calendar.py`, `build_stage2_features.py`, `estimate_stage2.py`, `check_stage1_scenarios.py`, `src/estimation/stage2.py` |
+| G7, G8 | Stage 2 (weather → production) and two-stage shocks | In progress: growing windows done; stage 2 estimated and compared out of sample (monthly and daily weather, rice and corn; write-up 7.3); Van's scenario simulations checked (7.2, f6ddf65); chain to do | `data/processed/{rice,corn}_growing_window.csv`, `data/processed/stage2_features.csv`, `outputs/stage2_comparison.md`, `outputs/stage1_scenarios_check.md`, `outputs/tables/stage2_*`, `stage1_scenarios_*` | `scripts/build_{rice,corn}_calendar.py`, `build_stage2_features.py`, `estimate_stage2.py`, `check_stage1_scenarios.py`, `src/estimation/stage2.py` |
 | G12 | Residual food price shock, step 1 (total food price response, price note Eqs. 3–4) | Van. National typhoon and flood controls for Eq. 3 built for him (24 Nov: palay, food-calorie and population weights) | `data/processed/hazard_national_quarter.csv`, `hazard_national_weights.csv`, `outputs/tables/hazard_national_checks.csv` | `scripts/build_national_hazard_controls.py` |
 | G3, G9 | Electricity: inputs; demand and price equations | G3 done (public inputs; ERA5 t2m Aug–Nov 2026 in progress); G9 to do | `data/electricity/` (see its README); IEMOP in `~/data_tmp/electricity/raw/iemop/` | `scripts/download_iemop.py`, `build_ph_holidays.py` |
 | G10 | Report sections | Agriculture drafted | `outputs/writeup/agriculture_results.docx` | `scripts/build_writeup.py` |
@@ -74,14 +74,13 @@ All results are provisional.
   Only if DEFINE-PH still has two food types at the delivery: the labelled fallback (corn + VR + PF for all
   food except rice), whose lower bound needs the calorie share of corn, VR and PF in DEFINE-PH's other
   food (SOAS).
-- Stage 2 (23 Nov, provisional): no model wins everywhere out of sample. Gradient boosting on all 16
-  window features is best for rainfed rice; a hinge regression on temperature and root-zone soil moisture
-  is best for irrigated rice. The chain will run both. The weather response changed from 2000 (as in the
-  direct approach), so the chain needs today's response. Several thresholds sit on the edge of the decile
-  grid; a finer grid is to be tried. Inputs: Van's `hist_fitted_16regions_roni_18fe296.csv` and scenario
-  runs (`data/reference/van/`, untracked); the features are committed in `data/processed/`.
-- Van's scenario tables drop the 6 lead-in months, so the first 1–2 harvest quarters of each path lack
-  part of their growing window (asked in the reply to Van).
+- Stage 2 (25 Nov, provisional, monthly + daily weather): the response to the same weather changed
+  from 2000, and the models allowing for it predict best out of sample (they reproduce 1997-98 for
+  both rice ecosystems). Chain: hinge regression T + SM_RZ (post-2000) for irrigated rice, boosting
+  on all 30 features (post-2000) for rainfed rice and corn; both run for every series. Some dry-soil
+  thresholds still sit on the edge of the 5-95% grid. Inputs: Van's f6ddf65 (`data/reference/van/`,
+  untracked); the features are committed in `data/processed/`.
+- Van's scenario simulations (f6ddf65, 25 Nov): 73 draws, leading months, daily variables; all checks pass.
 - Stage 2, VR: Basilan, Sulu and Tawi-Tawi are about half of BARMM's VR calories but about 7% of its
   cropland weight; consider crop-weighted weather.
 

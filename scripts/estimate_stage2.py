@@ -11,13 +11,23 @@ What it does
    - base:            no weather (the reference for out-of-sample skill)
    - linear:          window means of T, VPD, P, SM_RZ, linear (Eq. 11 with delta = 0)
    - hinge:           the same with a hinge on each (Eq. 11; thresholds chosen by fit on the
-                      deciles of the training sample)
+                      5th, 10th, ..., 95th percentiles of the training sample)
    - hinge_sm_t:      parsimonious: hinges on T and SM_RZ only (the four means are strongly
                       correlated, so their separate effects are poorly identified)
    - hinge_extremes:  linear means plus hinges on the hottest month (T_max) and the driest
                       root-zone soil moisture (SM_RZ_min)
-   - gbm4:            gradient boosting on the same four window means
-   - gbm_all:         gradient boosting on all 16 features (11 window means + 5 extremes)
+   Daily variables (v5 Table 2, from hourly ERA5; Van, 25 Nov 2026):
+   - hinge_sm_tmax:   hinges on the mean daily maximum temperature (TMAX) and SM_RZ
+   - hinge_sm_edd30:  hinges on extreme degree-days above 30 degC (EDD30) and SM_RZ
+   - hinge_ldry_tmax: hinges on the longest dry spell (LDRY) and TMAX
+   - gbm4:            gradient boosting on the four monthly window means
+   - gbm_all:         gradient boosting on the 16 monthly features (11 window means + 5 extremes)
+   - gbm_daily:       gradient boosting on all 30 features (monthly and daily)
+   Today's response (the weather effects changed from 2000, item 4):
+   - hinge_sm_t_post2000: hinge_sm_t with every weather term shifting from 2000 (thresholds
+                      common); the shock uses the post-2000 response
+   - gbm_daily_post2000:  gbm_daily with a post-2000 indicator as a feature, so the trees can
+                      let the response differ after 2000; the shock sets it to 1
    Boosting: monotonic constraints and backfitting with the non-weather terms
    (estimation.stage2.fit_gbm).
 3. Out-of-sample comparison (v5: "the model that predicts better on years left out of the
@@ -37,8 +47,7 @@ What it does
    observed).
 
 Diagnostics, not the deliverable: the shocks come from chaining these models with Van's
-Stage-1 simulations (next step). Monthly variables only; the daily ones of v5 Table 2 are
-not available yet. VR and PF not included yet.
+Stage-1 simulations (next step). VR and PF not included yet.
 
 Run:  python scripts/estimate_stage2.py [--workers 8]
 Writes outputs/tables/stage2_{cv_skill,cv_episodes,coefficients,break2000,response}.csv,
@@ -70,8 +79,8 @@ from scipy import stats  # noqa: E402
 from estimation.data import CONTROLS, GROUP, build, sample  # noqa: E402
 from estimation.panel import fit as dk_fit  # noqa: E402
 from estimation.setup import break_dummies  # noqa: E402
-from estimation.stage2 import (FEATURES, Stage2Spec, fit_base, fit_gbm, fit_hinge,  # noqa: E402
-                               poisson_deviance, predict_gbm, predict_hinge)
+from estimation.stage2 import (FEATURES, FEATURES_MONTHLY, Stage2Spec, fit_base,  # noqa: E402
+                               fit_gbm, fit_hinge, poisson_deviance, predict_gbm, predict_hinge)
 from validate_strict import rcs  # noqa: E402
 
 PROC, TAB, FIG, OUT = (ROOT / "data/processed", ROOT / "outputs/tables", ROOT / "outputs/figures",
@@ -81,18 +90,28 @@ MAIN4 = ("T", "VPD", "P", "SM_RZ")
 SPECS = {"linear": Stage2Spec("linear", linear=MAIN4),
          "hinge": Stage2Spec("hinge", hinge=MAIN4),
          "hinge_sm_t": Stage2Spec("hinge_sm_t", hinge=("T", "SM_RZ")),
-         "hinge_extremes": Stage2Spec("hinge_extremes", linear=MAIN4, hinge=("T_max", "SM_RZ_min"))}
+         "hinge_extremes": Stage2Spec("hinge_extremes", linear=MAIN4, hinge=("T_max", "SM_RZ_min")),
+         "hinge_sm_tmax": Stage2Spec("hinge_sm_tmax", hinge=("TMAX", "SM_RZ")),
+         "hinge_sm_edd30": Stage2Spec("hinge_sm_edd30", hinge=("EDD30", "SM_RZ")),
+         "hinge_ldry_tmax": Stage2Spec("hinge_ldry_tmax", hinge=("LDRY", "TMAX")),
+         "hinge_sm_t_post2000": Stage2Spec("hinge_sm_t_post2000", hinge=("T", "SM_RZ"), post=2000)}
 BREAK_MODEL = "hinge_sm_t"  # the regression whose effects are tested for a change from 2000
-GBMS = {"gbm4": list(MAIN4), "gbm_all": FEATURES}
+GBMS = {"gbm4": list(MAIN4), "gbm_all": FEATURES_MONTHLY, "gbm_daily": FEATURES,
+        "gbm_daily_post2000": FEATURES + ["post2000"]}
+RESPONSE_FEATURES = list(MAIN4) + ["TMAX", "EDD30", "LDRY"]
+FIG_MODELS = ["hinge_sm_t", "hinge_sm_t_post2000", "hinge_sm_edd30", "gbm_all", "gbm_daily",
+              "gbm_daily_post2000"]
 MODELS = ["base"] + list(SPECS) + list(GBMS)
 BLOCKS = {f"{a}-{min(a + 4, 2025)}": (f"{a}Q1", f"{min(a + 4, 2025)}Q4") for a in range(1987, 2026, 5)}
 EPISODES = {"1997-98": ("1997Q2", "1998Q4"), "2015-16": ("2015Q2", "2016Q4"),
             "2023-24": ("2023Q2", "2024Q4")}
-STATUS = "provisional; diagnostic (stage 2 model choice), monthly weather only"
+STATUS = "provisional; diagnostic (stage 2 model choice), monthly and daily weather"
 BLUE, ORANGE, NAVY, GREEN, INK, MUTED, GRID = ("#2a78d6", "#eb6834", "#0d366b", "#3a9a5b",
                                               "#0b0b0b", "#52514e", "#d9d8d4")
 COLOR = {"linear": MUTED, "hinge": BLUE, "hinge_sm_t": "#8a5cc2", "hinge_extremes": NAVY, "gbm4": ORANGE,
-         "gbm_all": GREEN}
+         "gbm_all": GREEN, "hinge_sm_tmax": "#c2185b", "hinge_sm_edd30": BLUE,
+         "hinge_ldry_tmax": "#7a6a00", "hinge_sm_t_post2000": NAVY, "gbm_daily": ORANGE,
+         "gbm_daily_post2000": "#b34700"}
 
 
 def panel(series: str):
@@ -103,6 +122,7 @@ def panel(series: str):
     p = p.merge(f, on=["region_code", "period"], how="left", validate="1:1")
     assert not p[FEATURES].isna().any().any()
     d, y = sample(p, "ppml", GROUP[series])
+    d["post2000"] = (d.period.str[:4].astype(int) >= 2000).astype(float)
     return d, y.to_numpy(float)
 
 
@@ -194,15 +214,21 @@ def full_sample(series):
                              "est": resp_["params"][c], "se": sep[c], "threshold": np.nan,
                              "on_grid_edge": False})
     gb = {name: fit_gbm(d, y, base, feats, train) for name, feats in GBMS.items()}
-    # response curves for each of the four main features: 5th-95th percentile
-    for v in MAIN4:
+    # response curves, 5th-95th percentile of each feature; post-2000 models at today's response
+    def today(dd):
+        dd["post2000"] = 1.0
+        dd["period"] = "2020Q1"
+        return dd
+
+    for v in RESPONSE_FEATURES:
         grid = np.quantile(d[v], np.linspace(0.05, 0.95, 19))
         med = float(np.median(d[v]))
-        for name in ("hinge", "linear", "hinge_sm_t"):
+        for name in ("linear", "hinge", "hinge_sm_t", "hinge_sm_t_post2000", "hinge_sm_tmax",
+                     "hinge_sm_edd30", "hinge_ldry_tmax"):
             r, spec = fits[name], SPECS[name]
             if v not in spec.linear + spec.hinge:
                 continue
-            dd = d.copy()
+            dd = today(d.copy())
             dd[v] = med
             ref = predict_hinge(r, dd, base, spec, weather_only=True)
             for gv in grid:
@@ -210,7 +236,9 @@ def full_sample(series):
                 resp.append({"series": series, "model": name, "feature": v, "value": gv,
                              "rel": float(np.mean(predict_hinge(r, dd, base, spec, weather_only=True) / ref))})
         for name, r in gb.items():
-            dd = d.copy()
+            if v not in r["features"]:
+                continue
+            dd = today(d.copy())
             dd[v] = med
             ref = predict_gbm(r, dd, base, weather_only=True).mean()
             for gv in grid:
@@ -276,7 +304,7 @@ def main(workers=8):
 
 def figures(ep, resp):
     # episodes: national quarterly anomaly vs base, observed and predicted
-    fig, axes = plt.subplots(len(SERIES), len(EPISODES), figsize=(12, 8.5), constrained_layout=True,
+    fig, axes = plt.subplots(len(SERIES), len(EPISODES), figsize=(13, 9), constrained_layout=True,
                              sharey="row")
     for i, s_ in enumerate(SERIES):
         for j, k in enumerate(EPISODES):
@@ -285,7 +313,7 @@ def figures(ep, resp):
             x = np.arange(len(e))
             ax.axhline(0, color=MUTED, lw=0.8)
             ax.plot(x, (e.actual / e.base - 1) * 100, color=INK, lw=2, marker="o", ms=3, label="observed")
-            for m_ in MODELS[1:]:
+            for m_ in FIG_MODELS:
                 ax.plot(x, (e[m_] / e.base - 1) * 100, color=COLOR[m_], lw=1.2, label=m_)
             ax.set_xticks(x, e.period.str[2:], fontsize=7, rotation=45)
             ax.tick_params(labelsize=7, colors=MUTED)
@@ -303,13 +331,15 @@ def figures(ep, resp):
     plt.close(fig)
     # response curves
     feats = list(dict.fromkeys(resp.feature))
-    fig, axes = plt.subplots(len(SERIES), len(feats), figsize=(12, 8.5), constrained_layout=True,
+    fig, axes = plt.subplots(len(SERIES), len(feats), figsize=(18, 8.5), constrained_layout=True,
                              sharey="row")
-    unit = {"T": "°C", "VPD": "kPa", "P": "mm/month", "SM_RZ": "m³/m³"}
+    unit = {"T": "°C", "VPD": "kPa", "P": "mm/month", "SM_RZ": "m³/m³", "TMAX": "°C",
+            "EDD30": "°C·day/month", "LDRY": "days"}
     for i, s_ in enumerate(SERIES):
         for j, v in enumerate(feats):
             ax = axes[i, j]
-            for m_ in ("linear", "hinge", "hinge_sm_t", "gbm4", "gbm_all"):
+            for m_ in ("hinge_sm_t", "hinge_sm_t_post2000", "hinge_sm_tmax", "hinge_sm_edd30",
+                       "hinge_ldry_tmax", "gbm_all", "gbm_daily", "gbm_daily_post2000"):
                 r = resp[(resp.series == s_) & (resp.feature == v) & (resp.model == m_)]
                 ax.plot(r.value, (r.rel - 1) * 100, color=COLOR[m_], lw=1.4, label=m_)
             ax.axhline(0, color=MUTED, lw=0.8)
@@ -321,10 +351,16 @@ def figures(ep, resp):
                 ax.set_xlabel(f"window mean {v} ({unit[v]})", fontsize=8, color=MUTED)
             if j == 0:
                 ax.set_ylabel(f"{s_}: % vs median weather", fontsize=8, color=MUTED)
-    axes[0, 0].legend(frameon=False, fontsize=7)
+    handles = {}
+    for ax in axes.ravel():
+        for h, lab in zip(*ax.get_legend_handles_labels()):
+            handles.setdefault(lab, h)
+    fig.legend(handles.values(), handles.keys(), loc="lower center", ncol=len(handles), frameon=False,
+               fontsize=8, bbox_to_anchor=(0.5, -0.04))
     fig.suptitle("PROVISIONAL. Stage 2 response of production to each window-mean weather variable "
-                 "(5th–95th percentile of the data), full sample", fontsize=10, color=INK, x=0.01, ha="left")
-    fig.savefig(FIG / "stage2_response.png", dpi=150, facecolor="white")
+                 "(5th–95th percentile of the data), full sample; post-2000 models at today's response",
+                 fontsize=10, color=INK, x=0.01, ha="left")
+    fig.savefig(FIG / "stage2_response.png", dpi=150, facecolor="white", bbox_inches="tight")
     plt.close(fig)
 
 
