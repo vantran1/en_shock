@@ -775,6 +775,32 @@ def stage2_hinge():
     return pd.DataFrame(rows)
 
 
+def stage2_nested():
+    """Nested skill (the whole choice procedure) next to the best single candidate, and the choice."""
+    c = pd.read_csv(TAB / "stage2_nested_configs.csv")
+    fin = pd.read_csv(TAB / "stage2_nested_final.csv")
+    ch = c[c.chosen].groupby(["series", "fold_type"])[["outer_deviance", "base_deviance"]].sum()
+    nested = (1 - ch.outer_deviance / ch.base_deviance) * 100
+    each = c.groupby(["series", "fold_type", "config"])[["outer_deviance", "base_deviance"]].sum()
+    each = (1 - each.outer_deviance / each.base_deviance) * 100
+    rows = []
+    for ser in ["irrigated", "rainfed", "corn"]:
+        r = {"Series": ser, "Chosen for the chain": fin[(fin.series == ser) & fin.chosen].config.iloc[0]}
+        for ft, lab in (("block", "5-yr"), ("episode", "episodes")):
+            r[f"Nested, {lab}"] = nested[(ser, ft)]
+            r[f"Best single, {lab}"] = each[(ser, ft)].max()
+        rows.append(r)
+    return pd.DataFrame(rows)
+
+
+def stage2_importance():
+    """Mean rise in held-out deviance (%) when a mechanism is shuffled, boosting on 30 features."""
+    i = pd.read_csv(TAB / "stage2_nested_importance.csv")
+    i = i[i.model == "gbm_full"].groupby(["group", "series"]).deviance_rise_pct.mean().unstack("series")
+    i = i[["irrigated", "rainfed", "corn"]].sort_values("rainfed", ascending=False)
+    return i.reset_index().rename(columns={"group": "Mechanism"})
+
+
 def stage2_break():
     b = pd.read_csv(TAB / "stage2_break2000.csv").set_index("series")
     return {s_: (b.loc[s_, "wald"], int(b.loc[s_, "df"]), b.loc[s_, "p_value"]) for s_ in b.index}
@@ -853,8 +879,11 @@ def main():
          "on the monthly and daily weather (section 7.3). The response of production to the same weather "
          "has changed since 2000, as in the direct approach, and the models that allow for it predict "
          "best: they reproduce the 1997–98 losses of irrigated and rainfed rice when that episode is "
-         "left out. The chain will use a hinge regression on temperature and soil moisture for irrigated "
-         "rice and gradient boosting on all features for rainfed rice and corn. Van's scenario simulations pass the checks needed for "
+         "left out. A nested cross-validation, which also chooses the model and the year of the change "
+         "on training years only, confirms that the response changed (in every fold) but cannot pin down "
+         "the year (2000–2010); the chain uses gradient boosting for all three series, with the "
+         "regression and the other break years as sensitivities. Soil water (rice) and runoff (corn) "
+         "carry most of the prediction. Van's scenario simulations pass the checks needed for "
          "the chain (section 7.2)."),
     ])
     doc.add_heading("How reliable are the results?", level=2)
@@ -1748,13 +1777,60 @@ def main():
               + "), and the models with the change predict better out of sample (above). The response of "
               "production to the same weather has changed, as in the direct rice result; the shocks use "
               "today's response.")
-    para(doc, f"Choice for the chain (v5's rule, the model that predicts better out of sample): for irrigated "
-              f"rice the regression with temperature and soil moisture, changing from 2000; for rainfed rice "
-              f"and corn the boosting on all 30 features, changing from 2000. The chain runs both models for "
-              f"every series, so the other one is reported as a check. Boosting cannot extrapolate: beyond "
-              f"the hottest or driest window in the data its response stays flat, so the reliability flag "
-              f"(section 7.2) matters most for it, and the regression shows what extending the thresholds "
-              f"would give.")
+    doc.add_heading("Nested choice of the model", level=3)
+    status(doc, "done (diagnostic); 25 November")
+    nst = stage2_nested().set_index("Series")
+    imp = stage2_importance().set_index("Mechanism")
+    para(doc, "The comparison above picks the best of 12 models on the same held-out years that measure "
+              "it, so the winner's score is optimistic, and the models changing from 2000 were added after "
+              "the test on the full sample. To remove both problems the choice was repeated as a nested "
+              "cross-validation (scripts/select_stage2.py, outputs/stage2_nested.md). The candidates were "
+              "fixed in advance: the regression on temperature and soil moisture; boosting on 9 features "
+              "chosen in advance, one per mechanism (mean, daily maximum and night-time temperature, heat "
+              "above 30 °C, soil moisture mean and driest month, rainfall, longest dry spell, runoff); and "
+              "boosting on all 30 features. Each comes with the weather response changing from 2000, 2005 "
+              "or 2010, or not at all (12 candidates). In every held-out fold the candidate is chosen by an "
+              "inner cross-validation on the training years only, then scored on the held-out years, so the "
+              "score covers the whole procedure, choice included. No variable-by-variable feature selection "
+              "is done: with features that move together it would pick between near-equivalent proxies "
+              "more or less at random, and with three strong episodes it would be tuned to ordinary years.")
+    table(doc, stage2_nested(), [1.8, 4.0, 1.9, 1.9, 1.9, 1.9],
+          note="Table 22. Nested choice of the stage 2 model: the candidate chosen for the chain (inner "
+               "cross-validation on all years), and the out-of-sample skill of the whole procedure (nested) "
+               "next to the best single candidate (not nested, optimistic), % of the no-weather deviance "
+               "removed.",
+          fmt={c: "{:.1f}" for c in stage2_nested().columns[2:]})
+    para(doc, f"What this shows. (1) The skill of the whole procedure is 1.5–4 points below the best single "
+              f"model (e.g. rainfed rice {nst.loc['rainfed', 'Nested, episodes']:.0f}% against "
+              f"{nst.loc['rainfed', 'Best single, episodes']:.0f}% on the episodes), so the earlier "
+              f"comparison was only mildly optimistic, and weather still clearly helps. (2) A change in the "
+              f"weather response is chosen in every one of the 33 folds; a fixed response never is. When "
+              f"the change happened is not pinned down: 2000, 2005 and 2010 are all chosen, and their scores "
+              f"are close. (3) The model type is not pinned down either: boosting is chosen in most folds, the "
+              f"regression in about half of them for irrigated rice. (4) The 30 features do not overfit: "
+              f"the full boosting does as well as the compact one or better, except for corn, where the "
+              f"compact one is chosen.")
+    table(doc, stage2_importance(), [5.0, 2.6, 2.6, 2.6],
+          note="Table 23. What the boosting relies on (30 features, response changing from 2000): rise in "
+               "held-out deviance when the features of one mechanism are shuffled together, % (mean over the "
+               "11 held-out folds). Higher = more important out of sample.",
+          fmt={"irrigated": "{:.1f}", "rainfed": "{:.1f}", "corn": "{:.1f}"})
+    para(doc, f"Soil water is what the models rely on most for rice (rainfed: shuffling it raises the held-out "
+              f"error by {imp.loc['soil water', 'rainfed']:.0f}%), and runoff for corn "
+              f"({imp.loc['runoff (irrigation water)', 'corn']:.0f}%), followed by heat and solar radiation. Night-time heat, air "
+              f"dryness (VPD) and dry spells add little once soil water is in. Runoff stands for irrigation "
+              f"water for irrigated rice; for corn, mostly rainfed, it more likely stands for how wet the "
+              f"season is overall. These are also the variables stage 1 predicts best from RONI "
+              f"(out-of-sample correlation about 0.43 for runoff and root-zone soil moisture, 0.50 for SPEI-3, "
+              f"against 0.21–0.28 for temperature; Van's skill summary), which is good for the chain.")
+    para(doc, "Choice for the chain. Each series takes the candidate chosen by the inner cross-validation on "
+              "all years (Table 22): boosting on all 30 features with the response changing from 2005 for "
+              "irrigated rice and from 2010 for rainfed rice, and the compact boosting changing from 2000 for "
+              "corn. Since neither the break year nor the model type is pinned down, the chain also reports, "
+              "as sensitivities, the same model with the other break years and the regression on temperature "
+              "and soil moisture (changing from 2000). Boosting cannot extrapolate: beyond the hottest or "
+              "driest window in the data its response stays flat, so the reliability flag (section 7.2) matters "
+              "most for it, and the regression shows what extending the thresholds would give.")
     para(doc, "Limitations.", italic=True)
     bullets(doc, [
         "The 2000 change is a step, and the post-2000 response is estimated from 26 years; whether the "
