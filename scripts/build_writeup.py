@@ -1582,7 +1582,7 @@ def main():
               "root-zone soil moisture is lowest in April 1998, at the dry-season harvest. Two features "
               "to raise with Van, as questions rather than errors: rainfall rises by about 50 mm in July "
               "of the onset year (in line with the known wetter early El Niño months), and the "
-              "temperature effect drops to zero in June and reappears in July. The second comes from "
+              "temperature effect drops to zero in June (in the 25 November version also in July) and reappears after. The second comes from "
               "choosing the lag of each target month separately: the June model uses only the RONI of "
               "the same and the previous month, which are zero once the episode has ended.")
     figure(doc, FIG / "stage1_scenarios_effects.png", 16.0,
