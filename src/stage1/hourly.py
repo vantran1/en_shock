@@ -5,7 +5,9 @@ accumulation over the hour ending at the time stamp, so it belongs to the day of
 therefore needs the last hours of the previous UTC month, which are read from the previous file.
 
 EDD (Table 2) is the extreme degree-days above the threshold T* (hourly.t_star, 35 °C: rice at flowering):
-EDD = sum over the hours of the month of max(0, T_h - T*) / 24, in °C·day per month.
+EDD = sum over the hours of the month of max(0, T_h - T*) / 24, in °C·day per month, and NHOT the days whose maximum
+exceeds T*. Each threshold of hourly.t_star_extra (30 and 32 °C) adds the same two metrics, named after it (EDD30,
+NHOT30, EDD32, NHOT32): at 35 °C EDD is zero in most region-months.
 
 Each month is computed once and kept in outputs/shared/work/hourly_metrics/ (one small file per month, with the settings it was
 computed with), so step 2 and scripts/helpers/hourly_wbgt_edd.py can be stopped, resumed and re-run as hourly files arrive.
@@ -20,20 +22,39 @@ import pandas as pd
 
 from .era5 import open_any, sat_vapour_pressure_kpa
 
-METRICS = ["TMAX", "TMIN", "EDD", "NHOT", "NDRY", "LDRY", "N50", "VPDMAX"]
+METRICS = ["TMAX", "TMIN", "EDD", "NHOT", "NDRY", "LDRY", "N50", "VPDMAX"]   # plus EDD<t>, NHOT<t>: metric_names()
 VARIABLES = ("t2m", "d2m", "tp")
-SETTING_KEYS = ("t_star", "dry_mm", "heavy_mm", "utc_offset_hours", "allow_partial_months")
+SETTING_KEYS = ("t_star", "t_star_extra", "dry_mm", "heavy_mm", "utc_offset_hours", "allow_partial_months")
 
 
 def settings(cfg: dict) -> dict:
     """The settings a month's metrics depend on (a stored month computed with other settings is recomputed)."""
     H = dict(cfg.get("hourly", {}))
     H.setdefault("t_star", 35.0)
+    H.setdefault("t_star_extra", [])
     H.setdefault("dry_mm", 1.0)
     H.setdefault("heavy_mm", 50.0)
     H.setdefault("utc_offset_hours", 8)
     H.setdefault("allow_partial_months", False)
-    return {k: (bool(H[k]) if k == "allow_partial_months" else float(H[k])) for k in SETTING_KEYS}
+    out = {}
+    for k in SETTING_KEYS:
+        if k == "allow_partial_months":
+            out[k] = bool(H[k])
+        elif k == "t_star_extra":
+            out[k] = sorted(float(t) for t in (H[k] or []))
+            bad = [t for t in out[k] if t != int(t) or t == float(H["t_star"])]
+            if bad:
+                raise SystemExit(f"hourly.t_star_extra: {bad} must be whole degrees and differ from hourly.t_star "
+                                 "(each names the variables EDD<t> and NHOT<t>)")
+        else:
+            out[k] = float(H[k])
+    return out
+
+
+def metric_names(H: dict) -> list[str]:
+    """The stored metrics: METRICS, then EDD<t> and NHOT<t> for each threshold t of hourly.t_star_extra."""
+    extra = H.get("t_star_extra", [])
+    return METRICS + [f"EDD{t:g}" for t in extra] + [f"NHOT{t:g}" for t in extra]
 
 
 def read_vars(path: pathlib.Path, variables) -> dict:
@@ -107,6 +128,9 @@ def month_metrics(cur: dict, prev: dict | None, year: int, month: int, H: dict, 
         "N50": (Pd >= H["heavy_mm"]).sum(0) * scale,
         "VPDMAX": vpd.max(1).mean(0),
     }
+    for t in H.get("t_star_extra", []):                             # lower thresholds (EDD30, NHOT30, ...)
+        m[f"EDD{t:g}"] = np.clip(Tc - t, 0, None).sum((0, 1)) / 24.0 * scale
+        m[f"NHOT{t:g}"] = (tmax > t).sum(0) * scale
     return m, nd
 
 
@@ -117,12 +141,13 @@ def store_path(folder: pathlib.Path, t: pd.Timestamp) -> pathlib.Path:
 
 def save_month(p: pathlib.Path, m: dict | None, nd: int, cells, H: dict) -> None:
     """One month's metrics at the cells (NaN when the month is incomplete), its complete days and settings."""
-    vals = np.full((len(METRICS), len(cells)), np.nan)
+    names = metric_names(H)
+    vals = np.full((len(names), len(cells)), np.nan)
     if m is not None:
-        for i, k in enumerate(METRICS):
+        for i, k in enumerate(names):
             vals[i] = np.asarray(m[k], float).ravel()
     p.parent.mkdir(parents=True, exist_ok=True)
-    np.savez_compressed(p, values=vals, metrics=np.array(METRICS), cells=np.asarray(cells), days=np.int32(nd),
+    np.savez_compressed(p, values=vals, metrics=np.array(names), cells=np.asarray(cells), days=np.int32(nd),
                         status=np.array("ok" if m is not None else "incomplete"),
                         settings=np.array(json.dumps(H, sort_keys=True)))
 
@@ -132,7 +157,7 @@ def month_state(p: pathlib.Path, cells, H: dict) -> str:
     if not p.exists():
         return "absent"
     with np.load(p) as z:
-        if not np.array_equal(z["cells"], np.asarray(cells)) or list(z["metrics"]) != METRICS:
+        if not np.array_equal(z["cells"], np.asarray(cells)) or list(z["metrics"]) != metric_names(H):
             return "stale"
         if json.loads(str(z["settings"])) != H:
             return "stale"
@@ -197,7 +222,8 @@ def assemble(cfg: dict, months: pd.DatetimeIndex, store: pathlib.Path, cells) ->
     """Cell metrics for every month from the store: dict metric -> DataFrame (months x cells), NaN where a month
     is missing, incomplete or was computed with other settings; and a log of the days used."""
     H = settings(cfg)
-    res = {k: np.full((len(months), len(cells)), np.nan) for k in METRICS}
+    names = metric_names(H)
+    res = {k: np.full((len(months), len(cells)), np.nan) for k in names}
     log = []
     for i, t in enumerate(months):
         p = store_path(store, t)
@@ -208,7 +234,7 @@ def assemble(cfg: dict, months: pd.DatetimeIndex, store: pathlib.Path, cells) ->
         vals, nd, status = load_month(p)
         log.append({"month": t, "file": p.name, "status": status, "days": nd})
         if status == "ok":
-            for j, k in enumerate(METRICS):
+            for j, k in enumerate(names):
                 res[k][i] = vals[j]
     names = [f"c{c}" for c in cells]
     return {k: pd.DataFrame(v, index=months, columns=names) for k, v in res.items()}, pd.DataFrame(log)

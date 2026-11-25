@@ -25,6 +25,8 @@ outputs/**
 !outputs/electricity/cell_weights_17regions.csv
 !outputs/electricity/region_grid_map.csv
 !outputs/electricity/cells_hist_fitted.csv.gz
+!outputs/electricity/path_response_17regions.csv
+!outputs/electricity/shift_by_block_17regions.csv
 # labour
 !outputs/labour/hist_fitted_17regions.csv
 !outputs/labour/T_coefficients_monthly_17regions.csv

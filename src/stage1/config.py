@@ -28,6 +28,7 @@ PREDICTANDS = {
     "TMIN": ("Mean daily minimum temperature", "°C", "mean", "none", "hourly"),
     "EDD": ("Extreme degree-days above T*", "°C·day/month", "sum", "empirical", "hourly"),
     "NHOT": ("Hot days, daily maximum above T*", "days/month", "sum", "empirical", "hourly"),
+    # EDD<t> and NHOT<t> for each lower threshold t of hourly.t_star_extra (EDD30, NHOT30, ...): added by load()
     "NDRY": ("Dry days, daily rain below 1 mm", "days/month", "sum", "empirical", "hourly"),
     "LDRY": ("Longest dry spell in the month", "days", "max", "empirical", "hourly"),
     "N50": ("Heavy-rain days, daily rain of 50 mm or more", "days/month", "sum", "empirical", "hourly"),
@@ -81,7 +82,22 @@ def load(path=None, variant: str | None = None) -> dict:
         # models_from: main = the main run's models (outputs/shared/work/), e.g. a scenario path on the RONI-alone model
         cfg["_models_from"] = None if models_from == "main" else (models_from or variant)
     predictors(cfg)
+    register_thresholds(cfg)
     return cfg
+
+
+def register_thresholds(cfg: dict) -> None:
+    """Add EDD<t> and NHOT<t> to PREDICTANDS for each threshold of hourly.t_star_extra (e.g. EDD30, NHOT30), and
+    write hourly.t_star into the long names of EDD and NHOT."""
+    ts = float((cfg.get("hourly") or {}).get("t_star", 35.0))
+    PREDICTANDS["EDD"] = (f"Extreme degree-days above T* = {ts:g} °C",) + PREDICTANDS["EDD"][1:]
+    PREDICTANDS["NHOT"] = (f"Hot days, daily maximum above T* = {ts:g} °C",) + PREDICTANDS["NHOT"][1:]
+    for t in (cfg.get("hourly") or {}).get("t_star_extra") or []:
+        t = float(t)
+        PREDICTANDS.setdefault(f"EDD{t:g}", (f"Extreme degree-days above {t:g} °C", "°C·day/month", "sum",
+                                             "empirical", "hourly"))
+        PREDICTANDS.setdefault(f"NHOT{t:g}", (f"Hot days, daily maximum above {t:g} °C", "days/month", "sum",
+                                              "empirical", "hourly"))
 
 
 def predictors(cfg: dict) -> tuple:

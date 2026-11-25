@@ -40,7 +40,8 @@ model:
   # below, for the sensitivity and for stress scenarios that combine El Nino with a positive IOD.
   predictors: [roni]
   variables: [T, VPD, P, SM_RZ, SM_DEEP, PET, E, SPEI3, RS, RO]   # monthly Table 2 predictands
-  hourly_variables: [TMAX, TMIN, EDD, NHOT, NDRY, LDRY, N50, VPDMAX]  # used only when the hourly metrics exist
+  hourly_variables: [TMAX, TMIN, EDD, NHOT, NDRY, LDRY, N50, VPDMAX,  # used only when the hourly metrics exist
+                     EDD30, EDD32, NHOT30, NHOT32]   # the lower thresholds of hourly.t_star_extra
   cv_window: 5           # leave-5-years-out cross-validation
   my_grid: [1, 2, 3, 4, 5, 6]
   mc_grid: [1, 2]
@@ -107,6 +108,8 @@ weights:
 
 hourly:
   t_star: 35.0           # threshold of EDD and hot days (rice at flowering)
+  t_star_extra: [30, 32] # lower thresholds, whole degrees: EDD30, NHOT30, EDD32, NHOT32 (at 35 °C EDD is zero in most
+                         # region-months); list them in model.hourly_variables to fit them
   dry_mm: 1.0            # dry day: daily rain below this
   heavy_mm: 50.0         # heavy-rain day: daily rain at least this
   utc_offset_hours: 8    # Philippine Time
@@ -152,6 +155,11 @@ path:
   source: c3s            # c3s: the latest C3S multi-system forecast; csv: a hand-made path (path.csv below)
   csv: null              # columns date (YYYY-MM-01), roni, dmi, in the model's units (centred 3-month means)
   lead_in: observed      # the months before a csv path that the lags need: observed indices, or zero (scenarios)
+  # After the last forecast month (C3S paths only), RONI and DMI fall linearly to 0, reached in the decay_months-th
+  # month, and stay 0 for zero_months months in all (counting that one); the simulation runs to the end of the tail.
+  # The November 2026 forecast ends in April 2027 at RONI 1.61: May 1.07, June 0.54, then 0 from July 2027 to June
+  # 2028, the same 12 trailing zero months as the scenario paths. Leave out (or set both to 0) to stop at the forecast.
+  tail: {decay_months: 3, zero_months: 12}
   forecast_start: auto   # YYYY-MM, or auto: this month from the 11th, otherwise last month
   start: auto            # first month of the path; auto = January of the forecast-start year
   per_system: 10         # members taken from each C3S system, so that every system has the same weight

@@ -15,9 +15,12 @@ def build_path(cfg: dict, idx: pd.DataFrame, raw_dmi: pd.Series, forecast_start=
     lead-in; any remaining gap is interpolated. Every value carries its source.
 
     With path.lead_in: zero (csv paths only) the lead-in months are zeros instead of the observed indices, so that
-    an idealised scenario does not carry the ENSO state of the months before its table into its first months."""
+    an idealised scenario does not carry the ENSO state of the months before its table into its first months.
+
+    With path.tail (C3S paths only; a csv path is used as it is) the forecast is extended by a linear decay of
+    RONI and DMI to zero and then zero months: see add_tail."""
     pc = cfg["path"]
-    members, used, meta = None, [], {}
+    members, used, meta, tail_source, tail_meta = None, [], {}, {}, None
     zero_lead = str(pc.get("lead_in", "observed")) == "zero"
     if zero_lead and pc.get("source", "c3s") != "csv":
         raise SystemExit("path.lead_in: zero is for csv paths (scenarios); a forecast path starts from the observations")
@@ -42,6 +45,9 @@ def build_path(cfg: dict, idx: pd.DataFrame, raw_dmi: pd.Series, forecast_start=
         members, used = c3s.members(C.path(cfg, "c3s_dir"), pc["systems"], y, m, idx["roni"].dropna(), raw_dmi.dropna(),
                                     int(pc.get("per_system", 10)))
         central = c3s.central_path(members, pc.get("central", "median"))
+        tail = pc.get("tail") or {}
+        central, tail_source, tail_meta = add_tail(central, int(tail.get("decay_months") or 0),
+                                                   int(tail.get("zero_months") or 0))
         sy, sm = c3s.parse_month(pc.get("start"), (y, 1))
         start = pd.Timestamp(sy, sm, 1)
         meta.update(source="C3S seasonal-postprocessed-single-levels (SST anomaly), multi-system",
@@ -60,7 +66,9 @@ def build_path(cfg: dict, idx: pd.DataFrame, raw_dmi: pd.Series, forecast_start=
                 r[v], r[f"{v}_source"] = float(obs), "observed"
             elif t in central.index and np.isfinite(central.loc[t, v]):
                 r[v] = float(central.loc[t, v])
-                if members is None:
+                if t in tail_source:
+                    r[f"{v}_source"] = tail_source[t]
+                elif members is None:
                     r[f"{v}_source"] = "path file"
                 else:
                     r[f"{v}_source"] = "forecast" if t >= fc_start else "forecast with observed lead-in"
@@ -82,8 +90,40 @@ def build_path(cfg: dict, idx: pd.DataFrame, raw_dmi: pd.Series, forecast_start=
         path["n_members"] = central["n_members"].reindex(path.index)
     path["lead_in"] = path.index < start
     meta.update(start=f"{start:%Y-%m}", end=f"{end:%Y-%m}", months=int((~path["lead_in"]).sum()), lead_in_months=n_lead,
-                lead_in_values="zero" if zero_lead else "observed")
+                lead_in_values="zero" if zero_lead else "observed", tail=tail_meta)
     return path, members, meta
+
+
+def add_tail(central: pd.DataFrame, decay_months: int, zero_months: int):
+    """Extend the central forecast after its last month: RONI and DMI fall linearly from their last forecast
+    values to 0, which is reached in the decay_months-th month after it, and then stay 0, for zero_months months
+    in all counting that one. The tail has no ensemble spread (q10, q90 and n_members are NaN).
+
+    E.g. the November 2026 forecast ends in April 2027 at RONI 1.61; decay_months 3, zero_months 12 give May 1.07,
+    June 0.54 and 0 from July 2027 to June 2028. Returns the extended table, the source label of each tail month and
+    a summary (None without a tail)."""
+    if decay_months <= 0 and zero_months <= 0:
+        return central, {}, None
+    if decay_months < 1 or zero_months < 1:
+        raise SystemExit("path.tail needs decay_months >= 1 (1 = zero from the next month) and zero_months >= 1, "
+                         f"got decay_months={decay_months}, zero_months={zero_months}")
+    last = central[["roni", "dmi"]].dropna(how="any").index.max()
+    central = central.loc[:last].copy()
+    start = {v: float(central.loc[last, v]) for v in ("roni", "dmi")}
+    n = decay_months - 1 + zero_months
+    dates = pd.date_range(last + pd.DateOffset(months=1), periods=n, freq="MS")
+    rows, source = [], {}
+    for k, t in enumerate(dates, start=1):
+        f = max(0.0, 1.0 - k / decay_months)
+        rows.append({"date": t, **{v: start[v] * f if f > 0 else 0.0 for v in ("roni", "dmi")}})
+        source[t] = "decay to zero (path.tail)" if f > 0 else "zero (path.tail)"
+    ext = pd.DataFrame(rows).set_index("date").reindex(columns=central.columns)
+    out = pd.concat([central, ext])
+    out.index.name = central.index.name
+    meta = dict(decay_months=decay_months, zero_months=zero_months, last_forecast_month=f"{last:%Y-%m}",
+                from_roni=round(start["roni"], 4), from_dmi=round(start["dmi"], 4),
+                first_zero_month=f"{last + pd.DateOffset(months=decay_months):%Y-%m}", end=f"{dates[-1]:%Y-%m}")
+    return out, source, meta
 
 
 def blocks(models: dict, path_dates: pd.DatetimeIndex, variables: list[str]) -> pd.DataFrame:

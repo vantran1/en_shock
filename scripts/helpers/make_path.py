@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 """The scenario path of step 4 (scripts/04_simulate.py runs it first): the path x^S (monthly RONI and DMI) from the latest C3S forecast.
 
-The path runs from January of the forecast's year (config path.start) to the last forecast month: observed
-indices up to the forecast, then the median of the C3S members (10 per system). Writes
+The path runs from January of the forecast's year (config path.start) to the end of the tail: observed
+indices up to the forecast, then the median of the C3S members (10 per system), then a linear decay to zero and
+zero months (config path.tail; e.g. after the November 2026 forecast, May 2027 1.07, June 0.54, zero from July 2027
+to June 2028). Writes
 outputs/shared/path.csv, path_members.csv and path_systems.csv.
 
   python scripts/helpers/make_path.py                         # the forecast issued this month (from the 11th)
