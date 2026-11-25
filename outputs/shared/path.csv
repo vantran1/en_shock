@@ -21,3 +21,17 @@ date,roni,roni_source,dmi,dmi_source,roni_q10,roni_q90,dmi_q10,dmi_q90,n_members
 2027-02-01,2.49434,forecast,-0.0866133,forecast,1.96228,3.31949,-0.388679,0.247161,100,False
 2027-03-01,1.95713,forecast,-0.202918,forecast,1.25675,2.90107,-0.462518,0.160826,100,False
 2027-04-01,1.60803,forecast,-0.214672,forecast,0.842907,2.78806,-0.479519,0.188994,100,False
+2027-05-01,1.07202,decay to zero (path.tail),-0.143115,decay to zero (path.tail),,,,,,False
+2027-06-01,0.536009,decay to zero (path.tail),-0.0715574,decay to zero (path.tail),,,,,,False
+2027-07-01,0,zero (path.tail),0,zero (path.tail),,,,,,False
+2027-08-01,0,zero (path.tail),0,zero (path.tail),,,,,,False
+2027-09-01,0,zero (path.tail),0,zero (path.tail),,,,,,False
+2027-10-01,0,zero (path.tail),0,zero (path.tail),,,,,,False
+2027-11-01,0,zero (path.tail),0,zero (path.tail),,,,,,False
+2027-12-01,0,zero (path.tail),0,zero (path.tail),,,,,,False
+2028-01-01,0,zero (path.tail),0,zero (path.tail),,,,,,False
+2028-02-01,0,zero (path.tail),0,zero (path.tail),,,,,,False
+2028-03-01,0,zero (path.tail),0,zero (path.tail),,,,,,False
+2028-04-01,0,zero (path.tail),0,zero (path.tail),,,,,,False
+2028-05-01,0,zero (path.tail),0,zero (path.tail),,,,,,False
+2028-06-01,0,zero (path.tail),0,zero (path.tail),,,,,,False

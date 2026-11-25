@@ -29,7 +29,8 @@ therefore the same in the four scenarios. Its temperature is 0.45 °C above the 
 below the 2016–2025 mean (annual means over the 16 regions, cropland weights).
 
 **Files** (the columns of the step 5 tables in `outputs/agriculture/`; see the Stage 1 README, section 3, and
-`outputs/shared/variables.csv` for the units):
+`outputs/shared/variables.csv` for the units; EDD30, EDD32, NHOT30 and NHOT32 are EDD and hot days at 30 and
+32 °C):
 
 | File | Contents |
 |---|---|
@@ -41,8 +42,10 @@ below the 2016–2025 mean (annual means over the 16 regions, cropland weights).
 
 A draw uses the same residual maps for the scenario and the neutral path, for every variable and region and over
 the whole path, so take the shock draw by draw from the scenario-minus-neutral difference. Only the historical
-years in which every variable has residuals for every month of the path are drawn: 51 draws with RONI alone and
-50 with RONI + DMI while the hourly variables (TMAX to VPDMAX) still miss 1990–92 and 1997–2009.
+years in which every variable has residuals for every month of the path are drawn. With the complete hourly
+record (1950–2025) that is 73 draws for each path, with RONI alone and with RONI + DMI: the paths run for 27 to 30
+months over three calendar years, so 73 historical start years cover them.
 
 The forecast path (C3S, the main run) is not here: it is `outputs/shared/path.csv`, with its simulation in
-`outputs/agriculture/`. Its lead-in months are the observed indices.
+`outputs/agriculture/`. Its lead-in months are the observed indices, and after the forecast it decays linearly to
+zero in three months and stays at zero for 12 (`path.tail` in `config.yaml`).
