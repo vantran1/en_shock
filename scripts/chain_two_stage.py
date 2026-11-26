@@ -9,11 +9,14 @@ Inputs
 - Stage 2 fitted on observed weather and PSA production, 1987-2025 (estimation.stage2;
   data/processed/stage2_features.csv). Models (scripts/select_stage2.py, nested choice, and the
   decision of 25 Nov 2026 to use one common break year, 2000):
-    main: irrigated and rainfed palay: boosting on all 30 features; corn: boosting on the 9
-          compact features; weather response changing from 2000, today's (post-2000) response;
+    main: rainfed palay: boosting on all 30 features; irrigated palay and corn: boosting on the 9
+          compact features (nested choice re-run with the water constraint, 26 Nov 2026); weather
+          response changing from 2000, today's (post-2000) response;
     sensitivities: the same with the change from 2005, from 2010, or no change (the response
           averaged over 1987-2025: a stress case, the 1990s response included), and the hinge
-          regression on temperature and soil moisture changing from 2000.
+          regression on temperature and soil moisture changing from 2000, and the compact features
+          for all three series (no solar radiation: in the full model El Nino's sunnier skies raise
+          rainfed production, partly a genuine effect, partly low radiation marking typhoon months).
 
 Steps, for each path, draw and crop series (v5 Eqs. 12-13b)
 1. Window features of the simulated weather (estimation.stage2.window_features, the crop
@@ -66,9 +69,12 @@ TAB, FIG, OUT = ROOT / "outputs/tables", ROOT / "outputs/figures", ROOT / "outpu
 SCEN = {"1997-98": "1997-98", "2015-16": "2015-16", "2023-24": "2023-24",
         "unit": "unit RONI +1 (4 quarters from Q3)"}  # Van's folder -> direct shocks' path name
 SERIES = ["irrigated", "rainfed", "corn"]
-MAIN_FEATURES = {"irrigated": FEATURES, "rainfed": FEATURES, "corn": COMPACT}
+# nested choice re-run with the water constraint (26 Nov 2026): compact for irrigated palay and corn,
+# full for rainfed palay; all chosen with the change from 2000 in most folds
+MAIN_FEATURES = {"irrigated": COMPACT, "rainfed": FEATURES, "corn": COMPACT}
 VARIANTS = {"main (from 2000)": ("gbm", 2000), "from 2005": ("gbm", 2005), "from 2010": ("gbm", 2010),
-            "no change (stress)": ("gbm", None), "regression T+SM_RZ (from 2000)": ("reg", 2000)}
+            "no change (stress)": ("gbm", None), "regression T+SM_RZ (from 2000)": ("reg", 2000),
+            "compact features for all (from 2000)": ("gbm_compact", 2000)}
 MAIN = "main (from 2000)"
 T_YEAR = 2025
 STATUS = "provisional; two-stage approach (Stage 1 Van f6ddf65, Stage 2 boosting from 2000)"
@@ -83,8 +89,9 @@ def fit_variant(series, kind, brk):
         d[f"post{b}"] = (d.period.str[:4].astype(int) >= b).astype(float)
     train = np.ones(len(d), bool)
     base = base_design(d, train, series)
-    if kind == "gbm":
-        feats = MAIN_FEATURES[series] + ([f"post{brk}"] if brk else [])
+    if kind in ("gbm", "gbm_compact"):
+        fset = COMPACT if kind == "gbm_compact" else MAIN_FEATURES[series]
+        feats = fset + ([f"post{brk}"] if brk else [])
         r = fit_gbm(d, y, base, feats, train)
         params = r["params"]
 
@@ -93,7 +100,7 @@ def fit_variant(series, kind, brk):
             if brk:
                 dd[f"post{brk}"] = 1.0  # today's response
             return predict_gbm(r, dd, None, weather_only=True)
-        used = MAIN_FEATURES[series]
+        used = fset
     else:
         spec = Stage2Spec(f"reg_{brk}", hinge=("T", "SM_RZ"), post=brk)
         r = fit_hinge(d, y, base, spec, train)

@@ -6,10 +6,10 @@ Diagnostic for the choice of the stage 2 model (methodology v5 Section 3.4). Mon
 
 | series | model | block | episode |
 |---|---|---|---|
-| corn | gbm4 | 1.7 | 10.0 |
-| corn | gbm_all | 5.5 | 9.6 |
-| corn | gbm_daily | 4.2 | 13.2 |
-| corn | gbm_daily_post2000 | 6.0 | 15.6 |
+| corn | gbm4 | 2.8 | 15.0 |
+| corn | gbm_all | 3.3 | 4.8 |
+| corn | gbm_daily | 5.0 | 5.6 |
+| corn | gbm_daily_post2000 | 7.0 | 5.8 |
 | corn | hinge | 0.4 | 16.8 |
 | corn | hinge_extremes | -0.3 | 16.7 |
 | corn | hinge_ldry_tmax | 1.6 | 16.4 |
@@ -18,10 +18,10 @@ Diagnostic for the choice of the stage 2 model (methodology v5 Section 3.4). Mon
 | corn | hinge_sm_t_post2000 | 0.9 | 15.2 |
 | corn | hinge_sm_tmax | 1.7 | 14.4 |
 | corn | linear | 1.2 | 17.1 |
-| irrigated | gbm4 | -0.3 | -0.2 |
-| irrigated | gbm_all | 0.4 | 6.8 |
-| irrigated | gbm_daily | 2.8 | 11.5 |
-| irrigated | gbm_daily_post2000 | 5.3 | 14.0 |
+| irrigated | gbm4 | 1.1 | 3.3 |
+| irrigated | gbm_all | 0.4 | 13.5 |
+| irrigated | gbm_daily | 1.9 | 16.2 |
+| irrigated | gbm_daily_post2000 | 5.2 | 17.3 |
 | irrigated | hinge | 0.4 | 11.0 |
 | irrigated | hinge_extremes | -0.4 | 7.1 |
 | irrigated | hinge_ldry_tmax | 1.5 | 9.1 |
@@ -30,10 +30,10 @@ Diagnostic for the choice of the stage 2 model (methodology v5 Section 3.4). Mon
 | irrigated | hinge_sm_t_post2000 | 5.4 | 20.8 |
 | irrigated | hinge_sm_tmax | 0.8 | 8.1 |
 | irrigated | linear | 0.9 | 10.9 |
-| rainfed | gbm4 | 1.0 | 13.5 |
-| rainfed | gbm_all | 6.1 | 22.9 |
-| rainfed | gbm_daily | 7.1 | 23.2 |
-| rainfed | gbm_daily_post2000 | 8.8 | 26.4 |
+| rainfed | gbm4 | 3.6 | 14.5 |
+| rainfed | gbm_all | 5.9 | 20.7 |
+| rainfed | gbm_daily | 6.7 | 24.7 |
+| rainfed | gbm_daily_post2000 | 10.5 | 23.8 |
 | rainfed | hinge | 2.3 | 19.9 |
 | rainfed | hinge_extremes | 4.9 | 19.7 |
 | rainfed | hinge_ldry_tmax | 4.0 | 22.7 |
@@ -47,37 +47,35 @@ Diagnostic for the choice of the stage 2 model (methodology v5 Section 3.4). Mon
 
 | series | model | folds_best |
 |---|---|---|
-| corn | gbm4 | 1 |
-| corn | gbm_all | 1 |
-| corn | gbm_daily | 1 |
-| corn | gbm_daily_post2000 | 5 |
+| corn | gbm4 | 2 |
+| corn | gbm_all | 3 |
+| corn | gbm_daily_post2000 | 2 |
 | corn | hinge_extremes | 1 |
+| corn | hinge_ldry_tmax | 1 |
 | corn | hinge_sm_t_post2000 | 2 |
-| irrigated | gbm4 | 1 |
-| irrigated | gbm_daily_post2000 | 4 |
-| irrigated | hinge_ldry_tmax | 1 |
-| irrigated | hinge_sm_t_post2000 | 4 |
-| irrigated | hinge_sm_tmax | 1 |
-| rainfed | gbm_all | 1 |
-| rainfed | gbm_daily | 2 |
-| rainfed | gbm_daily_post2000 | 2 |
+| irrigated | gbm4 | 2 |
+| irrigated | gbm_daily | 2 |
+| irrigated | gbm_daily_post2000 | 2 |
+| irrigated | hinge_sm_t_post2000 | 5 |
+| rainfed | gbm_daily | 1 |
+| rainfed | gbm_daily_post2000 | 5 |
 | rainfed | hinge_ldry_tmax | 1 |
 | rainfed | hinge_sm_t | 1 |
-| rainfed | hinge_sm_t_post2000 | 4 |
+| rainfed | hinge_sm_t_post2000 | 3 |
 
 ## Episodes held out: national production anomaly against the base model (%), whole window
 
 | series | episode | observed_% | linear_% | hinge_% | hinge_sm_t_% | hinge_extremes_% | hinge_sm_tmax_% | hinge_sm_edd30_% | hinge_ldry_tmax_% | hinge_sm_t_post2000_% | gbm4_% | gbm_all_% | gbm_daily_% | gbm_daily_post2000_% |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| corn | 1997-98 | -7.8 | -6.6 | -5.0 | -5.7 | -5.6 | -6.2 | -6.9 | -6.4 | -3.7 | -6.2 | -8.3 | -9.7 | -10.8 |
-| corn | 2015-16 | -8.5 | -1.6 | -3.4 | -4.4 | -1.4 | -3.6 | -3.5 | -3.7 | -2.6 | -4.9 | -2.5 | -4.4 | -4.0 |
-| corn | 2023-24 | -1.4 | -2.2 | -3.0 | -4.3 | -2.1 | -4.5 | -5.2 | -4.3 | -4.7 | -1.4 | -6.0 | -5.0 | -4.5 |
-| irrigated | 1997-98 | -11.7 | -3.2 | -2.9 | -3.1 | -3.2 | -3.3 | -3.7 | -4.2 | -12.6 | -3.1 | -5.6 | -7.7 | -11.6 |
-| irrigated | 2015-16 | -2.9 | -2.5 | -2.4 | -2.3 | -3.0 | -1.9 | -1.9 | -2.6 | -1.5 | -2.3 | -1.8 | -2.3 | -1.9 |
-| irrigated | 2023-24 | -0.9 | -3.1 | -4.2 | -3.8 | -3.9 | -3.5 | -3.3 | -3.7 | -1.6 | -6.0 | -2.8 | -4.5 | -3.5 |
-| rainfed | 1997-98 | -23.9 | -8.4 | -10.1 | -9.2 | -9.5 | -10.6 | -10.7 | -11.8 | -23.1 | -9.3 | -17.0 | -19.0 | -22.6 |
-| rainfed | 2015-16 | -8.8 | -7.0 | -6.5 | -7.0 | -6.3 | -6.0 | -6.3 | -5.7 | -3.2 | -6.0 | -4.4 | -5.5 | -5.6 |
-| rainfed | 2023-24 | 0.3 | -6.4 | -8.2 | -8.0 | -7.2 | -5.5 | -6.3 | -6.9 | -2.8 | -7.1 | -3.4 | -6.6 | -6.0 |
+| corn | 1997-98 | -7.8 | -6.6 | -5.0 | -5.7 | -5.6 | -6.2 | -6.9 | -6.4 | -3.7 | -5.8 | -7.6 | -7.7 | -9.3 |
+| corn | 2015-16 | -8.5 | -1.6 | -3.4 | -4.4 | -1.4 | -3.6 | -3.5 | -3.7 | -2.6 | -5.1 | -4.1 | -4.4 | -3.8 |
+| corn | 2023-24 | -1.4 | -2.2 | -3.0 | -4.3 | -2.1 | -4.5 | -5.2 | -4.3 | -4.7 | -4.4 | -7.5 | -6.9 | -7.0 |
+| irrigated | 1997-98 | -11.7 | -3.2 | -2.9 | -3.1 | -3.2 | -3.3 | -3.7 | -4.2 | -12.6 | -2.3 | -6.0 | -6.4 | -10.8 |
+| irrigated | 2015-16 | -2.9 | -2.5 | -2.4 | -2.3 | -3.0 | -1.9 | -1.9 | -2.6 | -1.5 | -2.0 | -1.4 | -2.0 | -1.5 |
+| irrigated | 2023-24 | -0.9 | -3.1 | -4.2 | -3.8 | -3.9 | -3.5 | -3.3 | -3.7 | -1.6 | -4.9 | -3.8 | -4.1 | -3.2 |
+| rainfed | 1997-98 | -23.9 | -8.4 | -10.1 | -9.2 | -9.5 | -10.6 | -10.7 | -11.8 | -23.1 | -9.5 | -19.4 | -19.7 | -25.6 |
+| rainfed | 2015-16 | -8.8 | -7.0 | -6.5 | -7.0 | -6.3 | -6.0 | -6.3 | -5.7 | -3.2 | -4.6 | -7.2 | -7.4 | -5.7 |
+| rainfed | 2023-24 | 0.3 | -6.4 | -8.2 | -8.0 | -7.2 | -5.5 | -6.3 | -6.9 | -2.8 | -5.9 | -4.0 | -4.9 | -4.5 |
 
 ## Thresholds and coefficients, full sample (DK s.e.)
 
