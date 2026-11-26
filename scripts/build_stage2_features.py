@@ -6,7 +6,10 @@ variables) summarised over each crop's growing window
 Series and calendars: irrigated and rainfed palay take their own RiceAtlas windows
 (data/processed/rice_growing_window.csv); corn takes the GGCMI rainfed calendar
 (data/processed/corn_growing_window.csv; PSA does not split corn by water supply).
-VR and PF are not built yet (v5: longer, fixed windows; data from 2010).
+Vegetables and root crops (VR) and perennial fruits (PF) have no crop calendar; v5 Section 3.4 sets
+"longer" fixed windows for them. Chosen (Ginevra, 26 Nov 2026): VR 6 months (the harvest quarter and
+the one before), PF 12 months (the harvest quarter and the three before: perennials respond to water
+over a whole year), the same in every region and quarter, all months with weight 1.
 
 Variables: the 11 monthly ones (T, VPD, P, SM_RZ, SM_DEEP, PET, E, SPEI3, CWB3, RS, RO) and the 12
 daily ones of v5 Table 2 computed from hourly ERA5 (mean daily max and min temperature, afternoon
@@ -35,12 +38,24 @@ PROC = ROOT / "data/processed"
 FIRST, LAST = "1987Q1", "2025Q4"
 
 
+FIXED_WINDOW_MONTHS = {"vr": 6, "pf": 12}
+
+
+def fixed_window(months: int, regions) -> pd.DataFrame:
+    """Window of the last `months` months up to the end of the harvest quarter (lags 0..months-1),
+    weight 1, every region and quarter."""
+    return pd.DataFrame([(r, q, lag, 1.0) for r in regions for q in range(1, 5) for lag in range(months)],
+                        columns=["region_code", "quarter", "lag", "weight"])
+
+
 def calendars() -> dict[str, pd.DataFrame]:
     rice = pd.read_csv(PROC / "rice_growing_window.csv")
     corn = pd.read_csv(PROC / "corn_growing_window.csv")
+    regions = sorted(rice.region_code.unique())
     return {"irrigated": rice[rice.ecosystem == "irrigated"],
             "rainfed": rice[rice.ecosystem == "rainfed"],
-            "corn": corn[corn.calendar == "rainfed"]}
+            "corn": corn[corn.calendar == "rainfed"],
+            **{s_: fixed_window(m, regions) for s_, m in FIXED_WINDOW_MONTHS.items()}}
 
 
 def main():

@@ -4,8 +4,8 @@ compared with the observed ones"). PROVISIONAL; a diagnostic.
 
 For each series (irrigated palay, rainfed palay, corn; palay = both) and each episode (1997Q2-1998Q4,
 2015Q2-2016Q4, 2023Q2-2024Q4):
-- Stage 2 (the chain's model: compact boosting, response changing from 2000, water constraint) is
-  re-estimated without the episode and the 4 quarters after it (the held-out window of the strict
+- Stage 2 (the chain's model: boosting on the features of chain_two_stage.MAIN_FEATURES, response
+  changing from 2000 except for VR and PF, whose data start in 2010; water constraint) is re-estimated without the episode and the 4 quarters after it (the held-out window of the strict
   validation of the direct approach, scripts/validate_strict.py).
 - Stage 1 enters through Van's nested hindcast (`<var>_nested`, dev_Van f6ddf65): the weather of each
   month predicted from RONI alone by a model estimated without the 5-year block holding that month
@@ -44,10 +44,10 @@ import pandas as pd  # noqa: E402
 from build_stage2_features import HIST, calendars  # noqa: E402
 from estimate_stage2 import base_design, md, panel  # noqa: E402
 from estimation.stage2 import FEATURES, fit_gbm, observed_weather, predict_gbm, window_features  # noqa: E402
-from select_stage2 import COMPACT  # noqa: E402
+from chain_two_stage import MAIN_FEATURES, VRPF  # noqa: E402
 
 TAB, FIG, OUT = ROOT / "outputs/tables", ROOT / "outputs/figures", ROOT / "outputs"
-SERIES = ["irrigated", "rainfed", "corn"]
+SERIES = ["irrigated", "rainfed", "corn", "vr", "pf"]
 EPISODES = {"1997-98": ("1997Q2", "1998Q4"), "2015-16": ("2015Q2", "2016Q4"), "2023-24": ("2023Q2", "2024Q4")}
 EXTRA_AFTER = 4
 STATUS = "provisional; diagnostic (validation of the two-stage chain, v5 Section 3.6)"
@@ -66,13 +66,16 @@ def run(series, episode):
     per = pd.PeriodIndex(d.period, freq="Q")
     held = np.asarray((per >= pd.Period(a, "Q")) & (per <= pd.Period(z, "Q") + EXTRA_AFTER))
     window = np.asarray((per >= pd.Period(a, "Q")) & (per <= pd.Period(z, "Q")))
+    if window.sum() == 0:  # episode before the data (VR and PF start in 2010)
+        return None
     base = base_design(d, ~held, series)
-    r = fit_gbm(d, y, base, COMPACT + ["post2000"], ~held)
+    feats = MAIN_FEATURES[series] + ([] if series in VRPF else ["post2000"])
+    r = fit_gbm(d, y, base, feats, ~held)
     ref = np.exp(base[r["params"].index].to_numpy(float) @ r["params"].to_numpy())
     mu_obs = predict_gbm(r, d, base)
     nf = nested_features(series)
     dn = d[["region_code", "period", "post2000"]].merge(nf, on=["region_code", "period"], how="left")
-    assert not dn[COMPACT].isna().any().any()
+    assert not dn[MAIN_FEATURES[series]].isna().any().any()
     dn.index = d.index
     mu_nest = predict_gbm(r, dn, base)
     q = d.loc[window, ["period"]].assign(actual=y[window], reference=ref[window], stage2_obs=mu_obs[window],
@@ -81,7 +84,7 @@ def run(series, episode):
 
 
 def main():
-    q = pd.concat([run(s_, e) for s_ in SERIES for e in EPISODES])
+    q = pd.concat([x for x in (run(s_, e) for s_ in SERIES for e in EPISODES) if x is not None])
     q = pd.concat([q, q[q.series.isin(["irrigated", "rainfed"])].groupby(["episode", "period"])
                    [["actual", "reference", "stage2_obs", "chain"]].sum().reset_index().assign(series="palay")])
     tot = q.groupby(["series", "episode"])[["actual", "reference", "stage2_obs", "chain"]].sum()
@@ -90,7 +93,7 @@ def main():
                         "chain_pct": (1 - tot.chain / tot.reference) * 100}).reset_index()
     res["chain_error_pts"] = res.chain_pct - res.observed_loss_pct
     direct = []
-    for crop in ("rice", "corn"):
+    for crop in ("rice", "corn", "vr", "pf"):
         v = pd.read_csv(TAB / f"validation_strict_{crop}.csv")
         v = v[v.variant.str.startswith("recommended") & v.variant.str.contains("no DMI")]
         direct.append(v[["series", "episode", "observed_loss_pct", "predicted_loss_pct", "error_pts"]]
@@ -98,7 +101,7 @@ def main():
                                        "predicted_loss_pct": "direct_predicted_pct",
                                        "error_pts": "direct_error_pts"}))
     res = res.merge(pd.concat(direct), on=["series", "episode"], how="left")
-    order = {"palay": 0, "irrigated": 1, "rainfed": 2, "corn": 3}
+    order = {"palay": 0, "irrigated": 1, "rainfed": 2, "corn": 3, "vr": 4, "pf": 5}
     res = res.sort_values(["series", "episode"], key=lambda c: c.map(order) if c.name == "series" else c)
     res.assign(status=STATUS).round(3).to_csv(TAB / "validation_two_stage.csv", index=False)
     q.round(4).to_csv(TAB / "validation_two_stage_quarterly.csv", index=False)
@@ -116,8 +119,9 @@ def main():
 
 
 def figure(q):
-    series = ["irrigated", "rainfed", "corn"]
-    fig, axes = plt.subplots(3, 3, figsize=(13, 8.5), constrained_layout=True, sharey="row")
+    series = ["irrigated", "rainfed", "corn", "vr", "pf"]
+    fig, axes = plt.subplots(len(series), 3, figsize=(13, 2.9 * len(series)), constrained_layout=True,
+                             sharey="row")
     for i, s_ in enumerate(series):
         for j, e in enumerate(EPISODES):
             ax = axes[i, j]

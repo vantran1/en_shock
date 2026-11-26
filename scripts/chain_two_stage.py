@@ -18,6 +18,10 @@ Inputs
           for all three series (with solar radiation: in the full model El Nino's sunnier skies raise
           rainfed production, partly a genuine effect, partly low radiation marking typhoon months).
 
+VR and PF (26 Nov 2026): the vegetable and fruit indices with their fixed windows (6 and 12 months), the
+model of the nested choice for them (scripts/select_stage2.py --vrpf), no change in the response (data
+from 2010), sensitivities: the full or compact features and the regression.
+
 Steps, for each path, draw and crop series (v5 Eqs. 12-13b)
 1. Window features of the simulated weather (estimation.stage2.window_features, the crop
    calendars of section 7.1), for the scenario and the neutral run.
@@ -73,7 +77,12 @@ SCEN = {"1997-98": "1997-98", "2015-16": "2015-16", "2023-24": "2023-24",
         "c3s": "C3S forecast (Nov 2026)"}  # Van's folder -> direct shocks' path name
 # the forecast run is in Van's agriculture outputs, not in scenarios/ (RONI model only)
 FORECAST_SIM = ROOT / "data/reference/van/f6ddf65/agriculture/simulated_monthly_16regions.csv"
-SERIES = ["irrigated", "rainfed", "corn"]
+SERIES = ["irrigated", "rainfed", "corn", "vr", "pf"]
+# VR and PF (data from 2010; fixed windows of 6 and 12 months, scripts/build_stage2_features.py): no change
+# in the response over time, so no break-year variants
+VRPF = ["vr", "pf"]
+BREAK_VARIANTS = {"from 2005", "from 2010", "no change (stress)"}
+CROPS = (("palay", ["irrigated", "rainfed"]), ("corn", ["corn"]), ("vr", ["vr"]), ("pf", ["pf"]))
 # compact features for all three series (decision of 26 Nov 2026): the nested choice (re-run with the
 # water constraint) picks the compact boosting for irrigated palay and corn and the full one for rainfed
 # palay; the full model for rainfed palay predicts somewhat better but gives the same shocks, and its
@@ -88,9 +97,15 @@ STATUS = "provisional; two-stage approach (Stage 1 Van f6ddf65, Stage 2 compact 
 INK, MUTED, GRID, BLUE, ORANGE = "#0b0b0b", "#52514e", "#d9d8d4", "#2a78d6", "#eb6834"
 
 
+def variants_for(series):
+    return [v for v in VARIANTS if not (series in VRPF and v in BREAK_VARIANTS)]
+
+
 def fit_variant(series, kind, brk):
     """Fit on all years; returns f(features) -> weather factor (today's response), the features
     used, and ybar (non-weather prediction for 2025 by region and quarter, controls at no event)."""
+    if series in VRPF:
+        brk = None
     d, y = panel(series)
     for b in (2000, 2005, 2010):
         d[f"post{b}"] = (d.period.str[:4].astype(int) >= b).astype(float)
@@ -158,9 +173,9 @@ def flags(feat_s, feat_0, obs, used):
 
 def main(model="roni"):
     sfx = "" if model == "roni" else f"_{model}"
-    direct = pd.concat([pd.read_csv(TAB / "shocks_rice.csv"), pd.read_csv(TAB / "shocks_corn.csv")])
-    direct = direct[direct.crop.isin(["palay", "corn"])]
-    fits = {(s_, v): fit_variant(s_, *VARIANTS[v]) for s_ in SERIES for v in VARIANTS}
+    direct = pd.concat([pd.read_csv(TAB / f"shocks_{c}.csv") for c in ("rice", "corn", "vr", "pf")])
+    direct = direct[direct.crop.isin(["palay", "corn", "vr", "pf"])]
+    fits = {(s_, v): fit_variant(s_, *VARIANTS[v]) for s_ in SERIES for v in variants_for(s_)}
     print("stage 2 fitted", flush=True)
     rows, draws, regional = [], [], []
     for scen, pname in SCEN.items():
@@ -170,7 +185,7 @@ def main(model="roni"):
         feats = {s_: sim_features(scen, model, s_) for s_ in SERIES}
         for v in VARIANTS:
             parts = {}
-            for s_ in SERIES:
+            for s_ in [x for x in SERIES if v in variants_for(x)]:
                 f, used, ybar, obs = fits[(s_, v)]
                 ft = feats[s_][feats[s_].period.isin(quarters)]
                 # harvest quarters whose growing window reaches before the simulated months (the
@@ -188,7 +203,9 @@ def main(model="roni"):
                 if v == MAIN:
                     regional.append(x.assign(S=1 - x.fS / x.f0).groupby(["region_code", "period"]).S.mean()
                                     .reset_index().assign(path=scen, series=s_))
-            for crop, members in (("palay", ["irrigated", "rainfed"]), ("corn", ["corn"])):
+            for crop, members in CROPS:
+                if not all(m_ in parts for m_ in members):
+                    continue
                 x = pd.concat([parts[m_] for m_ in members])
                 x["yS"], x["y0"] = x.yb * x.fS, x.yb * x.f0
                 x["yflag"] = x.y0 * x.flag
@@ -247,8 +264,10 @@ def report(res, direct, sfx, model):
 
 def figure(res, direct, sfx, model):
     d = direct.assign(path=direct.path.map({v: k for k, v in SCEN.items()}))
-    fig, axes = plt.subplots(2, len(SCEN), figsize=(3.8 * len(SCEN), 7), constrained_layout=True, sharey="row")
-    for i, crop in enumerate(["palay", "corn"]):
+    crops = [c for c, _ in CROPS]
+    fig, axes = plt.subplots(len(crops), len(SCEN), figsize=(3.8 * len(SCEN), 3.4 * len(crops)),
+                             constrained_layout=True, sharey="row")
+    for i, crop in enumerate(crops):
         for j, scen in enumerate(SCEN):
             ax = axes[i, j]
             t = res[(res.path == scen) & (res.crop == crop) & (res.variant == MAIN)].sort_values("scenario_q")
@@ -257,6 +276,8 @@ def figure(res, direct, sfx, model):
             ax.plot(x, t.S * 100, color=ORANGE, lw=2, marker="o", ms=3, label="two-stage (mean, 10-90%)")
             for v, ls in (("no change (stress)", ":"), ("regression T+SM_RZ (from 2000)", "--")):
                 tv = res[(res.path == scen) & (res.crop == crop) & (res.variant == v)].sort_values("scenario_q")
+                if len(tv) != len(t):  # VR and PF have no break-year variants
+                    continue
                 ax.plot(x, tv.S * 100, color=ORANGE, lw=1, ls=ls, label=v)
             dd = d[(d.path == scen) & (d.crop == crop)].set_index("scenario_q").reindex(t.scenario_q)
             ax.errorbar(x + 0.15, dd.S * 100, yerr=[(dd.S - dd.S_p05) * 100, (dd.S_p95 - dd.S) * 100], fmt="s",

@@ -1,0 +1,7 @@
+series,config,inner_deviance,chosen,status
+vr,"reg, no change",2175.91774,True,provisional; diagnostic (nested choice of the stage 2 model)
+vr,"gbm_compact, no change",2221.09825,False,provisional; diagnostic (nested choice of the stage 2 model)
+vr,"gbm_full, no change",2272.96601,False,provisional; diagnostic (nested choice of the stage 2 model)
+pf,"reg, no change",1381.22172,True,provisional; diagnostic (nested choice of the stage 2 model)
+pf,"gbm_compact, no change",1417.21359,False,provisional; diagnostic (nested choice of the stage 2 model)
+pf,"gbm_full, no change",1525.99425,False,provisional; diagnostic (nested choice of the stage 2 model)

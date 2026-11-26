@@ -1,0 +1,13 @@
+series,fold_type,fold,config
+vr,block,2007-2011,"gbm_compact, no change"
+vr,block,2012-2016,"gbm_compact, no change"
+vr,block,2017-2021,"gbm_compact, no change"
+vr,block,2022-2025,"gbm_compact, no change"
+pf,block,2007-2011,"gbm_compact, no change"
+pf,block,2012-2016,"gbm_compact, no change"
+pf,block,2017-2021,"gbm_compact, no change"
+pf,block,2022-2025,"gbm_compact, no change"
+vr,episode,2015-16,"reg, no change"
+vr,episode,2023-24,"gbm_compact, no change"
+pf,episode,2015-16,"gbm_compact, no change"
+pf,episode,2023-24,"gbm_compact, no change"

@@ -33,8 +33,15 @@ Grouped importance (boosting, break 2000, outer folds): the rise in held-out dev
 features of one mechanism are shuffled together across the held-out rows (5 repeats). Large =
 the model relies on it out of sample.
 
-Run:  python scripts/select_stage2.py [--workers 8]   (about an hour; run detached)
-Writes outputs/tables/stage2_nested_{folds,configs,final,importance}.csv, outputs/stage2_nested.md
+VR and PF (--vrpf; 26 Nov 2026): the same for the vegetable and fruit indices, whose data start in 2010:
+no break year (every candidate year is at or before the start of the data, so the candidates are the
+three models without a change), folds = the 5-year blocks with data (2007-2011, of which only 2010-2011
+has data, 2012-2016, 2017-2021, 2022-2025) and the two episodes in the data (2015-16, 2023-24),
+importance for the boosting without a change.
+
+Run:  python scripts/select_stage2.py [--workers 8] [--vrpf]   (about an hour; run detached)
+Writes outputs/tables/stage2_nested_{folds,configs,final,importance}[_vrpf].csv,
+outputs/stage2_nested[_vrpf].md
 """
 import os
 
@@ -63,6 +70,16 @@ COMPACT = ["T", "TMAX", "TMIN", "EDD30", "SM_RZ", "SM_RZ_min", "P", "LDRY", "RO"
 BREAKS = [2000, 2005, 2010, None]
 MODELS = ["reg", "gbm_compact", "gbm_full"]
 CONFIGS = [(m, b) for m in MODELS for b in BREAKS]
+VRPF = ["vr", "pf"]
+
+
+def configs_for(series):
+    """Candidates of a series: VR and PF (data from 2010) have no break year."""
+    return [(m, None) for m in MODELS] if series in VRPF else CONFIGS
+
+
+def importance_break(series):
+    return None if series in VRPF else 2000
 GROUPS = {  # mechanism -> features (all 30 features belong to one group)
     "heat": ["T", "TMAX", "T_max", "TMAX_max", "EDD30", "EDD32", "EDD", "NHOT30", "NHOT32", "NHOT", "PET"],
     "night heat": ["TMIN"],
@@ -111,13 +128,13 @@ def base_predict(d, y, train, series):
 
 def inner_choice(d, y, train, series):
     """Inner CV on the training rows: deviance of every config summed over the 5-year blocks."""
-    dev = {cfg: 0.0 for cfg in CONFIGS}
+    dev = {cfg: 0.0 for cfg in configs_for(series)}
     for a, z in BLOCKS.values():
         inner_held = held_mask(d, a, z) & train
         if inner_held.sum() == 0:
             continue
         inner_train = train & ~inner_held
-        for cfg in CONFIGS:
+        for cfg in configs_for(series):
             pred, _ = fit_config(cfg, d, y, inner_train, series)
             dev[cfg] += poisson_deviance(y[inner_held], pred(d.loc[inner_held]))
     best = min(dev, key=dev.get)
@@ -154,11 +171,13 @@ def run(job):
         return {"final": [{"series": series, "config": name(c), "inner_deviance": v, "chosen": c == best}
                           for c, v in dev.items()]}
     held = held_mask(d, a, z)
+    if held.sum() == 0:  # a fold before the data start (VR, PF)
+        return {}
     train = ~held
     best, dev = inner_choice(d, y, train, series)
     mu0 = base_predict(d, y, train, series)
     rows, imp, ep = [], [], []
-    for cfg in CONFIGS:
+    for cfg in configs_for(series):
         pred, r = fit_config(cfg, d, y, train, series)
         mu = pred(d.loc[held])
         rows.append({"series": series, "fold_type": kind, "fold": fold, "config": name(cfg),
@@ -169,7 +188,7 @@ def run(job):
             g = (d.loc[held, ["period"]].assign(actual=y[held], base=mu0[held], chosen=mu)
                  .groupby("period").sum().reset_index())
             ep = g.assign(series=series, episode=fold, config=name(cfg)).to_dict("records")
-        if cfg[0] != "reg" and cfg[1] == 2000:
+        if cfg[0] != "reg" and cfg[1] == importance_break(series):
             for grp, v in importance(r, d, y, held, pred, rng).items():
                 imp.append({"series": series, "fold_type": kind, "fold": fold, "model": cfg[0],
                             "group": grp, "deviance_rise_pct": v})
@@ -177,10 +196,12 @@ def run(job):
     return {"rows": rows, "imp": imp, "ep": ep}
 
 
-def main(workers=8):
-    jobs = ([(s, "block", k, a, z) for s in SERIES for k, (a, z) in BLOCKS.items()]
-            + [(s, "episode", k, a, z) for s in SERIES for k, (a, z) in EPISODES.items()]
-            + [(s, "final", "all", None, None) for s in SERIES])
+def main(workers=8, vrpf=False):
+    series = VRPF if vrpf else SERIES
+    sfx = "_vrpf" if vrpf else ""
+    jobs = ([(s, "block", k, a, z) for s in series for k, (a, z) in BLOCKS.items()]
+            + [(s, "episode", k, a, z) for s in series for k, (a, z) in EPISODES.items()]
+            + [(s, "final", "all", None, None) for s in series])
     with ProcessPoolExecutor(workers) as ex:
         res = list(ex.map(run, jobs))
     rows = pd.DataFrame([r for x in res for r in x.get("rows", [])])
@@ -188,11 +209,11 @@ def main(workers=8):
     ep = pd.DataFrame([r for x in res for r in x.get("ep", [])])
     final = pd.DataFrame([r for x in res for r in x.get("final", [])])
     for df, nm in ((rows, "configs"), (imp, "importance"), (final, "final"), (ep, "episodes")):
-        df.assign(status=STATUS).round(5).to_csv(TAB / f"stage2_nested_{nm}.csv", index=False)
+        df.assign(status=STATUS).round(5).to_csv(TAB / f"stage2_nested_{nm}{sfx}.csv", index=False)
 
     ch = rows[rows.chosen]
     folds = ch[["series", "fold_type", "fold", "config"]]
-    folds.to_csv(TAB / "stage2_nested_folds.csv", index=False)
+    folds.to_csv(TAB / f"stage2_nested_folds{sfx}.csv", index=False)
     nested = (ch.groupby(["series", "fold_type"])[["outer_deviance", "base_deviance"]].sum()
               .assign(skill_pct=lambda x: (1 - x.outer_deviance / x.base_deviance) * 100)
               .skill_pct.unstack().reset_index())
@@ -206,24 +227,30 @@ def main(workers=8):
     e = ep.groupby(["series", "episode"])[["actual", "base", "chosen"]].sum()
     etab = pd.DataFrame({"observed_%": (e.actual / e.base - 1) * 100,
                          "chosen_%": (e.chosen / e.base - 1) * 100}).reset_index()
-    s = ["# Stage 2: nested choice of the model (PROVISIONAL)\n",
+    change = ("no change in the response (data from 2010)" if vrpf else
+              "each with the weather response changing from 2000, 2005, 2010 or not at all")
+    n_folds = ("6 per series: four 5-year blocks with data, from 2007-2011 (only 2010-2011), and two episodes"
+               if vrpf else "11 per series")
+    s = [f"# Stage 2: nested choice of the model{' (VR and PF)' if vrpf else ''} (PROVISIONAL)\n",
          "Candidates fixed in advance: regression (T, SM_RZ hinges), compact boosting (9 features), full "
-         "boosting (30 features), each with the weather response changing from 2000, 2005, 2010 or not at "
-         "all. In every outer fold the candidate is chosen by inner cross-validation on the training years "
-         "only. See scripts/select_stage2.py.\n",
+         f"boosting (30 features), {change}. In every outer fold the candidate is chosen by inner "
+         "cross-validation on the training years only. See scripts/select_stage2.py.\n",
          "## Nested out-of-sample skill (% of the no-weather deviance removed; the whole procedure)\n",
          md(nested, "{:.1f}"), "\n## Choice for the chain (inner CV on all years)\n", md(fin),
-         "\n## How often each candidate is chosen in the outer folds (of 11 per series)\n", md(freq),
+         f"\n## How often each candidate is chosen in the outer folds ({n_folds})\n", md(freq),
          "\n## Each candidate's own outer skill (for reference; not nested)\n", md(each, "{:.1f}"),
          "\n## Episodes held out, chosen model: national production vs no-weather model (%)\n",
          md(etab, "{:.1f}"),
-         "\n## Grouped importance (boosting, change from 2000): rise in held-out deviance when a "
-         "mechanism's features are shuffled, % (mean, min, max over the 11 outer folds)\n", md(imp_t, "{:.1f}")]
-    (OUT / "stage2_nested.md").write_text("\n".join(s) + "\n")
+         f"\n## Grouped importance (boosting, {'no change' if vrpf else 'change from 2000'}): rise in held-out "
+         f"deviance when a mechanism's features are shuffled, % (mean, min, max over the outer folds)\n",
+         md(imp_t, "{:.1f}")]
+    (OUT / f"stage2_nested{sfx}.md").write_text("\n".join(s) + "\n")
     print("\n".join(s))
 
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--workers", type=int, default=8)
-    main(ap.parse_args().workers)
+    ap.add_argument("--vrpf", action="store_true", help="vegetable and fruit indices (data from 2010)")
+    a = ap.parse_args()
+    main(a.workers, a.vrpf)
