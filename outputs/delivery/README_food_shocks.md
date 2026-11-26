@@ -12,8 +12,25 @@ quarterly, against the neutral path (RONI = 0), on today's conditions.
   - `_p05`, `_p95`: 90% range from the block bootstrap (200 draws).
   - `step`: quarters since the start of the path; `in_path`: quarter inside the El Niño path (the shocks
     continue for the 4 quarters after it, through the lags).
+  - `two_stage_*` (rice and corn only): the two-stage approach for the same path and quarter (mean over
+    Van's 73 weather draws; `_p90` the 90th percentile, for stress scenarios; `flag_share` the share of
+    production where the El Niño weather goes beyond the range observed in 1987–2025), and
+    `two_stage_vs_direct_90pct`: where the two-stage value lies against the direct 90% range.
 - `food_shocks_episode_totals.csv`: total loss over each path and the quarters after it, % of one year's
-  production, with the 90% range.
+  production, with the 90% range; for rice and corn also the two-stage total and the outcome of the rule
+  of v5 Section 3.5 (`v5_rule_3_5`).
+
+## Direct and two-stage approach (v5 Section 3.5)
+The direct approach gives the central estimate. The two-stage result would become the upper end of the
+range where it lies outside the direct 90% range. Applied to the total over each path, it lies inside for
+every path, for rice and corn (e.g. 1997–98: rice two-stage 5.5% against direct 5.7% (-0.3 to 13.7), corn two-stage 7.7% against direct 9.1% (-5.6 to 16.6)),
+so only the direct estimate is delivered, and the two-stage columns are there for comparison. The two
+approaches distribute the loss differently over the quarters: the direct corn shock is a large dry-season
+loss followed by gains (the recovery seen after past El Niños), while the two-stage shock has a smaller
+peak and no gains, since it only measures the effect of the weather in the growing window. The two-stage
+path is therefore closer to the gross loss before recovery that SOAS asked for (their November 2026
+comments); it could be used for that run if agreed with Alper. The rule is not applied quarter by quarter, which would splice
+the two paths.
 
 ## Paths
 The El Niño quarters (RONI ≥ 0.5) of 1997–98, 2015–16 and 2023–24, replayed under today's conditions,
@@ -59,9 +76,11 @@ an upper bound.
 
 ## Caveats
 - Corn calorie factor provisional (FNRI A001, corn grits, white, 357 kcal/100 g), to confirm.
-- The rice shocks are probably too low (typhoon rain over Luzon in late 2015; write-up section 2.6);
-  `rice_sensitivity_no_luzon2015` gives an upper bound. Stage 2 is to settle this.
-- Severe droughts are understated (1997–98 against FAOSTAT and in the validation); for stress scenarios
-  read the shocks as lower bounds.
+- The rice shocks may be too low (typhoon rain over Luzon in late 2015; write-up section 2.6);
+  `rice_sensitivity_no_luzon2015` gives an upper bound. The two-stage approach, which treats the
+  observed rain as weather rather than through RONI, gives practically the same rice totals as the
+  direct approach, so it does not support a large understatement; the sensitivity stays as an upper bound.
+- Severe droughts are understated (1997–98 against FAOSTAT and in the validation of both approaches,
+  write-up sections 2.2 and 7.5); for stress scenarios read the shocks as lower bounds.
 - Ranges of combined categories combine the draws of each crop by their index (independent
   re-estimations).

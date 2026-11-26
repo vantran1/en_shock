@@ -2050,6 +2050,27 @@ def main():
               "deterministic test, but the under-prediction of extreme episodes remains a limitation to state "
               "with the shocks.")
 
+    doc.add_heading("7.6 Direct and two-stage: the rule of v5 Section 3.5", level=2)
+    status(doc, "done; delivery updated (26 November), central shocks unchanged")
+    t = pd.read_csv(ROOT / "outputs/delivery/food_shocks_episode_totals.csv")
+    t = t[t.category.isin(["rice", "corn"])]
+    n_in = int(t.v5_rule_3_5.str.startswith("within").sum())
+    para(doc, f"v5 Section 3.5: the direct approach gives the central estimate; the two-stage result becomes the "
+              f"upper end of the range where it lies outside the direct 90% range, and if it is clearly smaller "
+              f"the direct estimate is used and the difference noted. Applied to the total loss over each path, "
+              f"the two-stage result lies inside the direct 90% range in {n_in} of {len(t)} cases (rice and corn, "
+              f"four paths), so only the direct estimate is delivered (outputs/delivery/, unchanged). The "
+              f"two-stage shocks are added to the delivery file as extra columns for comparison.")
+    para(doc, "The rule is applied to the totals, not quarter by quarter. For rice the two approaches agree in "
+              "almost every quarter; for corn they distribute the loss differently (the direct shock is a large "
+              "dry-season loss followed by recovery gains, the two-stage one a smaller peak with no gains), so "
+              "a quarter-by-quarter rule would splice two different paths. The two-stage path is closer to the "
+              "gross loss before recovery that SOAS asked for, and could be used for that run if agreed with "
+              "Alper. Agreement on the totals also bears on the rice caveat of section 2.6: the two-stage "
+              "approach treats the typhoon rain of late 2015 as weather rather than through RONI and gives "
+              "practically the same rice totals, so it does not support a large understatement of the direct "
+              "rice shocks.")
+
     doc.add_heading("Annex", level=1)
     table(doc, quarterly_palay(), [2.0, 2.0, 3.0, 3.4, 3.6],
           note="Table A1. Quarterly palay shock for the episode paths: share of the quarter's neutral "

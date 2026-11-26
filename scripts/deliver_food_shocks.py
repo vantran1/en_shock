@@ -40,6 +40,17 @@ grain found while the FNRI site was unavailable (19 Nov 2026); to confirm. Corn 
 other_food in calories (about 29,000 against about 11,000 billion kcal a year for VR + PF),
 so a few percent on the factor barely moves the combined shock.
 
+Two-stage approach and the rule of v5 Section 3.5 (26 Nov 2026): for rice and corn the two-stage
+shocks (scripts/chain_two_stage.py, main variant) are added as extra columns (two_stage_*), and the
+rule is applied to the total over each path: "The direct approach gives the central estimate. The
+two-stage result is reported as the upper end of a range when it lies outside the 90 percent confidence
+interval of the direct approach; otherwise only the direct estimate is given. If the two-stage result is
+clearly smaller, the direct estimate is used ... and the difference is noted." The rule is applied to the
+totals, not quarter by quarter: the two approaches distribute the loss differently over the quarters
+(the direct corn shock has recovery gains after the dry-season loss, the two-stage one has none), so a
+quarter-by-quarter rule would splice two different paths. The quarterly comparison is reported
+(two_stage_vs_direct_90pct). The central shocks and ranges are those of the direct approach.
+
 Run:  python scripts/deliver_food_shocks.py
 Writes outputs/delivery/food_shocks_define_ph.csv (path x category x quarter),
 outputs/delivery/food_shocks_episode_totals.csv, outputs/delivery/README_food_shocks.md
@@ -116,6 +127,33 @@ def pct(draws, col):
         columns={0.05: f"{col}_p05", 0.95: f"{col}_p95"})
 
 
+TWO_STAGE_PATHS = {"1997-98": "1997-98", "2015-16": "2015-16", "2023-24": "2023-24",
+                   "unit": "unit RONI +1 (4 quarters from Q3)"}
+
+
+def two_stage():
+    """Two-stage shocks of the chain (main variant) for rice (palay) and corn, delivery keys."""
+    t = pd.read_csv(TAB / "two_stage_shocks.csv")
+    t = t[t.variant == "main (from 2000)"].copy()
+    t["category"] = t.crop.map({"palay": "rice", "corn": "corn"})
+    t["path"] = t.path.map(TWO_STAGE_PATHS)
+    return t.rename(columns={"S": "two_stage_S", "S_D": "two_stage_S_D", "S_p90": "two_stage_S_p90",
+                             "S_D_p90": "two_stage_S_D_p90", "flag_share": "two_stage_flag_share"})[
+        ["category", "path", "scenario_q", "two_stage_S", "two_stage_S_D", "two_stage_S_p90",
+         "two_stage_S_D_p90", "two_stage_flag_share"]]
+
+
+def rule(two, lo, hi):
+    """v5 Section 3.5 outcome for a two-stage value against the direct 90% range."""
+    if pd.isna(two):
+        return ""
+    if two > hi:
+        return "above the direct 90% range: two-stage = upper end of the range"
+    if two < lo:
+        return "below the direct 90% range: direct used, difference noted"
+    return "within the direct 90% range: direct only"
+
+
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     e = calories()
@@ -144,12 +182,27 @@ def main():
     order = {k: i for i, k in enumerate(["rice", "corn", "veg_fruit", "other_food", "vr", "pf",
                                          "nonrice_fallback", "rice_sensitivity_no_luzon2015"])}
     out = out.sort_values(["category", "path", "scenario_q"], key=lambda s: s.map(order) if s.name == "category" else s)
-    note = "provisional; direct approach, RONI only (recommended specification, differs from v5)"
+    ts = two_stage()
+    out = out.merge(ts, on=["category", "path", "scenario_q"], how="left")
+    out["two_stage_vs_direct_90pct"] = [
+        "" if pd.isna(t) else ("above" if t > hi else ("below" if t < lo else "within"))
+        for t, lo, hi in zip(out.two_stage_S, out.S_p05, out.S_p95)]
+    note = ("provisional; direct approach, RONI only (recommended specification, differs from v5); "
+            "two_stage_* columns: two-stage approach (Stage 1 Van f6ddf65, Stage 2 compact boosting from 2000), "
+            "for comparison (v5 Section 3.5 rule applied to the totals)")
     out.assign(status=note).round(6).to_csv(OUT / "food_shocks_define_ph.csv", index=False)
     tot = pd.DataFrame(totals)
+    t2 = (ts.groupby(["category", "path"]).two_stage_S_D.sum() / 4 * 100).rename("two_stage_total_pct").reset_index()
+    tot = tot.merge(t2, on=["category", "path"], how="left")
+    tot["v5_rule_3_5"] = [rule(t, lo, hi) for t, lo, hi in zip(tot.two_stage_total_pct, tot.p05, tot.p95)]
     tot.assign(status=note).round(3).to_csv(OUT / "food_shocks_episode_totals.csv", index=False)
 
     kcal = e.sum(axis=1)
+
+    def tot2(cat, pth):
+        r = tot[(tot.category == cat) & (tot.path == pth)].iloc[0]
+        return (f"two-stage {r.two_stage_total_pct:.1f}% against direct {r.total_loss_pct_of_annual:.1f}% "
+                f"({r.p05:.1f} to {r.p95:.1f})")
     readme = f"""# El Niño production shocks for DEFINE-PH, by food category (PROVISIONAL)
 
 Built by `scripts/deliver_food_shocks.py` (methodology v5 Section 3.5). Direct approach, RONI only
@@ -164,8 +217,25 @@ quarterly, against the neutral path (RONI = 0), on today's conditions.
   - `_p05`, `_p95`: 90% range from the block bootstrap (200 draws).
   - `step`: quarters since the start of the path; `in_path`: quarter inside the El Niño path (the shocks
     continue for the 4 quarters after it, through the lags).
+  - `two_stage_*` (rice and corn only): the two-stage approach for the same path and quarter (mean over
+    Van's 73 weather draws; `_p90` the 90th percentile, for stress scenarios; `flag_share` the share of
+    production where the El Niño weather goes beyond the range observed in 1987–2025), and
+    `two_stage_vs_direct_90pct`: where the two-stage value lies against the direct 90% range.
 - `food_shocks_episode_totals.csv`: total loss over each path and the quarters after it, % of one year's
-  production, with the 90% range.
+  production, with the 90% range; for rice and corn also the two-stage total and the outcome of the rule
+  of v5 Section 3.5 (`v5_rule_3_5`).
+
+## Direct and two-stage approach (v5 Section 3.5)
+The direct approach gives the central estimate. The two-stage result would become the upper end of the
+range where it lies outside the direct 90% range. Applied to the total over each path, it lies inside for
+every path, for rice and corn (e.g. 1997–98: rice {tot2('rice', '1997-98')}, corn {tot2('corn', '1997-98')}),
+so only the direct estimate is delivered, and the two-stage columns are there for comparison. The two
+approaches distribute the loss differently over the quarters: the direct corn shock is a large dry-season
+loss followed by gains (the recovery seen after past El Niños), while the two-stage shock has a smaller
+peak and no gains, since it only measures the effect of the weather in the growing window. The two-stage
+path is therefore closer to the gross loss before recovery that SOAS asked for (their November 2026
+comments); it could be used for that run if agreed with Alper. The rule is not applied quarter by quarter, which would splice
+the two paths.
 
 ## Paths
 The El Niño quarters (RONI ≥ 0.5) of 1997–98, 2015–16 and 2023–24, replayed under today's conditions,
@@ -211,10 +281,12 @@ an upper bound.
 
 ## Caveats
 - Corn calorie factor provisional (FNRI A001, corn grits, white, 357 kcal/100 g), to confirm.
-- The rice shocks are probably too low (typhoon rain over Luzon in late 2015; write-up section 2.6);
-  `rice_sensitivity_no_luzon2015` gives an upper bound. Stage 2 is to settle this.
-- Severe droughts are understated (1997–98 against FAOSTAT and in the validation); for stress scenarios
-  read the shocks as lower bounds.
+- The rice shocks may be too low (typhoon rain over Luzon in late 2015; write-up section 2.6);
+  `rice_sensitivity_no_luzon2015` gives an upper bound. The two-stage approach, which treats the
+  observed rain as weather rather than through RONI, gives practically the same rice totals as the
+  direct approach, so it does not support a large understatement; the sensitivity stays as an upper bound.
+- Severe droughts are understated (1997–98 against FAOSTAT and in the validation of both approaches,
+  write-up sections 2.2 and 7.5); for stress scenarios read the shocks as lower bounds.
 - Ranges of combined categories combine the draws of each crop by their index (independent
   re-estimations).
 """
