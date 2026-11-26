@@ -793,7 +793,7 @@ def stage2_nested():
     return pd.DataFrame(rows)
 
 
-CHAIN_MODEL = {"irrigated": "gbm_compact", "rainfed": "gbm_full", "corn": "gbm_compact"}
+CHAIN_MODEL = {"irrigated": "gbm_compact", "rainfed": "gbm_compact", "corn": "gbm_compact"}
 
 
 def stage2_importance():
@@ -802,7 +802,7 @@ def stage2_importance():
     i = pd.read_csv(TAB / "stage2_nested_importance.csv")
     i = i[i.series.map(CHAIN_MODEL) == i.model].groupby(["group", "series"]).deviance_rise_pct.mean().unstack("series")
     i = i[["irrigated", "rainfed", "corn"]].sort_values("rainfed", ascending=False)
-    i.columns = ["irrigated (9 features)", "rainfed (30 features)", "corn (9 features)"]
+    i.columns = ["irrigated", "rainfed", "corn"]
     return i.reset_index().rename(columns={"group": "Mechanism"})
 
 
@@ -815,7 +815,7 @@ def two_stage_totals():
     t["Direct"] = d.groupby(["path", "crop"]).S_D.sum() / 4 * 100
     cols = {"main (from 2000)": "Two-stage (main)", "from 2005": "Change from 2005",
             "from 2010": "Change from 2010", "no change (stress)": "No change (stress)",
-            "compact features for all (from 2000)": "Compact for all",
+            "full features for all (from 2000)": "Full for all",
             "regression T+SM_RZ (from 2000)": "Regression", "Direct": "Direct"}
     t = t[list(cols)].rename(columns=cols).reset_index()
     t["crop"] = t.crop.map({"palay": "rice (palay)", "corn": "corn"})
@@ -909,7 +909,8 @@ def main():
          "best: they reproduce the 1997–98 losses of irrigated and rainfed rice when that episode is "
          "left out. A nested cross-validation, which also chooses the model and the year of the change "
          "on training years only, confirms that the response changed (in every fold) but cannot pin down "
-         "the year (2000 is chosen most often); the chain uses gradient boosting for all three series, "
+         "the year (2000 is chosen most often); the chain uses gradient boosting on 9 weather measures, one "
+         "per mechanism, for all three series, "
          "with the regression and the other break years as sensitivities. Soil water and heat carry most "
          "of the prediction. Chained with Van's simulations (section 7.4), the two-stage "
          "losses over an episode are close to the direct ones (1997–98: rice 6% of a year's production "
@@ -1850,21 +1851,26 @@ def main():
                "held-out deviance when the features of one mechanism are shuffled together, % (mean over the "
                "11 held-out folds). Higher = more important out of sample.",
           fmt={c: "{:.1f}" for c in stage2_importance().columns[1:]})
-    para(doc, "Soil water and heat carry most of the prediction for rice, and dry spells and heat for corn. "
-              "In the full model used for rainfed rice, solar radiation also matters (Table 23): more sunshine "
-              "helps rice, but low radiation also marks cloudy typhoon months, so part of this may be the "
-              "flood effect that the water constraint keeps out (section 7.4). The variables the models rely "
-              "on are mostly among those stage 1 predicts best from RONI (out-of-sample correlation about 0.43 "
-              "for root-zone soil moisture and runoff, 0.50 for SPEI-3, against 0.21–0.28 for temperature; "
-              "Van's skill summary).")
-    para(doc, "Choice for the chain. Each series takes the candidate chosen by the inner cross-validation on "
-              "all years (Table 22), with the response changing from 2000, as decided for all three series on "
-              "25 November: the compact boosting for irrigated rice and corn, the full boosting for rainfed "
-              "rice. The chain also reports, as sensitivities, the change from 2005 and from 2010, no change, "
-              "the compact features for all three series, and the regression on temperature and soil moisture. "
-              "Boosting cannot extrapolate: beyond the hottest or driest window in the data its response stays "
-              "flat, so the reliability flag (section 7.2) matters most for it, and the regression shows what "
-              "extending the thresholds would give.")
+    para(doc, "Heat and soil water carry most of the prediction for rice, and dry spells and heat for corn "
+              "(Table 23, compact model). In the full model, solar radiation also matters a lot (31% for "
+              "rainfed rice): more sunshine helps rice, but low radiation also marks cloudy typhoon months, so "
+              "part of it is the flood effect that the water constraint keeps out (section 7.4). The variables "
+              "the compact model relies on are mostly among those stage 1 predicts best from RONI "
+              "(out-of-sample correlation about 0.43 for root-zone soil moisture and runoff, against 0.21–0.28 "
+              "for temperature; Van's skill summary).")
+    para(doc, "Choice for the chain (26 November): the compact boosting (9 features) for all three series, "
+              "with the response changing from 2000. The nested choice picks it for irrigated rice (9 of 11 "
+              "folds) and corn (better than the full model, although the folds split between the two), and "
+              "the full boosting for rainfed rice, which predicts somewhat better there (10.5% against 8.5% in "
+              "the blocks, 23.8% against 18.3% on the episodes, each model's own score). For rainfed rice the "
+              "compact model is kept anyway: the two give practically the same shocks (section 7.4), and the "
+              "compact one has one measure per mechanism and no solar radiation, so it cannot bring flood "
+              "effects back in through cloudiness. This departs from a literal reading of v5's rule for one "
+              "series and is proposed to Alper with the skill difference stated. The chain reports as "
+              "sensitivities the change from 2005 and from 2010, no change, the full 30 features for all "
+              "three series, and the regression on temperature and soil moisture. Boosting cannot extrapolate: "
+              "beyond the hottest or driest window in the data its response stays flat, so the reliability "
+              "flag (section 7.2) matters most for it.")
     para(doc, "Limitations.", italic=True)
     bullets(doc, [
         "The 2000 change is a step, and the post-2000 response is estimated from 26 years; whether the "
@@ -1893,13 +1899,10 @@ def main():
               "(Eq. 13a), irrigated and rainfed palay into rice in the same way, and the quarterly shock is "
               "scaled for DEFINE-PH (Eq. 13b). The two-stage estimate is the mean over draws; the 10th–90th "
               "percentiles show the spread of the weather. Main models: boosting with the response changing "
-              "from 2000 (the compact 9 features for irrigated rice and corn, all 30 for rainfed rice), at "
-              "today's response; "
+              "from 2000, on the compact 9 features for all three series, at today's response; "
               "sensitivities: the change from 2005 or 2010, no change (the response averaged over 1987–2025, "
-              "a stress case that keeps the stronger 1990s response), the compact features for all three "
-              "series (no solar radiation), and the regression on temperature and soil moisture. The model "
-              "choice was re-run with the water constraint (section 7.3); it moved irrigated rice from the full "
-              "to the compact boosting.")
+              "a stress case that keeps the stronger 1990s response), the full 30 features for all three "
+              "series, and the regression on temperature and soil moisture (section 7.3 for the choice).")
     para(doc, "A correction made on the way: water can only help. In the first run the corn shock was close "
               "to zero in the dry-season harvest, against about 30% in the direct approach. The reason: the "
               "boosting had learned from the data that very wet seasons (typhoon rain, floods, high runoff) "
@@ -1961,12 +1964,11 @@ def main():
          "(their comments of November 2026). For rice the two-stage approach puts more of the loss into the "
          "wet-season harvest after the episode (1998Q3: 8% against 2%)."),
         ("Sensitivities: ", "with the change from 2005 or 2010 the totals move by about a point or less; with "
-         "no change (the 1990s response kept) rice rises by about a point, a natural stress case. The compact "
-         "features for all three series (no solar radiation) give practically the same totals: in the full "
-         "model for rainfed rice, El Niño's sunnier skies on their own raise production by 13–15% in the "
-         "1998 dry-season harvests, yet the totals are practically the same without radiation. The "
-         "regression gives about half the boosting's losses, since its two features miss part of the drought "
-         "signal."),
+         "no change (the 1990s response kept) rice rises by about a point, a natural stress case. The full "
+         "30 features give similar totals (within about a point); in that model, El Niño's sunnier skies on "
+         "their own raise rainfed rice by 13–15% in the 1998 dry-season harvests, which is why the compact "
+         "model is preferred. The regression gives about half the boosting's losses, since its two features "
+         "miss part of the drought signal."),
         ("Weather beyond the observed range: ", "at the peak of 1997–98 and 2015–16 about half of rice and "
          "corn production is in region-quarters where the El Niño weather goes hotter or drier than anything "
          "in 1987–2025 (v5 reliability flag, net of today's warmer climate). The boosting's response stays "
