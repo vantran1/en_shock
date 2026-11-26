@@ -1982,10 +1982,73 @@ def main():
         "The model choice (Table 22) and the 2000 break were set on the same production data; the stage 2 "
         "uncertainty (re-estimation) is not yet in the range, which shows the weather draws only.",
         "VR and PF are not in the two-stage approach.",
-        "Next: validation of the full chain on past episodes with Van's out-of-sample weather (v5 Section "
-        "3.6), the comparison with the direct shocks by the rule of v5 Section 3.5, and the RONI + DMI "
-        "variant (python scripts/chain_two_stage.py --model roni_dmi).",
+        "Next: the comparison with the direct shocks by the rule of v5 Section 3.5, and the RONI + DMI "
+        "variant (python scripts/chain_two_stage.py --model roni_dmi). Validation: section 7.5.",
     ])
+
+    doc.add_heading("7.5 Validation of the chain on past episodes", level=2)
+    status(doc, "done (diagnostic); 26 November")
+    para(doc, "v5 Section 3.6 asks for both approaches to be tested by leaving each strong episode out, "
+              "re-estimating without it and comparing predicted with observed losses (scripts/validate_two_stage.py). "
+              "For the chain, stage 2 (compact boosting, change from 2000) is re-estimated without the episode "
+              "and the four quarters after it, as in the strict validation of the direct approach. Stage 1 enters "
+              "through Van's nested hindcast: the weather of each month predicted from RONI alone by a model "
+              "estimated without the 5-year block holding that month. It is what the chain would have predicted "
+              "knowing only RONI. Losses are measured over the episode window, against production at average "
+              "weather. Stage 2 fed with the observed weather shows what a perfect stage 1 would give.")
+    vt = pd.read_csv(TAB / "validation_two_stage.csv")
+    vt = vt[["series", "episode", "observed_loss_pct", "stage2_obs_weather_pct", "chain_pct",
+             "direct_observed_pct", "direct_predicted_pct"]].rename(columns={
+        "series": "Series", "episode": "Episode", "observed_loss_pct": "Observed",
+        "stage2_obs_weather_pct": "Stage 2, observed weather", "chain_pct": "Chain (RONI only)",
+        "direct_observed_pct": "Direct: observed", "direct_predicted_pct": "Direct: predicted"})
+    table(doc, vt, [1.8, 1.7, 1.8, 2.3, 2.2, 2.0, 2.0],
+          note="Table 26. Losses over each held-out episode (% of production; positive = loss): observed, stage 2 "
+               "with the observed weather, the whole chain with stage 1's out-of-sample weather, and the strict "
+               "validation of the direct approach (recommended, no DMI; its own reference is RONI = 0, so its "
+               "observed loss differs slightly; palay is not combined there).",
+          fmt={c: "{:.1f}" for c in vt.columns[2:]})
+    figure(doc, FIG / "validation_two_stage.png", 16.0,
+           "Figure 9. Validation of the chain: national production by quarter in each held-out episode, observed, "
+           "stage 2 with the observed weather, and the chain with stage 1's out-of-sample weather (% against "
+           "production at average weather).")
+    v = pd.read_csv(TAB / "validation_two_stage.csv").set_index(["series", "episode"])
+    mae = v.groupby(level=0)[["chain_error_pts", "direct_error_pts"]].apply(lambda x: x.abs().mean())
+    para(doc, "What it shows.", italic=True)
+    bullets(doc, [
+        ("Stage 2 works: ", f"with the observed weather it reproduces the losses of all three episodes for rice "
+         f"(palay {v.loc[('palay', '1997-98'), 'stage2_obs_weather_pct']:.0f}% against "
+         f"{v.loc[('palay', '1997-98'), 'observed_loss_pct']:.0f}% observed in 1997–98, "
+         f"{v.loc[('palay', '2015-16'), 'stage2_obs_weather_pct']:.0f}% against "
+         f"{v.loc[('palay', '2015-16'), 'observed_loss_pct']:.0f}% in 2015–16, "
+         f"{v.loc[('palay', '2023-24'), 'stage2_obs_weather_pct']:.0f}% against "
+         f"{v.loc[('palay', '2023-24'), 'observed_loss_pct']:.0f}% in 2023–24)."),
+        ("The chain under-predicts: ", f"knowing only RONI, it predicts "
+         f"{v.loc[('palay', '1997-98'), 'chain_pct']:.0f}% for palay in 1997–98 and about 1% or less in 2015–16 "
+         f"and 2023–24; every error is negative (rice and corn, all episodes). The quarterly profile is good where "
+         f"losses are large (1998Q2: corn −57% predicted against −64% observed, rainfed rice −62% against −69%); "
+         f"the totals fall short in the other quarters, where the chain predicts small gains that did not happen "
+         f"or misses drops not linked to RONI (for example 2015Q3)."),
+        ("Why: ", "stage 1 predicts the weather expected from RONI, and the weather of a real episode is more "
+         "extreme than its expected value (stage 1's out-of-sample correlation is about 0.4 for soil moisture "
+         "and rainfall). Plugging in the expected weather also understates a non-linear response: on Van's "
+         "scenario runs, the deterministic weather gives about a fifth less loss for rice than the mean over the "
+         "73 draws (corn about the same), which the chain's shocks avoid by averaging over draws. And part of "
+         "the observed loss comes from weather unrelated to ENSO, which neither approach attributes to El Niño."),
+        ("Against the direct approach: ", f"the mean absolute error over the three episodes is similar "
+         f"(irrigated {mae.loc['irrigated', 'chain_error_pts']:.1f} points for the chain against "
+         f"{mae.loc['irrigated', 'direct_error_pts']:.1f} for the direct approach; rainfed "
+         f"{mae.loc['rainfed', 'chain_error_pts']:.1f} against {mae.loc['rainfed', 'direct_error_pts']:.1f}; "
+         f"corn {mae.loc['corn', 'chain_error_pts']:.1f} against {mae.loc['corn', 'direct_error_pts']:.1f}). "
+         "The direct approach comes slightly closer for all three series, by about a point; both miss most of "
+         "the 1997–98 rainfed loss. The gap is small against the size of the errors, so the validation supports "
+         "keeping the direct approach as the central estimate (v5 Section 3.5) rather than ranking the two "
+         "approaches firmly."),
+    ])
+    para(doc, "Implication: both approaches give a lower bound for a strong episode like 1997–98. The chain's "
+              "own shocks (section 7.4) average over the weather draws, so they are less affected than this "
+              "deterministic test, but the under-prediction of extreme episodes remains a limitation to state "
+              "with the shocks.")
 
     doc.add_heading("Annex", level=1)
     table(doc, quarterly_palay(), [2.0, 2.0, 3.0, 3.4, 3.6],

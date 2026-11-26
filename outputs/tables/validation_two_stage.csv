@@ -1,0 +1,13 @@
+series,episode,observed_loss_pct,stage2_obs_weather_pct,chain_pct,chain_error_pts,direct_observed_pct,direct_predicted_pct,direct_error_pts,status
+palay,1997-98,13.958,16.086,10.6,-3.358,,,,"provisional; diagnostic (validation of the two-stage chain, v5 Section 3.6)"
+palay,2015-16,4.608,3.735,0.902,-3.706,,,,"provisional; diagnostic (validation of the two-stage chain, v5 Section 3.6)"
+palay,2023-24,3.787,4.881,-0.43,-4.217,,,,"provisional; diagnostic (validation of the two-stage chain, v5 Section 3.6)"
+irrigated,1997-98,11.058,13.823,10.69,-0.368,13.788,11.104,-2.684,"provisional; diagnostic (validation of the two-stage chain, v5 Section 3.6)"
+irrigated,2015-16,2.901,2.741,0.088,-2.813,1.973,3.533,1.56,"provisional; diagnostic (validation of the two-stage chain, v5 Section 3.6)"
+irrigated,2023-24,3.759,4.367,-0.866,-4.625,0.887,0.606,-0.281,"provisional; diagnostic (validation of the two-stage chain, v5 Section 3.6)"
+rainfed,1997-98,22.26,22.566,10.343,-11.917,27.776,11.105,-16.671,"provisional; diagnostic (validation of the two-stage chain, v5 Section 3.6)"
+rainfed,2015-16,9.754,6.734,3.356,-6.398,8.023,8.351,0.328,"provisional; diagnostic (validation of the two-stage chain, v5 Section 3.6)"
+rainfed,2023-24,3.875,6.515,0.955,-2.919,0.177,3.585,3.408,"provisional; diagnostic (validation of the two-stage chain, v5 Section 3.6)"
+corn,1997-98,4.449,7.193,0.517,-3.931,4.713,-4.75,-9.463,"provisional; diagnostic (validation of the two-stage chain, v5 Section 3.6)"
+corn,2015-16,10.315,8.072,4.559,-5.756,11.93,13.601,1.671,"provisional; diagnostic (validation of the two-stage chain, v5 Section 3.6)"
+corn,2023-24,7.725,8.649,1.208,-6.517,-0.303,1.942,2.245,"provisional; diagnostic (validation of the two-stage chain, v5 Section 3.6)"
