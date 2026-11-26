@@ -801,6 +801,28 @@ def stage2_importance():
     return i.reset_index().rename(columns={"group": "Mechanism"})
 
 
+def two_stage_totals():
+    """Total loss over each path, % of a year's production: two-stage variants and direct."""
+    r = pd.read_csv(TAB / "two_stage_shocks.csv")
+    t = (r.groupby(["path", "crop", "variant"]).S_D.sum() / 4 * 100).unstack("variant")
+    d = pd.concat([pd.read_csv(TAB / "shocks_rice.csv"), pd.read_csv(TAB / "shocks_corn.csv")])
+    d = d[d.crop.isin(["palay", "corn"])].replace({"path": {"unit RONI +1 (4 quarters from Q3)": "unit"}})
+    t["Direct"] = d.groupby(["path", "crop"]).S_D.sum() / 4 * 100
+    cols = {"main (from 2000)": "Two-stage (main)", "from 2005": "Change from 2005",
+            "from 2010": "Change from 2010", "no change (stress)": "No change (stress)",
+            "regression T+SM_RZ (from 2000)": "Regression", "Direct": "Direct"}
+    t = t[list(cols)].rename(columns=cols).reset_index()
+    t["crop"] = t.crop.map({"palay": "rice (palay)", "corn": "corn"})
+    t = t.rename(columns={"path": "Path", "crop": "Crop"})
+    return t.sort_values(["Crop", "Path"], ascending=[False, True])
+
+
+def water_check():
+    w = pd.read_csv(TAB / "stage2_water_monotone.csv")
+    g = w.groupby(["series", "features", "constraint", "fold_type"])[["deviance", "base_deviance"]].sum()
+    return ((1 - g.deviance / g.base_deviance) * 100).unstack("fold_type")
+
+
 def stage2_break():
     b = pd.read_csv(TAB / "stage2_break2000.csv").set_index("series")
     return {s_: (b.loc[s_, "wald"], int(b.loc[s_, "df"]), b.loc[s_, "p_value"]) for s_ in b.index}
@@ -883,7 +905,10 @@ def main():
          "on training years only, confirms that the response changed (in every fold) but cannot pin down "
          "the year (2000–2010); the chain uses gradient boosting for all three series, with the "
          "regression and the other break years as sensitivities. Soil water (rice) and runoff (corn) "
-         "carry most of the prediction. Van's scenario simulations pass the checks needed for "
+         "carry most of the prediction. Chained with Van's simulations (section 7.4), the two-stage "
+         "losses over an episode are close to the direct ones (1997–98: rice 6% of a year's production "
+         "against 6% direct, corn 8% against 9%), with a different timing and without the gains after "
+         "the episode. Van's scenario simulations pass the checks needed for "
          "the chain (section 7.2)."),
     ])
     doc.add_heading("How reliable are the results?", level=2)
@@ -1847,6 +1872,103 @@ def main():
     para(doc, "Next: chain stage 2 with Van's simulations draw by draw (shock of v5 Eq. 12, aggregated as "
               "in Eqs. 13a–13b), with the reliability flag, and compare with the direct shocks by the rule "
               "of v5 Section 3.5.")
+
+    doc.add_heading("7.4 Two-stage shocks: the chain", level=2)
+    status(doc, "first run done (26 November); comparison with the direct shocks by the v5 rule to come")
+    para(doc, "The two stages are chained as in v5 Section 3.5 (scripts/chain_two_stage.py). For each of the "
+              "four paths and each of Van's 73 draws, the growing-window features are built from the "
+              "simulated weather of the El Niño run and of the neutral run, which share the same historical "
+              "residuals. Stage 2 gives the weather part of production in both runs; the region, season, "
+              "trend and control terms are the same in both and cancel, so the shock of a region and quarter "
+              "is 1 minus the ratio of the two (Eq. 12). Regions are combined with their neutral production "
+              "(Eq. 13a), irrigated and rainfed palay into rice in the same way, and the quarterly shock is "
+              "scaled for DEFINE-PH (Eq. 13b). The two-stage estimate is the mean over draws; the 10th–90th "
+              "percentiles show the spread of the weather. Main models: boosting with the response changing "
+              "from 2000 (all 30 features for rice, the compact 9 for corn), at today's response; "
+              "sensitivities: the change from 2005 or 2010, no change (the response averaged over 1987–2025, "
+              "a stress case that keeps the stronger 1990s response), and the regression on temperature and "
+              "soil moisture.")
+    para(doc, "A correction made on the way: water can only help. In the first run the corn shock was close "
+              "to zero in the dry-season harvest, against about 30% in the direct approach. The reason: the "
+              "boosting had learned from the data that very wet seasons (typhoon rain, floods, high runoff) "
+              "lower production, so it counted El Niño's drier seasons partly as a gain from fewer floods; for "
+              "corn in 1998Q1, lower runoff alone added +15%, cancelling the drought loss. Flood and typhoon "
+              "damage belong to the CAT channel, and v5 sets the exposure controls to no event in both runs "
+              "precisely so that the El Niño shock does not include them. The boosting is therefore "
+              "constrained so that more rainfall, runoff or heavy-rain days never lowers production; the "
+              "drought side is unchanged. This costs little in prediction (Table 24) and brings the corn "
+              "shock in line with the direct approach. Without it, the corn loss over 1997–98 was 2% of a "
+              "year's production; with it, 8%. Rice changed little.")
+    wc = water_check()
+    wct = pd.DataFrame({
+        "Series (model)": ["irrigated (30 features)", "rainfed (30 features)", "corn (9 features)"],
+        "Water free, 5-yr": [wc.loc[("irrigated", "full (30)", "water free"), "block"],
+                             wc.loc[("rainfed", "full (30)", "water free"), "block"],
+                             wc.loc[("corn", "compact (9)", "water free"), "block"]],
+        "Constrained, 5-yr": [wc.loc[("irrigated", "full (30)", "water constrained"), "block"],
+                              wc.loc[("rainfed", "full (30)", "water constrained"), "block"],
+                              wc.loc[("corn", "compact (9)", "water constrained"), "block"]],
+        "Water free, episodes": [wc.loc[("irrigated", "full (30)", "water free"), "episode"],
+                                 wc.loc[("rainfed", "full (30)", "water free"), "episode"],
+                                 wc.loc[("corn", "compact (9)", "water free"), "episode"]],
+        "Constrained, episodes": [wc.loc[("irrigated", "full (30)", "water constrained"), "episode"],
+                                  wc.loc[("rainfed", "full (30)", "water constrained"), "episode"],
+                                  wc.loc[("corn", "compact (9)", "water constrained"), "episode"]]})
+    table(doc, wct, [4.2, 2.6, 2.6, 2.6, 2.6],
+          note="Table 24. Out-of-sample skill of the chain's boosting models with rainfall, runoff and "
+               "heavy-rain days free or constrained (more water never lowers production); response changing "
+               "from 2000; % of the no-weather deviance removed (scripts/check_water_monotone.py).",
+          fmt={c: "{:.1f}" for c in wct.columns[1:]})
+    tt = two_stage_totals()
+    table(doc, tt, [1.8, 2.0, 2.0, 1.9, 1.9, 2.0, 1.9, 1.6],
+          note="Table 25. Total loss over each path, % of a year's production (sum of the scaled quarterly "
+               "shocks / 4): two-stage main estimate, its sensitivities, and the direct approach.",
+          fmt={c: "{:.1f}" for c in tt.columns[2:]})
+    figure(doc, FIG / "two_stage_vs_direct.png", 16.0,
+           "Figure 8. Two-stage shocks by quarter (mean over Van's 73 draws, band: 10th–90th percentiles; "
+           "dotted: no change in the response; dashed: regression) and direct shocks (5th–95th bootstrap), "
+           "share of the quarter's neutral production lost.")
+    tti = tt.set_index(["Crop", "Path"])
+    para(doc, "What the chain shows.", italic=True)
+    bullets(doc, [
+        ("Totals close to the direct approach: ", f"over 1997–98 the two-stage estimate is "
+         f"{tti.loc[('rice (palay)', '1997-98'), 'Two-stage (main)']:.1f}% of a year's rice production "
+         f"(direct {tti.loc[('rice (palay)', '1997-98'), 'Direct']:.1f}%) and "
+         f"{tti.loc[('corn', '1997-98'), 'Two-stage (main)']:.1f}% of corn (direct "
+         f"{tti.loc[('corn', '1997-98'), 'Direct']:.1f}%); over 2023–24, "
+         f"{tti.loc[('rice (palay)', '2023-24'), 'Two-stage (main)']:.1f}% and "
+         f"{tti.loc[('corn', '2023-24'), 'Two-stage (main)']:.1f}% (direct "
+         f"{tti.loc[('rice (palay)', '2023-24'), 'Direct']:.1f}% and {tti.loc[('corn', '2023-24'), 'Direct']:.1f}%). "
+         "Two very different routes, one through the climate index alone and one through the weather, give "
+         "similar losses."),
+        ("Different timing, and no gains afterwards: ", "the direct corn shock is large in the two dry-season "
+         "harvests (30% and 38% in 1998Q1–Q2) and then negative (production above the neutral path in "
+         "1998Q3–Q4, the recovery seen in the data); the two-stage shock is smaller at the peak (9% and 21%) "
+         "and never turns into a gain, since it only measures what the weather in the growing window does. "
+         "The two-stage shock is therefore closer to the gross loss before recovery that SOAS asked for "
+         "(their comments of November 2026). For rice the two-stage approach puts more of the loss into the "
+         "wet-season harvest after the episode (1998Q3: 8% against 2%)."),
+        ("The break year matters little, the change itself does: ", "with the change from 2005 or 2010 the "
+         "totals move by about a point or less; with no change (the 1990s response kept) rice rises by about two "
+         "points, a natural stress case. The regression gives about half the boosting's losses, since its "
+         "two features miss part of the drought signal."),
+        ("Weather beyond the observed range: ", "at the peak of 1997–98 and 2015–16 about half of rice and "
+         "corn production is in region-quarters where the El Niño weather goes hotter or drier than anything "
+         "in 1987–2025 (v5 reliability flag, net of today's warmer climate). The boosting's response stays "
+         "flat beyond that range, so the two-stage losses of strong episodes are, if anything, too low there."),
+    ])
+    para(doc, "Limitations and next steps.", italic=True)
+    bullets(doc, [
+        "Stage 1's temperature effect drops to zero in June and July (section 7.2), which slightly understates "
+        "the heat in the Q2 and Q3 windows; a sensitivity that fills these months from their neighbours is to "
+        "be run, and Van has been asked whether the lag choice can be smoothed.",
+        "The model choice (Table 22) and the 2000 break were set on the same production data; the stage 2 "
+        "uncertainty (re-estimation) is not yet in the range, which shows the weather draws only.",
+        "VR and PF are not in the two-stage approach.",
+        "Next: validation of the full chain on past episodes with Van's out-of-sample weather (v5 Section "
+        "3.6), the comparison with the direct shocks by the rule of v5 Section 3.5, and the RONI + DMI "
+        "variant (python scripts/chain_two_stage.py --model roni_dmi).",
+    ])
 
     doc.add_heading("Annex", level=1)
     table(doc, quarterly_palay(), [2.0, 2.0, 3.0, 3.4, 3.6],

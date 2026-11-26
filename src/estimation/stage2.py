@@ -32,7 +32,8 @@ the non-weather terms with the boosting prediction as offset, then boosting with
 prediction as offset (Poisson deviance with an offset mu0 equals mu0 times the deviance of
 y / mu0, so the boosting fits the ratio with weights mu0). Monotonic constraints on the
 features whose sign is known (production falls with heat and evaporative demand, rises with
-soil moisture). Hyperparameters fixed in advance, not tuned (no nested tuning needed).
+soil moisture and, from 26 Nov 2026, never falls with more rainfall or runoff: wet-side losses are
+flood damage, which belongs to the CAT channel; see MONOTONE). Hyperparameters fixed in advance, not tuned (no nested tuning needed).
 """
 from dataclasses import dataclass, field
 
@@ -63,15 +64,21 @@ HINGE = {"T": "upper", "VPD": "upper", "PET": "upper", "T_max": "upper", "VPD_ma
          "E": "lower", "RO": "lower", "P_min": "lower", "SM_RZ_min": "lower",
          "SPEI3_min": "lower"}
 # monotonic constraints for the boosting (+1 production rises with the feature, -1 falls,
-# 0 free): heat and demand hurt, water in the soil helps; rainfall, runoff, radiation and
-# actual evaporation are left free (too much rain also hurts; E rises with both water and heat)
-# daily: heat (TMAX, night-time TMIN, degree-days, hot days, afternoon VPD) and dry spells hurt;
-# heavy-rain days left free (waterlogging, but also water supply)
-MONOTONE = {"T": -1, "VPD": -1, "PET": -1, "T_max": -1, "VPD_max": -1, "SM_RZ": 1,
-            "SM_DEEP": 1, "SPEI3": 1, "CWB3": 1, "SM_RZ_min": 1, "SPEI3_min": 1,
-            "TMAX": -1, "TMIN": -1, "VPDMAX": -1, "TMAX_max": -1, "EDD30": -1, "EDD32": -1,
-            "EDD": -1, "NHOT30": -1, "NHOT32": -1, "NHOT": -1, "NDRY": -1, "LDRY": -1,
-            "LDRY_max": -1}
+# 0 free): heat and demand hurt, water in the soil helps; radiation and actual evaporation are
+# left free (E rises with both water and heat); daily: heat (TMAX, night-time TMIN, degree-days,
+# hot days, afternoon VPD) and dry spells hurt.
+# Water supply (rainfall, runoff, heavy-rain days) can never lower production (+1), from 26 Nov
+# 2026. Left free, the boosting learns that very wet seasons (typhoon rain, floods) lower output,
+# and then counts El Nino's drier seasons as a gain from fewer floods (corn: lower runoff alone
+# +15% in 1998Q1, cancelling the drought loss). Flood and typhoon damage belong to the CAT channel
+# (v5 Section 3.2: controls at "no event" in both runs, no double counting), so the El Nino shock
+# must not include it. MONOTONE_WATER_FREE is the earlier version, kept for the comparison.
+MONOTONE_WATER_FREE = {"T": -1, "VPD": -1, "PET": -1, "T_max": -1, "VPD_max": -1, "SM_RZ": 1,
+                       "SM_DEEP": 1, "SPEI3": 1, "CWB3": 1, "SM_RZ_min": 1, "SPEI3_min": 1,
+                       "TMAX": -1, "TMIN": -1, "VPDMAX": -1, "TMAX_max": -1, "EDD30": -1,
+                       "EDD32": -1, "EDD": -1, "NHOT30": -1, "NHOT32": -1, "NHOT": -1, "NDRY": -1,
+                       "LDRY": -1, "LDRY_max": -1}
+MONOTONE = {**MONOTONE_WATER_FREE, "P": 1, "P_min": 1, "RO": 1, "N50": 1}
 # thresholds: every 5th percentile of the training sample, 5th to 95th (deciles until 25 Nov 2026,
 # when several thresholds ended on the edge of that grid)
 GRID_Q = np.round(np.arange(0.05, 0.951, 0.05), 2)
@@ -217,7 +224,7 @@ GBM_PARAMS = dict(loss="poisson", learning_rate=0.05, max_iter=300, max_depth=3,
 
 
 def fit_gbm(d: pd.DataFrame, y: np.ndarray, base: pd.DataFrame, features: list[str],
-            train: np.ndarray, rounds: int = 3, monotone: bool = True):
+            train: np.ndarray, rounds: int = 3, monotone: bool = True, constraints: dict | None = None):
     """Backfitting of the non-weather PPML terms and the boosting on the weather features.
     Returns the boosting model, the PPML params of the base terms and the column list."""
     from sklearn.ensemble import HistGradientBoostingRegressor
@@ -227,7 +234,8 @@ def fit_gbm(d: pd.DataFrame, y: np.ndarray, base: pd.DataFrame, features: list[s
     F = d.loc[train, features].to_numpy(float)
     yt = y[train]
     log_f = np.zeros(len(yt))
-    cst = [MONOTONE.get(v, 0) if monotone else 0 for v in features]
+    cons = MONOTONE if constraints is None else constraints
+    cst = [cons.get(v, 0) if monotone else 0 for v in features]
     gbm = None
     for _ in range(rounds):
         res = _glm(yt, B, offset=log_f)
