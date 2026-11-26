@@ -34,7 +34,9 @@ Steps, for each path, draw and crop series (v5 Eqs. 12-13b)
    quarter of the year on the side where losses are extrapolated (hotter, drier, longer dry spells;
    estimation.stage2.HINGE), in the scenario run but not in the neutral run (so today's warmer
    climate alone does not flag it). Reported as the production-weighted share flagged, mean over draws.
-Quarters: those of the direct shocks (first quarter of the path to 4 quarters after it).
+Quarters: those of the direct shocks (first quarter of the path to 4 quarters after it). The C3S forecast
+path (Van's forecast run, Jan 2026 - Jun 2028, RONI model) starts without lead-in months, so the harvest
+quarters whose growing window reaches into 2025 are left out (palay to 2026Q2, corn to 2026Q1).
 
 Run:  python scripts/chain_two_stage.py [--model roni|roni_dmi]
 Writes outputs/tables/two_stage_shocks[_roni_dmi].csv (path x crop x variant x quarter: mean,
@@ -67,7 +69,10 @@ from select_stage2 import COMPACT  # noqa: E402
 VAN = ROOT / "data/reference/van/f6ddf65/scenarios"
 TAB, FIG, OUT = ROOT / "outputs/tables", ROOT / "outputs/figures", ROOT / "outputs"
 SCEN = {"1997-98": "1997-98", "2015-16": "2015-16", "2023-24": "2023-24",
-        "unit": "unit RONI +1 (4 quarters from Q3)"}  # Van's folder -> direct shocks' path name
+        "unit": "unit RONI +1 (4 quarters from Q3)",
+        "c3s": "C3S forecast (Nov 2026)"}  # Van's folder -> direct shocks' path name
+# the forecast run is in Van's agriculture outputs, not in scenarios/ (RONI model only)
+FORECAST_SIM = ROOT / "data/reference/van/f6ddf65/agriculture/simulated_monthly_16regions.csv"
 SERIES = ["irrigated", "rainfed", "corn"]
 # compact features for all three series (decision of 26 Nov 2026): the nested choice (re-run with the
 # water constraint) picks the compact boosting for irrigated palay and corn and the full one for rainfed
@@ -124,7 +129,8 @@ def fit_variant(series, kind, brk):
 
 
 def sim_features(scen, model, series):
-    w = pd.read_csv(VAN / scen / model / "simulated_monthly_16regions.csv").rename(columns={"code": "region_code"})
+    f = FORECAST_SIM if scen == "c3s" else VAN / scen / model / "simulated_monthly_16regions.csv"
+    w = pd.read_csv(f).rename(columns={"code": "region_code"})
     f = window_features(w[["path", "draw", "date", "region_code"] + VARS], calendars()[series], keys=["path", "draw"])
     f["q"] = f.period.str[-1].astype(int)
     return f
@@ -158,6 +164,8 @@ def main(model="roni"):
     print("stage 2 fitted", flush=True)
     rows, draws, regional = [], [], []
     for scen, pname in SCEN.items():
+        if scen == "c3s" and model != "roni":
+            continue
         quarters = sorted(direct[direct.path == pname].scenario_q.unique())
         feats = {s_: sim_features(scen, model, s_) for s_ in SERIES}
         for v in VARIANTS:
@@ -165,6 +173,10 @@ def main(model="roni"):
             for s_ in SERIES:
                 f, used, ybar, obs = fits[(s_, v)]
                 ft = feats[s_][feats[s_].period.isin(quarters)]
+                # harvest quarters whose growing window reaches before the simulated months (the
+                # forecast run starts in Jan 2026 without lead-in months) have missing features: dropped
+                complete = ft.groupby("period")[used].apply(lambda x: x.notna().all().all())
+                ft = ft[ft.period.isin(complete[complete].index)]
                 fs = ft[ft.path == "scenario"].sort_values(["draw", "region_code", "period"]).reset_index(drop=True)
                 f0 = ft[ft.path == "neutral"].sort_values(["draw", "region_code", "period"]).reset_index(drop=True)
                 assert (fs[["draw", "region_code", "period"]].values == f0[["draw", "region_code", "period"]].values).all()
@@ -235,7 +247,7 @@ def report(res, direct, sfx, model):
 
 def figure(res, direct, sfx, model):
     d = direct.assign(path=direct.path.map({v: k for k, v in SCEN.items()}))
-    fig, axes = plt.subplots(2, 4, figsize=(15, 7), constrained_layout=True, sharey="row")
+    fig, axes = plt.subplots(2, len(SCEN), figsize=(3.8 * len(SCEN), 7), constrained_layout=True, sharey="row")
     for i, crop in enumerate(["palay", "corn"]):
         for j, scen in enumerate(SCEN):
             ax = axes[i, j]
@@ -256,7 +268,7 @@ def figure(res, direct, sfx, model):
             for sp in ("top", "right"):
                 ax.spines[sp].set_visible(False)
             if i == 0:
-                ax.set_title(scen, fontsize=9, color=INK, loc="left")
+                ax.set_title(SCEN[scen] if scen == "c3s" else scen, fontsize=9, color=INK, loc="left")
             if j == 0:
                 ax.set_ylabel(f"{crop}: % of the quarter's production lost", fontsize=8, color=MUTED)
     axes[0, 0].legend(frameon=False, fontsize=7)

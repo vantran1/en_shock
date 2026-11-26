@@ -811,7 +811,12 @@ def two_stage_totals():
     r = pd.read_csv(TAB / "two_stage_shocks.csv")
     t = (r.groupby(["path", "crop", "variant"]).S_D.sum() / 4 * 100).unstack("variant")
     d = pd.concat([pd.read_csv(TAB / "shocks_rice.csv"), pd.read_csv(TAB / "shocks_corn.csv")])
-    d = d[d.crop.isin(["palay", "corn"])].replace({"path": {"unit RONI +1 (4 quarters from Q3)": "unit"}})
+    d = d[d.crop.isin(["palay", "corn"])].replace({"path": {"unit RONI +1 (4 quarters from Q3)": "unit",
+                                                            "C3S forecast (Nov 2026)": "c3s"}})
+    # direct total over the quarters the two-stage run covers (the forecast run starts in Jan 2026)
+    cover = r[r.variant == "main (from 2000)"].groupby(["path", "crop"]).scenario_q.agg(["min", "max"])
+    d = d.merge(cover.reset_index(), on=["path", "crop"])
+    d = d[(d.scenario_q >= d["min"]) & (d.scenario_q <= d["max"])]
     t["Direct"] = d.groupby(["path", "crop"]).S_D.sum() / 4 * 100
     cols = {"main (from 2000)": "Two-stage (main)", "from 2005": "Change from 2005",
             "from 2010": "Change from 2010", "no change (stress)": "No change (stress)",
@@ -819,6 +824,7 @@ def two_stage_totals():
             "regression T+SM_RZ (from 2000)": "Regression", "Direct": "Direct"}
     t = t[list(cols)].rename(columns=cols).reset_index()
     t["crop"] = t.crop.map({"palay": "rice (palay)", "corn": "corn"})
+    t["path"] = t.path.replace({"c3s": "C3S forecast"})
     t = t.rename(columns={"path": "Path", "crop": "Crop"})
     return t.sort_values(["Crop", "Path"], ascending=[False, True])
 
@@ -1937,7 +1943,9 @@ def main():
     tt = two_stage_totals()
     table(doc, tt, [1.6, 1.8, 1.8, 1.7, 1.7, 1.8, 1.7, 1.7, 1.5],
           note="Table 25. Total loss over each path, % of a year's production (sum of the scaled quarterly "
-               "shocks / 4): two-stage main estimate, its sensitivities, and the direct approach.",
+               "shocks / 4): two-stage main estimate, its sensitivities, and the direct approach over the same "
+               "quarters (for the C3S forecast from 2026Q3 for rice and 2026Q2 for corn, the first harvest "
+               "quarters whose growing window lies within Van's forecast run).",
           fmt={c: "{:.1f}" for c in tt.columns[2:]})
     figure(doc, FIG / "two_stage_vs_direct.png", 16.0,
            "Figure 8. Two-stage shocks by quarter (mean over Van's 73 draws, band: 10th–90th percentiles; "
@@ -2069,6 +2077,47 @@ def main():
               "approach treats the typhoon rain of late 2015 as weather rather than through RONI and gives "
               "practically the same rice totals, so it does not support a large understatement of the direct "
               "rice shocks.")
+
+    doc.add_heading("7.7 The C3S forecast path (2026–27)", level=2)
+    status(doc, "done (26 November); in the delivery")
+    para(doc, "Both approaches were run on the path of the current episode: Van's stage 1 path (RONI observed to "
+              "September 2026, then the median of the C3S members, a linear decay to zero by July 2027 and zero "
+              "to June 2028; data/processed/c3s_path_2026-11.csv). In quarterly means RONI peaks at 2.8 in 2026Q4, "
+              "above the highest value in the data since 1950 (2.25 in 1997Q4); the C3S members range from about "
+              "2.7 to 3.7 at the monthly peak (10th–90th percentiles). The direct path starts in 2025Q3, so that "
+              "the observed 2025–26 La Niña enters the lags; its first quarters therefore show small gains from "
+              "that La Niña, not the El Niño. The two-stage run uses Van's forecast simulation (73 draws), which "
+              "starts in January 2026, so its first harvest quarters are 2026Q3 for rice and 2026Q2 for corn.")
+    dl = pd.read_csv(ROOT / "outputs/delivery/food_shocks_episode_totals.csv")
+    fc = dl[dl.path == "C3S forecast (Nov 2026)"].set_index("category")
+    h97 = dl[dl.path == "1997-98"].set_index("category")
+    cmp_ = pd.read_csv(ROOT / "outputs/delivery/comparison/two_stage_comparison_totals.csv")
+    cmp_ = cmp_[cmp_.path == "C3S forecast (Nov 2026)"].set_index("category")
+    ft = pd.DataFrame({"Category": ["rice", "corn", "veg_fruit", "vr", "pf"]})
+    ft["C3S forecast (%)"] = ft.Category.map(fc.total_loss_pct_of_annual)
+    ft["90% range"] = ft.Category.map(lambda c_: f"{fc.loc[c_, 'p05']:.1f} to {fc.loc[c_, 'p95']:.1f}")
+    ft["1997–98 (%)"] = ft.Category.map(h97.total_loss_pct_of_annual)
+    table(doc, ft, [3.0, 3.0, 3.4, 3.0],
+          note="Table 27. Delivered shocks (direct approach) for the C3S forecast path: total loss over the path, "
+               "% of a year's production, with the 90% bootstrap range, next to the 1997–98 path.",
+          fmt={"C3S forecast (%)": "{:.1f}", "1997–98 (%)": "{:.1f}"})
+    para(doc, f"The forecast losses are close to those of the 1997–98 path (rice {fc.loc['rice', 'total_loss_pct_of_annual']:.1f}% "
+              f"of a year's production, corn {fc.loc['corn', 'total_loss_pct_of_annual']:.1f}%), although the forecast "
+              f"El Niño is about a quarter larger (cumulative quarterly RONI 8.5 against 6.7). The difference is "
+              f"offset by the gains from the 2025–26 La Niña in the first quarters: without them the forecast "
+              f"would cost about 6.5% of a year's rice and 10.0% of corn. The peak falls in 2026Q4, so the "
+              f"largest losses come in the 2027 dry-season harvests "
+              f"(rice about 11–13% of the quarter's production in 2027Q1–Q2, corn 29–41%). Over the quarters both "
+              f"approaches cover, the two-stage totals are {cmp_.loc['rice', 'two_stage_total_pct']:.1f}% for rice "
+              f"and {cmp_.loc['corn', 'two_stage_total_pct']:.1f}% for corn against "
+              f"{cmp_.loc['rice', 'direct_total_pct']:.1f}% and {cmp_.loc['corn', 'direct_total_pct']:.1f}% for the "
+              f"direct approach, inside its 90% range, so the direct shocks are delivered (v5 Section 3.5). At the "
+              f"peak about half of production is in region-quarters where the forecast weather goes beyond the "
+              f"1987–2025 range (reliability flag).")
+    para(doc, "Cautions. The direct model is linear in RONI and extrapolates the response of past episodes to a "
+              "peak a quarter above anything observed; the two-stage model's response is flat beyond the observed "
+              "weather. A forecast episode this strong could therefore cost more than either approach says. The "
+              "shocks use the median C3S path only; the spread of the members is not propagated.")
 
     doc.add_heading("Annex", level=1)
     table(doc, quarterly_palay(), [2.0, 2.0, 3.0, 3.4, 3.6],

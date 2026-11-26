@@ -33,7 +33,19 @@ the two paths.
 
 ## Paths
 The El Niño quarters (RONI ≥ 0.5) of 1997–98, 2015–16 and 2023–24, replayed under today's conditions,
-and a unit path (RONI +1 for four quarters from Q3).
+a unit path (RONI +1 for four quarters from Q3), and the **C3S forecast of November 2026** for the
+current episode (`C3S forecast (Nov 2026)`).
+
+The forecast path is the one of Van's Stage 1 (dev_Van f6ddf65): RONI observed to September 2026, then
+the median of the C3S members, a linear decay to zero by July 2027, and zero to June 2028
+(`data/processed/c3s_path_2026-11.csv`, quarterly means). It starts in 2025Q3, so that the observed
+2025–26 La Niña enters the lags: the first quarters show the end of that La Niña (small negative or
+positive values), not the El Niño. Two cautions:
+- The forecast peak (quarterly RONI 2.8 in 2026Q4) is above anything in the data (2.25 in 1997Q4).
+  The direct model is linear in RONI, so it extrapolates the response of past episodes; the true loss
+  of an episode this strong could be larger (losses accelerate in severe droughts) or smaller.
+- It is a forecast: the C3S members range from about 2.7 to 3.7 at the peak (10th–90th percentiles).
+  The shocks use the median path only.
 
 ## Categories
 Main delivery: the four food categories agreed by the BSP and SOAS (v5 Section 3.2).

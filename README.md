@@ -81,6 +81,7 @@ All results are provisional.
   thresholds still sit on the edge of the 5-95% grid. Inputs: Van's f6ddf65 (`data/reference/van/`,
   untracked); the features are committed in `data/processed/`.
 - Van's scenario simulations (f6ddf65, 25 Nov): 73 draws, leading months, daily variables; all checks pass.
+- C3S forecast path (Nov 2026) added to the direct and two-stage shocks and to the delivery (26 Nov): peak quarterly RONI 2.8, above anything in the data (2.25), so flagged; first quarters reflect the 2025-26 La Nina.
 - Stage 2, VR: Basilan, Sulu and Tawi-Tawi are about half of BARMM's VR calories but about 7% of its
   cropland weight; consider crop-weighted weather.
 

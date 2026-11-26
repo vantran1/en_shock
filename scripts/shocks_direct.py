@@ -20,7 +20,9 @@ path and the 4 quarters after it.
 
 Paths: RONI and DMI of the quarters with RONI >= 0.5 in the three strong episodes
 (1997Q2-1998Q1, 2015Q2-2016Q1, 2023Q3-2024Q1), replayed under today's conditions, and a
-unit path (RONI +1 for four quarters from Q3, DMI 0) as a sensitivity.
+unit path (RONI +1 for four quarters from Q3, DMI 0) as a sensitivity, and the C3S forecast path of
+Nov 2026 (Van's Stage 1 path, data/processed/c3s_path_2026-11.csv; peak quarterly RONI 2.8 in 2026Q4,
+above the highest value in the data, 2.25 in 1997Q4, so the linear direct model extrapolates).
 
 Central estimate: Poisson on the full sample (timing on the 0.05 grid). Range (v5: "the
 90 percent confidence interval of the direct approach"): block bootstrap over years
@@ -91,11 +93,29 @@ EPISODE_PATHS = {"1997-98": ("1997Q2", "1998Q1"), "2015-16": ("2015Q2", "2016Q1"
 WORKERS = 8
 
 
+FORECAST = "C3S forecast (Nov 2026)"
+FORECAST_FILE = ROOT / "data/processed/c3s_path_2026-11.csv"
+
+
+def forecast_path():
+    """The C3S path of Van's Stage 1 (dev_Van f6ddf65, outputs/shared/path.csv, copied to
+    data/processed/c3s_path_2026-11.csv): monthly RONI observed to Sep 2026 (with the lead-in from
+    Jul 2025), then the median of the C3S members, a linear decay to zero by Jul 2027 and zero to Jun
+    2028; quarterly means. From 2025Q3, so that the observed 2025-26 La Nina enters the lags; to
+    2027Q2, the last non-zero quarter (the shocks continue for the K quarters after it). RONI only
+    (the DMI of the path is not used: RONI-only specification)."""
+    f = pd.read_csv(FORECAST_FILE)
+    q = f.assign(q=pd.PeriodIndex(pd.to_datetime(f.date), freq="Q")).groupby("q").roni.mean()
+    q = q.loc[:pd.Period("2027Q2", "Q")]
+    return pd.DataFrame({"roni": q, "dmi": 0.0})
+
+
 def paths():
     idx = pd.DataFrame({"roni": quarterly("roni"), "dmi": quarterly("dmi")})
     out = {name: idx.loc[pd.Period(a, "Q"):pd.Period(b, "Q")] for name, (a, b) in EPISODE_PATHS.items()}
     unit = pd.period_range("2001Q3", periods=4, freq="Q")
     out["unit RONI +1 (4 quarters from Q3)"] = pd.DataFrame({"roni": 1.0, "dmi": 0.0}, index=unit)
+    out[FORECAST] = forecast_path()
     return out
 
 

@@ -1,0 +1,37 @@
+date,roni,roni_source,roni_q10,roni_q90,lead_in
+2025-07-01,-0.41,observed,,,True
+2025-08-01,-0.59,observed,,,True
+2025-09-01,-0.78,observed,,,True
+2025-10-01,-0.93,observed,,,True
+2025-11-01,-0.98,observed,,,True
+2025-12-01,-1.04,observed,,,True
+2026-01-01,-0.91,observed,,,False
+2026-02-01,-0.76,observed,,,False
+2026-03-01,-0.44,observed,,,False
+2026-04-01,-0.04,observed,,,False
+2026-05-01,0.49,observed,0.73,0.73,False
+2026-06-01,0.97,observed,0.94,0.94,False
+2026-07-01,1.36,observed,1.34,1.34,False
+2026-08-01,1.69,observed,1.67333,1.67333,False
+2026-09-01,1.97,observed,1.83,1.83,False
+2026-10-01,2.44325,forecast with observed lead-in,2.33174,2.75597,False
+2026-11-01,2.99437,forecast,2.74306,3.70461,False
+2026-12-01,2.98557,forecast,2.7066,3.66449,False
+2027-01-01,2.95465,forecast,2.47574,3.60558,False
+2027-02-01,2.49434,forecast,1.96228,3.31949,False
+2027-03-01,1.95713,forecast,1.25675,2.90107,False
+2027-04-01,1.60803,forecast,0.842907,2.78806,False
+2027-05-01,1.07202,decay to zero (path.tail),,,False
+2027-06-01,0.536009,decay to zero (path.tail),,,False
+2027-07-01,0.0,zero (path.tail),,,False
+2027-08-01,0.0,zero (path.tail),,,False
+2027-09-01,0.0,zero (path.tail),,,False
+2027-10-01,0.0,zero (path.tail),,,False
+2027-11-01,0.0,zero (path.tail),,,False
+2027-12-01,0.0,zero (path.tail),,,False
+2028-01-01,0.0,zero (path.tail),,,False
+2028-02-01,0.0,zero (path.tail),,,False
+2028-03-01,0.0,zero (path.tail),,,False
+2028-04-01,0.0,zero (path.tail),,,False
+2028-05-01,0.0,zero (path.tail),,,False
+2028-06-01,0.0,zero (path.tail),,,False

@@ -130,7 +130,7 @@ def pct(draws, col):
 
 
 TWO_STAGE_PATHS = {"1997-98": "1997-98", "2015-16": "2015-16", "2023-24": "2023-24",
-                   "unit": "unit RONI +1 (4 quarters from Q3)"}
+                   "unit": "unit RONI +1 (4 quarters from Q3)", "c3s": "C3S forecast (Nov 2026)"}
 
 
 def two_stage():
@@ -200,10 +200,20 @@ def main():
     cmp_note = ("provisional; comparison only, not for DEFINE-PH; two-stage approach (Stage 1 Van f6ddf65, "
                 "Stage 2 compact boosting from 2000)")
     cq.assign(status=cmp_note).round(6).to_csv(cmp_dir / "two_stage_comparison.csv", index=False)
-    t2 = (ts.groupby(["category", "path"]).two_stage_S_D.sum() / 4 * 100).rename("two_stage_total_pct").reset_index()
-    ct = tot[tot.category.isin(["rice", "corn"])].rename(columns={
-        "total_loss_pct_of_annual": "direct_total_pct", "p05": "direct_p05", "p95": "direct_p95"}).merge(
-        t2, on=["category", "path"], how="left")
+    # totals over the quarters both approaches cover (the two-stage forecast run starts without lead-in
+    # months, so its first harvest quarters are missing), direct range from its bootstrap draws
+    ts = ts.dropna(subset=["two_stage_S_D"])
+    t2 = (ts.groupby(["category", "path"]).two_stage_S_D.sum() / 4 * 100).rename("two_stage_total_pct")
+    span = ts.groupby(["category", "path"]).scenario_q.agg(["min", "max"])
+    crow = []
+    for (cat, pth), (a, z) in span.iterrows():
+        sel = lambda x: x[(x.path == pth) & (x.scenario_q >= a) & (x.scenario_q <= z)]  # noqa: E731
+        dr = sel(draws[cat]).groupby("rep").S_D.sum() / 4 * 100
+        crow.append({"category": cat, "path": pth, "quarters": f"{a}-{z}",
+                     "direct_total_pct": sel(central[cat]).S_D.sum() / 4 * 100,
+                     "direct_p05": dr.quantile(0.05), "direct_p95": dr.quantile(0.95),
+                     "two_stage_total_pct": t2[(cat, pth)]})
+    ct = pd.DataFrame(crow)
     ct["v5_rule_3_5"] = [rule(t, lo, hi) for t, lo, hi in zip(ct.two_stage_total_pct, ct.direct_p05, ct.direct_p95)]
     ct.assign(status=cmp_note).round(3).to_csv(cmp_dir / "two_stage_comparison_totals.csv", index=False)
 
@@ -248,7 +258,19 @@ the two paths.
 
 ## Paths
 The El Niño quarters (RONI ≥ 0.5) of 1997–98, 2015–16 and 2023–24, replayed under today's conditions,
-and a unit path (RONI +1 for four quarters from Q3).
+a unit path (RONI +1 for four quarters from Q3), and the **C3S forecast of November 2026** for the
+current episode (`C3S forecast (Nov 2026)`).
+
+The forecast path is the one of Van's Stage 1 (dev_Van f6ddf65): RONI observed to September 2026, then
+the median of the C3S members, a linear decay to zero by July 2027, and zero to June 2028
+(`data/processed/c3s_path_2026-11.csv`, quarterly means). It starts in 2025Q3, so that the observed
+2025–26 La Niña enters the lags: the first quarters show the end of that La Niña (small negative or
+positive values), not the El Niño. Two cautions:
+- The forecast peak (quarterly RONI 2.8 in 2026Q4) is above anything in the data (2.25 in 1997Q4).
+  The direct model is linear in RONI, so it extrapolates the response of past episodes; the true loss
+  of an episode this strong could be larger (losses accelerate in severe droughts) or smaller.
+- It is a forecast: the C3S members range from about 2.7 to 3.7 at the peak (10th–90th percentiles).
+  The shocks use the median path only.
 
 ## Categories
 Main delivery: the four food categories agreed by the BSP and SOAS (v5 Section 3.2).
