@@ -9,6 +9,9 @@ note), which runs from here once its code is in this repository.
   python scripts/07_electricity.py                       # the main run (RONI)
   python scripts/07_electricity.py --variant roni_dmi    # the RONI + DMI variant (outputs/shared/variants/roni_dmi/)
 
+The daily cooling degree days and temperatures by grid (observed, and simulated for the forecast path and the
+scenarios; Eqs. 1-3 of the electricity note) are made by scripts/helpers/electricity_daily.py.
+
 Exits with 1 if a file is missing or stale.
 """
 from __future__ import annotations

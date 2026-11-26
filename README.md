@@ -58,7 +58,7 @@ python scripts/run_all.py --labour        # with labour
 | 04 | `04_simulate.py` | the scenario path (latest C3S forecast) and its simulated weather; `--scenarios` adds the direct-approach scenarios | `outputs/shared/path.csv`, section tables |
 | 05 | `05_agriculture.py` | hand-off check of the agriculture files (Stage 2 runs here once merged) | |
 | 06 | `06_labour.py` | hourly WBGT, its EOF–CCA and the productivity shocks | `outputs/labour/` |
-| 07 | `07_electricity.py` | hand-off check of the electricity files | |
+| 07 | `07_electricity.py` | hand-off check of the electricity files; `helpers/electricity_daily.py`: daily CDD and temperatures by grid, observed and simulated (Eqs. 1–3) | `outputs/electricity/` |
 | 08 | `08_prices.py` | world rice price shock (price note, Section 2); uses the RONI directly | `outputs/prices/world_rice/` |
 
 Every script runs on its own and lists its options with `--help`. Common runs:
@@ -71,9 +71,10 @@ python scripts/04_simulate.py --scenarios-only                                  
 python scripts/run_all.py --from 2 --to 2 --azure --delete-raw                   # step 02 straight from Azure
 python scripts/06_labour.py --delete-raw                                         # labour straight from Azure
 python scripts/08_prices.py                                                      # the rice price shock alone
+python scripts/helpers/electricity_daily.py                                      # daily CDD by grid: observed, forecast, scenarios
 ```
 
-**Helpers** (`scripts/helpers/`): the parts of steps 04 and 06 (`make_path.py`, `simulate_path.py`, `run_scenarios.py`, `hourly_wbgt_edd.py`, `labour_wbgt_hourly.py`, `labour_fit_wbgt.py`, `labour_shocks.py`) and of step 08 (`prices_estimate_rice.py`, `prices_shocks_rice.py`); the hourly ERA5 tools (`download_era5_hourly.py` from the CDS, `era5_azure_upload.sh` and `sync_era5_hourly.py` for Azure); one-off tools (`make_regions.py` for the region boundaries, `draft_services_table.py` for Table 2a); and `analysis/`, the stand-alone checks behind the model choices (DMI, lags, SST predictors, non-linearity) with the EOF–CCA explainer notebook. They do not change the main run.
+**Helpers** (`scripts/helpers/`): the parts of steps 04, 06 and 07 (`make_path.py`, `simulate_path.py`, `run_scenarios.py`, `hourly_wbgt_edd.py`, `labour_wbgt_hourly.py`, `labour_fit_wbgt.py`, `labour_shocks.py`, `electricity_daily.py`) and of step 08 (`prices_estimate_rice.py`, `prices_shocks_rice.py`); the hourly ERA5 tools (`download_era5_hourly.py` from the CDS, `era5_azure_upload.sh` and `sync_era5_hourly.py` for Azure); one-off tools (`make_regions.py` for the region boundaries, `draft_services_table.py` for Table 2a); and `analysis/`, the stand-alone checks behind the model choices (DMI, lags, SST predictors, non-linearity) with the EOF–CCA explainer notebook. They do not change the main run.
 
 **Indices.** `data/indices/` holds one copy of each index, shared by every part of the repository. Stage 1 reads the seasonal RONI (`roni/roni_nino34_seasonal_ersst.csv`, CPC's RONI, centred 3-month means) and the DMI (`dmi/dmi_had.csv`); with `indices.refresh: true` it downloads the latest values on each run and updates those two files when they change. The world rice price uses the monthly RONI (`roni/roni_nino34_monthly_ersst.csv`), which is not refreshed automatically.
 
@@ -148,8 +149,23 @@ Accumulated fields are the monthly means × days in the month.
 | `cells_path_response.csv.gz`, `cells_hist_fitted.csv.gz` | the same per cell, for a version of Eq. 3 that uses the cell's own response instead of its region's |
 | `cell_weights_17regions.csv` | population weights of every cell–region piece: within the region, and within the grid (Eq. 2), with and without MIMAROPA |
 | `region_grid_map.csv` | region → grid, with population and the MIMAROPA flag |
+| `observed_daily_3grids.csv` | **observed, by PHT day and grid**, 1950-01-02 to 2025-12-31: `CDD22` … `CDD26` (Eqs. 1–2 at base temperatures 22–26 °C), and `TMEAN`, `TMAX`, `TMIN`, the population-weighted means of each cell's daily mean, maximum and minimum |
+| `observed_hourly_3grids.csv.gz` | the population-weighted hourly temperature of each grid (`datetime_pht`, `Luzon`, `Visayas`, `Mindanao`), for Version 2 |
+| `simulated_daily_3grids.csv.gz` | **simulated, Eq. 3**, by `draw`, day of the path (`date`), historical day (`hist_date`) and grid: the same values for the scenario (`<var>_scenario`) and neutral (`<var>_neutral`) runs of the forecast path; the scenarios' are in `outputs/shared/scenarios/<name>/roni/` |
+| `shift_by_block_3grids.csv` | Eq. 3's shift by grid (population-weighted mean of the regions' shifts): a simulated hourly grid temperature is the observed one of the historical hour plus this shift |
+| `check_section32_*.csv` | the check of Section 3.2: Stage 1's TMAX and TMIN responses against T's, and its hot-day responses against those a single shift implies |
 
 For Eq. 3, $r(i)$ is the region holding most of the cell's population. It is given as `region17_majority_population` in `shared/cells.csv`.
+
+**Daily CDD and temperatures** (`scripts/helpers/electricity_daily.py`, settings in `sections.electricity.daily`). Days are Philippine days (UTC+8), so each month takes the last 8 hours of the previous UTC file. CDD is computed for each cell from its hourly temperature (Eq. 1), before any averaging, and then averaged over the grid with population weights (Eq. 2, NCR included, MIMAROPA left out as in `cell_weights_17regions.csv`). In the simulation each cell–region piece of `cell_weights_17regions.csv` takes its own region's shift, rather than that of the cell's majority region. A path month keeps the days of its historical month that exist in it, so a leap-year February of the path has 28 days when its historical year is a common year.
+
+The hourly files are read once, into a store of every cell's hourly temperature in PHT (`outputs/shared/work/electricity_hourly/`, about 330 MB, not tracked). After a new Stage 1 run only `--only simulate check` needs re-running, which takes about two minutes.
+
+**Section 3.2.**
+- Stage 1's daily maximum responds 1.2–1.7 times as much as its mean, and its minimum 0.4–0.9 times.
+- Its hot-day counts (NHOT at 30, 32 and 35 °C) respond about as much as a single shift by T implies, while a shift by TMAX would overstate them by 20–50 %.
+
+The main tables therefore use the single shift (`shift: mean`). `shift: maxmin` shifts the daily maximum and minimum separately, as the note's alternative.
 
 ### `outputs/labour/`
 

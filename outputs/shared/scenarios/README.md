@@ -39,6 +39,8 @@ below the 2016–2025 mean (annual means over the 16 regions, cropland weights).
 | `simulated_monthly_16regions.csv` | `path` (scenario / neutral) × `draw` × month × region. `hist_date` is the historical month whose residuals the row uses. `block_year` is, as in the main outputs, the historical year of the path's first month |
 | `deterministic_monthly_16regions.csv` | the same without residuals (e = 0) |
 | `effects_16regions.csv` | scenario − neutral by variable, region and month: mean, 10th and 90th percentiles over the draws, and the deterministic difference |
+| `simulated_daily_3grids.csv.gz` | electricity: daily CDD at 22–26 °C and daily mean, maximum and minimum temperature by grid, draw and run (Eq. 3 of the electricity note; `scripts/helpers/electricity_daily.py`, `roni/` only) |
+| `shift_by_block_3grids.csv` | electricity: Eq. 3's shift by grid, draw and month |
 
 A draw uses the same residual maps for the scenario and the neutral path, for every variable and region and over
 the whole path, so take the shock draw by draw from the scenario-minus-neutral difference. Only the historical
