@@ -2052,15 +2052,14 @@ def main():
 
     doc.add_heading("7.6 Direct and two-stage: the rule of v5 Section 3.5", level=2)
     status(doc, "done; delivery updated (26 November), central shocks unchanged")
-    t = pd.read_csv(ROOT / "outputs/delivery/food_shocks_episode_totals.csv")
-    t = t[t.category.isin(["rice", "corn"])]
+    t = pd.read_csv(ROOT / "outputs/delivery/comparison/two_stage_comparison_totals.csv")
     n_in = int(t.v5_rule_3_5.str.startswith("within").sum())
     para(doc, f"v5 Section 3.5: the direct approach gives the central estimate; the two-stage result becomes the "
               f"upper end of the range where it lies outside the direct 90% range, and if it is clearly smaller "
               f"the direct estimate is used and the difference noted. Applied to the total loss over each path, "
               f"the two-stage result lies inside the direct 90% range in {n_in} of {len(t)} cases (rice and corn, "
               f"four paths), so only the direct estimate is delivered (outputs/delivery/, unchanged). The "
-              f"two-stage shocks are added to the delivery file as extra columns for comparison.")
+              f"two-stage shocks are given separately, for comparison only (outputs/delivery/comparison/).")
     para(doc, "The rule is applied to the totals, not quarter by quarter. For rice the two approaches agree in "
               "almost every quarter; for corn they distribute the loss differently (the direct shock is a large "
               "dry-season loss followed by recovery gains, the two-stage one a smaller peak with no gains), so "

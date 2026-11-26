@@ -41,19 +41,21 @@ other_food in calories (about 29,000 against about 11,000 billion kcal a year fo
 so a few percent on the factor barely moves the combined shock.
 
 Two-stage approach and the rule of v5 Section 3.5 (26 Nov 2026): for rice and corn the two-stage
-shocks (scripts/chain_two_stage.py, main variant) are added as extra columns (two_stage_*), and the
-rule is applied to the total over each path: "The direct approach gives the central estimate. The
+shocks (scripts/chain_two_stage.py, main variant) are written to separate comparison files (the main
+delivery file holds only what goes into DEFINE-PH), and the rule is applied to the total over each path: "The direct approach gives the central estimate. The
 two-stage result is reported as the upper end of a range when it lies outside the 90 percent confidence
 interval of the direct approach; otherwise only the direct estimate is given. If the two-stage result is
 clearly smaller, the direct estimate is used ... and the difference is noted." The rule is applied to the
 totals, not quarter by quarter: the two approaches distribute the loss differently over the quarters
 (the direct corn shock has recovery gains after the dry-season loss, the two-stage one has none), so a
-quarter-by-quarter rule would splice two different paths. The quarterly comparison is reported
-(two_stage_vs_direct_90pct). The central shocks and ranges are those of the direct approach.
+quarter-by-quarter rule would splice two different paths. The central shocks and ranges are those of
+the direct approach.
 
 Run:  python scripts/deliver_food_shocks.py
 Writes outputs/delivery/food_shocks_define_ph.csv (path x category x quarter),
-outputs/delivery/food_shocks_episode_totals.csv, outputs/delivery/README_food_shocks.md
+outputs/delivery/food_shocks_episode_totals.csv, outputs/delivery/README_food_shocks.md, and the
+comparison with the two-stage approach (not for DEFINE-PH): outputs/delivery/comparison/
+two_stage_comparison.csv (quarterly) and two_stage_comparison_totals.csv
 """
 import sys
 from pathlib import Path
@@ -182,27 +184,35 @@ def main():
     order = {k: i for i, k in enumerate(["rice", "corn", "veg_fruit", "other_food", "vr", "pf",
                                          "nonrice_fallback", "rice_sensitivity_no_luzon2015"])}
     out = out.sort_values(["category", "path", "scenario_q"], key=lambda s: s.map(order) if s.name == "category" else s)
-    ts = two_stage()
-    out = out.merge(ts, on=["category", "path", "scenario_q"], how="left")
-    out["two_stage_vs_direct_90pct"] = [
-        "" if pd.isna(t) else ("above" if t > hi else ("below" if t < lo else "within"))
-        for t, lo, hi in zip(out.two_stage_S, out.S_p05, out.S_p95)]
-    note = ("provisional; direct approach, RONI only (recommended specification, differs from v5); "
-            "two_stage_* columns: two-stage approach (Stage 1 Van f6ddf65, Stage 2 compact boosting from 2000), "
-            "for comparison (v5 Section 3.5 rule applied to the totals)")
+    note = "provisional; direct approach, RONI only (recommended specification, differs from v5)"
     out.assign(status=note).round(6).to_csv(OUT / "food_shocks_define_ph.csv", index=False)
     tot = pd.DataFrame(totals)
-    t2 = (ts.groupby(["category", "path"]).two_stage_S_D.sum() / 4 * 100).rename("two_stage_total_pct").reset_index()
-    tot = tot.merge(t2, on=["category", "path"], how="left")
-    tot["v5_rule_3_5"] = [rule(t, lo, hi) for t, lo, hi in zip(tot.two_stage_total_pct, tot.p05, tot.p95)]
     tot.assign(status=note).round(3).to_csv(OUT / "food_shocks_episode_totals.csv", index=False)
+
+    # comparison with the two-stage approach (rice and corn), separate from the delivery
+    ts = two_stage()
+    cmp_dir = OUT / "comparison"
+    cmp_dir.mkdir(exist_ok=True)
+    cq = out[out.category.isin(["rice", "corn"])][["category", "path", "scenario_q", "S", "S_p05", "S_p95",
+                                                   "S_D"]].rename(columns={
+        "S": "direct_S", "S_p05": "direct_S_p05", "S_p95": "direct_S_p95", "S_D": "direct_S_D"})
+    cq = cq.merge(ts, on=["category", "path", "scenario_q"], how="left")
+    cmp_note = ("provisional; comparison only, not for DEFINE-PH; two-stage approach (Stage 1 Van f6ddf65, "
+                "Stage 2 compact boosting from 2000)")
+    cq.assign(status=cmp_note).round(6).to_csv(cmp_dir / "two_stage_comparison.csv", index=False)
+    t2 = (ts.groupby(["category", "path"]).two_stage_S_D.sum() / 4 * 100).rename("two_stage_total_pct").reset_index()
+    ct = tot[tot.category.isin(["rice", "corn"])].rename(columns={
+        "total_loss_pct_of_annual": "direct_total_pct", "p05": "direct_p05", "p95": "direct_p95"}).merge(
+        t2, on=["category", "path"], how="left")
+    ct["v5_rule_3_5"] = [rule(t, lo, hi) for t, lo, hi in zip(ct.two_stage_total_pct, ct.direct_p05, ct.direct_p95)]
+    ct.assign(status=cmp_note).round(3).to_csv(cmp_dir / "two_stage_comparison_totals.csv", index=False)
 
     kcal = e.sum(axis=1)
 
     def tot2(cat, pth):
-        r = tot[(tot.category == cat) & (tot.path == pth)].iloc[0]
-        return (f"two-stage {r.two_stage_total_pct:.1f}% against direct {r.total_loss_pct_of_annual:.1f}% "
-                f"({r.p05:.1f} to {r.p95:.1f})")
+        r = ct[(ct.category == cat) & (ct.path == pth)].iloc[0]
+        return (f"two-stage {r.two_stage_total_pct:.1f}% against direct {r.direct_total_pct:.1f}% "
+                f"({r.direct_p05:.1f} to {r.direct_p95:.1f})")
     readme = f"""# El Niño production shocks for DEFINE-PH, by food category (PROVISIONAL)
 
 Built by `scripts/deliver_food_shocks.py` (methodology v5 Section 3.5). Direct approach, RONI only
@@ -217,19 +227,18 @@ quarterly, against the neutral path (RONI = 0), on today's conditions.
   - `_p05`, `_p95`: 90% range from the block bootstrap (200 draws).
   - `step`: quarters since the start of the path; `in_path`: quarter inside the El Niño path (the shocks
     continue for the 4 quarters after it, through the lags).
-  - `two_stage_*` (rice and corn only): the two-stage approach for the same path and quarter (mean over
-    Van's 73 weather draws; `_p90` the 90th percentile, for stress scenarios; `flag_share` the share of
-    production where the El Niño weather goes beyond the range observed in 1987–2025), and
-    `two_stage_vs_direct_90pct`: where the two-stage value lies against the direct 90% range.
 - `food_shocks_episode_totals.csv`: total loss over each path and the quarters after it, % of one year's
-  production, with the 90% range; for rice and corn also the two-stage total and the outcome of the rule
-  of v5 Section 3.5 (`v5_rule_3_5`).
+  production, with the 90% range.
+- `comparison/` (**not for DEFINE-PH**): the two-stage approach for rice and corn next to the direct one,
+  `two_stage_comparison.csv` by quarter (mean over Van's 73 weather draws; `_p90` the 90th percentile;
+  `flag_share` the share of production where the El Niño weather goes beyond the range observed in
+  1987–2025) and `two_stage_comparison_totals.csv` by path, with the outcome of the rule of v5 Section 3.5.
 
 ## Direct and two-stage approach (v5 Section 3.5)
 The direct approach gives the central estimate. The two-stage result would become the upper end of the
 range where it lies outside the direct 90% range. Applied to the total over each path, it lies inside for
 every path, for rice and corn (e.g. 1997–98: rice {tot2('rice', '1997-98')}, corn {tot2('corn', '1997-98')}),
-so only the direct estimate is delivered, and the two-stage columns are there for comparison. The two
+so only the direct estimate is delivered; the two-stage shocks are in `comparison/`. The two
 approaches distribute the loss differently over the quarters: the direct corn shock is a large dry-season
 loss followed by gains (the recovery seen after past El Niños), while the two-stage shock has a smaller
 peak and no gains, since it only measures the effect of the weather in the growing window. The two-stage
