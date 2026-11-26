@@ -16,10 +16,6 @@ quarterly, against the neutral path (RONI = 0), on today's conditions.
     Van's 73 weather draws; `_p90` the 90th percentile, for stress scenarios; `flag_share` the share of
     production where the El Niño weather goes beyond the range observed in 1987–2025), and
     `two_stage_vs_direct_90pct`: where the two-stage value lies against the direct 90% range.
-  - `cum_loss_pct_of_annual`, `two_stage_cum_loss_pct_of_annual`: running total of the loss from the start
-    of the path to the quarter, % of a year's production. Use these to compare the two approaches over
-    time: their quarterly values distribute the loss differently (see below), their running totals show
-    where they converge.
 - `food_shocks_episode_totals.csv`: total loss over each path and the quarters after it, % of one year's
   production, with the 90% range; for rice and corn also the two-stage total and the outcome of the rule
   of v5 Section 3.5 (`v5_rule_3_5`).
@@ -33,10 +29,7 @@ approaches distribute the loss differently over the quarters: the direct corn sh
 loss followed by gains (the recovery seen after past El Niños), while the two-stage shock has a smaller
 peak and no gains, since it only measures the effect of the weather in the growing window. The two-stage
 path is therefore closer to the gross loss before recovery that SOAS asked for (their November 2026
-comments); it could be used for that run if agreed with Alper. The running totals show the same thing
-over time: for corn in 1997–98 the direct running total peaks after the dry-season harvests and then
-falls back as the rebound comes in, while the two-stage one rises more slowly and stays; both end close
-together (direct peak 13.9% and end 9.1%, two-stage end 7.7%). The rule is not applied quarter by quarter, which would splice
+comments); it could be used for that run if agreed with Alper. The rule is not applied quarter by quarter, which would splice
 the two paths.
 
 ## Paths

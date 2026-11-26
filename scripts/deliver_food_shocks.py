@@ -184,11 +184,6 @@ def main():
     out = out.sort_values(["category", "path", "scenario_q"], key=lambda s: s.map(order) if s.name == "category" else s)
     ts = two_stage()
     out = out.merge(ts, on=["category", "path", "scenario_q"], how="left")
-    # running totals over the path (% of a year's production: sum of S_D / 4), so that the two approaches
-    # can be compared quarter by quarter without splicing their different timings
-    g = out.groupby(["category", "path"], sort=False)
-    out["cum_loss_pct_of_annual"] = g.S_D.cumsum() / 4 * 100
-    out["two_stage_cum_loss_pct_of_annual"] = g.two_stage_S_D.cumsum() / 4 * 100
     out["two_stage_vs_direct_90pct"] = [
         "" if pd.isna(t) else ("above" if t > hi else ("below" if t < lo else "within"))
         for t, lo, hi in zip(out.two_stage_S, out.S_p05, out.S_p95)]
@@ -203,11 +198,6 @@ def main():
     tot.assign(status=note).round(3).to_csv(OUT / "food_shocks_episode_totals.csv", index=False)
 
     kcal = e.sum(axis=1)
-
-    def cum2(cat, pth):
-        r = out[(out.category == cat) & (out.path == pth)]
-        return (f"direct peak {r.cum_loss_pct_of_annual.max():.1f}% and end {r.cum_loss_pct_of_annual.iloc[-1]:.1f}%, "
-                f"two-stage end {r.two_stage_cum_loss_pct_of_annual.iloc[-1]:.1f}%")
 
     def tot2(cat, pth):
         r = tot[(tot.category == cat) & (tot.path == pth)].iloc[0]
@@ -231,10 +221,6 @@ quarterly, against the neutral path (RONI = 0), on today's conditions.
     Van's 73 weather draws; `_p90` the 90th percentile, for stress scenarios; `flag_share` the share of
     production where the El Niño weather goes beyond the range observed in 1987–2025), and
     `two_stage_vs_direct_90pct`: where the two-stage value lies against the direct 90% range.
-  - `cum_loss_pct_of_annual`, `two_stage_cum_loss_pct_of_annual`: running total of the loss from the start
-    of the path to the quarter, % of a year's production. Use these to compare the two approaches over
-    time: their quarterly values distribute the loss differently (see below), their running totals show
-    where they converge.
 - `food_shocks_episode_totals.csv`: total loss over each path and the quarters after it, % of one year's
   production, with the 90% range; for rice and corn also the two-stage total and the outcome of the rule
   of v5 Section 3.5 (`v5_rule_3_5`).
@@ -248,10 +234,7 @@ approaches distribute the loss differently over the quarters: the direct corn sh
 loss followed by gains (the recovery seen after past El Niños), while the two-stage shock has a smaller
 peak and no gains, since it only measures the effect of the weather in the growing window. The two-stage
 path is therefore closer to the gross loss before recovery that SOAS asked for (their November 2026
-comments); it could be used for that run if agreed with Alper. The running totals show the same thing
-over time: for corn in 1997–98 the direct running total peaks after the dry-season harvests and then
-falls back as the rebound comes in, while the two-stage one rises more slowly and stays; both end close
-together ({cum2('corn', '1997-98')}). The rule is not applied quarter by quarter, which would splice
+comments); it could be used for that run if agreed with Alper. The rule is not applied quarter by quarter, which would splice
 the two paths.
 
 ## Paths
