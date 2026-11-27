@@ -49,31 +49,33 @@ All results are provisional.
 | G3, G9 | Electricity: inputs; demand and price equations | G3 done (public inputs; ERA5 t2m Aug–Nov 2026); Van delivered daily CDD by grid (observed 1950–2025, forecast and four scenarios, 73 draws; dev_Van 79e2ba9). G9 next; IEMOP history (BSP) not received | `data/electricity/` (see its README); IEMOP in `~/data_tmp/electricity/raw/iemop/` | `scripts/download_iemop.py`, `build_ph_holidays.py` |
 | G10 | Report sections | Agriculture drafted, two-stage included (sections 1–7.8); electricity to add | `outputs/writeup/agriculture_results.docx` | `scripts/build_writeup.py` |
 
-**Decisions** (recorded in the write-up; to be agreed with Alper where marked):
+**Decisions** (recorded in the write-up; agreed with Alper on 27 Nov unless marked):
 - RONI alone is the main driver (16 Nov 2026), in the direct approach and in stage 1: the DMI improves
   out-of-sample prediction neither of production (`scripts/test_dmi.py`) nor of the weather (Van). The
-  specification with the DMI is a variant (`--with-dmi`, outputs `*_with_dmi`). *To agree with Alper.*
-- Recommended specifications (differ from v5; *to agree with Alper*): rice: El Niño / La Niña separate,
+  specification with the DMI is a variant (`--with-dmi`, outputs `*_with_dmi`), also for stress
+  scenarios. Agriculture and stage 1 only: in labour and electricity the DMI stays until tested there.
+- Recommended specifications (differ from v5 as written; agreed): rice: El Niño / La Niña separate,
   smooth regional trends, effect changing from 2000, wet-season shift; corn: the same without the change
   over time; VR and PF: v5's single RONI effect with smooth trends and one national effect.
 - Regional weather: Van's stage 1 is the single source (observed and predicted; 349 ERA5-mask cells,
   cropland weights, agreed 17 Nov). `data/processed/weather_region_month.csv` is a frozen cross-check.
 - Residual food price shock: ours (Alper, 17 Nov); its last step follows a DEFINE-PH run by SOAS.
-- World rice price: Van (agreed 19 Nov, while he waits for the ERA5 hourly data); scope to be confirmed by Alper.
+- World rice price: Van (agreed 19 Nov); scope and export-ban indicator agreed with Alper (Nov 2026).
 - Work split (19 Nov): Ginevra does the electricity data and stage 2. Van does the world rice price now, then the residual food price step 1 if he has time (otherwise Ginevra), and CDD and labour once the ERA5 hourly data arrive.
 
 **Open points:**
 - Data values to double-check (FNRI calorie factors, palay milling recovery): listed in
   `data/TO_VERIFY.md`, with where each is set and what to re-run.
 - Rice shocks are probably too low: part of the smaller effect after 2000 is typhoon rain over Luzon in
-  late 2015 (`scripts/check_luzon_2015.py`; sensitivity in the delivery file). Stage 2 to settle.
+  late 2015 (`scripts/check_luzon_2015.py`); the estimate without those quarters is delivered as the
+  rice upper bound. To do (Alper, 27 Nov): test a typhoon-rainfall control as an alternative.
 - Severe droughts are understated (1997–98 validation and FAOSTAT): direct shocks are lower bounds for
   stress scenarios.
-- Corn calorie factor provisional (FNRI A001, 357 kcal/100 g; used only in the fallback): ask Alper for the FNRI record of dried corn.
-- Food categories follow v5: rice, corn, vegetables and fruits, and other food with **no** El Niño shock.
-  Only if DEFINE-PH still has two food types at the delivery: the labelled fallback (corn + VR + PF for all
-  food except rice), whose lower bound needs the calorie share of corn, VR and PF in DEFINE-PH's other
-  food (SOAS).
+- Corn calorie factor provisional (FNRI A001, 357 kcal/100 g): no longer used in the delivery; still used
+  in the food-calorie weights of `hazard_national_quarter.csv`. Asked Alper for the FNRI record of dried corn.
+- Food categories: the five food types of the DEFINE-PH equations (Nov 2026): rice, corn, vegetables (VR),
+  fruits (PF), each with its own shock, and other food with **no** El Niño shock. The VR + PF combination
+  and the two-food-type fallback were dropped (27 Nov).
 - Stage 2 (25 Nov, provisional, monthly + daily weather): the response to the same weather changed
   from 2000, and the models allowing for it predict best out of sample (they reproduce 1997-98 for
   both rice ecosystems). Chain: hinge regression T + SM_RZ (post-2000) for irrigated rice, boosting
@@ -172,7 +174,7 @@ path, under today's conditions, by region, national, and scaled for DEFINE-PH, w
 a block bootstrap over years (`outputs/tables/shocks_<crop>*.csv`, `outputs/figures/shocks_<crop>.png`).
 Paths: the 1997–98, 2015–16 and 2023–24 El Niño quarters, and a unit path.
 **Delivery to DEFINE-PH**: `scripts/deliver_food_shocks.py` → `outputs/delivery/` (food categories
-rice, corn, VR, PF, vegetables and fruits, other food; see `outputs/delivery/README_food_shocks.md`).
+rice, corn, vegetables (VR), fruits (PF), other food, and the rice upper bound; see `outputs/delivery/README_food_shocks.md`).
 Write-up: `scripts/build_writeup.py` → `outputs/writeup/agriculture_results.docx`.
 
 ### Rebuilding from scratch

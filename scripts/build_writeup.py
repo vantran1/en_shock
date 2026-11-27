@@ -551,9 +551,8 @@ def vrpf_total(crop, series, path, col="total_loss_pct_of_annual"):
 
 
 DELIVERY = ROOT / "outputs/delivery"
-CATEGORY = {"rice": "Rice", "corn": "Corn", "veg_fruit": "Vegetables and fruits (VR + PF)",
+CATEGORY = {"rice": "Rice", "corn": "Corn", "vegetables": "Vegetables (VR)", "fruits": "Fruits (PF)",
             "other_food": "Other food (no El Niño shock, v5)",
-            "nonrice_fallback": "Fallback: all food except rice (corn + VR + PF)",
             "rice_sensitivity_no_luzon2015": "Rice, without the Luzon typhoon quarters (upper bound)"}
 
 
@@ -568,14 +567,6 @@ def delivery_totals():
             r[pth] = f"{x.loc[pth, 'total_loss_pct_of_annual']:.1f} ({x.loc[pth, 'p05']:.1f} to {x.loc[pth, 'p95']:.1f})"
         rows.append(r)
     return pd.DataFrame(rows)
-
-
-def delivery_kcal():
-    """Calorie totals of the estimated items, 2021-2023 (billion kcal a year), from the README."""
-    import re
-    txt = (DELIVERY / "README_food_shocks.md").read_text()
-    m = re.search(r"corn ([\d,]+), VR ([\d,]+),\s*PF ([\d,]+)", txt)
-    return [int(v.replace(",", "")) for v in m.groups()]
 
 
 def quarterly_vrpf(crop):
@@ -929,8 +920,9 @@ def main():
         ("Solid: ", "the data reconcile with the PSA national totals; the effects are clear and make "
          "agronomic sense (dry-season harvests hit hardest, rainfed rice more than irrigated, corn "
          "most); they do not depend on the typhoon and flood controls, the Negros corn break or the "
-         "Kanlaon eruption; and the recommended specification predicts each past episode better than "
-         "methodology v5 as written, also under the stricter validation."),
+         "Kanlaon eruption; and for rice and corn the recommended specification predicts each past "
+         "episode better than methodology v5 as written, also under the stricter validation (for "
+         "fruits the two predict about equally well, Table 11)."),
         ("Weaker: ", "severe droughts are probably understated (the 1997–98 losses of rainfed rice and "
          "corn are not predicted when that episode is left out, and FAOSTAT shows larger 1998 losses "
          "of vegetables, root crops and bananas than the model gives); part of the smaller rice effect "
@@ -1008,8 +1000,8 @@ def main():
               "the first caused large losses and the second almost none. Allowing the El Niño effect "
               "to change over time resolves most of this. A change in 2000 fits best (2005 is close, "
               f"2010 weak) and brings the mean prediction error for irrigated palay from "
-              f"{k['mae_base_irr']:.1f} to {k['mae_rec_irr']:.1f} percentage points. Likely reasons are the expansion of irrigation, new varieties and "
-              "drought response. For rainfed palay the 1997–98 loss is still understated, consistent "
+              f"{k['mae_base_irr']:.1f} to {k['mae_rec_irr']:.1f} percentage points. Possible reasons, not tested here, are the expansion of irrigation, new "
+              "varieties and better drought response. For rainfed palay the 1997–98 loss is still understated, consistent "
               "with losses that rise faster than linearly in severe droughts, the case that methodology "
               "v5 makes for the two-stage approach.")
     st = strict("rice")
@@ -1479,43 +1471,25 @@ def main():
     if (DELIVERY / "food_shocks_episode_totals.csv").exists():
         doc.add_heading("6. Shocks for DEFINE-PH by food category", level=1)
         status(doc, "draft (tracker G6)")
-        corn_k, vr_k, pf_k = delivery_kcal()
-        tot_k = corn_k + vr_k + pf_k
         para(doc, "DEFINE-PH takes one production shock per food category, not per crop (methodology v5 "
-                  "Sections 3.2 and 3.5). As agreed by the BSP and SOAS, there are four categories: rice, "
-                  "corn, vegetables and fruits, and other food, which takes no El Niño production shock. "
-                  "Rice and corn are the shocks of sections 2 and 3. VR and PF are combined into one "
-                  "vegetables-and-fruits shock, each weighted by its calories, since DEFINE-PH measures food "
-                  "in kcal; they are also delivered separately. The weights are the 2021–2023 calorie "
-                  "production of each crop, quarter by quarter (the same base years as the VR and PF "
-                  "indices): fruits provide about twice the calories of vegetables and root crops. The 90% "
-                  "ranges are combined draw by draw from the bootstrap of each crop. All shocks use RONI "
-                  "alone.")
-        para(doc, "The current manual still has only two food types, rice and other food (Eq. D74). In case "
-                  "the four categories are not in place at the delivery, v5 provides a fallback, delivered "
-                  "and labelled as such: corn, VR and PF combined with calorie shares into one shock for all "
-                  f"food except rice. Corn provides about {corn_k / tot_k * 100:.0f}% of these calories, so "
-                  "the fallback mostly follows corn.")
+                  "Sections 3.2 and 3.5). The latest DEFINE-PH equations (SOAS, November 2026, Section "
+                  "4.1) have five food types: rice, corn, vegetables (vegetables, root crops and pulses), "
+                  "fruits, and other food, which takes no El Niño production shock. Vegetables and fruits "
+                  "match our two indices, VR and PF, so each crop gets its own shock and nothing is "
+                  "combined (confirmed by Alper, 27 November 2026). Rice and corn are the shocks of "
+                  "sections 2 and 3, VR and PF those of section 5. All shocks use RONI alone.")
         table(doc, delivery_totals(), [5.4, 3.6, 3.6, 3.6],
               note="Table 13. Total loss over the path and the four quarters after it, % of one year's "
                    "production, by food category, central value (90% range). The quarterly values, as "
                    "a share of the quarter's production and scaled for DEFINE-PH (Eq. 13b), are in "
                    "outputs/delivery/food_shocks_define_ph.csv.")
         bullets(doc, [
-            ("The fallback assumes that the items not estimated lose as much. ", "It applies to all "
-             "food except rice, including items such as coconut and fish, whose El Niño losses are not "
-             "estimated here; this is an assumption (v5 Section 3.5). Its lower bound, with no loss on "
-             "those items, is the fallback shock times the calorie share of corn, VR and PF in "
-             "DEFINE-PH's other food, a number SOAS has (our crops: "
-             f"{tot_k:,} billion kcal a year in 2021–2023). Neither is needed if DEFINE-PH has the four "
-             "categories by the delivery."),
-            ("Corn calories are provisional (fallback only). ", "Corn is measured in tonnes; for the "
-             "fallback it is converted with FNRI food ID A001 (corn grits, white, 357 kcal per 100 g), "
-             "the closest record found while the FNRI site was unavailable, to be confirmed. Since corn "
-             "dominates the calories either way, a few percent on this factor barely changes the "
-             "fallback."),
-            ("Rice carries a sensitivity. ", "The file also contains the rice shock estimated without "
-             "the Luzon typhoon quarters of late 2015 (section 2.6), an upper bound, labelled as such."),
+            ("Rice carries an upper bound. ", "The file also contains the rice shock estimated without "
+             "the Luzon typhoon quarters of late 2015 (section 2.6), labelled as such; Alper asked to keep "
+             "it, since the smaller rice effect from 2000 rests largely on those quarters."),
+            ("Earlier versions ", "combined VR and PF into one vegetables-and-fruits shock with calorie "
+             "weights and prepared a fallback for a model with only two food types (corn, VR and PF for "
+             "all food except rice). With five food types neither is needed, and both were dropped."),
         ])
         para(doc, "Two points for the DEFINE-PH runs, as v5 asks (Section 3.5), are stated in the note "
                   "accompanying the shocks:")
@@ -2093,7 +2067,7 @@ def main():
     h97 = dl[dl.path == "1997-98"].set_index("category")
     cmp_ = pd.read_csv(ROOT / "outputs/delivery/comparison/two_stage_comparison_totals.csv")
     cmp_ = cmp_[cmp_.path == "C3S forecast (Nov 2026)"].set_index("category")
-    ft = pd.DataFrame({"Category": ["rice", "corn", "veg_fruit", "vr", "pf"]})
+    ft = pd.DataFrame({"Category": ["rice", "corn", "vegetables", "fruits"]})
     ft["C3S forecast (%)"] = ft.Category.map(fc.total_loss_pct_of_annual)
     ft["90% range"] = ft.Category.map(lambda c_: f"{fc.loc[c_, 'p05']:.1f} to {fc.loc[c_, 'p95']:.1f}")
     ft["1997–98 (%)"] = ft.Category.map(h97.total_loss_pct_of_annual)

@@ -32,10 +32,9 @@ open is listed here.
    FNRI A001 "Corn grits, white", the closest record found. Is there a record for dried shelled corn?
    Source of the current value: FNRI PhilFCT A001, looked up on 19 Nov 2026 while the FNRI site was not
    working properly; the page URL was not recorded.
-   Set in: `scripts/deliver_food_shocks.py` and `scripts/build_national_hazard_controls.py`
-   (`CORN_KCAL_PER_KG`).
-   Affects: the two-food-type fallback of the delivery (`nonrice_fallback`), and the food weights of the
-   national typhoon and flood series.
+   Set in: `scripts/build_national_hazard_controls.py` (`CORN_KCAL_PER_KG`).
+   Affects: the food weights of the national typhoon and flood series only (the delivery no longer
+   combines crops by calories since 27 Nov 2026, so the fallback that used it was dropped).
 
 3. **Bananas Lakatan (E011), Latundan (E012) and Bungulan (E006): edible portion.** The workbook (note 7)
    assumed the Cavendish values for these varieties because PhilFCT had no raw records for them; on 11 Nov

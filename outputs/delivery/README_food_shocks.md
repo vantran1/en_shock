@@ -48,30 +48,18 @@ positive values), not the El Niño. Two cautions:
   The shocks use the median path only.
 
 ## Categories
-Main delivery: the four food categories agreed by the BSP and SOAS (v5 Section 3.2).
+The five food types of the DEFINE-PH equations (November 2026, Section 4.1), one shock each:
 
 | category | content |
 |---|---|
 | rice | palay (irrigated + rainfed) |
 | corn | total corn, including feed corn |
-| veg_fruit | vegetables and root crops (VR) and perennial fruits (PF), combined with calorie shares |
+| vegetables | the VR index: vegetables, root crops and pulses (calorie-weighted) |
+| fruits | the PF index: perennial fruits (calorie-weighted) |
 | other_food | **no El Niño production shock (zero)**, as in v5 |
-| vr, pf | VR and PF separately (also delivered, v5 Section 3.5) |
 
-Fallback, only if DEFINE-PH still has two food types (rice and other food, Eq. D74) at the delivery
-(v5 Section 3.5):
-
-| category | content |
-|---|---|
-| nonrice_fallback | corn + VR + PF with calorie shares, applied to all food except rice |
-
-The fallback assumes that the items not estimated (coconut, fisheries, ...) lose as much as corn, VR
-and PF. Its lower bound, with no effect on them, is `nonrice_fallback × s`, with s the calorie share of
-corn, VR and PF in DEFINE-PH's other food. Calories of the estimated items, 2021–2023 average (billion
-kcal a year): corn 29,688, VR 3,856, PF 7,356; total 40,900.
-
-Sensitivity: `rice_sensitivity_no_luzon2015`, rice without the Luzon typhoon quarters of late 2015,
-an upper bound.
+Upper bound for rice: `rice_sensitivity_no_luzon2015`, rice estimated without the Luzon typhoon
+quarters of late 2015 (write-up section 2.6).
 
 ## For the DEFINE-PH runs (v5 Section 3.5)
 - **Today's climate.** The shocks are the El Niño effect under today's climate: the trends in the
@@ -86,12 +74,9 @@ an upper bound.
   and the four quarters after it.
 
 ## Caveats
-- Corn calorie factor provisional (FNRI A001, corn grits, white, 357 kcal/100 g), to confirm.
 - The rice shocks may be too low (typhoon rain over Luzon in late 2015; write-up section 2.6);
   `rice_sensitivity_no_luzon2015` gives an upper bound. The two-stage approach, which treats the
   observed rain as weather rather than through RONI, gives practically the same rice totals as the
   direct approach, so it does not support a large understatement; the sensitivity stays as an upper bound.
 - Severe droughts are understated (1997–98 against FAOSTAT and in the validation of both approaches,
   write-up sections 2.2 and 7.5); for stress scenarios read the shocks as lower bounds.
-- Ranges of combined categories combine the draws of each crop by their index (independent
-  re-estimations).

@@ -22,19 +22,25 @@ price). Driver for all channels: RONI + DMI (NOAA). Deadline for results: 30 Jan
 - Shared: climate-index loader, ERA5-Land processing, uncertainty method, output format.
 
 ## Channel 1 — Agriculture
-Output: quarterly share of planned production lost, for DEFINE-PH's two food types:
+Output: quarterly share of planned production lost, one shock for each of DEFINE-PH's five
+food types (SOAS equations Nov 2026, Section 4.1; confirmed by Alper 27 Nov 2026):
 - rice = irrigated + rainfed palay (estimated separately, combined with production shares);
-- other food = corn (white + yellow) and a vegetable-and-fruit index (13 PSA crops:
-  banana, pineapple, mango, calamansi, mung bean, potato, cabbage, eggplant, tomato,
-  bitter gourd, onion, sweet potato, cassava), combined by their shares; the resulting
-  shock is applied to all of other food (assumption, report a lower bound).
+- corn = white + yellow;
+- vegetables = VR calorie index (vegetables, root crops, pulses: mung bean, potato, cabbage,
+  eggplant, tomato, bitter gourd, onion, sweet potato, cassava);
+- fruits = PF calorie index (banana, pineapple, mango, calamansi);
+- other food = no El Niño production shock (zero).
+Nothing is combined across crops (the old VR + PF and two-food-type fallback are dropped).
+Rice also carries an upper bound (estimated without the Luzon quarters of late 2015).
 Method:
 - Outcome is PRODUCTION, not yield. Regions rebuilt from provinces with fixed boundaries.
 - Direct model (main): log production on region effects, region-specific seasonals and
-  trends, lagged RONI (El Niño and La Niña separately) and DMI, constrained lag profile,
-  typhoon/flood controls (needed to avoid double counting with CAT, comment 4).
+  smooth trends, lagged RONI (El Niño and La Niña separately), constrained lag profile,
+  typhoon/flood controls (needed to avoid double counting with CAT, comment 4); rice effect
+  changes from 2000, corn's does not. RONI only: DMI dropped for agriculture and Stage 1
+  (agreed with Alper 27 Nov 2026), kept as a variant and for stress scenarios.
   Lags ~4 quarters for rice/corn, longer for the vegetable-and-fruit index.
-- Two-stage (check): stage 1 RONI + DMI -> regional weather (ERA5-Land, from 1950);
+- Two-stage (check): stage 1 RONI -> regional weather (ERA5-Land, from 1950);
   stage 2 weather -> production (regression vs gradient boosting / GP, compared out of
   sample on held-out years). Combine by SIMULATION (draw weather outcomes, average losses).
 - Reliability flag: mark scenario results where simulated weather goes beyond the
@@ -51,6 +57,8 @@ Bröde 2018; heavy/moderate/light) hourly -> daily loss -> quarterly average.
 Sectors: agriculture outdoor heavy; electricity indoor moderate; other = construction
 (outdoor heavy) + industry (indoor moderate) + services (indoor light), weighted by LFS
 employment. Dasgupta et al. (2021) as sensitivity. Deliver per quarter (comment 3.5.2).
+DMI: kept in labour and electricity until tested there; kept only if it improves
+out-of-sample predictions (Alper, 27 Nov 2026).
 
 ## Channel 3 — Electricity
 Outputs: (1) rise in electricity demand (household electricity share); (2) rise in the
@@ -69,9 +77,17 @@ Rice Tariffication Law dummy, typhoon/flood exposure; total response E_q (Eq. 4)
 step 2 (M_q from a DEFINE-PH run with all other shocks) is SOAS's, so the final step follows
 their run. Compare the quarterly profiles of E_q and M_q before using R_q (timing).
 
+## World rice price shock (in scope: Van, agreed with Alper Nov 2026)
+Price note in v5, Section 2: Equation (1) = Thai 5% broken export price (World Bank, 1960–;
+Viet Nam 5% and FAO index as checks) on lagged RONI, controls fertiliser, crude oil and an
+export-ban indicator. Indicator = 1 in quarters with a ban on main rice types by India,
+Thailand or Viet Nam (Thailand 1973–74 from the literature; 2008; Viet Nam 2020; India Jul
+2023–Sep 2024; robustness: India from Sep 2022). No typhoon/flood controls in this equation.
+Delivery: quarterly % change in the world rice price vs baseline, main shock (no ban) and
+upper estimate (+ ban effect); SOAS applies it to rice imports only (no rice-share scaling).
+
 ## Not in current scope (to be confirmed with Alper)
-World rice price response, food price pass-through and timing,
-El Niño public spending.
+Food price pass-through and timing, El Niño public spending.
 
 ## Data
 - data/ holds raw inputs: read-only, never modify. Write derived data to data/processed/.
