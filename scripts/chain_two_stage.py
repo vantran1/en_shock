@@ -18,9 +18,9 @@ Inputs
           for all three series (with solar radiation: in the full model El Nino's sunnier skies raise
           rainfed production, partly a genuine effect, partly low radiation marking typhoon months).
 
-VR and PF (26 Nov 2026): the vegetable and fruit indices with their fixed windows (6 and 12 months), the
-model of the nested choice for them (scripts/select_stage2.py --vrpf), no change in the response (data
-from 2010), sensitivities: the full or compact features and the regression.
+VR and PF: not chained. With fixed windows of 6 and 12 months, weather does not improve the out-of-sample
+prediction of their production (scripts/select_stage2.py --vrpf, 26 Nov 2026), so the two-stage approach
+cannot be applied to them (decision of 27 Nov 2026); their direct shocks stand.
 
 Steps, for each path, draw and crop series (v5 Eqs. 12-13b)
 1. Window features of the simulated weather (estimation.stage2.window_features, the crop
@@ -77,9 +77,12 @@ SCEN = {"1997-98": "1997-98", "2015-16": "2015-16", "2023-24": "2023-24",
         "c3s": "C3S forecast (Nov 2026)"}  # Van's folder -> direct shocks' path name
 # the forecast run is in Van's agriculture outputs, not in scenarios/ (RONI model only)
 FORECAST_SIM = ROOT / "data/reference/van/f6ddf65/agriculture/simulated_monthly_16regions.csv"
-SERIES = ["irrigated", "rainfed", "corn", "vr", "pf"]
-# VR and PF (data from 2010; fixed windows of 6 and 12 months, scripts/build_stage2_features.py): no change
-# in the response over time, so no break-year variants
+# VR and PF are not chained (decision of 27 Nov 2026): with their fixed windows (6 and 12 months,
+# scripts/build_stage2_features.py) no weather model predicts their production better than no weather
+# out of sample (scripts/select_stage2.py --vrpf), so the two-stage approach cannot be applied to them
+# and their direct shocks stand. The code below still handles them (no break-year variants, since their
+# data start in 2010) if they are added back to SERIES.
+SERIES = ["irrigated", "rainfed", "corn"]
 VRPF = ["vr", "pf"]
 BREAK_VARIANTS = {"from 2005", "from 2010", "no change (stress)"}
 CROPS = (("palay", ["irrigated", "rainfed"]), ("corn", ["corn"]), ("vr", ["vr"]), ("pf", ["pf"]))
@@ -264,7 +267,7 @@ def report(res, direct, sfx, model):
 
 def figure(res, direct, sfx, model):
     d = direct.assign(path=direct.path.map({v: k for k, v in SCEN.items()}))
-    crops = [c for c, _ in CROPS]
+    crops = [c for c, _ in CROPS if c in set(res.crop)]
     fig, axes = plt.subplots(len(crops), len(SCEN), figsize=(3.8 * len(SCEN), 3.4 * len(crops)),
                              constrained_layout=True, sharey="row")
     for i, crop in enumerate(crops):

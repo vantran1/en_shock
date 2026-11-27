@@ -1886,7 +1886,7 @@ def main():
         "The thresholds are chosen on the data and their uncertainty is not in the standard errors. Several "
         "dry-soil thresholds still sit on the edge of the grid (Table 21): losses accelerate only in the "
         "driest or wettest 5% of seasons, or the hinge is close to linear.",
-        "VR and PF not yet included (data from 2010, longer fixed windows).",
+        "VR and PF: tested in section 7.8; weather does not improve their out-of-sample prediction.",
         "ERA5-Land soil moisture ignores irrigation (v5 Section 3.4): for irrigated rice it measures the "
         "drought before irrigation, not the water in the field.",
     ])
@@ -1989,7 +1989,7 @@ def main():
         "be run, and Van has been asked whether the lag choice can be smoothed.",
         "The model choice (Table 22) and the 2000 break were set on the same production data; the stage 2 "
         "uncertainty (re-estimation) is not yet in the range, which shows the weather draws only.",
-        "VR and PF are not in the two-stage approach.",
+        "VR and PF: the two-stage approach was tested and cannot be applied (section 7.8).",
         "Next: the comparison with the direct shocks by the rule of v5 Section 3.5, and the RONI + DMI "
         "variant (python scripts/chain_two_stage.py --model roni_dmi). Validation: section 7.5.",
     ])
@@ -2118,6 +2118,48 @@ def main():
               "peak a quarter above anything observed; the two-stage model's response is flat beyond the observed "
               "weather. A forecast episode this strong could therefore cost more than either approach says. The "
               "shocks use the median C3S path only; the spread of the members is not propagated.")
+
+    doc.add_heading("7.8 Vegetables and fruits: the two-stage approach cannot be applied", level=2)
+    status(doc, "done (tested, 26–27 November); direct VR and PF shocks stand")
+    para(doc, "v5 includes VR and PF in stage 2, with longer fixed windows instead of crop calendars. The windows "
+              "were set to 6 months for vegetables and root crops (the harvest quarter and the one before) and 12 "
+              "months for perennial fruits (the harvest quarter and the three before, since perennials respond to "
+              "water over a whole year), the same in every region and quarter (scripts/build_stage2_features.py). "
+              "The model was chosen as for rice and corn, by nested cross-validation (scripts/select_stage2.py "
+              "--vrpf, outputs/stage2_nested_vrpf.md): the regression on temperature and soil moisture, the compact "
+              "boosting and the full boosting, without a change over time (the data start in 2010), on the 5-year "
+              "blocks with data and the two episodes in the data (2015–16 and 2023–24).")
+    c = pd.read_csv(TAB / "stage2_nested_configs_vrpf.csv")
+    sk = c.groupby(["series", "config", "fold_type"])[["outer_deviance", "base_deviance"]].sum()
+    sk = ((1 - sk.outer_deviance / sk.base_deviance) * 100).unstack("fold_type")
+    ch = c[c.chosen].groupby(["series", "fold_type"])[["outer_deviance", "base_deviance"]].sum()
+    ch = ((1 - ch.outer_deviance / ch.base_deviance) * 100).unstack("fold_type")
+    lab = {"reg, no change": "Regression (T, SM_RZ)", "gbm_compact, no change": "Boosting, 9 features",
+           "gbm_full, no change": "Boosting, 30 features"}
+    rows = []
+    for cfg, l_ in lab.items():
+        rows.append({"Model": l_, **{f"{s_.upper()}, {fl}": sk.loc[(s_, cfg), ft] for s_ in ("vr", "pf")
+                                        for ft, fl in (("block", "5-yr"), ("episode", "episodes"))}})
+    rows.append({"Model": "Whole procedure (nested)", **{f"{s_.upper()}, {fl}": ch.loc[s_, ft] for s_ in ("vr", "pf")
+                                                         for ft, fl in (("block", "5-yr"), ("episode", "episodes"))}})
+    vt = pd.DataFrame(rows)
+    table(doc, vt, [4.6, 2.4, 2.4, 2.4, 2.4],
+          note="Table 28. Out-of-sample skill of stage 2 for VR and PF (% of the no-weather deviance removed on "
+               "held-out quarters). Negative = the weather makes the prediction worse than no weather.",
+          fmt={c_: "{:.1f}" for c_ in vt.columns[1:]})
+    para(doc, "Weather does not improve the out-of-sample prediction of either index: every model does about as "
+              "well as no weather or worse, and so does the whole procedure. In the two episodes in the data, VR "
+              "and PF production was close to normal, and the models predict small losses that did not happen. "
+              "Only the full boosting finds an effect, and it rests mainly on solar radiation, the stand-in for "
+              "typhoon months that the compact model avoids (section 7.3); in the compact model no mechanism "
+              "matters out of sample. This agrees with the direct approach, which finds no detectable El Niño "
+              "effect on VR and a small one on PF, through bananas (section 5).")
+    para(doc, "Decision (27 November): by v5's rule, the model kept must predict better on years left out; no "
+              "weather model beats no weather here, so the two-stage approach cannot be applied to VR and PF, and "
+              "their direct shocks stand. The reason is the data rather than the method: from 2010 there are only "
+              "two El Niño episodes, both with near-normal vegetable and fruit output. The limitation of the direct "
+              "VR and PF shocks for severe droughts remains (section 5.5: FAOSTAT shows larger 1998 losses than the "
+              "model gives).")
 
     doc.add_heading("Annex", level=1)
     table(doc, quarterly_palay(), [2.0, 2.0, 3.0, 3.4, 3.6],

@@ -47,7 +47,7 @@ from estimation.stage2 import FEATURES, fit_gbm, observed_weather, predict_gbm, 
 from chain_two_stage import MAIN_FEATURES, VRPF  # noqa: E402
 
 TAB, FIG, OUT = ROOT / "outputs/tables", ROOT / "outputs/figures", ROOT / "outputs"
-SERIES = ["irrigated", "rainfed", "corn", "vr", "pf"]
+SERIES = ["irrigated", "rainfed", "corn"]  # VR and PF not chained (no out-of-sample skill; see chain_two_stage)
 EPISODES = {"1997-98": ("1997Q2", "1998Q4"), "2015-16": ("2015Q2", "2016Q4"), "2023-24": ("2023Q2", "2024Q4")}
 EXTRA_AFTER = 4
 STATUS = "provisional; diagnostic (validation of the two-stage chain, v5 Section 3.6)"
@@ -119,7 +119,7 @@ def main():
 
 
 def figure(q):
-    series = ["irrigated", "rainfed", "corn", "vr", "pf"]
+    series = SERIES
     fig, axes = plt.subplots(len(series), 3, figsize=(13, 2.9 * len(series)), constrained_layout=True,
                              sharey="row")
     for i, s_ in enumerate(series):
