@@ -1,5 +1,5 @@
 """Stage 2 features from observed weather: Van's Stage-1 variables (`<var>_obs`, ERA5-Land,
-16 regions, cropland weights, 349 cells; hindcast of dev_Van f6ddf65, 25 Nov 2026, with the daily
+16 regions, cropland weights, 349 cells; hindcast of dev_Van 40db708, 27 Nov 2026 (fixed 6-month lag; observed weather as in f6ddf65 except VPD), with the daily
 variables) summarised over each crop's growing window
 (methodology v5 Section 3.4; estimation.stage2.window_features).
 
@@ -33,7 +33,7 @@ import pandas as pd  # noqa: E402
 
 from estimation.stage2 import FEATURES, observed_weather, window_features  # noqa: E402
 
-HIST = ROOT / "data/reference/van/f6ddf65/agriculture/hist_fitted_16regions.csv"
+HIST = ROOT / "data/reference/van/40db708/agriculture/hist_fitted_16regions.csv"
 PROC = ROOT / "data/processed"
 FIRST, LAST = "1987Q1", "2025Q4"
 

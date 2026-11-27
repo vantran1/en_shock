@@ -1606,17 +1606,18 @@ def main():
     ])
 
     doc.add_heading("7.2 Check of Van's scenario simulations", level=2)
-    status(doc, "done (a check, not a result): ready for the chain (version f6ddf65, 25 November)")
+    status(doc, "done (a check, not a result): ready for the chain (version 40db708, 27 November)")
     para(doc, "Van ran stage 1 on the four scenario paths of the direct approach (1997–98, 2015–16, "
               "2023–24 and the unit path, RONI and RONI + DMI models; dev_Van commit af5e28f, re-run on 24 "
-              "November as 30cc20c and on 25 November with the complete hourly record as f6ddf65). For each "
+              "November as 30cc20c, on 25 November with the complete hourly record as f6ddf65, and on 27 "
+              "November with one fixed lag set as 40db708). For each "
               "path and each of 73 draws there is a scenario run and a neutral run "
               "(RONI = 0) that use the same "
               "historical residuals, so their difference is the El Niño effect (v5 Section 3.5). Before "
               "chaining them with stage 2, scripts/check_stage1_scenarios.py checks that the files are what "
               "the chain needs (outputs/stage1_scenarios_check.md).")
     table(doc, stage1_scen_checks(), [11.0, 3.0],
-          note="Table 16. Checks of Van's scenario simulations, version f6ddf65 (4 paths × 2 models; check 7 "
+          note="Table 16. Checks of Van's scenario simulations, version 40db708 (4 paths × 2 models; check 7 "
                "for irrigated, rainfed and corn windows).")
     bullets(doc, [
         ("Consistent: ", "the RONI paths are ours month by month; the scenario and neutral runs of each "
@@ -1640,11 +1641,16 @@ def main():
                "moisture have the same effect in every draw because their transforms are linear.")
     para(doc, "The sizes are plausible: in 1997–98 rainfall falls by about 130 mm in October 1997 and "
               "root-zone soil moisture is lowest in April 1998, at the dry-season harvest. Two features "
-              "to raise with Van, as questions rather than errors: rainfall rises by about 50 mm in July "
-              "of the onset year (in line with the known wetter early El Niño months), and the "
-              "temperature effect drops to zero in June (in the 25 November version also in July) and reappears after. The second comes from "
-              "choosing the lag of each target month separately: the June model uses only the RONI of "
-              "the same and the previous month, which are zero once the episode has ended.")
+              "were raised with Van. Rainfall rises in July of the onset year (about 50 mm, palay-weighted): "
+              "Van confirmed this is real, a north–south split in the early El Niño months (Lyon and "
+              "Camargo, 2009). The temperature effect dropped to zero in June and July 1998 and reappeared "
+              "after, because the lag was chosen for each target month separately and the June and July "
+              "models used only recent RONI, which is zero once the episode has ended. In the 27 November "
+              "version (40db708) Van uses one lag set for every variable and month, the target month and "
+              "the six months before (proposed change B6 to v5 Section 3.3.3). The gap is gone (1 of 24 "
+              "post-episode months at zero, against 8), the effect fades smoothly (0.62, 0.43, 0.18 and "
+              "0.17 °C from May to August 1998), and the overall skill is unchanged (nested correlation "
+              "0.349 before, 0.348 after); the cost is a little dry-season soil-moisture skill (about 0.04).")
     figure(doc, FIG / "stage1_scenarios_effects.png", 16.0,
            "Figure 5. Van's stage 1 on the scenario paths: national effect on the weather by month "
            "(scenario − neutral, palay-weighted); band: 10th–90th percentiles of the draws (RONI model).")
@@ -1869,7 +1875,7 @@ def main():
               "of v5 Section 3.5.")
 
     doc.add_heading("7.4 Two-stage shocks: the chain", level=2)
-    status(doc, "first run done (26 November); comparison with the direct shocks by the v5 rule to come")
+    status(doc, "done (26 November; re-run 27 November with stage 1 version 40db708)")
     para(doc, "The two stages are chained as in v5 Section 3.5 (scripts/chain_two_stage.py). For each of the "
               "four paths and each of Van's 73 draws, the growing-window features are built from the "
               "simulated weather of the El Niño run and of the neutral run, which share the same historical "
@@ -1947,7 +1953,7 @@ def main():
          "wet-season harvest after the episode (1998Q3: 8% against 2%)."),
         ("Sensitivities: ", "with the change from 2005 or 2010 the totals move by about a point or less; with "
          "no change (the 1990s response kept) rice rises by about a point, a natural stress case. The full "
-         "30 features give similar totals (within about a point); in that model, El Niño's sunnier skies on "
+         "30 features give similar totals (within about 1.5 points); in that model, El Niño's sunnier skies on "
          "their own raise rainfed rice by 13–15% in the 1998 dry-season harvests, which is why the compact "
          "model is preferred. The regression gives about half the boosting's losses, since its two features "
          "miss part of the drought signal."),
@@ -1958,18 +1964,18 @@ def main():
     ])
     para(doc, "Limitations and next steps.", italic=True)
     bullets(doc, [
-        "Stage 1's temperature effect drops to zero in June and July (section 7.2), which slightly understates "
-        "the heat in the Q2 and Q3 windows; a sensitivity that fills these months from their neighbours is to "
-        "be run, and Van has been asked whether the lag choice can be smoothed.",
+        "Stage 1's temperature effect dropped to zero in June and July 1998 in the earlier versions "
+        "(section 7.2); with the fixed lag set (40db708) it no longer does, and the two-stage totals rose "
+        "slightly, closer to the direct ones (1997–98: rice 5.5% to 6.2%, corn 7.7% to 9.2%).",
         "The model choice (Table 22) and the 2000 break were set on the same production data; the stage 2 "
         "uncertainty (re-estimation) is not yet in the range, which shows the weather draws only.",
         "VR and PF: the two-stage approach was tested and cannot be applied (section 7.8).",
-        "Next: the comparison with the direct shocks by the rule of v5 Section 3.5, and the RONI + DMI "
-        "variant (python scripts/chain_two_stage.py --model roni_dmi). Validation: section 7.5.",
+        "The RONI + DMI variant can be run for stress scenarios (python scripts/chain_two_stage.py "
+        "--model roni_dmi). Comparison with the direct shocks: section 7.6; validation: section 7.5.",
     ])
 
     doc.add_heading("7.5 Validation of the chain on past episodes", level=2)
-    status(doc, "done (diagnostic); 26 November")
+    status(doc, "done (diagnostic); 26 November, re-run 27 November with stage 1 version 40db708")
     para(doc, "v5 Section 3.6 asks for both approaches to be tested by leaving each strong episode out, "
               "re-estimating without it and comparing predicted with observed losses (scripts/validate_two_stage.py). "
               "For the chain, stage 2 (compact boosting, change from 2000) is re-estimated without the episode "
@@ -2022,7 +2028,7 @@ def main():
          f"{mae.loc['irrigated', 'direct_error_pts']:.1f} for the direct approach; rainfed "
          f"{mae.loc['rainfed', 'chain_error_pts']:.1f} against {mae.loc['rainfed', 'direct_error_pts']:.1f}; "
          f"corn {mae.loc['corn', 'chain_error_pts']:.1f} against {mae.loc['corn', 'direct_error_pts']:.1f}). "
-         "The direct approach comes slightly closer for all three series, by about a point; both miss most of "
+         "The direct approach comes slightly closer for all three series, by up to about a point; both miss most of "
          "the 1997–98 rainfed loss. The gap is small against the size of the errors, so the validation supports "
          "keeping the direct approach as the central estimate (v5 Section 3.5) rather than ranking the two "
          "approaches firmly."),
@@ -2033,7 +2039,7 @@ def main():
               "with the shocks.")
 
     doc.add_heading("7.6 Direct and two-stage: the rule of v5 Section 3.5", level=2)
-    status(doc, "done; delivery updated (26 November), central shocks unchanged")
+    status(doc, "done; delivery updated (26 November; re-checked 27 November with stage 1 40db708), central shocks unchanged")
     t = pd.read_csv(ROOT / "outputs/delivery/comparison/two_stage_comparison_totals.csv")
     n_in = int(t.v5_rule_3_5.str.startswith("within").sum())
     para(doc, f"v5 Section 3.5: the direct approach gives the central estimate; the two-stage result becomes the "

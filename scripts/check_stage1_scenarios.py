@@ -1,4 +1,4 @@
-"""Check of Van's Stage-1 simulations on the El Nino scenario paths (dev_Van f6ddf65, 25 Nov 2026, the
+"""Check of Van's Stage-1 simulations on the El Nino scenario paths (dev_Van 40db708, 27 Nov 2026, fixed 6-month lag; before that f6ddf65, the
 re-run with the complete hourly record, copied to data/reference/van/f6ddf65/scenarios/; earlier versions
 with --van 30cc20c or --van af5e28f), before they are chained with Stage 2 (methodology v5
 Section 3.5). A check, not a result.
@@ -48,8 +48,8 @@ from estimation.data import production  # noqa: E402
 from estimation.stage2 import VARS, window_features  # noqa: E402
 
 VAN_ROOT = ROOT / "data/reference/van"
-VAN = VAN_ROOT / "f6ddf65/scenarios"
-HIST = ROOT / "data/reference/van/hist_fitted_16regions_roni_18fe296.csv"
+VAN = VAN_ROOT / "40db708/scenarios"
+HIST = VAN.parent / "agriculture/hist_fitted_16regions.csv"  # observed weather (all variables) of the same version
 PATHS = ROOT / "outputs/stage1_paths"
 PROC, TAB, FIG, OUT = (ROOT / "data/processed", ROOT / "outputs/tables", ROOT / "outputs/figures",
                        ROOT / "outputs")
@@ -282,6 +282,7 @@ def figure(eff):
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
-    ap.add_argument("--van", default="f6ddf65", help="Van's commit folder under data/reference/van/")
+    ap.add_argument("--van", default="40db708", help="Van's commit folder under data/reference/van/")
     VAN = VAN_ROOT / ap.parse_args().van / "scenarios"
+    HIST = VAN.parent / "agriculture/hist_fitted_16regions.csv"
     main()

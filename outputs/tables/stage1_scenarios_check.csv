@@ -49,7 +49,7 @@ scenario,model,check,ok,detail
 2023-24,roni,7b leading zero months: scenario = neutral,True,"6 months before 2023-07, max |scenario - neutral| 0"
 2023-24,roni,9 residual years drawn,True,"73 draws, block years 1951-2023"
 2023-24,roni,4 neutral depends on calendar month only,True,max spread across years of the same calendar month 0
-2023-24,roni,5 effects table = draws,True,"max |mean effect recomputed - table| 9e-07, deterministic 7e-06 (relative to each variable's largest value)"
+2023-24,roni,5 effects table = draws,True,"max |mean effect recomputed - table| 1e-06, deterministic 7e-06 (relative to each variable's largest value)"
 2023-24,roni,6 effects fade after the El Nino months,True,"from 2024-10 on: max |national mean effect| T 0.000 °C, P 0.00 mm, SM_RZ 0.0000"
 2023-24,roni,7 windows inside the tables (irrigated),True,all harvest quarters complete
 2023-24,roni,7 windows inside the tables (rainfed),True,all harvest quarters complete
@@ -60,7 +60,7 @@ scenario,model,check,ok,detail
 2023-24,roni_dmi,7b leading zero months: scenario = neutral,True,"6 months before 2023-07, max |scenario - neutral| 0"
 2023-24,roni_dmi,9 residual years drawn,True,"73 draws, block years 1951-2023"
 2023-24,roni_dmi,4 neutral depends on calendar month only,True,max spread across years of the same calendar month 0
-2023-24,roni_dmi,5 effects table = draws,True,"max |mean effect recomputed - table| 4e-06, deterministic 6e-06 (relative to each variable's largest value)"
+2023-24,roni_dmi,5 effects table = draws,True,"max |mean effect recomputed - table| 4e-06, deterministic 7e-06 (relative to each variable's largest value)"
 2023-24,roni_dmi,6 effects fade after the El Nino months,True,"from 2024-10 on: max |national mean effect| T 0.000 °C, P 0.00 mm, SM_RZ 0.0000"
 2023-24,roni_dmi,7 windows inside the tables (irrigated),True,all harvest quarters complete
 2023-24,roni_dmi,7 windows inside the tables (rainfed),True,all harvest quarters complete
@@ -71,7 +71,7 @@ unit,roni,3 same residual months in both runs,True,"hist_date identical for ever
 unit,roni,7b leading zero months: scenario = neutral,True,"6 months before 2001-07, max |scenario - neutral| 0"
 unit,roni,9 residual years drawn,True,"73 draws, block years 1951-2023"
 unit,roni,4 neutral depends on calendar month only,True,max spread across years of the same calendar month 0
-unit,roni,5 effects table = draws,True,"max |mean effect recomputed - table| 2e-06, deterministic 7e-06 (relative to each variable's largest value)"
+unit,roni,5 effects table = draws,True,"max |mean effect recomputed - table| 3e-06, deterministic 7e-06 (relative to each variable's largest value)"
 unit,roni,6 effects fade after the El Nino months,True,"from 2003-01 on: max |national mean effect| T 0.000 °C, P 0.00 mm, SM_RZ 0.0000"
 unit,roni,7 windows inside the tables (irrigated),True,all harvest quarters complete
 unit,roni,7 windows inside the tables (rainfed),True,all harvest quarters complete

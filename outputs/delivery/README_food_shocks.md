@@ -22,7 +22,7 @@ quarterly, against the neutral path (RONI = 0), on today's conditions.
 ## Direct and two-stage approach (v5 Section 3.5)
 The direct approach gives the central estimate. The two-stage result would become the upper end of the
 range where it lies outside the direct 90% range. Applied to the total over each path, it lies inside for
-every path, for rice and corn (e.g. 1997–98: rice two-stage 5.5% against direct 5.7% (-0.3 to 13.7), corn two-stage 7.7% against direct 9.1% (-5.6 to 16.6)),
+every path, for rice and corn (e.g. 1997–98: rice two-stage 6.2% against direct 5.7% (-0.3 to 13.7), corn two-stage 9.2% against direct 9.1% (-5.6 to 16.6)),
 so only the direct estimate is delivered; the two-stage shocks are in `comparison/`. The two
 approaches distribute the loss differently over the quarters: the direct corn shock is a large dry-season
 loss followed by gains (the recovery seen after past El Niños), while the two-stage shock has a smaller

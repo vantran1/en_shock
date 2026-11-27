@@ -1,4 +1,4 @@
-# Check of Van's Stage-1 scenario simulations (f6ddf65)
+# Check of Van's Stage-1 scenario simulations (40db708)
 
 A check before the chain, not a result. Details in scripts/check_stage1_scenarios.py.
 
@@ -56,7 +56,7 @@ A check before the chain, not a result. Details in scripts/check_stage1_scenario
 | 2023-24 | roni | 7b leading zero months: scenario = neutral | True | 6 months before 2023-07, max |scenario - neutral| 0 |
 | 2023-24 | roni | 9 residual years drawn | True | 73 draws, block years 1951-2023 |
 | 2023-24 | roni | 4 neutral depends on calendar month only | True | max spread across years of the same calendar month 0 |
-| 2023-24 | roni | 5 effects table = draws | True | max |mean effect recomputed - table| 9e-07, deterministic 7e-06 (relative to each variable's largest value) |
+| 2023-24 | roni | 5 effects table = draws | True | max |mean effect recomputed - table| 1e-06, deterministic 7e-06 (relative to each variable's largest value) |
 | 2023-24 | roni | 6 effects fade after the El Nino months | True | from 2024-10 on: max |national mean effect| T 0.000 °C, P 0.00 mm, SM_RZ 0.0000 |
 | 2023-24 | roni | 7 windows inside the tables (irrigated) | True | all harvest quarters complete |
 | 2023-24 | roni | 7 windows inside the tables (rainfed) | True | all harvest quarters complete |
@@ -67,7 +67,7 @@ A check before the chain, not a result. Details in scripts/check_stage1_scenario
 | 2023-24 | roni_dmi | 7b leading zero months: scenario = neutral | True | 6 months before 2023-07, max |scenario - neutral| 0 |
 | 2023-24 | roni_dmi | 9 residual years drawn | True | 73 draws, block years 1951-2023 |
 | 2023-24 | roni_dmi | 4 neutral depends on calendar month only | True | max spread across years of the same calendar month 0 |
-| 2023-24 | roni_dmi | 5 effects table = draws | True | max |mean effect recomputed - table| 4e-06, deterministic 6e-06 (relative to each variable's largest value) |
+| 2023-24 | roni_dmi | 5 effects table = draws | True | max |mean effect recomputed - table| 4e-06, deterministic 7e-06 (relative to each variable's largest value) |
 | 2023-24 | roni_dmi | 6 effects fade after the El Nino months | True | from 2024-10 on: max |national mean effect| T 0.000 °C, P 0.00 mm, SM_RZ 0.0000 |
 | 2023-24 | roni_dmi | 7 windows inside the tables (irrigated) | True | all harvest quarters complete |
 | 2023-24 | roni_dmi | 7 windows inside the tables (rainfed) | True | all harvest quarters complete |
@@ -78,7 +78,7 @@ A check before the chain, not a result. Details in scripts/check_stage1_scenario
 | unit | roni | 7b leading zero months: scenario = neutral | True | 6 months before 2001-07, max |scenario - neutral| 0 |
 | unit | roni | 9 residual years drawn | True | 73 draws, block years 1951-2023 |
 | unit | roni | 4 neutral depends on calendar month only | True | max spread across years of the same calendar month 0 |
-| unit | roni | 5 effects table = draws | True | max |mean effect recomputed - table| 2e-06, deterministic 7e-06 (relative to each variable's largest value) |
+| unit | roni | 5 effects table = draws | True | max |mean effect recomputed - table| 3e-06, deterministic 7e-06 (relative to each variable's largest value) |
 | unit | roni | 6 effects fade after the El Nino months | True | from 2003-01 on: max |national mean effect| T 0.000 °C, P 0.00 mm, SM_RZ 0.0000 |
 | unit | roni | 7 windows inside the tables (irrigated) | True | all harvest quarters complete |
 | unit | roni | 7 windows inside the tables (rainfed) | True | all harvest quarters complete |
@@ -107,35 +107,47 @@ A check before the chain, not a result. Details in scripts/check_stage1_scenario
 
 | scenario | var | date | mean | q10 | q90 |
 |---|---|---|---|---|---|
-| 1997-98 | P | 1997-10-01 | -129.789 | -172.686 | -93.382 |
-| 1997-98 | SM_RZ | 1998-04-01 | -0.050 | -0.050 | -0.050 |
+| 1997-98 | P | 1997-10-01 | -127.815 | -167.561 | -92.022 |
+| 1997-98 | SM_RZ | 1998-05-01 | -0.048 | -0.048 | -0.048 |
 | 1997-98 | T | 1998-04-01 | 0.739 | 0.739 | 0.739 |
-| 1997-98 | VPD | 1998-04-01 | 0.244 | 0.244 | 0.244 |
-| 2015-16 | P | 2015-10-01 | -114.099 | -150.979 | -83.187 |
-| 2015-16 | SM_RZ | 2016-04-01 | -0.051 | -0.051 | -0.051 |
+| 1997-98 | VPD | 1998-04-01 | 0.223 | 0.223 | 0.223 |
+| 2015-16 | P | 2015-10-01 | -118.429 | -154.930 | -85.504 |
+| 2015-16 | SM_RZ | 2016-05-01 | -0.046 | -0.046 | -0.046 |
 | 2015-16 | T | 2016-04-01 | 0.676 | 0.676 | 0.676 |
-| 2015-16 | VPD | 2016-04-01 | 0.245 | 0.245 | 0.245 |
-| 2023-24 | P | 2023-10-01 | -55.890 | -72.810 | -42.561 |
+| 2015-16 | VPD | 2016-04-01 | 0.204 | 0.204 | 0.204 |
+| 2023-24 | P | 2023-10-01 | -81.645 | -105.990 | -59.566 |
 | 2023-24 | SM_RZ | 2024-05-01 | -0.030 | -0.030 | -0.030 |
 | 2023-24 | T | 2024-04-01 | 0.433 | 0.433 | 0.433 |
-| 2023-24 | VPD | 2024-04-01 | 0.129 | 0.129 | 0.129 |
-| unit | P | 2001-10-01 | -89.130 | -116.644 | -63.881 |
+| 2023-24 | VPD | 2024-04-01 | 0.130 | 0.130 | 0.130 |
+| unit | P | 2001-10-01 | -64.468 | -83.413 | -47.249 |
 | unit | SM_RZ | 2002-05-01 | -0.033 | -0.033 | -0.033 |
 | unit | T | 2002-05-01 | 0.329 | 0.329 | 0.329 |
-| unit | VPD | 2002-05-01 | 0.077 | 0.077 | 0.077 |
+| unit | VPD | 2002-04-01 | 0.109 | 0.109 | 0.109 |
 
 ## Simulated region-months outside the range observed in 1987-2025 (% of region-months, RONI model, all draws; neutral = today's climate alone)
 
 | var | 1997-98 neutral | 1997-98 scenario | 2015-16 neutral | 2015-16 scenario | 2023-24 neutral | 2023-24 scenario | unit neutral | unit scenario |
 |---|---|---|---|---|---|---|---|---|
-| CWB3 | 3.3 | 6.8 | 3.3 | 6.3 | 3.3 | 3.7 | 3.2 | 3.7 |
-| E | 6.0 | 7.0 | 6.0 | 7.0 | 6.1 | 6.4 | 6.2 | 6.5 |
-| P | 4.0 | 6.0 | 4.0 | 5.6 | 4.0 | 4.2 | 4.2 | 4.8 |
-| PET | 4.3 | 6.6 | 4.3 | 6.2 | 4.4 | 4.8 | 4.5 | 5.0 |
-| RO | 4.8 | 7.1 | 4.8 | 6.7 | 4.8 | 4.8 | 4.7 | 4.8 |
-| RS | 4.1 | 6.6 | 4.1 | 6.1 | 4.2 | 4.5 | 4.3 | 4.8 |
-| SM_DEEP | 21.1 | 20.0 | 21.1 | 20.0 | 19.7 | 17.9 | 18.5 | 16.4 |
-| SM_RZ | 13.8 | 14.4 | 13.8 | 14.3 | 13.5 | 12.4 | 12.7 | 11.7 |
-| SPEI3 | 3.3 | 6.8 | 3.3 | 6.3 | 3.3 | 3.7 | 3.2 | 3.7 |
-| T | 8.4 | 13.1 | 8.4 | 12.5 | 8.3 | 11.0 | 8.1 | 10.2 |
-| VPD | 5.7 | 7.6 | 5.7 | 7.6 | 5.7 | 6.2 | 5.7 | 6.1 |
+| CWB3 | 3.4 | 6.5 | 3.4 | 6.0 | 3.4 | 3.7 | 3.2 | 3.8 |
+| E | 6.1 | 7.0 | 6.1 | 6.9 | 6.2 | 6.4 | 6.4 | 6.5 |
+| EDD | 1.4 | 2.0 | 1.4 | 1.9 | 1.4 | 1.6 | 1.4 | 1.6 |
+| EDD30 | 4.6 | 7.8 | 4.6 | 7.4 | 4.6 | 5.6 | 4.6 | 5.6 |
+| EDD32 | 3.5 | 5.3 | 3.5 | 5.1 | 3.5 | 4.0 | 3.5 | 4.1 |
+| LDRY | 3.0 | 4.6 | 3.0 | 4.4 | 3.0 | 3.4 | 3.0 | 3.6 |
+| N50 | 1.8 | 1.7 | 1.8 | 1.7 | 1.8 | 1.7 | 1.9 | 1.8 |
+| NDRY | 4.0 | 5.9 | 4.0 | 5.7 | 3.9 | 4.2 | 3.9 | 4.3 |
+| NHOT | 1.2 | 1.5 | 1.2 | 1.5 | 1.2 | 1.4 | 1.3 | 1.4 |
+| NHOT30 | 3.9 | 6.0 | 3.9 | 5.7 | 4.0 | 4.7 | 4.0 | 4.7 |
+| NHOT32 | 2.5 | 3.9 | 2.5 | 3.8 | 2.6 | 3.2 | 2.7 | 3.2 |
+| P | 4.0 | 6.1 | 4.0 | 5.8 | 4.0 | 4.3 | 4.1 | 4.6 |
+| PET | 4.2 | 6.6 | 4.2 | 6.2 | 4.3 | 4.8 | 4.4 | 4.8 |
+| RO | 4.9 | 7.2 | 4.9 | 6.7 | 4.8 | 4.8 | 4.8 | 4.9 |
+| RS | 4.0 | 6.5 | 4.0 | 6.0 | 4.1 | 4.5 | 4.3 | 4.7 |
+| SM_DEEP | 20.9 | 20.0 | 20.9 | 19.7 | 19.6 | 18.1 | 18.3 | 16.2 |
+| SM_RZ | 13.9 | 14.5 | 13.9 | 14.1 | 13.6 | 12.4 | 12.7 | 11.9 |
+| SPEI3 | 3.4 | 6.5 | 3.4 | 6.0 | 3.4 | 3.7 | 3.2 | 3.8 |
+| T | 8.3 | 14.6 | 8.3 | 13.8 | 8.3 | 10.9 | 8.0 | 10.7 |
+| TMAX | 7.5 | 12.5 | 7.5 | 11.8 | 7.3 | 9.2 | 7.2 | 8.7 |
+| TMIN | 9.1 | 13.5 | 9.1 | 12.9 | 8.9 | 10.5 | 8.5 | 10.7 |
+| VPD | 6.0 | 7.9 | 6.0 | 7.7 | 5.9 | 6.4 | 6.0 | 6.5 |
+| VPDMAX | 6.7 | 8.1 | 6.7 | 7.8 | 6.7 | 6.7 | 6.7 | 6.9 |

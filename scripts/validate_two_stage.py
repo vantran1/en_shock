@@ -7,7 +7,7 @@ For each series (irrigated palay, rainfed palay, corn; palay = both) and each ep
 - Stage 2 (the chain's model: boosting on the features of chain_two_stage.MAIN_FEATURES, response
   changing from 2000 except for VR and PF, whose data start in 2010; water constraint) is re-estimated without the episode and the 4 quarters after it (the held-out window of the strict
   validation of the direct approach, scripts/validate_strict.py).
-- Stage 1 enters through Van's nested hindcast (`<var>_nested`, dev_Van f6ddf65): the weather of each
+- Stage 1 enters through Van's nested hindcast (`<var>_nested`, dev_Van 40db708): the weather of each
   month predicted from RONI alone by a model estimated without the 5-year block holding that month
   (lags and modes also chosen without it). It is the weather the chain predicts knowing only RONI,
   with no residual (the deterministic response).

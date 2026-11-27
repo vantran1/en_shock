@@ -2,8 +2,8 @@
 PROVISIONAL.
 
 Inputs
-- Van's Stage-1 runs on the four scenario paths of the direct approach (dev_Van f6ddf65, 25 Nov
-  2026; data/reference/van/f6ddf65/scenarios/, untracked): monthly weather by region for 73 draws,
+- Van's Stage-1 runs on the four scenario paths of the direct approach (dev_Van 40db708, 27 Nov
+  2026, fixed 6-month lag; data/reference/van/40db708/scenarios/, untracked): monthly weather by region for 73 draws,
   scenario and neutral path with the same residuals, today's climate (trend at t* = 2026). RONI
   model (main) and RONI + DMI model (variant, --model roni_dmi).
 - Stage 2 fitted on observed weather and PSA production, 1987-2025 (estimation.stage2;
@@ -70,13 +70,13 @@ from estimation.stage2 import (FEATURES, HINGE, VARS, Stage2Spec, fit_gbm, fit_h
                                predict_gbm, predict_hinge, window_features)
 from select_stage2 import COMPACT  # noqa: E402
 
-VAN = ROOT / "data/reference/van/f6ddf65/scenarios"
+VAN = ROOT / "data/reference/van/40db708/scenarios"
 TAB, FIG, OUT = ROOT / "outputs/tables", ROOT / "outputs/figures", ROOT / "outputs"
 SCEN = {"1997-98": "1997-98", "2015-16": "2015-16", "2023-24": "2023-24",
         "unit": "unit RONI +1 (4 quarters from Q3)",
         "c3s": "C3S forecast (Nov 2026)"}  # Van's folder -> direct shocks' path name
 # the forecast run is in Van's agriculture outputs, not in scenarios/ (RONI model only)
-FORECAST_SIM = ROOT / "data/reference/van/f6ddf65/agriculture/simulated_monthly_16regions.csv"
+FORECAST_SIM = ROOT / "data/reference/van/40db708/agriculture/simulated_monthly_16regions.csv"
 # VR and PF are not chained (decision of 27 Nov 2026): with their fixed windows (6 and 12 months,
 # scripts/build_stage2_features.py) no weather model predicts their production better than no weather
 # out of sample (scripts/select_stage2.py --vrpf), so the two-stage approach cannot be applied to them
@@ -96,7 +96,7 @@ VARIANTS = {"main (from 2000)": ("gbm", 2000), "from 2005": ("gbm", 2005), "from
             "full features for all (from 2000)": ("gbm_full", 2000)}
 MAIN = "main (from 2000)"
 T_YEAR = 2025
-STATUS = "provisional; two-stage approach (Stage 1 Van f6ddf65, Stage 2 compact boosting from 2000)"
+STATUS = "provisional; two-stage approach (Stage 1 Van 40db708, Stage 2 compact boosting from 2000)"
 INK, MUTED, GRID, BLUE, ORANGE = "#0b0b0b", "#52514e", "#d9d8d4", "#2a78d6", "#eb6834"
 
 
@@ -253,7 +253,7 @@ def report(res, direct, sfx, model):
     dtot = (d.groupby(["path", "crop"]).S_D.sum() / 4 * 100).rename("direct").reset_index()
     tot = tot.merge(dtot, on=["path", "crop"], how="left")
     s = [f"# Two-stage shocks (PROVISIONAL; Stage 1 model {model})\n",
-         "Van's Stage 1 (f6ddf65, 73 draws) chained with Stage 2 (main: boosting, response changing from 2000, "
+         "Van's Stage 1 (40db708, 73 draws) chained with Stage 2 (main: boosting, response changing from 2000, "
          "today's response). Shock = share of the quarter's neutral production lost (v5 Eq. 12-13a), mean over "
          "draws with the 10th-90th percentiles; flag = production-weighted share of region-quarters where the "
          "El Nino weather goes beyond the 1987-2025 range on the loss side (mean over draws). Direct: the direct "

@@ -133,7 +133,7 @@ def main():
                                                    "S_D"]].rename(columns={
         "S": "direct_S", "S_p05": "direct_S_p05", "S_p95": "direct_S_p95", "S_D": "direct_S_D"})
     cq = cq.merge(ts, on=["category", "path", "scenario_q"], how="left")
-    cmp_note = ("provisional; comparison only, not for DEFINE-PH; two-stage approach (Stage 1 Van f6ddf65, "
+    cmp_note = ("provisional; comparison only, not for DEFINE-PH; two-stage approach (Stage 1 Van 40db708, "
                 "Stage 2 compact boosting from 2000)")
     cq.assign(status=cmp_note).round(6).to_csv(cmp_dir / "two_stage_comparison.csv", index=False)
     # totals over the quarters both approaches cover (the two-stage forecast run starts without lead-in
