@@ -33,7 +33,7 @@ git clone https://github.com/<your-username>/<repo-name>.git
 cd <repo-name>
 ```
 
-## Status (agriculture and electricity, Ginevra) — updated 23 Nov 2026 (evening)
+## Status (agriculture and electricity, Ginevra) — updated 27 Nov 2026
 
 Delivery of all shocks: **7 Dec 2026**. IDs follow the milestone tracker (G = Ginevra, V = Van).
 All results are provisional.
@@ -44,10 +44,10 @@ All results are provisional.
 | G4 | Direct model, rice (irrigated, rainfed) and corn | Done | `outputs/tables/direct_{rice,corn}_*`, `shocks_{rice,corn}*` | `scripts/estimate_direct.py`, `shocks_direct.py` |
 | G5 | Direct model, vegetables and root crops (VR), perennial fruits (PF) | Done | `outputs/tables/direct_{vr,pf}_*`, `shocks_{vr,pf}*` | same |
 | G6 | Validation (episodes; 1997–98 vs FAOSTAT) and food categories for DEFINE-PH | Done | `outputs/delivery/` (see its README), `validation_strict_*`, `faostat_*` | `scripts/validate_strict.py`, `check_faostat_vrpf.py`, `deliver_food_shocks.py` |
-| G7, G8 | Stage 2 (weather → production) and two-stage shocks | In progress: growing windows done; stage 2 estimated and compared out of sample (monthly and daily weather, rice and corn; write-up 7.3); Van's scenario simulations checked (7.2, f6ddf65); chain to do | `data/processed/{rice,corn}_growing_window.csv`, `data/processed/stage2_features.csv`, `outputs/stage2_comparison.md`, `outputs/stage1_scenarios_check.md`, `outputs/tables/stage2_*`, `stage1_scenarios_*` | `scripts/build_{rice,corn}_calendar.py`, `build_stage2_features.py`, `estimate_stage2.py`, `check_stage1_scenarios.py`, `src/estimation/stage2.py` |
+| G7, G8 | Stage 2 (weather → production) and two-stage shocks | Done (provisional): stage 2 on monthly and daily weather, nested model choice (compact boosting, response changing from 2000, water constraint); chain with Van's Stage 1 (f6ddf65, 73 draws) for the four paths and the C3S forecast; validation on past episodes; v5 §3.5 rule applied (direct delivered, two-stage in `outputs/delivery/comparison/`); VR/PF tested, not applicable (write-up 7.1–7.8). To re-run when Van's fixed 6-month lag version arrives | `data/processed/stage2_features.csv`, `outputs/stage2_*.md`, `outputs/two_stage_shocks.md`, `outputs/validation_two_stage.md`, `outputs/tables/stage2_*`, `two_stage_*` | `scripts/build_stage2_features.py`, `estimate_stage2.py`, `select_stage2.py`, `chain_two_stage.py`, `validate_two_stage.py`, `check_stage1_scenarios.py`, `src/estimation/stage2.py` |
 | G12 | Residual food price shock, step 1 (total food price response, price note Eqs. 3–4) | Van. National typhoon and flood controls for Eq. 3 built for him (24 Nov: palay, food-calorie and population weights) | `data/processed/hazard_national_quarter.csv`, `hazard_national_weights.csv`, `outputs/tables/hazard_national_checks.csv` | `scripts/build_national_hazard_controls.py` |
-| G3, G9 | Electricity: inputs; demand and price equations | G3 done (public inputs; ERA5 t2m Aug–Nov 2026 in progress); G9 to do | `data/electricity/` (see its README); IEMOP in `~/data_tmp/electricity/raw/iemop/` | `scripts/download_iemop.py`, `build_ph_holidays.py` |
-| G10 | Report sections | Agriculture drafted | `outputs/writeup/agriculture_results.docx` | `scripts/build_writeup.py` |
+| G3, G9 | Electricity: inputs; demand and price equations | G3 done (public inputs; ERA5 t2m Aug–Nov 2026); Van delivered daily CDD by grid (observed 1950–2025, forecast and four scenarios, 73 draws; dev_Van 79e2ba9). G9 next; IEMOP history (BSP) not received | `data/electricity/` (see its README); IEMOP in `~/data_tmp/electricity/raw/iemop/` | `scripts/download_iemop.py`, `build_ph_holidays.py` |
+| G10 | Report sections | Agriculture drafted, two-stage included (sections 1–7.8); electricity to add | `outputs/writeup/agriculture_results.docx` | `scripts/build_writeup.py` |
 
 **Decisions** (recorded in the write-up; to be agreed with Alper where marked):
 - RONI alone is the main driver (16 Nov 2026), in the direct approach and in stage 1: the DMI improves
