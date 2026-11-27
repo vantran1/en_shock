@@ -32,7 +32,16 @@ class Data:
 
     @property
     def lag_sets(self):
-        return {k: tuple(v) for k, v in self.cfg["model"]["lag_sets"].items()}
+        """The lag sets the selection chooses from: model.lag_sets, or the subset named in model.lag_candidates."""
+        m = self.cfg["model"]
+        sets = {k: tuple(v) for k, v in m["lag_sets"].items()}
+        cand = m.get("lag_candidates")
+        if cand:
+            missing = [k for k in cand if k not in sets]
+            if missing:
+                raise SystemExit(f"model.lag_candidates: {missing} not in model.lag_sets")
+            sets = {k: sets[k] for k in cand}
+        return sets
 
     @property
     def predictors(self) -> tuple:
@@ -87,6 +96,44 @@ class Data:
     def cwb3_from_spei3(self, ws: str, month: int, regional_spei3: np.ndarray) -> np.ndarray:
         mr, sr = (a[month - 1] for a in self.region_cwb_clim(ws))
         return regional_spei3 * sr + mr
+
+
+def lag_rule(cfg: dict) -> dict:
+    """How the lag set is chosen (model.lag_choice):
+    month   for each variable and calendar month, the lag set and modes with the best CV skill of that month;
+    window  the lag set with the best CV skill pooled over the month and its model.lag_window neighbours on each
+            side (December and January are neighbours), then the modes with the best skill of the month itself.
+            Neighbouring months then share their lag choice unless their own skill clearly differs."""
+    m = cfg["model"]
+    kind = str(m.get("lag_choice", "month"))
+    if kind not in ("month", "window"):
+        raise SystemExit(f"model.lag_choice must be month or window, not {kind}")
+    return dict(kind=kind, width=int(m.get("lag_window", 1)))
+
+
+def lag_scores(scores: dict) -> dict:
+    """Best CV score of each lag set over its mode configurations."""
+    out = {}
+    for (ls, My, Mc), sc in scores.items():
+        if np.isfinite(sc):
+            out[ls] = max(out.get(ls, -np.inf), sc)
+    return out
+
+
+def window_choice(scores_by_month: dict, width: int) -> dict:
+    """{month: {config: score}} -> {month: config}: the lag set with the best mean of its best score over the
+    month and its `width` neighbours on each side (circular over the calendar), then the best modes of the month."""
+    months = sorted(scores_by_month)
+    L = {m: lag_scores(sc) for m, sc in scores_by_month.items()}
+    out = {}
+    for m in months:
+        near = [((m - 1 + d) % 12) + 1 for d in range(-width, width + 1)]
+        near = [k for k in near if k in L]
+        pooled = {ls: np.mean([L[k][ls] for k in near if ls in L[k]]) for ls in L[m]}
+        best_ls = max(pooled, key=pooled.get)
+        own = {c: sc for c, sc in scores_by_month[m].items() if c[0] == best_ls and np.isfinite(sc)}
+        out[m] = max(own, key=own.get)
+    return out
 
 
 def max_lag(cfg: dict) -> int:
@@ -173,12 +220,22 @@ def regional_cv(Yr, Pr, years, kind, cv_window):
     return obs, pred
 
 
-def fit_one(D: Data, var: str, month: int, wsets: list[str]):
-    """Cross-validate, select on the cells, refit; regional CV skill for every weight set."""
+def cv_month(D: Data, var: str, month: int) -> dict:
+    """Cross-validation of every configuration for one variable and calendar month."""
     kind = C.PREDICTANDS[var][3]
     years, Y, X = D.month_data(var, month)
-    cv = E.cv_run([Y], [kind], X, years, D.S)
-    cfg, score, scores = E.select(cv)
+    return dict(kind=kind, years=years, Y=Y, X=X, cv=E.cv_run([Y], [kind], X, years, D.S))
+
+
+def fit_one(D: Data, var: str, month: int, wsets: list[str], pack: dict | None = None, cfg=None):
+    """Cross-validate, select on the cells, refit; regional CV skill for every weight set.
+    `pack` (from cv_month) and `cfg` (a configuration chosen elsewhere, e.g. by window_choice) are optional."""
+    pack = pack or cv_month(D, var, month)
+    kind, years, Y, X, cv = (pack[k] for k in ("kind", "years", "Y", "X", "cv"))
+    best, score, scores = E.select(cv)
+    if cfg is None:
+        cfg = best
+    score = scores[cfg]
     resid = cv["obs"] - cv["pred"][cfg]
     model = refit(var, month, Y, X, years, kind, cfg, resid, score, D.lag_sets, D.S, D.predictors)
     phys = E.cv_physical(cv, cfg, 0)
@@ -198,9 +255,15 @@ def nested_blocks(years: np.ndarray, month: int, first_year: int, block_len: int
     month of an ENSO season (July to June) falls in the same block, and an episode such as 1997-98 or 2015-16 is
     held out as a whole. `years` are the years of the target `month`; a target month before `start_month`
     belongs to the seasonal year that began the previous calendar year."""
-    season = years.astype(int) - (1 if month < start_month else 0)
-    b = (season - int(first_year)) // block_len
+    b = nested_block_ids(years, month, first_year, block_len, start_month)
     return [b == k for k in np.unique(b)]
+
+
+def nested_block_ids(years: np.ndarray, month: int, first_year: int, block_len: int = 5,
+                     start_month: int = 7) -> np.ndarray:
+    """The outer block of each year of the target month (see nested_blocks)."""
+    season = years.astype(int) - (1 if month < start_month else 0)
+    return (season - int(first_year)) // block_len
 
 
 def nested_settings(cfg: dict) -> dict:
@@ -208,7 +271,34 @@ def nested_settings(cfg: dict) -> dict:
                 start_month=int(cfg["model"].get("nested_block_start_month", 7)))
 
 
-def nested_one(D: Data, var: str, month: int, wsets: list[str], prob_sets: list[str], block_len: int | None = None):
+def nested_var(D: Data, var: str, months: list[int], wsets: list[str], prob_sets: list[str]) -> dict:
+    """Nested CV of every month of a variable, with the lag rule of the configuration ({month: nested_one result}).
+    With lag_choice: window, the choice in each outer block pools the inner-CV skill of the neighbouring months on
+    the same held-out seasons, so no held-out year informs the choice."""
+    rule = lag_rule(D.cfg)
+    if rule["kind"] == "month":
+        return {m: nested_one(D, var, m, wsets, prob_sets) for m in months}
+    nb = nested_settings(D.cfg)
+    kind = C.PREDICTANDS[var][3]
+    inner = {}                                        # (month, block) -> {config: inner-CV score}
+    for m in months:
+        years, Y, X = D.month_data(var, m)
+        ids = nested_block_ids(years, m, nb["first_year"], nb["block_len"], nb["start_month"])
+        for k in np.unique(ids):
+            tr = ids != k
+            cv = E.cv_run([Y[tr]], [kind], {ls: x[tr] for ls, x in X.items()}, years[tr], D.S)
+            inner[(m, int(k))] = E.select(cv)[2]
+    blocks = sorted({k for _, k in inner})
+    chosen = {m: {} for m in months}
+    for k in blocks:
+        sc = {m: inner[(m, k)] for m in months if (m, k) in inner}
+        for m, c in window_choice(sc, rule["width"]).items():
+            chosen[m][k] = c
+    return {m: nested_one(D, var, m, wsets, prob_sets, chosen_by_block=chosen[m]) for m in months}
+
+
+def nested_one(D: Data, var: str, month: int, wsets: list[str], prob_sets: list[str], block_len: int | None = None,
+               chosen_by_block: dict | None = None):
     """Nested CV: outer 5-year July-June blocks; the configuration is selected again on the remaining years.
 
     Also probabilistic scores on `prob_sets`: each held-out year's predictive sample is the prediction plus the
@@ -223,11 +313,18 @@ def nested_one(D: Data, var: str, month: int, wsets: list[str], prob_sets: list[
     prob = {ws: {k: np.empty(Yr[ws].shape) for k in ("crps", "crps_clim", "covered", "width")} for ws in prob_sets}
     cell_obs, cell_pred, chosen, held = np.empty((n, q)), np.empty((n, q)), [], []
     nb = nested_settings(D.cfg)
-    for te in nested_blocks(years, month, nb["first_year"], block_len or nb["block_len"], nb["start_month"]):
+    ids = nested_block_ids(years, month, nb["first_year"], block_len or nb["block_len"], nb["start_month"])
+    for kb in np.unique(ids):
+        te = ids == kb
         tr = ~te
         held.append((int(years[te][0]), int(years[te][-1])))
-        cv = E.cv_run([Y[tr]], [kind], {k: x[tr] for k, x in X.items()}, years[tr], D.S)
-        cfg, _, _ = E.select(cv)
+        if chosen_by_block is not None:               # configuration chosen outside (lag_choice: window)
+            cfg = chosen_by_block[int(kb)]
+            S1 = {**D.S, "my_grid": [cfg[1]], "mc_grid": [cfg[2]]}
+            cv = E.cv_run([Y[tr]], [kind], {cfg[0]: X[cfg[0]][tr]}, years[tr], S1)
+        else:
+            cv = E.cv_run([Y[tr]], [kind], {k: x[tr] for k, x in X.items()}, years[tr], D.S)
+            cfg, _, _ = E.select(cv)
         chosen.append(cfg)
         e = cv["obs"] - cv["pred"][cfg]
         py, Ys = E.prep_y(Y[tr], years[tr], [kind] * q)
@@ -370,8 +467,13 @@ def load_data(cfg: dict, refresh_indices: bool | None = None, with_hourly: bool 
     M = C.load_pickle(C.work(cfg, "fields_monthly.pkl"), "scripts/01_prepare_inputs.py")
     fields = dict(M["fields"])
     hp = C.work(cfg, "fields_hourly.pkl")
+    hourly_fields = {}
     if with_hourly and hp.exists():
-        fields.update(C.load_pickle(hp, "scripts/02_hourly_metrics.py")["fields"])
+        hourly_fields = C.load_pickle(hp, "scripts/02_hourly_metrics.py")["fields"]
+        fields.update(hourly_fields)          # VPD here (mean of hourly VPD) replaces the VPD of the monthly means
+    if "VPD" in cfg["model"]["variables"] and "VPD" not in hourly_fields:
+        print("  note: VPD is the VPD of the monthly-mean t2m and d2m (biased low): fields_hourly.pkl has no hourly VPD; "
+              "run scripts/02_hourly_metrics.py for the monthly mean of hourly VPD")
     W = C.load_pickle(C.work(cfg, "weights.pkl"), "scripts/01_prepare_inputs.py")
     idx, info = I.model_indices(cfg, refresh_indices)
     P = I.predictor_frame(idx, cfg["period"]["train"][1])

@@ -75,7 +75,7 @@ def load_monthly(raw_dir: pathlib.Path) -> dict:
     root = sum(flat[k] * cm for k, cm in ROOT_CM.items()) / sum(ROOT_CM.values())
     grids = {
         "t2m_c": t_c,
-        "vpd_kpa": np.clip(es - ea, 0, None),
+        "vpd_kpa": np.clip(es - ea, 0, None),         # fallback only: step 2 replaces it by the mean of hourly VPD
         "tp_mm_day": flat["tp"] * 1000.0,
         "pev_mm_day": -flat["pev"] * 1000.0,           # evaporation fields x -1 (ECMWF sign convention)
         "e_mm_day": -flat["e"] * 1000.0,
@@ -91,7 +91,8 @@ def table2_fields(grids: dict, cells: np.ndarray, times: pd.DatetimeIndex, clim:
     """Monthly Table 2 predictands at the cells (DataFrames, time x cells), and the cells' CWB3 climatology.
 
     Accumulated fields are mean daily accumulations in the monthly means, so monthly totals scale by the
-    number of days. SPEI3 is the 3-month P - PET in mm, standardised per calendar month on `clim`."""
+    number of days. SPEI3 is the 3-month P - PET in mm, standardised per calendar month on `clim`. VPD here is the
+    VPD of the monthly-mean t2m and d2m, a fallback: the monthly mean of hourly VPD (hourly.py, step 2) replaces it."""
     days = times.days_in_month.values[:, None]
     D = {k: v[:, cells] for k, v in grids.items()}
     names = [f"c{c}" for c in cells]

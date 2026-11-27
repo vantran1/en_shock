@@ -1,0 +1,101 @@
+Lag rules compared, predictors RONI (r16_cropland; nested CV = selection-honest skill)
+
+Mean over the variables:
+                                        rho_cv  rho_nested  pct_significant  crpss  lag changes between neighbouring months T effect ~0 in the 6 months after El Nino
+rule                                                                                                                                                                 
+fixed sync                               0.293       0.292           59.446  0.067                                        0                                  24 of 24
+fixed sync+lag1                          0.351       0.345           68.229  0.088                                        0                                  20 of 24
+fixed sync+lag3                          0.358       0.352           68.205  0.091                                        0                                  12 of 24
+fixed sync+lag6                          0.353       0.349           69.318  0.092                                        0                                   1 of 24
+fixed sync+lag3+lag6                     0.356       0.344           67.353  0.089                                        0                                   1 of 24
+menu: sync, sync+lag1                    0.354       0.342           67.921  0.086                                       74                                  20 of 24
+menu: sync, sync+lag6                    0.359       0.351           68.821  0.092                                       70                                   2 of 24
+menu: sync, +lag1, +lag3, +lag6 (main)   0.373       0.349           66.454  0.090                                      186                                   8 of 24
+menu of main, shared with neighbours     0.366       0.350           67.164  0.090                                      109                                   6 of 24
+(the last column: months with |T effect| < 0.02 °C in the six months after the El Nino of each scenario path ends; a model whose months look back less far than that shows zeros there)
+
+Nested-CV rho by variable:
+rule     fixed sync  fixed sync+lag1  fixed sync+lag3  fixed sync+lag6  fixed sync+lag3+lag6  menu: sync, sync+lag1  menu: sync, sync+lag6  menu: sync, +lag1, +lag3, +lag6 (main)  menu of main, shared with neighbours
+var                                                                                                                                                                                                                     
+E             0.192            0.209            0.203            0.187                 0.196                  0.209                  0.194                                   0.199                                 0.196
+EDD           0.487            0.556            0.565            0.560                 0.559                  0.555                  0.555                                   0.558                                 0.558
+EDD30         0.217            0.294            0.290            0.275                 0.267                  0.293                  0.287                                   0.285                                 0.277
+EDD32         0.235            0.308            0.309            0.301                 0.298                  0.304                  0.295                                   0.289                                 0.295
+LDRY          0.320            0.324            0.338            0.327                 0.327                  0.316                  0.332                                   0.332                                 0.329
+N50           0.238            0.239            0.239            0.233                 0.236                  0.238                  0.234                                   0.231                                 0.234
+NDRY          0.360            0.369            0.378            0.370                 0.368                  0.363                  0.375                                   0.377                                 0.376
+NHOT          0.501            0.563            0.568            0.561                 0.557                  0.565                  0.558                                   0.564                                 0.562
+NHOT30        0.185            0.280            0.262            0.261                 0.253                  0.274                  0.264                                   0.263                                 0.261
+NHOT32        0.221            0.301            0.293            0.287                 0.285                  0.297                  0.285                                   0.279                                 0.278
+P             0.332            0.350            0.363            0.344                 0.355                  0.339                  0.348                                   0.361                                 0.353
+PET           0.338            0.389            0.382            0.370                 0.371                  0.380                  0.383                                   0.383                                 0.384
+RO            0.398            0.419            0.437            0.436                 0.434                  0.419                  0.442                                   0.434                                 0.440
+RS            0.305            0.347            0.351            0.330                 0.337                  0.339                  0.345                                   0.333                                 0.350
+SM_DEEP       0.249            0.350            0.414            0.443                 0.430                  0.353                  0.442                                   0.431                                 0.441
+SM_RZ         0.367            0.409            0.437            0.426                 0.435                  0.414                  0.424                                   0.429                                 0.435
+SPEI3         0.436            0.481            0.495            0.498                 0.489                  0.478                  0.497                                   0.506                                 0.505
+T             0.161            0.271            0.257            0.274                 0.248                  0.263                  0.266                                   0.263                                 0.254
+TMAX          0.241            0.303            0.303            0.302                 0.282                  0.301                  0.309                                   0.288                                 0.289
+TMIN          0.044            0.195            0.205            0.233                 0.197                  0.190                  0.233                                   0.215                                 0.222
+VPD           0.289            0.307            0.323            0.317                 0.321                  0.306                  0.317                                   0.318                                 0.322
+VPDMAX        0.304            0.337            0.343            0.333                 0.330                  0.336                  0.342                                   0.342                                 0.336
+
+Nested-CV rho by month, mean over the variables:
+month                                      1      2      3      4      5      6      7      8      9      10     11     12
+fixed sync                              0.441  0.448  0.433  0.395  0.241  0.123  0.201  0.123  0.139  0.298  0.321  0.380
+fixed sync+lag1                         0.440  0.486  0.518  0.535  0.414  0.305  0.222  0.121  0.112  0.280  0.326  0.410
+fixed sync+lag3                         0.451  0.466  0.530  0.560  0.441  0.311  0.256  0.110  0.165  0.294  0.295  0.375
+fixed sync+lag6                         0.454  0.454  0.481  0.547  0.461  0.325  0.265  0.142  0.117  0.290  0.301  0.368
+fixed sync+lag3+lag6                    0.451  0.465  0.520  0.548  0.435  0.294  0.236  0.115  0.166  0.285  0.282  0.357
+menu: sync, sync+lag1                   0.424  0.485  0.517  0.535  0.410  0.305  0.214  0.121  0.120  0.288  0.315  0.397
+menu: sync, sync+lag6                   0.450  0.452  0.478  0.547  0.461  0.324  0.263  0.138  0.143  0.293  0.309  0.378
+menu: sync, +lag1, +lag3, +lag6 (main)  0.434  0.480  0.524  0.541  0.439  0.315  0.242  0.127  0.150  0.279  0.301  0.381
+menu of main, shared with neighbours    0.431  0.468  0.522  0.544  0.431  0.311  0.248  0.123  0.156  0.291  0.306  0.392
+
+Temperature, nested-CV rho by month:
+month                                     1     2     3     4     5     6     7     8     9     10    11    12
+fixed sync                              0.23  0.16  0.23  0.32  0.22  0.09  0.11  0.00  0.12  0.13  0.10  0.21
+fixed sync+lag1                         0.23  0.25  0.42  0.56  0.52  0.47  0.13 -0.01  0.11  0.11  0.19  0.27
+fixed sync+lag3                         0.26  0.18  0.44  0.57  0.52  0.46  0.18  0.08  0.12  0.11  0.01  0.15
+fixed sync+lag6                         0.22  0.25  0.42  0.59  0.53  0.46  0.19  0.18  0.14  0.12  0.06  0.14
+fixed sync+lag3+lag6                    0.23  0.28  0.42  0.58  0.53  0.46  0.18  0.12  0.11 -0.03  0.00  0.10
+menu: sync, sync+lag1                   0.19  0.25  0.42  0.56  0.52  0.47  0.13 -0.01  0.08  0.12  0.15  0.27
+menu: sync, sync+lag6                   0.21  0.25  0.42  0.59  0.53  0.46  0.19  0.18  0.10  0.11  0.04  0.12
+menu: sync, +lag1, +lag3, +lag6 (main)  0.24  0.23  0.40  0.59  0.44  0.47  0.14  0.14  0.06  0.11  0.13  0.22
+menu of main, shared with neighbours    0.18  0.16  0.39  0.56  0.47  0.41  0.17  0.14  0.12  0.06  0.13  0.25
+
+Temperature lag set by month:
+month                                               1               2               3               4               5               6               7               8               9               10              11              12
+fixed sync                                        sync            sync            sync            sync            sync            sync            sync            sync            sync            sync            sync            sync
+fixed sync+lag1                              sync+lag1       sync+lag1       sync+lag1       sync+lag1       sync+lag1       sync+lag1       sync+lag1       sync+lag1       sync+lag1       sync+lag1       sync+lag1       sync+lag1
+fixed sync+lag3                              sync+lag3       sync+lag3       sync+lag3       sync+lag3       sync+lag3       sync+lag3       sync+lag3       sync+lag3       sync+lag3       sync+lag3       sync+lag3       sync+lag3
+fixed sync+lag6                              sync+lag6       sync+lag6       sync+lag6       sync+lag6       sync+lag6       sync+lag6       sync+lag6       sync+lag6       sync+lag6       sync+lag6       sync+lag6       sync+lag6
+fixed sync+lag3+lag6                    sync+lag3+lag6  sync+lag3+lag6  sync+lag3+lag6  sync+lag3+lag6  sync+lag3+lag6  sync+lag3+lag6  sync+lag3+lag6  sync+lag3+lag6  sync+lag3+lag6  sync+lag3+lag6  sync+lag3+lag6  sync+lag3+lag6
+menu: sync, sync+lag1                             sync       sync+lag1       sync+lag1       sync+lag1       sync+lag1       sync+lag1       sync+lag1            sync       sync+lag1            sync       sync+lag1       sync+lag1
+menu: sync, sync+lag6                        sync+lag6       sync+lag6       sync+lag6       sync+lag6       sync+lag6       sync+lag6       sync+lag6       sync+lag6       sync+lag6       sync+lag6            sync            sync
+menu: sync, +lag1, +lag3, +lag6 (main)       sync+lag3       sync+lag6       sync+lag3       sync+lag6       sync+lag6       sync+lag1       sync+lag3       sync+lag6       sync+lag6       sync+lag6       sync+lag1       sync+lag1
+menu of main, shared with neighbours         sync+lag1       sync+lag3       sync+lag6       sync+lag6       sync+lag1       sync+lag3       sync+lag6       sync+lag6       sync+lag6       sync+lag1       sync+lag1       sync+lag1
+
+1997-98 scenario, deterministic temperature effect (°C), mean of the regions:
+                                        1997-01  1997-02  1997-03  1997-04  1997-05  1997-06  1997-07  1997-08  1997-09  1997-10  1997-11  1997-12  1998-01  1998-02  1998-03  1998-04  1998-05  1998-06  1998-07  1998-08  1998-09  1998-10  1998-11  1998-12
+fixed sync                                  0.0      0.0      0.0     0.13     0.16     0.08    -0.16    -0.06    -0.11     0.04     0.10     0.20     0.23     0.24     0.25     0.00     0.00     0.00     0.00     0.00     0.00      0.0      0.0      0.0
+fixed sync+lag1                             0.0      0.0      0.0    -0.33    -0.18    -0.15    -0.21    -0.06    -0.10     0.04     0.24     0.28     0.33     0.27     0.56     1.12     0.00     0.00     0.00     0.00     0.00      0.0      0.0      0.0
+fixed sync+lag3                             0.0      0.0      0.0    -0.09    -0.12    -0.11    -0.23    -0.07    -0.12     0.04     0.16     0.27     0.46     0.32     0.50     0.77     0.68     0.38     0.00     0.00     0.00      0.0      0.0      0.0
+fixed sync+lag6                             0.0      0.0      0.0    -0.02     0.03     0.04    -0.19    -0.06    -0.14     0.04     0.12     0.27     0.39     0.46     0.60     0.73     0.62     0.43     0.18     0.17     0.09      0.0      0.0      0.0
+fixed sync+lag3+lag6                        0.0      0.0      0.0    -0.04    -0.05    -0.05    -0.21    -0.11    -0.13     0.02     0.14     0.28     0.46     0.48     0.53     0.76     0.67     0.43     0.08     0.15     0.07      0.0      0.0      0.0
+menu: sync, sync+lag1                       0.0      0.0      0.0    -0.33    -0.18    -0.15    -0.21    -0.06    -0.10     0.04     0.24     0.28     0.26     0.27     0.56     1.12     0.00     0.00     0.00     0.00     0.00      0.0      0.0      0.0
+menu: sync, sync+lag6                       0.0      0.0      0.0    -0.02     0.03     0.04    -0.19    -0.06    -0.14     0.04     0.10     0.20     0.39     0.46     0.60     0.73     0.62     0.43     0.18     0.17     0.09      0.0      0.0      0.0
+menu: sync, +lag1, +lag3, +lag6 (main)      0.0      0.0      0.0    -0.02     0.03    -0.14    -0.23    -0.06    -0.14     0.04     0.24     0.28     0.46     0.46     0.50     0.73     0.62     0.00     0.00     0.17     0.09      0.0      0.0      0.0
+menu of main, shared with neighbours        0.0      0.0      0.0    -0.02    -0.17    -0.11    -0.19    -0.06    -0.14     0.04     0.24     0.28     0.33     0.32     0.60     0.73     0.00     0.40     0.18     0.17     0.09      0.0      0.0      0.0
+
+1997-98 scenario, deterministic rainfall effect (mm/month), mean of the regions:
+                                        1997-01  1997-02  1997-03  1997-04  1997-05  1997-06  1997-07  1997-08  1997-09  1997-10  1997-11  1997-12  1998-01  1998-02  1998-03  1998-04  1998-05  1998-06  1998-07  1998-08  1998-09  1998-10  1998-11  1998-12
+fixed sync                                  0.0      0.0      0.0    -21.0    -35.0    -21.0     27.0    -18.0    -17.0   -113.0    -72.0    -82.0    -83.0    -64.0    -54.0      0.0      0.0      0.0      0.0      0.0      0.0      0.0      0.0      0.0
+fixed sync+lag1                             0.0      0.0      0.0     10.0     -5.0    -24.0     23.0    -23.0    -20.0   -111.0    -76.0    -81.0    -84.0    -66.0    -65.0    -59.0      0.0      0.0      0.0      0.0      0.0      0.0      0.0      0.0
+fixed sync+lag3                             0.0      0.0      0.0     -6.0    -19.0    -19.0     24.0    -21.0    -11.0   -118.0    -77.0    -68.0    -90.0    -68.0    -65.0    -48.0    -39.0     -5.0      0.0      0.0      0.0      0.0      0.0      0.0
+fixed sync+lag6                             0.0      0.0      0.0    -10.0    -27.0    -19.0     27.0    -16.0    -11.0   -113.0    -72.0    -80.0    -91.0    -60.0    -65.0    -49.0    -41.0    -21.0      9.0      1.0     -1.0      0.0      0.0      0.0
+fixed sync+lag3+lag6                        0.0      0.0      0.0    -12.0    -35.0    -39.0     19.0    -23.0    -12.0   -121.0    -79.0    -68.0    -93.0    -52.0    -62.0    -47.0    -32.0    -15.0    -20.0    -12.0     10.0      0.0      0.0      0.0
+menu: sync, sync+lag1                       0.0      0.0      0.0     10.0     -5.0    -24.0     23.0    -23.0    -17.0   -113.0    -72.0    -81.0    -83.0    -66.0    -65.0    -59.0      0.0      0.0      0.0      0.0      0.0      0.0      0.0      0.0
+menu: sync, sync+lag6                       0.0      0.0      0.0    -10.0    -27.0    -19.0     27.0    -16.0    -17.0   -113.0    -72.0    -82.0    -91.0    -65.0    -65.0    -49.0    -41.0    -21.0      9.0      1.0      0.0      0.0      0.0      0.0
+menu: sync, +lag1, +lag3, +lag6 (main)      0.0      0.0      0.0    -10.0    -27.0    -19.0     24.0    -23.0    -11.0   -118.0    -72.0    -81.0    -91.0    -67.0    -65.0    -49.0    -41.0    -21.0      0.0      0.0      0.0      0.0      0.0      0.0
+menu of main, shared with neighbours        0.0      0.0      0.0     -6.0    -27.0    -19.0     23.0    -21.0    -11.0   -118.0    -77.0    -82.0    -84.0    -68.0    -65.0    -49.0    -41.0    -21.0      0.0      0.0      0.0      0.0      0.0      0.0

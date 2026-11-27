@@ -8,7 +8,9 @@ from scipy import stats
 
 def verify(obs: np.ndarray, pred: np.ndarray, columns) -> pd.DataFrame:
     """Per column: Spearman (and p-value), Pearson, 2AFC, ROC areas of the lower and upper thirds, RPSS, MSSS.
-    obs and pred are standardised anomalies (years x columns)."""
+    obs and pred are standardised anomalies (years x columns). The p-value is one-sided (alternative: Spearman > 0),
+    since only a positive correlation is skill: a hindcast that is anti-correlated with the observations is never
+    counted as significant."""
     resid_sd = np.sqrt(((obs - pred) ** 2).mean(0))
     rows = []
     for j, r in enumerate(columns):
@@ -16,7 +18,7 @@ def verify(obs: np.ndarray, pred: np.ndarray, columns) -> pd.DataFrame:
         if np.nanstd(o) == 0 or np.nanstd(f) == 0:
             rows.append(dict(column=r))
             continue
-        rs, ps = stats.spearmanr(f, o)
+        rs, ps = stats.spearmanr(f, o, alternative="greater")
         tau = stats.kendalltau(f, o).statistic
         t1, t2 = np.quantile(o, [1 / 3, 2 / 3])
         below, above = o < t1, o > t2
@@ -56,6 +58,8 @@ def bh_fdr(p, q=0.10) -> np.ndarray:
 
 
 def add_fdr(tbl: pd.DataFrame, q: float, by=("var", "cv")) -> pd.DataFrame:
+    """significant = the one-sided p-value of verify() passes Benjamini-Hochberg at FDR q, within each group of `by`
+    (for Stage 1: each variable, CV type and weighting, across its region-months)."""
     tbl = tbl.copy()
     tbl["significant"] = False
     for _, idx in tbl.groupby(list(by)).groups.items():

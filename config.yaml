@@ -45,14 +45,25 @@ model:
   cv_window: 5           # leave-5-years-out cross-validation
   my_grid: [1, 2, 3, 4, 5, 6]
   mc_grid: [1, 2]
-  # Lag sets the selection chooses from, in months before the target month (0 = the target month). Lags 3 and 6
-  # are the two previous non-overlapping 3-month seasons; adding them raised the nested-CV skill by about 0.03,
-  # mostly from March to August (scripts/helpers/analysis/lag_analysis.py). The path needs max(lag) observed lead-in months.
+  # Lag sets, in months before the target month (0 = the target month). Lags 3 and 6 are the two previous
+  # non-overlapping 3-month seasons. The path needs max(lag) observed lead-in months.
   lag_sets:
     sync: [0]
     sync+lag1: [0, 1]
     sync+lag3: [0, 3]
     sync+lag6: [0, 6]
+  # Which lag sets the models may use. The default is one fixed lag set, the target month and 6 months before, for
+  # every variable and calendar month: the cross-validation then chooses only the EOF and CCA modes. It has the same
+  # nested-CV skill as letting the CV choose the lag set month by month, but the effect of an El Nino no longer
+  # drops to zero in some months after it ends (README, "Lag rules"; scripts/helpers/analysis/lag_rules.py).
+  # To let the cross-validation choose instead, list several lag sets, e.g.
+  #   lag_candidates: [sync, sync+lag1, sync+lag3, sync+lag6]   # the previous default (the variant lags_menu)
+  # and pick how: lag_choice month = the best CV skill of each calendar month (lag set and modes together);
+  # window = the lag set with the best skill pooled over the month and its lag_window neighbours on each side,
+  # then the month's best modes. With a single candidate, lag_choice and lag_window have no effect.
+  lag_candidates: [sync+lag6]
+  lag_choice: month
+  lag_window: 1
   detrend_predictors: false
   nested_cv: true        # selection-honest skill (adds about 5 minutes)
   # Outer blocks of the nested CV: 5 seasonal years from July to June (Jul 1950-Jun 1955, ...), so every month of
@@ -71,6 +82,34 @@ model:
 variants:
   roni_dmi:                       # RONI + DMI: the sensitivity, and the model of the stress scenarios
     model: {predictors: [roni, dmi]}
+  # Other lag rules (see model.lag_candidates), each with its own models: python scripts/03_fit_climate_model.py --variant <name>
+  lags_menu:                      # the previous default: the CV chooses one of the four lag sets for each variable and month
+    model: {lag_candidates: [sync, sync+lag1, sync+lag3, sync+lag6]}
+  lags_window:                    # the same menu, with the lag set shared with the neighbouring months
+    model: {lag_candidates: [sync, sync+lag1, sync+lag3, sync+lag6], lag_choice: window, lag_window: 1}
+  lags_fixed36:                   # the target month, 3 and 6 months before, in every month
+    model: {lag_sets: {sync+lag3+lag6: [0, 3, 6]}, lag_candidates: [sync+lag3+lag6]}
+  # ... and the rest of the comparison in scripts/helpers/analysis/lag_rules.py (menus and fixed lag sets)
+  lags_menu_old:                  # the menu before lags 3 and 6 were added
+    model: {lag_candidates: [sync, sync+lag1]}
+  lags_sync_or6:                  # the target month alone, or with 6 months before
+    model: {lag_candidates: [sync, sync+lag6]}
+  lags_fixed0:                    # the target month only: no memory of earlier months
+    model: {lag_candidates: [sync]}
+  lags_fixed1:
+    model: {lag_candidates: [sync+lag1]}
+  lags_fixed3:
+    model: {lag_candidates: [sync+lag3]}
+  # The same lag rules with RONI + DMI (python scripts/helpers/analysis/lag_rules.py --predictors roni dmi);
+  # roni_dmi above is the default lag set (sync+lag6) with RONI + DMI.
+  roni_dmi_menu:     {model: {predictors: [roni, dmi], lag_candidates: [sync, sync+lag1, sync+lag3, sync+lag6]}}
+  roni_dmi_window:   {model: {predictors: [roni, dmi], lag_candidates: [sync, sync+lag1, sync+lag3, sync+lag6], lag_choice: window, lag_window: 1}}
+  roni_dmi_fixed0:   {model: {predictors: [roni, dmi], lag_candidates: [sync]}}
+  roni_dmi_fixed1:   {model: {predictors: [roni, dmi], lag_candidates: [sync+lag1]}}
+  roni_dmi_fixed3:   {model: {predictors: [roni, dmi], lag_candidates: [sync+lag3]}}
+  roni_dmi_fixed36:  {model: {predictors: [roni, dmi], lag_sets: {sync+lag3+lag6: [0, 3, 6]}, lag_candidates: [sync+lag3+lag6]}}
+  roni_dmi_menu_old: {model: {predictors: [roni, dmi], lag_candidates: [sync, sync+lag1]}}
+  roni_dmi_sync_or6: {model: {predictors: [roni, dmi], lag_candidates: [sync, sync+lag6]}}
   # A stress scenario: a strong El Nino with a strong positive IOD, on the RONI + DMI models. Write the monthly
   # path (date, roni, dmi) to the csv, then: python scripts/04_simulate.py --variant stress_nino_piod
   # stress_nino_piod:

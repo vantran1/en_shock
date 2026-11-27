@@ -70,15 +70,21 @@ def main(argv=None):
         raise SystemExit(f"only {ny} years of WBGT: the EOF-CCA needs the whole hourly record (step 6)")
 
     models, skill, cell_rows, cfgrows, prob, oos = {}, [], [], [], [], {}
+    rule = F.lag_rule(cfg)
     for v in variables:
         t0 = time.time()
+        packs, chosen = {}, {}
+        if rule["kind"] == "window":                 # the lag choice of Stage 1 (model.lag_choice)
+            packs = {m: F.cv_month(D, v, m) for m in months}
+            chosen = F.window_choice({m: F.E.select(p["cv"])[2] for m, p in packs.items()}, rule["width"])
+        nested_all = F.nested_var(D, v, months, wsets, [main_ws]) if nested else {}
         for m in months:
-            model, res = F.fit_one(D, v, m, wsets)
+            model, res = F.fit_one(D, v, m, wsets, pack=packs.pop(m, None), cfg=chosen.get(m))
             models[(v, m)] = model
             for ws, (o, p) in res["regional"].items():
                 skill.append(skill_rows(D, ws, v, m, o, p, "plain"))
             oos[(v, m)] = {"cv": res["regional_phys"][main_ws]}
-            nres = F.nested_one(D, v, m, wsets, [main_ws]) if nested else None
+            nres = nested_all.pop(m) if nested else None
             if nres:
                 for ws, d in nres["regional"].items():
                     skill.append(skill_rows(D, ws, v, m, d["obs"], d["pred"], "nested"))

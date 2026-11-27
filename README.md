@@ -53,7 +53,7 @@ python scripts/run_all.py --labour        # with labour
 |---|---|---|---|
 | 00 | `00_download_inputs.py` | land-sea mask, land cover, population, C3S forecasts (`--all`, or `--c3s` each month) | `data/shared/`, `data/agriculture/` |
 | 01 | `01_prepare_inputs.py` | ERA5 land cells; area, cropland and population weights; monthly Table 2 fields; observed tables | `outputs/<section>/`, `outputs/shared/` |
-| 02 | `02_hourly_metrics.py` | hourly rows of Table 2 (EDD, TMAX, TMIN, …), once the hourly files are there | `outputs/shared/work/` |
+| 02 | `02_hourly_metrics.py` | hourly rows of Table 2 (EDD, TMAX, TMIN, …) and the monthly mean of hourly VPD, once the hourly files are there | `outputs/shared/work/` |
 | 03 | `03_fit_climate_model.py` | EOF–CCA fit, cross-validation, nested CV, skill; historical fitted values | `outputs/shared/skill/`, `hist_fitted_*` |
 | 04 | `04_simulate.py` | the scenario path (latest C3S forecast) and its simulated weather; `--scenarios` adds the direct-approach scenarios | `outputs/shared/path.csv`, section tables |
 | 05 | `05_agriculture.py` | hand-off check of the agriculture files (Stage 2 runs here once merged) | |
@@ -98,7 +98,7 @@ Every section draws on the same fit and the same historical blocks $Y_b$, so a d
 
 **The land-sea mask is required.** Step 1 keeps the cells with an ERA5 land fraction of at least 0.5 (v5, Section 3.3.2), from `data/shared/era5/era5_land_sea_mask_0.25deg_phl.nc` (or `python scripts/00_download_inputs.py --lsm`). With the 2020 mask the model has **349 cells**. Without the cropland or population files, area weights are used instead, and every output that depends on them says so (`weights` column, `shared/weights_coverage.csv`, `shared/run_metadata.json`).
 
-**Hourly data: EDD and WBGT.** Both come from the hourly ERA5 files (`era5_YYYY_MM.nc`, one per month, with `t2m`, `d2m`, `tp`, `sp`, `u10`, `v10` and `ssrd`). `scripts/helpers/hourly_wbgt_edd.py` reads each month once and saves both products (`outputs/shared/work/hourly_metrics/`, `outputs/shared/work/wbgt_hourly/`), so it can be stopped and run again; with `--azure` it downloads the months that are not here, and with `--delete-raw` it removes a raw file once both products of its month and of the next are saved. `--tables` writes the fields and observed tables of step 02 and of labour once every month is done (`--allow-incomplete` writes them with the missing months as NaN). After step 02, refit with `scripts/03_fit_climate_model.py` (and `--variant roni_dmi`): TMAX, TMIN, EDD, NHOT, NDRY, LDRY, N50 and VPDMAX become extra variables, and TMAX and TMIN are added to the electricity outputs. EDD and NHOT use T\* = 35 °C (`hourly.t_star`), where EDD is zero in most region-months; each lower threshold in `hourly.t_star_extra` (30 and 32 °C) adds the same pair, named after it: EDD30, NHOT30, EDD32 and NHOT32. Changing the thresholds makes step 02 recompute every stored month.
+**Hourly data: EDD and WBGT.** Both come from the hourly ERA5 files (`era5_YYYY_MM.nc`, one per month, with `t2m`, `d2m`, `tp`, `sp`, `u10`, `v10` and `ssrd`). `scripts/helpers/hourly_wbgt_edd.py` reads each month once and saves both products (`outputs/shared/work/hourly_metrics/`, `outputs/shared/work/wbgt_hourly/`), so it can be stopped and run again; with `--azure` it downloads the months that are not here, and with `--delete-raw` it removes a raw file once both products of its month and of the next are saved. `--tables` writes the fields and observed tables of step 02 and of labour once every month is done (`--allow-incomplete` writes them with the missing months as NaN). After step 02, refit with `scripts/03_fit_climate_model.py` (and `--variant roni_dmi`): TMAX, TMIN, EDD, NHOT, NDRY, LDRY, N50 and VPDMAX become extra variables, and TMAX and TMIN are added to the electricity outputs. Step 02 also replaces VPD by the monthly mean of hourly VPD, max(e_s(T) − e_s(T_d), 0) averaged over every hour of the month: e_s is convex, so the VPD of the monthly-mean t2m and d2m that step 01 computes is biased low, and by more in months with a wide daily temperature range. Without step 02 the model falls back to the step-01 VPD and step 03 prints a note. VPDMAX (the afternoon VPD) is the mean over the days of each day's highest hourly VPD. EDD and NHOT use T\* = 35 °C (`hourly.t_star`), where EDD is zero in most region-months; each lower threshold in `hourly.t_star_extra` (30 and 32 °C) adds the same pair, named after it: EDD30, NHOT30, EDD32 and NHOT32. Changing the thresholds makes step 02 recompute every stored month.
 
 **Variants.** `model.predictors` in `config.yaml` sets the indices of the main run (`[roni]`). A variant is a named set of overrides under `variants:`, with its own models (`outputs/shared/work/variants/<name>/`) and outputs (`outputs/shared/variants/<name>/`, with the same sub-folders as `outputs/`), reading the shared inputs of the main run. `roni_dmi` is the RONI + DMI model: use its RONI and DMI effects together; adding the DMI effect to the RONI-alone model would count the IOD twice. A stress scenario (for example a strong El Niño with a strong positive IOD) is a path csv plus a variant like the commented `stress_nino_piod`, run with `python scripts/04_simulate.py --variant stress_nino_piod`. The scenarios of the direct approach (`scen_*`, path tables in `data/shared/paths/`) run with `python scripts/04_simulate.py --scenarios-only` and are written to `outputs/shared/scenarios/` with every month of their tables, the 6 leading zero months included; their variants set `path.lead_in: zero`, so the months before a table are zeros rather than the observed indices and those leading months are exactly neutral. Steps 04 and 06 stop with a message if the saved models were fitted with other predictors than the run asks for.
 
@@ -126,7 +126,7 @@ All tables are CSV with one row per region (or cell) and month. Dates are the fi
 | Column | Variable | Units |
 |---|---|---|
 | T | mean 2 m temperature | °C |
-| VPD | vapour pressure deficit | kPa |
+| VPD | vapour pressure deficit, monthly mean of hourly values (step 02) | kPa |
 | P | precipitation | mm/month |
 | SM_RZ | root-zone soil moisture (swvl1–3 weighted 7/21/72 cm) | m³/m³ |
 | SM_DEEP | deep soil moisture (swvl4) | m³/m³ |
@@ -196,7 +196,7 @@ The WBGT and shock files of steps 6–8 are listed under *Labour* below.
 
 | File | Content |
 |---|---|
-| `skill_summary.csv` | per variable and weight set: CV and nested-CV Spearman ρ, share of significant region–months (FDR 10 %), RPSS, 2AFC, CRPSS, coverage |
+| `skill_summary.csv` | per variable and weight set: CV and nested-CV Spearman ρ, share of significant region–months (one-sided test of ρ > 0, Benjamini–Hochberg FDR 10 % per variable), RPSS, 2AFC, CRPSS, coverage |
 | `skill_<weights>.csv` | per variable, month and region (`cv` = plain or nested) |
 | `skill_cells.csv` | per cell |
 | `hindcasts.csv` | observed and cross-validated standardised anomalies, for checking past episodes |
@@ -210,7 +210,7 @@ For each variable $v$ and target month $m$:
 1. **Transform each cell.** Gamma for P and RO, empirical for the counts from hourly data, identity otherwise. Within each training window, remove a linear trend and standardise.
 2. **Reduce the cells.** Take the leading EOFs of the cells (the $M_y$ modes).
 3. **Fit the CCA.** Run a CCA between those EOFs and the standardised predictors (the $M_c$ modes). The predictors are the indices of `model.predictors` (RONI; RONI and DMI in the `roni_dmi` variant) in the target month, alone (`sync`) or together with their values 1, 3 or 6 months earlier (`sync+lag1`, `sync+lag3`, `sync+lag6`; `model.lag_sets` in `config.yaml`). With RONI alone and one lag, $M_c$ is 1.
-4. **Choose the configuration.** $M_y \in 1..6$, $M_c \in 1..2$ and the lag set are chosen by the mean leave-5-out CV Spearman ρ over the cells. The transform, trend, standardisation, EOFs and CCA are re-estimated inside every fold; the choice of configuration is made once, on all years. The nested cross-validation (`outputs/shared/skill/`, `*_nested`) repeats the choice inside each outer fold: 5-year blocks of July–June seasons (Jul 1950–Jun 1955, Jul 1955–Jun 1960, …) are held out in turn, so every month of an ENSO season is held out together and no El Niño (1997–98, 2015–16, 2023–24, but also 1994–95 or 2009–10) is split between training and test. January–June targets are counted with the season that began the previous July.
+4. **Choose the configuration.** $M_y \in 1..6$ and $M_c \in 1..2$ are chosen by the mean leave-5-out CV Spearman ρ over the cells. The lag set is fixed: the target month and 6 months before (`sync+lag6`, `model.lag_candidates`), for every variable and month (see *Lag rules* below). If `model.lag_candidates` lists several lag sets, the lag set is chosen with $M_y$ and $M_c$ (month by month, or shared with the neighbouring months with `model.lag_choice: window`). The transform, trend, standardisation, EOFs and CCA are re-estimated inside every fold; the choice of configuration is made once, on all years. The nested cross-validation (`outputs/shared/skill/`, `*_nested`) repeats the choice inside each outer fold: 5-year blocks of July–June seasons (Jul 1950–Jun 1955, Jul 1955–Jun 1960, …) are held out in turn, so every month of an ENSO season is held out together and no El Niño (1997–98, 2015–16, 2023–24, but also 1994–95 or 2009–10) is split between training and test. January–June targets are counted with the season that began the previous July.
 5. **Refit and simulate.** The model is refitted on all years, and the CV residual maps are kept for simulation.
 
 **Weather for path $x$ in draw $b$.** At each cell,
@@ -254,7 +254,7 @@ Months between the last observation and the forecast are flagged, and are interp
 * **Agri §3.3.3.** One model per variable, with the joint model of Eq. 8 run as a check (`skill/joint_check.csv`). The selection criterion is the mean CV Spearman correlation over the cells of that variable.
 * **Electricity §3.2, NCR paragraph.** NCR is covered by the grid model (its cells are population-weighted). The multiple regression is no longer needed; the average of Central Luzon and CALABARZON remains as a check.
 * **Land mask.** Cells with ERA5 land fraction < 0.5 are dropped, as in the text (349 cells). So are cells without soil water in ERA5, though with the 2020 mask none is.
-* **Agri §3.3.3, model selection (predictor lags).** The text leaves the lags open. The candidates are now the target month alone, or with the index 1, 3 or 6 months earlier (lags 3 and 6 are the two previous non-overlapping 3-month seasons). A suggested sentence: "The predictor is the RONI in the target month, alone or together with its value one, three or six months earlier; the lag set is chosen with M_y and M_c." See *Predictor lags* below for why.
+* **Agri §3.3.3, model selection (predictor lags).** v5 says the lags are chosen for each target month. Since 27 November 2026 the lag set is fixed instead: the RONI of the target month and of 6 months earlier, for every variable and month, and the cross-validation chooses only $M_y$ and $M_c$. The other lag sets (1 or 3 months earlier, or a choice among them month by month) stay available in `config.yaml` (`model.lag_candidates`, and the variants `lags_*`). A suggested sentence: "The predictors are the RONI in the target month and six months earlier, for every variable and month; M_y and M_c are chosen by cross-validation." See *Lag rules* below for why.
 * **Predictors (to be agreed).** The text uses RONI and DMI. The main specification here uses RONI alone, and keeps RONI + DMI as a sensitivity and for stress scenarios (variant `roni_dmi`); see *The DMI* below. A suggested sentence: "The DMI does not improve the out-of-sample hindcasts and is therefore left out of the main specification; a model with both indices is kept for sensitivity analyses and for scenarios that combine El Niño with a positive IOD."
 
 **Predictor lags.** `scripts/helpers/analysis/lag_analysis.py` compared 19 lag sets (sync; sync + lag 1…k for k ≤ 6; single lags 1–6; sync + one lag of 1–6; sync + lags 3 and 6) with the fit's own cross-validation, on 1951–2025, and tested whole menus of lag sets with nested cross-validation (`outputs/shared/analysis/lags/`). (It was run before the switch to the ERA5 land-sea mask and to RONI alone, on 367 cells with RONI and DMI; the choice of lags it supports does not depend on those changes, but the numbers would move slightly if it were run again.) Averaged over the 10 variables and 12 months, the selection-honest skill over the 16 regions (cropland weights) was:
@@ -268,6 +268,71 @@ Months between the last observation and the forecast are flagged, and are interp
 | all 19 lag sets | 0.363 |
 
 The gain is from March to August (e.g. May 0.40 → 0.48, August 0.01 → 0.11) and largest for soil moisture, runoff, SPEI-3 and temperature; October to February barely change. In those months the selection points back to the RONI of the previous December–February, the ENSO peak: the Philippine weather of spring and summer still responds to the El Niño or La Niña of the past winter. The signal is in the lagged RONI, not the DMI (`scripts/helpers/analysis/lag_mechanism.py`). Of the menus that gained, the one used here lost more than 0.02 in the fewest variable-months (18 %) and gave the most stable choice across folds. Because lag 6 needs the indices of the second half of 1949, which do not exist, January–June targets are fitted on 1951–2025.
+
+**Lag rules** (`model.lag_choice` and `model.lag_candidates`; `scripts/helpers/analysis/lag_rules.py`, `outputs/shared/analysis/lag_rules/summary.txt`). **Since 27 November 2026 the default is the fixed lag set sync+lag6** (`model.lag_candidates: [sync+lag6]`), for both models and the WBGT fit, following the comparison below. The comparison was run before the switch: in its tables and in `summary.txt`, "main" is the previous default (the menu of four lag sets chosen month by month, now the variant `lags_menu`), `lags_fixed6` is what the main fit now is, and "% significant" counts two-sided tests (now one-sided, see *Switch to sync+lag6* below). The analysis above compared menus of lag sets for the selection to choose from. It did not compare them with a fixed lag set, the same in every month, where the CV chooses only the EOF and CCA modes. This comparison does, on the current setup (RONI alone, 349 cells, 22 variables, 16 regions with cropland weights, selection-honest nested CV).
+
+**Why it matters.** When the lag set is chosen month by month, neighbouring months look back different distances: 186 of the 264 variable-months change lag set from the month before. An effect then drops to zero in any month whose model doesn't look back as far as the last month with a non-zero RONI. In the 1997–98 scenario, the temperature effect is +0.62 °C in May 1998, 0 in June and July, and +0.17 °C in August.
+
+The last column counts, over the four scenario paths, the months with a temperature effect below 0.02 °C in the six months after the El Niño ends:
+
+| Lag sets (variant) | Nested ρ | % significant | CRPSS | T effect ≈ 0 in the 6 months after El Niño (of 24) |
+|---|---|---|---|---|
+| fixed: sync (`lags_fixed0`) | 0.292 | 59.4 | 0.067 | 24 |
+| fixed: sync+lag1 (`lags_fixed1`) | 0.345 | 68.2 | 0.088 | 20 |
+| fixed: sync+lag3 (`lags_fixed3`) | 0.352 | 68.2 | 0.091 | 12 |
+| fixed: sync+lag6 (`lags_fixed6`) | 0.349 | 69.3 | 0.092 | 1 |
+| fixed: sync+lag3+lag6 (`lags_fixed36`) | 0.344 | 67.4 | 0.089 | 1 |
+| menu: sync, sync+lag1 (`lags_menu_old`) | 0.342 | 67.9 | 0.086 | 20 |
+| menu: sync, sync+lag6 (`lags_sync_or6`) | 0.351 | 68.8 | 0.092 | 2 |
+| menu: sync, +lag1, +lag3, +lag6 (main) | 0.349 | 66.5 | 0.090 | 8 |
+| the main menu, shared with neighbouring months (`lags_window`) | 0.350 | 67.2 | 0.090 | 6 |
+
+- **Memory of earlier months matters.** Without it (sync only) the skill is 0.292; adding any lag raises it by 0.05–0.06.
+- **Choosing the lag month by month adds nothing out of sample.** The best fixed lag set (sync+lag3, 0.352) is as good as any menu. The main menu's plain-CV ρ (0.373) is inflated by the choice itself.
+- **Only the rules built on lag 6 keep the effect after the El Niño**, among those within 0.01 of the best skill. A scenario's RONI is zero once its El Niño months end, so a month whose model looks back k months sees only zeros from k months after the end. Six months reaches back to the winter ENSO peak, which spring and summer still respond to. With sync+lag6 the 1997–98 effect fades smoothly: +0.62, +0.43, +0.18 and +0.17 °C from May to August 1998. The one month below 0.02 °C, November 2002 in the unit path, is a small response rather than a missing one.
+- **Fixed sync+lag6 against the main menu, by variable.** It raises the skill of T (0.263 → 0.274), TMAX (0.288 → 0.302), TMIN (0.215 → 0.233) and deep soil moisture (0.431 → 0.443), and lowers that of rainfall (0.361 → 0.344), PET (0.383 → 0.370) and evaporation (0.199 → 0.187).
+
+**With RONI + DMI** (`roni_dmi_<rule>` variants and `roni_dmi`; `lag_rules.py --predictors roni dmi`, `outputs/shared/analysis/lag_rules/roni_dmi/summary.txt`), the result is the same:
+
+| Lag sets (RONI + DMI) | Nested ρ | % significant | CRPSS | T effect ≈ 0 in the 6 months after El Niño (of 24) |
+|---|---|---|---|---|
+| fixed: sync | 0.290 | 58.9 | 0.069 | 24 |
+| fixed: sync+lag1 | 0.335 | 65.0 | 0.086 | 20 |
+| fixed: sync+lag3 | 0.348 | 67.1 | 0.092 | 12 |
+| fixed: sync+lag6 | 0.357 | 70.5 | 0.093 | 1 |
+| fixed: sync+lag3+lag6 | 0.346 | 65.4 | 0.088 | 1 |
+| menu: sync, sync+lag1 | 0.332 | 65.2 | 0.086 | 20 |
+| menu: sync, sync+lag6 | 0.356 | 70.3 | 0.093 | 2 |
+| menu: sync, +lag1, +lag3, +lag6 (`roni_dmi`) | 0.351 | 68.2 | 0.090 | 5 |
+| the menu, shared with neighbouring months | 0.357 | 69.1 | 0.093 | 2 |
+
+- **Fixed sync+lag6 is tied for the best skill**, has the highest share of significant region-months, and leaves one month near zero.
+- **The 1997–98 temperature effect fades** from +0.72 °C in May 1998 to +0.62, +0.42 and +0.29 °C in June, July and August.
+- **The DMI adds a little with the fixed lag:** 0.357 against 0.349 with RONI alone.
+
+**Switch to sync+lag6: before and after** (re-run of 27 November 2026). Skill over the 16 regions with cropland weights, selection-honest nested CV. "% significant" is now a one-sided test (Spearman ρ > 0, Benjamini–Hochberg at 10 % within each variable, `verify.py`): before, the test was two-sided, so a region-month whose hindcast was anti-correlated with the observations could count as significant. The "before" column is recomputed with the one-sided test, so the two columns compare like with like. The re-run also includes the monthly mean of hourly VPD (VPD changes for that reason, not because of the lags); without VPD the totals move by at most 0.002.
+
+| | RONI before | RONI after | RONI + DMI before | RONI + DMI after |
+|---|---|---|---|---|
+| Nested ρ, mean of the 22 variables | 0.349 | 0.348 | 0.351 | 0.357 |
+| % significant (one-sided) | 70.6 | 72.1 | 72.0 | 74.7 |
+| T effect ≈ 0 in the 6 months after El Niño (of 24) | 8 | 1 | 5 | 1 |
+
+The variables Stage 2 relies on most (nested ρ, and % of region-months significant):
+
+| Variable | RONI before | RONI after | RONI + DMI before | RONI + DMI after |
+|---|---|---|---|---|
+| Rainfall (P) | 0.361 (79.7) | 0.344 (79.7) | 0.341 (77.6) | 0.348 (77.6) |
+| Root-zone soil moisture, all months | 0.429 (82.8) | 0.426 (82.3) | 0.441 (84.9) | 0.442 (84.4) |
+| Root-zone soil moisture, each region's driest month¹ | 0.599 (93.8) | 0.560 (87.5) | 0.618 (100) | 0.568 (87.5) |
+| Root-zone soil moisture, March–May | 0.611 (93.8) | 0.576 (91.7) | 0.625 (100) | 0.588 (93.8) |
+| Runoff (RO) | 0.434 (83.9) | 0.436 (88.0) | 0.456 (88.5) | 0.439 (87.5) |
+| Longest dry spell (LDRY) | 0.332 (81.3) | 0.327 (83.3) | 0.311 (75.0) | 0.317 (78.1) |
+| Extreme degree-days above 30 °C (EDD30) | 0.285 (65.6) | 0.275 (63.0) | 0.299 (69.8) | 0.312 (78.1) |
+
+¹ The calendar month with the lowest 1991–2020 mean root-zone soil moisture in each region: April in 13 regions, May in Cagayan Valley, Eastern Visayas and Caraga (16 region-months, so one region is 6 percentage points).
+
+With RONI alone, rainfall loses 0.017 and soil moisture in the dry season about 0.035; soil moisture over the year, runoff and the dry spell hold. With RONI + DMI, rainfall gains a little and runoff loses 0.017. For soil moisture the menu chose sync+lag3 in March and April (April is the driest month in most regions), which the fixed lag set gives up. In exchange, the scenario effects no longer drop to zero after an El Niño.
 
 **What `*_fitted`, `*_cv` and `*_nested` are.** All three are the deterministic response $\widehat W(x_{obs}(Y); Y)$ to the observed indices of that month (RONI in the main run, RONI and DMI in the `roni_dmi` variant), with no residual, in physical units and averaged over the region. They differ in what the model saw:
 

@@ -65,6 +65,8 @@ outputs/**
 !outputs/shared/analysis/nonlinear/summary.txt
 !outputs/shared/analysis/nonlinear/nonlinear_summary.png
 !outputs/shared/analysis/lags/*.png
+!outputs/shared/analysis/lag_rules/summary.txt
+!outputs/shared/analysis/lag_rules/roni_dmi/summary.txt
 !outputs/shared/scenarios/**
 !outputs/shared/variants/roni_dmi/agriculture/hist_fitted_16regions.csv
 !outputs/shared/variants/roni_dmi/skill/skill_summary.csv

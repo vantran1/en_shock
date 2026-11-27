@@ -2,7 +2,8 @@
 """EDD and WBGT from the hourly ERA5, month by month, as the files arrive from Azure.
 
 One pass over the hourly files: every month is read once, at the model cells, and gives
-  * the hourly rows of Table 2 (agricultural note): TMAX, TMIN, EDD, NHOT, NDRY, LDRY, N50, VPDMAX, with
+  * the hourly rows of Table 2 (agricultural note): TMAX, TMIN, EDD, NHOT, NDRY, LDRY, N50, VPDMAX, and the
+    monthly mean of hourly VPD (which replaces the VPD of the monthly means), with
     EDD = sum over the hours of max(0, T_h - T*) / 24 and T* = hourly.t_star (35 °C, rice at flowering), and
     EDD30, NHOT30, EDD32, NHOT32 at the lower thresholds of hourly.t_star_extra
     -> outputs/shared/work/hourly_metrics/   (what step 2 computes)

@@ -2,7 +2,8 @@
 """Step 3, fit the climate model: Stage 1 on the ERA5 cells and verify it with each section's weights.
 
 One EOF-CCA per variable and target month (Section 3.3.3), cross-validated leave-5-years-out, with the
-configuration (lags, My, Mc) chosen by the mean CV Spearman correlation over the cells. The cell predictions
+configuration (My, Mc, and the lag set when model.lag_candidates allows more than one; by default it is fixed at
+sync+lag6) chosen by the mean CV Spearman correlation over the cells. The cell predictions
 are then aggregated with the weights of each section for the regional skill. Also: nested CV, the joint
 model as a check, the temperature coefficients for labour and, for each section, the historical fitted values.
 
@@ -73,10 +74,18 @@ def main(argv=None):
     models, diag, skill, cell_rows, hind, prob_rows = {}, {}, [], [], {}, []
     oos = {ws: {} for ws in main_sets}           # out-of-sample regional predictions, physical units
     t_all = time.time()
+    rule = F.lag_rule(cfg)
+    if rule["kind"] != "month":
+        print(f"lag choice: {rule['kind']} (+-{rule['width']} months); lag sets {', '.join(D.lag_sets)}")
     for v in variables:
         t0 = time.time()
+        packs, chosen = {}, {}
+        if rule["kind"] == "window":
+            packs = {m: F.cv_month(D, v, m) for m in months}
+            chosen = F.window_choice({m: F.E.select(p["cv"])[2] for m, p in packs.items()}, rule["width"])
+        nested_all = F.nested_var(D, v, months, wsets, main_sets) if nested else {}
         for m in months:
-            model, res = F.fit_one(D, v, m, wsets)
+            model, res = F.fit_one(D, v, m, wsets, pack=packs.pop(m, None), cfg=chosen.get(m))
             models[(v, m)] = model
             diag[(v, m)] = dict(scores=res["scores"], cell_rho=res["cell_rho"], years=res["years"])
             for ws, (o, p) in res["regional"].items():
@@ -90,7 +99,7 @@ def main(argv=None):
                     oos[ws][(v, m)] = {"cv": res["regional_phys"][ws]}
             nres = None
             if nested:
-                nres = F.nested_one(D, v, m, wsets, main_sets)
+                nres = nested_all.pop(m)
                 diag[(v, m)]["nested_cell_rho"] = nres["cell_rho"]
                 diag[(v, m)]["nested_configs"] = nres["chosen"]
                 for ws, d in nres["regional"].items():

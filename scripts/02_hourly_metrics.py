@@ -6,7 +6,8 @@ Each month is computed once and kept in outputs/shared/work/hourly_metrics/, so 
 only computes the months that have arrived since (scripts/helpers/hourly_wbgt_edd.py fills the same store, together with
 the WBGT of step 6, straight from Azure). The step then writes outputs/shared/work/fields_hourly.pkl; steps 3-5 add TMAX, TMIN,
 EDD, NHOT, NDRY, LDRY, N50 and VPDMAX as extra columns of the same region x month tables, with EDD<t> and NHOT<t>
-for each lower threshold of hourly.t_star_extra (EDD30, NHOT30, EDD32, NHOT32). Months without a file
+for each lower threshold of hourly.t_star_extra (EDD30, NHOT30, EDD32, NHOT32), and the monthly mean of hourly VPD
+replaces the VPD of step 1 (computed from the monthly-mean t2m and d2m). Months without a file
 are NaN. Without hourly files or stored months this step does nothing.
 
   python scripts/02_hourly_metrics.py

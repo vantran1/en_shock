@@ -9,6 +9,11 @@ EDD = sum over the hours of the month of max(0, T_h - T*) / 24, in °C·day per 
 exceeds T*. Each threshold of hourly.t_star_extra (30 and 32 °C) adds the same two metrics, named after it (EDD30,
 NHOT30, EDD32, NHOT32): at 35 °C EDD is zero in most region-months.
 
+VPD (a monthly row of Table 2) is also computed here, as the mean over every hour of the month of
+max(e_s(T_h) - e_s(Td_h), 0), and replaces the VPD of the monthly-mean t2m and d2m (era5.table2_fields) wherever the
+hourly fields are loaded. e_s is convex, so VPD from monthly means is biased low, and by more in months with a wide
+daily temperature range. VPDMAX is the mean over the days of each day's highest hourly VPD (the afternoon VPD).
+
 Each month is computed once and kept in outputs/shared/work/hourly_metrics/ (one small file per month, with the settings it was
 computed with), so step 2 and scripts/helpers/hourly_wbgt_edd.py can be stopped, resumed and re-run as hourly files arrive.
 """
@@ -22,7 +27,7 @@ import pandas as pd
 
 from .era5 import open_any, sat_vapour_pressure_kpa
 
-METRICS = ["TMAX", "TMIN", "EDD", "NHOT", "NDRY", "LDRY", "N50", "VPDMAX"]   # plus EDD<t>, NHOT<t>: metric_names()
+METRICS = ["TMAX", "TMIN", "EDD", "NHOT", "NDRY", "LDRY", "N50", "VPDMAX", "VPD"]   # plus EDD<t>, NHOT<t>: metric_names()
 VARIABLES = ("t2m", "d2m", "tp")
 SETTING_KEYS = ("t_star", "t_star_extra", "dry_mm", "heavy_mm", "utc_offset_hours", "allow_partial_months")
 
@@ -127,6 +132,7 @@ def month_metrics(cur: dict, prev: dict | None, year: int, month: int, H: dict, 
         "LDRY": longest.astype(float),
         "N50": (Pd >= H["heavy_mm"]).sum(0) * scale,
         "VPDMAX": vpd.max(1).mean(0),
+        "VPD": vpd.mean((0, 1)),                                    # monthly mean of hourly VPD
     }
     for t in H.get("t_star_extra", []):                             # lower thresholds (EDD30, NHOT30, ...)
         m[f"EDD{t:g}"] = np.clip(Tc - t, 0, None).sum((0, 1)) / 24.0 * scale

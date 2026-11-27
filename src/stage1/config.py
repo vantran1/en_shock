@@ -15,7 +15,7 @@ SECTIONS = ("agriculture", "electricity", "labour", "prices")
 # key: (long name, units, aggregation over a quarter, transform, source)
 PREDICTANDS = {
     "T": ("Mean 2 m temperature", "°C", "mean", "none", "monthly"),
-    "VPD": ("Vapour pressure deficit", "kPa", "mean", "none", "monthly"),
+    "VPD": ("Vapour pressure deficit, monthly mean of hourly values", "kPa", "mean", "none", "monthly"),
     "P": ("Total precipitation", "mm/month", "sum", "gamma", "monthly"),
     "SM_RZ": ("Root-zone soil moisture, 0-100 cm", "m³/m³", "mean", "none", "monthly"),
     "SM_DEEP": ("Deep soil moisture, 100-289 cm", "m³/m³", "mean", "none", "monthly"),

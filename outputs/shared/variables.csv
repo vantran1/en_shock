@@ -1,6 +1,6 @@
 column,long_name,units,source
 T,Mean 2 m temperature,°C,monthly
-VPD,Vapour pressure deficit,kPa,monthly
+VPD,"Vapour pressure deficit, monthly mean of hourly values",kPa,monthly
 P,Total precipitation,mm/month,monthly
 SM_RZ,"Root-zone soil moisture, 0-100 cm",m³/m³,monthly
 SM_DEEP,"Deep soil moisture, 100-289 cm",m³/m³,monthly
