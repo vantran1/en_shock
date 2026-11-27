@@ -19,7 +19,7 @@ price). Driver for all channels: RONI + DMI (NOAA). Deadline for results: 30 Jan
 - Agriculture: Van = stage 1 of the two-stage approach (RONI + DMI -> regional weather);
   Ginevra = direct model and stage 2 (weather -> production).
 - Labour and electricity: to be confirmed.
-- Shared: climate-index loader, ERA5-Land processing, uncertainty method, output format.
+- Shared: climate-index loader, ERA5 processing, uncertainty method, output format.
 
 ## Channel 1 — Agriculture
 Output: quarterly share of planned production lost, one shock for each of DEFINE-PH's five
@@ -40,7 +40,7 @@ Method:
   changes from 2000, corn's does not. RONI only: DMI dropped for agriculture and Stage 1
   (agreed with Alper 27 Nov 2026), kept as a variant and for stress scenarios.
   Lags ~4 quarters for rice/corn, longer for the vegetable-and-fruit index.
-- Two-stage (check): stage 1 RONI -> regional weather (ERA5-Land, from 1950);
+- Two-stage (check): stage 1 RONI -> regional weather (ERA5, from 1950);
   stage 2 weather -> production (regression vs gradient boosting / GP, compared out of
   sample on held-out years). Combine by SIMULATION (draw weather outcomes, average losses).
 - Reliability flag: mark scenario results where simulated weather goes beyond the
@@ -51,7 +51,7 @@ DA damage records for validation only.
 
 ## Channel 2 — Labour productivity
 Output: quarterly productivity loss for agriculture, electricity and other sectors.
-Method: ERA5-Land hourly -> WBGT (Liljegren outdoor, Bernard indoor; cross-check pywbgt
+Method: ERA5 hourly -> WBGT (Liljegren outdoor, Bernard indoor; cross-check pywbgt
 vs PyWBGT) -> El Niño effect on WBGT -> Hothaps loss functions (Kjellstrom 2018 /
 Bröde 2018; heavy/moderate/light) hourly -> daily loss -> quarterly average.
 Sectors: agriculture outdoor heavy; electricity indoor moderate; other = construction
@@ -64,7 +64,7 @@ out-of-sample predictions (Alper, 27 Nov 2026).
 Outputs: (1) rise in electricity demand (household electricity share); (2) rise in the
 marginal generation price (DEFINE-PH Eq. 168), by grid, as a range; (3) theta = spot
 market share. Hydropower dropped.
-Method: RONI + DMI -> CDD (ERA5-Land, population-weighted, threshold chosen by fit per
+Method: RONI + DMI -> CDD (ERA5, population-weighted, threshold chosen by fit per
 grid) -> monthly consumption and peak demand (paper eq. 5) -> price on reserve margin
 (available capacity), oil as control -> quarterly values.
 Fallback if El Niño -> CDD is too weak: scenario assumptions based on 2024.
@@ -94,8 +94,10 @@ Food price pass-through and timing, El Niño public spending.
 - Climate indices: RONI from ERSST (main; from 1950); OISST and legacy ONI for robustness
   only. DMI: dmi_had. Treat -9999 as missing. Check whether a file is monthly relative
   Niño-3.4 or the 3-month RONI before use.
-- ERA5-Land (Copernicus CDS) for all weather variables; no PAGASA station requests.
-- One shared loader for climate indices and ERA5-Land (src/climate/), used by every module.
+- ERA5 single levels (Copernicus CDS), 0.25 deg grid, for all weather variables (not ERA5-Land): monthly
+  means and hourly files (era5_YYYY_MM.nc, on Van's Azure Blob container); Stage 1 keeps the 349 cells
+  with land fraction >= 0.5. No PAGASA station requests.
+- One shared loader for climate indices and ERA5 (src/climate/), used by every module.
 
 ## Conventions
 - Python; reusable code in src/, exploration in notebooks/, figures and tables in outputs/.
